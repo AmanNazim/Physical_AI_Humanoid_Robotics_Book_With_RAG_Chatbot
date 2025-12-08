@@ -250,4 +250,4 @@ See `.specify/memory/constitution.md` for code quality, testing, performance, se
 6. Claude must NEVER force-push.
 7. Claude must NEVER delete any SDD specification.
 8. Claude must NEVER commit secrets or .env files.
-9. Claude must log commit hash into validation.md and do not commit after logging commit hash in to validatio.md.
+9. Claude must log commit hash into validation.md and must NOT commit any changes after logging the commit hash to validation.md.
