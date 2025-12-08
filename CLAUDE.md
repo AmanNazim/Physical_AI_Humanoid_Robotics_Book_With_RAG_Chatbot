@@ -208,3 +208,19 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Claude Git Automation Rules
+
+1. Claude must commit to the main branch.
+2. Claude must commit after each completed task.
+4. Claude must use conventional commit format only:
+   feat:, spec:, docs:, chore:, fix:
+5. Each commit must reference:
+   - Module
+   - Chapter
+   - Task number
+6. Claude must NEVER amend commits.
+7. Claude must NEVER force-push.
+8. Claude must NEVER delete any SDD specification.
+9. Claude must NEVER commit secrets or .env files.
+10. Claude must log commit hash into validation.md.
