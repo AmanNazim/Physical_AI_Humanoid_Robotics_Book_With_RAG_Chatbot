@@ -4,19 +4,19 @@
 
 ### Included Systems
 This module defines the core ROS2 communication infrastructure for humanoid robots in Physical AI systems. The technical scope encompasses:
-- ROS2 middleware implementation for robot communication
-- Node-based architecture for distributed robot control
-- Topic-based pub/sub communication patterns
-- Service-based request/response communication
-- Action-based goal-oriented communication
-- Parameter management for robot configuration
-- URDF/Xacro robot description and embodiment modeling
-- Python-based ROS2 control interfaces using rclpy
-- Simulation-ready abstractions for Gazebo/Isaac/Unity compatibility
+- ROS2 middleware implementation for robot communication (aligns with book-level goal: "Introduce students to ROS2 as the communication middleware")
+- Node-based architecture for distributed robot control (aligns with book-level goal: "Understand and implement fundamental ROS2 communication patterns")
+- Topic-based pub/sub communication patterns (aligns with book-level goal: "Understand and implement fundamental ROS2 communication patterns")
+- Service-based request/response communication (aligns with book-level goal: "Understand and implement fundamental ROS2 communication patterns")
+- Action-based goal-oriented communication (aligns with book-level goal: "Understand and implement fundamental ROS2 communication patterns")
+- Parameter management for robot configuration (aligns with book-level goal: "Understand and implement fundamental ROS2 communication patterns")
+- URDF/Xacro robot description and embodiment modeling (aligns with book-level goal: "Create and interpret simple robot descriptions using URDF and Xacro")
+- Python-based ROS2 control interfaces using rclpy (aligns with book-level goal: "Connect Python-based agents with ROS2 controllers using rclpy")
+- Simulation-ready abstractions for Gazebo/Isaac/Unity compatibility (aligns with book-level goal: "Set up robots for simulation environments with ROS2 interfaces")
 
 ### Excluded Systems
 This module does not include:
-- Vision-Language-Action AI systems (handled in future modules)
+- Vision-Language-Action AI systems (handled in future modules) (aligns with book-level Module 4 scope)
 - Low-level hardware drivers and firmware
 - Machine learning model training or deployment
 - Computer vision algorithms or perception systems
@@ -44,26 +44,26 @@ The logical software architecture of a humanoid robot ROS2 system follows a dist
 - Feedback systems monitor execution status
 
 ### Data Flow Pattern
-Data flows from perception → cognition → actuation through standardized ROS2 topics. Each layer communicates asynchronously via message passing, enabling modularity and fault tolerance. Inter-module boundaries are defined by message interface contracts that future AI/VLA modules must adhere to for compatibility.
+Data flows from perception → cognition → actuation through standardized ROS2 topics. Each layer communicates asynchronously via message passing, enabling modularity and fault tolerance. Inter-module boundaries are defined by message interface contracts that future AI/VLA modules must adhere to for compatibility. This architecture directly supports the book-level goal of building systems that connect "sensing the environment, processing information, making decisions, and executing precise movements in highly dynamic physical systems."
 
 ## 3. Core ROS2 Entities (Formal Definitions)
 
 ### Nodes
-- **Purpose**: Encapsulate robot functionality in isolated processes
+- **Purpose**: Encapsulate robot functionality in isolated processes (aligns with book-level technical competency: "Create basic ROS2 nodes for inter-process communication")
 - **Input(s)**: Parameters, service requests, topic subscriptions, action goals
 - **Output(s)**: Published topics, service responses, action feedback/results
 - **Update frequency or trigger mode**: Event-driven with configurable execution rates
 - **Failure behavior**: Graceful degradation with fallback behaviors, error reporting to monitoring systems
 
 ### Topics
-- **Purpose**: Enable asynchronous pub/sub communication between nodes
+- **Purpose**: Enable asynchronous pub/sub communication between nodes (aligns with book-level technical competency: "Create basic ROS2 topics for inter-process communication")
 - **Input(s)**: Messages from publisher nodes
 - **Output(s)**: Messages to subscriber nodes
 - **Update frequency or trigger mode**: Continuous publishing at configured rates or event-triggered
 - **Failure behavior**: Connection loss detection, automatic reconnection attempts, message buffering
 
 ### Services
-- **Purpose**: Enable synchronous request/response communication
+- **Purpose**: Enable synchronous request/response communication (aligns with book-level technical competency: "Create basic ROS2 services for inter-process communication")
 - **Input(s)**: Service request messages from clients
 - **Output(s)**: Service response messages to clients
 - **Update frequency or trigger mode**: Request-triggered with timeout mechanisms
@@ -77,7 +77,7 @@ Data flows from perception → cognition → actuation through standardized ROS2
 - **Failure behavior**: Goal preemption, timeout handling, result reporting with status codes
 
 ### Parameters
-- **Purpose**: Store and manage robot configuration values
+- **Purpose**: Store and manage robot configuration values (aligns with book-level technical competency: "Create basic ROS2 parameters for inter-process communication")
 - **Input(s)**: Parameter value updates from clients or configuration files
 - **Output(s)**: Parameter value queries from nodes
 - **Update frequency or trigger mode**: Configuration-time or runtime updates
@@ -114,7 +114,7 @@ Data flows from perception → cognition → actuation through standardized ROS2
 ## 5. Robot Description & Embodiment Model
 
 ### URDF/Xacro Purpose and Role
-URDF (Unified Robot Description Format) defines the physical and kinematic properties of the humanoid robot. Xacro provides macro capabilities for parameterized robot descriptions. The robot description serves as the single source of truth for robot geometry, kinematics, and sensor placement.
+URDF (Unified Robot Description Format) defines the physical and kinematic properties of the humanoid robot. Xacro provides macro capabilities for parameterized robot descriptions. The robot description serves as the single source of truth for robot geometry, kinematics, and sensor placement. This directly supports the book-level goal of "Create and interpret simple robot descriptions using URDF and Xacro" and technical competency of "Create and understand basic Unified Robot Description Format (URDF) files for humanoid robot embodiment."
 
 ### Kinematic Chain Representation
 The kinematic chain defines the hierarchical relationship between robot links and joints. Each joint connects two links with defined degrees of freedom, joint limits, and kinematic properties. Forward and inverse kinematics are derived from this representation.
@@ -132,7 +132,7 @@ Sensors are positioned in the robot description as special links with appropriat
 ## 6. Python Control Layer (Formal Contract)
 
 ### Role of rclpy
-rclpy serves as the Python interface to the ROS2 middleware, providing node creation, communication primitives, and lifecycle management. It abstracts the underlying C++ ROS2 client library for Python-based robot control.
+rclpy serves as the Python interface to the ROS2 middleware, providing node creation, communication primitives, and lifecycle management. It abstracts the underlying C++ ROS2 client library for Python-based robot control. This directly supports the book-level goal of "Connect Python-based agents with ROS2 controllers using rclpy" and technical competency of "Use rclpy to connect Python-based AI agents and control algorithms with ROS2."
 
 ### Node Lifecycle Responsibilities
 - Initialization: Parameter loading, publisher/subscriber creation, service/action servers
@@ -223,7 +223,7 @@ A robot is "simulation-ready" when it can operate identically in both simulation
 - Control response validation: Robot control responses must match expected behaviors
 
 ### Module Completion Criteria
-- All ROS2 communication patterns (topics, services, actions) must be implemented and tested
-- URDF robot description must be complete and valid for the target humanoid platform
-- Python control interfaces must be functional and demonstrate basic robot control
-- Simulation compatibility must be verified with at least one supported simulation platform
+- All ROS2 communication patterns (topics, services, actions) must be implemented and tested (aligns with book-level technical competency: "Create basic ROS2 nodes, topics, services, and parameters for inter-process communication")
+- URDF robot description must be complete and valid for the target humanoid platform (aligns with book-level technical competency: "Create and understand basic Unified Robot Description Format (URDF) files for humanoid robot embodiment")
+- Python control interfaces must be functional and demonstrate basic robot control (aligns with book-level technical competency: "Use rclpy to connect Python-based AI agents and control algorithms with ROS2")
+- Simulation compatibility must be verified with at least one supported simulation platform (aligns with book-level technical competency: "Simulate basic robot behaviors within a Gazebo or similar environment using ROS2 interfaces")

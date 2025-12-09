@@ -2,26 +2,25 @@
 
 ## Overview
 
-The ability to seamlessly integrate perception, intelligence, and actuation is fundamental to the advancement of physical AI and humanoid robotics. This module establishes ROS2 as the indispensable "nervous system" that underpins these complex interactions. By providing a robust, distributed communication framework, ROS2 enables modular software architectures that can manage the intricate dance between sensing the environment, processing information, making decisions, and executing precise movements in highly dynamic physical systems.
+Welcome to the foundational module of Physical AI and humanoid robotics! This module introduces you to ROS2 (Robot Operating System 2), the communication framework that serves as the "nervous system" for robotic systems. Think of ROS2 as the infrastructure that allows different parts of a robot to communicate with each other - just like how your nervous system allows different parts of your body to coordinate.
 
-This module is designed to empower students with the foundational knowledge and practical skills to architect and implement the core software infrastructure for humanoid robots. Mastering ROS2 is not merely about learning a framework; it is about adopting a paradigm for building resilient, scalable, and adaptable robotic systems that can safely and intelligently operate in human environments. It lays the groundwork for tackling advanced topics in AI integration, simulation, and real-world robot deployment.
+In this module, we'll take a step-by-step approach to understanding how robots communicate internally. You'll learn how to set up the ROS2 environment, create communication pathways between different robot components, describe robot structure, and connect AI algorithms to robot controllers. No prior robotics knowledge is required - we'll build concepts from the ground up with intuitive examples.
 
-This module is critical for anyone aiming to work with physical AI and humanoid robots. ROS2 is widely adopted in academia and industry as the de facto standard for building complex robotic systems. Understanding its principles enables students to contribute to the development of advanced autonomy stacks, from perception pipelines that process sensor data to action pipelines that translate AI decisions into physical movements.
+This module is designed specifically for beginner to intermediate students and focuses on practical, hands-on learning. You'll start with simple concepts and gradually build toward more sophisticated implementations, creating a complete communication framework for a simulated humanoid robot.
 
 ## Learning Objectives
 
-Upon completion of this module, students will be able to:
+Upon completion of this module, beginner to intermediate students will be able to:
 
 - Explain the core architectural components of ROS2 and their roles in a robotic system
-- Design and implement ROS2 nodes, topics, services, and parameters for inter-process communication
-- Develop custom ROS2 packages for specific robotic functionalities
-- Utilize `rclpy` to integrate Python-based AI agents and control algorithms with ROS2
-- Create and interpret Unified Robot Description Format (URDF) and Xacro files for humanoid robot embodiment
-- Configure ROS2 workspaces and build systems for efficient development
+- Create and test basic ROS2 nodes, topics, services, and parameters for inter-process communication
+- Use `rclpy` to connect Python-based AI agents and control algorithms with ROS2
+- Create and understand basic Unified Robot Description Format (URDF) files for humanoid robot embodiment
+- Configure ROS2 workspaces and build systems for development
 - Simulate basic robot behaviors within a Gazebo or similar environment using ROS2 interfaces
-- Debug and troubleshoot common ROS2 communication issues in complex robotic setups
-- Assess the advantages of a distributed middleware like ROS2 for physical AI applications
-- Articulate the significance of robust software architecture in ensuring robot safety and reliability
+- Identify and fix common ROS2 communication issues in simple robotic setups
+- Understand the advantages of a distributed middleware like ROS2 for physical AI applications
+- Recognize the significance of robust software architecture in ensuring robot safety and reliability
 
 ## Core Technologies and System Architecture
 
@@ -68,13 +67,13 @@ Students will need to prepare their development environment with the following r
 
 ## What You Will Build
 
-By the end of this module, students will have tangibly contributed to:
+By the end of this module, students will have created:
 
 - A functional ROS2 communication graph for a simulated humanoid robot
-- Custom ROS2 packages for sensor data publishing and motor command subscription
-- URDF/Xacro models representing simplified humanoid robot kinematics and collision properties
+- Basic ROS2 packages for sensor data publishing and motor command subscription
+- Basic URDF/Xacro models representing simplified humanoid robot kinematics
 - Python-based ROS2 nodes that interface with a simulated robot's controllers using `rclpy`
 - A basic simulation environment in Gazebo demonstrating ROS2 control of a humanoid robot
-- A modular software architecture enabling perception-to-action pipelines for elementary tasks
+- A modular software architecture for elementary perception-to-action tasks
 
-This module emphasizes the symbiotic relationship between hardware and software, fostering a mindset where architectural choices are made with physical embodiment and real-world interaction in mind.
+This module emphasizes hands-on learning with beginner-friendly examples, fostering a mindset where architectural choices are made with physical embodiment and real-world interaction in mind.
