@@ -32,7 +32,23 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Chapters',
           items: [
-            'module-1/1-ros2-architecture-and-communication/index',
+            {
+              type: 'category',
+              label: 'Chapter 1: ROS 2 and the Physical AI Nervous System',
+              items: [
+                'module-1/1-ros2-architecture-and-communication/index',
+                {
+                  type: 'category',
+                  label: 'Lessons',
+                  items: [
+                    'module-1/1-ros2-architecture-and-communication/lessons/lesson-1.1/index',
+                    'module-1/1-ros2-architecture-and-communication/lessons/lesson-1.2/index',
+                    'module-1/1-ros2-architecture-and-communication/lessons/lesson-1.3/index',
+                    'module-1/1-ros2-architecture-and-communication/lessons/lesson-1.4/index',
+                  ],
+                },
+              ],
+            },
             'module-1/2-nodes-topics-services-robot-communication/index',
             'module-1/3-robot-description-urdf-xacro/index',
             'module-1/4-python-ros2-integration-rclpy/index',
