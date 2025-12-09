@@ -10,6 +10,12 @@ Use ROS2 command-line tools to examine communication patterns, understand node s
 ## Conceptual Scope
 This lesson focuses on using ROS2's powerful command-line tools to examine and debug communication patterns. You'll learn to use `ros2 topic`, `ros2 node`, and `ros2 service` commands to inspect running systems. The lesson covers network isolation concepts and how ROS_DOMAIN_ID enables multiple ROS2 systems to operate on the same network without interference.
 
+This lesson supports the module specification requirement for "Service-based request/response communication" and "Simulation-ready abstractions for Gazebo compatibility." It also addresses the book-level technical competency of "Use rclpy to connect Python-based AI agents and control algorithms with ROS2" by providing tools to debug and understand the communication patterns that rclpy nodes will participate in.
+
+ROS2 command-line tools are essential for understanding and debugging ROS2 systems. These tools allow you to see the structure of your ROS2 graph, monitor message traffic, and diagnose communication issues. Understanding these tools is crucial for effective development and debugging.
+
+This lesson directly supports the module completion criteria of "All ROS2 communication patterns (topics, services, actions) must be implemented and tested" by providing the tools necessary to examine and validate these communication patterns. It also aligns with the module specification requirement for "Parameter management for robot configuration" through the `ros2 param` command tools.
+
 Key activities include:
 - Using ros2 topic commands to examine communication
 - Using ros2 node commands to examine node status
