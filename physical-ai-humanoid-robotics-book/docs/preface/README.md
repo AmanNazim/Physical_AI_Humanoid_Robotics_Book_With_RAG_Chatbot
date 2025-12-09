@@ -13,6 +13,7 @@ The technical scope encompasses the entire software stack required for modern hu
 ## Target Audience
 
 This book is designed for:
+
 - Advanced undergraduate and graduate students in robotics, AI, and computer engineering
 - Robotics engineers seeking to deepen their understanding of Physical AI integration
 - AI researchers interested in embodied intelligence and robotic applications
@@ -21,6 +22,7 @@ This book is designed for:
 ## Prerequisites
 
 To fully benefit from this book, readers should have:
+
 - Basic understanding of programming concepts (preferably Python and C++)
 - Familiarity with fundamental mathematics (linear algebra, calculus, probability)
 - Basic knowledge of robotics concepts (kinematics, dynamics)
