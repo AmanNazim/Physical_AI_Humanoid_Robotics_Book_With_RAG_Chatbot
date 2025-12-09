@@ -1,7 +1,7 @@
 # Implementation Plan: Module 1 - The Robotic Nervous System – ROS2 Foundations for Physical AI
 
 **Branch**: `module-1-ros2-foundations` | **Date**: 2025-12-09 | **Spec**: [specs/module-1/specification.md](/mnt/e/q4-sat-6-to-9/claude-code-development/Humaniod-Robotics-Book-writing-Hackathon/physical-ai-humanoid-robotics-book/specs/module-1/specification.md)
-**Input**: Feature specification from `/specs/module-1/spec.md`
+**Input**: Feature specification from `/specs/module-1/specification.md`
 
 ## Summary
 
