@@ -2,6 +2,8 @@
 
 **Feature**: Physical_AI_Humanoid_Robotics_Book | **Date**: 2025-12-09 | **Plan**: [plan.md](/mnt/e/q4-sat-6-to-9/claude-code-development/Humaniod-Robotics-Book-writing-Hackathon/plan.md)
 
+*Note: All tasks are designed to support a beginner-to-intermediate audience, ensuring the structural foundation enables progressive learning from basic to advanced concepts.*
+
 ## Phase 1: Preface Creation with Quality Content
 
 - [x] T001 Create docs/preface/ directory for the book preface

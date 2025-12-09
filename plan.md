@@ -5,7 +5,7 @@
 
 ## Summary
 
-Structural layout workflow for the Physical AI Humanoid Robotics Book, defining the book's organizational framework, preface creation, module containers, chapter slots, and Docusaurus folder structure. This plan focuses exclusively on structural elements without any content or implementation details.
+Structural layout workflow for the Physical AI Humanoid Robotics Book, defining the book's organizational framework, preface creation, module containers, chapter slots, and Docusaurus folder structure. This plan focuses exclusively on structural elements without any content or implementation details, ensuring a beginner-friendly foundation that supports progressive learning from basic to intermediate concepts.
 
 ## Technical Context
 
@@ -119,3 +119,15 @@ physical-ai-humanoid-robotics-book/
 - No learning content or implementation details included
 - Focus remains on folder creation, navigation, and structural setup
 - No weekly breakdowns or technical teaching content present
+
+## ⚠️ Detected Contradictions & Resolutions
+
+### What was wrong:
+- Original plan did not explicitly emphasize beginner-friendly approach in the summary
+
+### What was corrected:
+- Updated summary to emphasize beginner-friendly foundation that supports progressive learning
+
+### Why the correction was necessary:
+- To align with the global consistency update directive requiring beginner-to-intermediate audience focus
+- To ensure the structural plan supports the pedagogical approach of the entire book
