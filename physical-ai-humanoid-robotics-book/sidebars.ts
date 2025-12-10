@@ -21,7 +21,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Preface',
-      items: ['preface'],
+      items: ['preface/README'],
     },
     {
       type: 'category',
@@ -36,22 +36,31 @@ const sidebars: SidebarsConfig = {
               type: 'category',
               label: 'Chapter 1: ROS 2 and the Physical AI Nervous System',
               items: [
-                'module-1/1-ros2-architecture-and-communication/index',
+                'module-1/ros2-architecture-and-communication/index',
                 {
                   type: 'category',
                   label: 'Lessons',
                   items: [
-                    'module-1/1-ros2-architecture-and-communication/lesson-1.1-introduction-to-ros2-architecture',
-                    'module-1/1-ros2-architecture-and-communication/lesson-1.2-environment-setup-and-workspace-creation',
-                    'module-1/1-ros2-architecture-and-communication/lesson-1.3-basic-publisher-subscriber-implementation',
-                    'module-1/1-ros2-architecture-and-communication/lesson-1.4-ros2-command-line-tools',
+                    'module-1/ros2-architecture-and-communication/lesson-1.1-introduction-to-ros2-architecture',
+                    'module-1/ros2-architecture-and-communication/lesson-1.2-environment-setup-and-workspace-creation',
+                    'module-1/ros2-architecture-and-communication/lesson-1.3-basic-publisher-subscriber-implementation',
+                    'module-1/ros2-architecture-and-communication/lesson-1.4-ros2-command-line-tools',
                   ],
                 },
               ],
             },
-            'module-1/2-nodes-topics-services-robot-communication/index',
-            'module-1/3-robot-description-urdf-xacro/index',
-            'module-1/4-python-ros2-integration-rclpy/index',
+            {
+              type: 'category',
+              label: 'Chapter 2: Advanced ROS2 Communication Patterns',
+              items: [
+                'module-1/nodes-topics-services-robot-communication/introduction',
+                'module-1/nodes-topics-services-robot-communication/nodes-multiple-communication-patterns',
+                'module-1/nodes-topics-services-robot-communication/service-based-communication',
+                'module-1/nodes-topics-services-robot-communication/parameter-server-configuration',
+              ],
+            },
+            'module-1/robot-description-urdf-xacro/index',
+            'module-1/python-ros2-integration-rclpy/index',
           ],
         },
       ],
