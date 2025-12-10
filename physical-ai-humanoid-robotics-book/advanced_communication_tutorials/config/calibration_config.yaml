@@ -1,0 +1,16 @@
+parameterized_robot_node:
+  ros__parameters:
+    robot_name: "calibration_robot"
+    control_frequency: 10
+    safety_mode: true
+    max_velocity: 0.5
+    debug_mode: true
+    joint_offsets: [0.0, 0.0, 0.0, 0.0, 0.0]
+    operation_mode: "calibration"
+
+# Additional calibration-specific parameters
+calibration_node:
+  ros__parameters:
+    calibration_speed: 0.1
+    tolerance: 0.001
+    max_attempts: 5
