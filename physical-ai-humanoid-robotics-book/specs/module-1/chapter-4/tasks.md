@@ -7,7 +7,7 @@
 ## Chapter Introduction Task
 
 ### T001 - Create Chapter 4 Introduction
-- [x] Create `/docs/module-1/chapter-4/introduction.md`
+- [x] Create `/docs/module-1/chapter-4/index.md`
 - [x] Include detailed introduction with full concept covering content
 - [x] Ensure content is easily explained and understandable
 - [x] Align content strictly with chapter-4/specification.md
@@ -115,7 +115,7 @@
 - [x] Confirm all content is appropriate for Module 1 scope
 
 ### T017 - File Existence and Structure Validation
-- [x] Verify `/docs/module-1/chapter-4/introduction.md` exists and is properly structured
+- [x] Verify `/docs/module-1/chapter-4/index.md` exists and is properly structured
 - [x] Verify `/docs/module-1/chapter-4/lesson-4.1-python-based-ros2-nodes-with-rclpy.md` exists and is properly structured
 - [x] Verify `/docs/module-1/chapter-4/lesson-4.2-simulation-environment-setup.md` exists and is properly structured
 - [x] Verify `/docs/module-1/chapter-4/lesson-4.3-complete-system-integration.md` exists and is properly structured

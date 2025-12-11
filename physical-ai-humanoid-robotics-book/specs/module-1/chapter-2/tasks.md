@@ -5,7 +5,7 @@
 ## Chapter 2 Introduction Task
 
 ### T2.0.1 - Create Chapter 2 Introduction Content
-- [ ] Create `/docs/module-1/2-nodes-topics-services-robot-communication/introduction.md` based on Chapter 2 specification
+- [ ] Create `/docs/module-1/2-nodes-topics-services-robot-communication/index.md` based on Chapter 2 specification
 - [ ] Ensure content aligns with chapter description: "This chapter builds upon the foundational ROS2 concepts introduced in Chapter 1, focusing on advanced communication patterns essential for humanoid robot systems"
 - [ ] Include chapter-level learning objectives from specification
 - [ ] Explain the relationship to Chapter 1 and preparation for Chapter 3

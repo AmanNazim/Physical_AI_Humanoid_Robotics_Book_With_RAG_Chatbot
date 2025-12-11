@@ -7,7 +7,7 @@
 ## Chapter Introduction Task
 
 ### T001 - Create Chapter 3 Introduction
-- [x] Create `/docs/module-1/chapter-3/introduction.md`
+- [x] Create `/docs/module-1/chapter-3/index.md`
 - [x] Include detailed introduction with full concept covering content
 - [x] Ensure content is easily explained and understandable
 - [x] Align content strictly with chapter-3/specification.md
@@ -115,7 +115,7 @@
 - [x] Confirm all content is appropriate for Module 1 scope
 
 ### T017 - File Existence and Structure Validation
-- [x] Verify `/docs/module-1/chapter-3/introduction.md` exists and is properly structured
+- [x] Verify `/docs/module-1/chapter-3/index.md` exists and is properly structured
 - [x] Verify `/docs/module-1/chapter-3/lesson-3.1-basic-urdf-robot-description.md` exists and is properly structured
 - [x] Verify `/docs/module-1/chapter-3/lesson-3.2-xacro-parameterization.md` exists and is properly structured
 - [x] Verify `/docs/module-1/chapter-3/lesson-3.3-visualization-and-validation.md` exists and is properly structured

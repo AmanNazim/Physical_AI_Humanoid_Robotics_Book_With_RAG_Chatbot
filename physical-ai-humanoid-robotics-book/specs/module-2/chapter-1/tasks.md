@@ -5,7 +5,7 @@
 ## Chapter Introduction Task
 
 ### T001 - Chapter 1 Introduction: Gazebo Simulation
-- [ ] Create `physical-ai-humanoid-robotics-book/docs/module-2/chapter-1/introduction.md` with detailed introduction to Gazebo simulation
+- [ ] Create `physical-ai-humanoid-robotics-book/docs/module-2/chapter-1/index.md` with detailed introduction to Gazebo simulation
 - [ ] Include comprehensive concept coverage with easy to understand content and detailed steps
 - [ ] Explain the role of Gazebo in robotics simulation and its integration with ROS 2
 - [ ] Cover basic simulation concepts and physics engines for humanoid robotics
@@ -73,7 +73,7 @@
 ## Validation Tasks
 
 ### T008 - File Creation Validation
-- [ ] Verify `physical-ai-humanoid-robotics-book/docs/module-2/chapter-1/introduction.md` exists
+- [ ] Verify `physical-ai-humanoid-robotics-book/docs/module-2/chapter-1/index.md` exists
 - [ ] Verify `physical-ai-humanoid-robotics-book/docs/module-2/chapter-1/lesson-1.1-introduction-to-gazebo-and-physics-simulation.md` exists
 - [ ] Verify `physical-ai-humanoid-robotics-book/docs/module-2/chapter-1/lesson-1.2-environment-creation-and-world-building.md` exists
 - [ ] Verify `physical-ai-humanoid-robotics-book/docs/module-2/chapter-1/lesson-1.3-robot-integration-in-gazebo.md` exists
