@@ -59,8 +59,38 @@ const sidebars: SidebarsConfig = {
                 'module-1/nodes-topics-services-robot-communication/parameter-server-configuration',
               ],
             },
-            'module-1/robot-description-urdf-xacro/index',
-            'module-1/python-ros2-integration-rclpy/index',
+            {
+              type: 'category',
+              label: 'Chapter 3: Robot Description with URDF and Xacro',
+              items: [
+                'module-1/robot-description-urdf-xacro/index',
+                {
+                  type: 'category',
+                  label: 'Lessons',
+                  items: [
+                    'module-1/robot-description-urdf-xacro/lesson-3.1-introduction-to-urdf-and-robot-description',
+                    'module-1/robot-description-urdf-xacro/lesson-3.2-xacro-parameterization-and-macros',
+                    'module-1/robot-description-urdf-xacro/lesson-3.3-visualization-and-validation',
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Chapter 4: Python-based ROS2 Integration with rclpy',
+              items: [
+                'module-1/python-ros2-integration-rclpy/index',
+                {
+                  type: 'category',
+                  label: 'Lessons',
+                  items: [
+                    'module-1/python-ros2-integration-rclpy/lesson-4.1-python-ros2-integration-with-rclpy',
+                    'module-1/python-ros2-integration-rclpy/lesson-4.2-simulation-environment-setup',
+                    'module-1/python-ros2-integration-rclpy/lesson-4.3-complete-system-integration',
+                  ],
+                },
+              ],
+            },
           ],
         },
       ],
@@ -69,15 +99,31 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Module 2: Digital Twin (Gazebo & Unity)',
       items: [
-        'module-2/README',
+        'module-2/introduction',
         {
           type: 'category',
           label: 'Chapters',
           items: [
-            'module-2/chapter-1/index',
-            'module-2/chapter-2/index',
-            'module-2/chapter-3/index',
-            'module-2/chapter-4/index',
+            {
+              type: 'category',
+              label: 'Chapter 1 – Gazebo Simulation',
+              items: ['module-2/01-Gazebo-Simulation/index'],
+            },
+            {
+              type: 'category',
+              label: 'Chapter 2 – Physics & Sensors',
+              items: ['module-2/02-Physics-&-Sensors/index'],
+            },
+            {
+              type: 'category',
+              label: 'Chapter 3 – Unity Digital Twin',
+              items: ['module-2/03-Unity-Digital-Twin/index'],
+            },
+            {
+              type: 'category',
+              label: 'Chapter 4 – Multi-Simulator Integration',
+              items: ['module-2/04-Multi-Simulator-Integration/index'],
+            },
           ],
         },
       ],
