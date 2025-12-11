@@ -53,7 +53,7 @@ const sidebars: SidebarsConfig = {
               type: 'category',
               label: 'Chapter 2: Advanced ROS2 Communication Patterns',
               items: [
-                'module-1/nodes-topics-services-robot-communication/introduction',
+                'module-1/nodes-topics-services-robot-communication/index',
                 'module-1/nodes-topics-services-robot-communication/nodes-multiple-communication-patterns',
                 'module-1/nodes-topics-services-robot-communication/service-based-communication',
                 'module-1/nodes-topics-services-robot-communication/parameter-server-configuration',
