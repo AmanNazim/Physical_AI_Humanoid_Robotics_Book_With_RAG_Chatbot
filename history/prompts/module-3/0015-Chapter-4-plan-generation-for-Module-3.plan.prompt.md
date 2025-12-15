@@ -1,0 +1,96 @@
+---
+id: 0015
+title: Chapter 4 plan generation for Module 3
+stage: plan
+date: 2025-12-15
+surface: agent
+model: claude-opus-4-5-20251101
+feature: module-3-chapter-4
+branch: main
+user: unknown
+command: /sp.phr
+labels: ["module-3", "chapter-4", "plan", "ai-system-integration", "isaac-sim", "validation"]
+links:
+  spec: null
+  ticket: null
+  adr: null
+  pr: null
+files:
+ - physical-ai-humanoid-robotics-book/specs/module-3/chapter-4/plan.md
+tests:
+ - none
+---
+
+## Prompt
+
+You are operating as a Specification-Driven Development assistant. Your task is to generate **plan.md** for **Chapter 4** of Module 3.
+
+LEVEL CONTEXT:
+- Level: Chapter
+- Book: Physical_AI_Humanoid_Robotics_Book
+- Module: Module 3
+- Chapter: Chapter 4
+- Hierarchy: Book → Module → Chapter → Lesson
+
+INPUT REFERENCES: (Mandatory To Read For Consistency)
+- physical-ai-humanoid-robotics-book/specs/module-3/constitution.md
+- physical-ai-humanoid-robotics-book/specs/module-3/specification.md
+- physical-ai-humanoid-robotics-book/specs/module-3/plan.md
+- physical-ai-humanoid-robotics-book/specs/module-3/tasks.md (for validation)
+- physical-ai-humanoid-robotics-book/specs/module-3/chapter-4/specification.md
+- /specify/memory/constitution.md (Book level)
+- Humanoid-Robotics-Book-writing-Hackathon/specification.md (Book level in main directory)
+- Humanoid-Robotics-Book-writing-Hackathon/plan.md (Book level in main directory)
+- Humanoid-Robotics-Book-writing-Hackathon/tasks.md (Book level in main directory)
+
+OUTPUT TARGET:
+- physical-ai-humanoid-robotics-book/specs/module-3/chapter-4/plan.md
+- File type: Markdown
+
+YOU MUST DEFINE:
+1. ✅ Lesson-wise roadmap based on chapter-4/specification.md
+2. ✅ Step-by-step lesson sequence
+3. ✅ Milestones and expected outcomes per lesson
+4. ✅ Integration references to Module 4
+5. ✅ Dependencies between lessons
+
+STRICT PROHIBITIONS:
+- ❌ Do NOT include lesson content or coding steps
+- ❌ Do NOT include Module 4 content
+- ❌ Do NOT hallucinate tools or milestones
+
+CONTRADICTION DETECTION:
+- Validate lesson sequence vs Module 3 plan.md
+- Validate lessons vs chapter-4/specification.md
+- Output "CONTRADICTION REPORT" if mismatches
+
+FORMAT:
+- Markdown hierarchy:
+  # Chapter 4 – [Title]
+  ## Lessons Roadmap
+  ### Lesson 1
+  - Estimated Duration:
+  - Milestones:
+  - Dependencies:
+  (Repeat for all lessons)
+  ## Integration Notes
+  ## Preparation for Chapter module 4 chapter 1.
+
+## Response snapshot
+
+Created the plan for Chapter 4 of Module 3 (AI System Integration) including lesson roadmap, implementation sequence, milestones, dependencies, and integration references to Module 4, while ensuring consistency with existing specifications and plans.
+
+## Outcome
+
+- ✅ Impact: Chapter 4 plan for Module 3 created with detailed roadmap and milestones
+- 🧪 Tests: none
+- 📁 Files: Created plan.md file for Module 3 Chapter 4
+- 🔁 Next prompts: none
+- 🧠 Reflection: Plan aligned with Module 3 specifications and prepared for Chapter 4 implementation
+
+## Evaluation notes (flywheel)
+
+- Failure modes observed: create-phr.sh script not found in expected location, causing fallback to manual PHR creation
+- Graders run and results (PASS/FAIL): N/A
+- Prompt variant (if applicable): N/A
+- Next experiment (smallest change to try): Verify script location or implement alternative PHR creation mechanism
