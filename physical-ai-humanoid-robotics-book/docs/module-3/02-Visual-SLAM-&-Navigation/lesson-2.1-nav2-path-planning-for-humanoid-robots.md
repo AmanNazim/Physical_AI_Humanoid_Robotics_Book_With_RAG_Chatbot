@@ -1,4 +1,5 @@
 ---
+title: Lesson 2.1 - Nav2 Path Planning for Humanoid Robots
 sidebar_position: 2
 ---
 

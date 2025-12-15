@@ -4,21 +4,20 @@ title: Lesson 1.1 - Introduction to ROS2 Architecture
 
 # Lesson 1.1 – Introduction to ROS2 Architecture
 
-## Learning Objectives and Scope
+## Learning Objectives
 
-**Learning Objective**: Understand what ROS2 is and its role as a communication middleware in robotic systems, compare ROS2 with ROS1 and understand the evolution, describe the DDS (Data Distribution Service) communication model
+By the end of this lesson, you will be able to:
+- Understand what ROS2 is and its role as a communication middleware in robotic systems
+- Compare ROS2 with ROS1 and understand the evolution
+- Describe the DDS (Data Distribution Service) communication model
+- Explain the node-based architecture in ROS2
+- Understand the Physical AI context of ROS2 distributed processing
 
-**Lesson Scope**: This lesson introduces the fundamental concepts of ROS2 architecture. ROS2 is not just a framework but a complete communication infrastructure that allows different parts of a robot to coordinate with each other. We'll use intuitive analogies like the human nervous system to explain how ROS2 enables distributed robotic systems. The lesson covers the evolution from ROS1 to ROS2, focusing on improvements in security, real-time performance, and multi-robot systems.
+## Concept Overview and Scope
 
-**Key Outcomes**: By the end of this lesson, you will understand what ROS2 is and its role as a communication middleware in robotic systems, and you'll be able to compare ROS2 with ROS1 and understand the evolution.
+This lesson introduces the fundamental concepts of ROS2 architecture. ROS2 is not just a framework but a complete communication infrastructure that allows different parts of a robot to coordinate with each other. We'll use intuitive analogies like the human nervous system to explain how ROS2 enables distributed robotic systems. The lesson covers the evolution from ROS1 to ROS2, focusing on improvements in security, real-time performance, and multi-robot systems.
 
-**Tools**: ROS2, DDS (Data Distribution Service)
-
-**Key Concepts**:
-- Distributed communication patterns
-- Node-based architecture
-- The role of DDS in enabling reliable communication
-- Why ROS2 is essential for Physical AI systems
+ROS2 serves as the essential communication middleware that enables embodied intelligence in Physical AI systems. It provides the distributed architecture needed for seamless coordination between perception, cognition, and actuation layers - exactly what Physical AI systems require.
 
 ## Introduction to ROS2 Architecture
 

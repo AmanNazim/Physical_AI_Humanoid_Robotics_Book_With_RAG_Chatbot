@@ -4,22 +4,20 @@ title: Lesson 1.3 - Basic Publisher/Subscriber Implementation
 
 # Lesson 1.3 – Basic Publisher/Subscriber Implementation
 
-## Learning Objectives and Scope
+## Learning Objectives
 
-**Learning Objective**: Write and execute a basic publisher node in Python, write and execute a basic subscriber node in Python, launch and test a ROS2 communication graph, understand the message flow between publisher and subscriber nodes
+By the end of this lesson, you will be able to:
+- Write and execute a basic publisher node in Python
+- Write and execute a basic subscriber node in Python
+- Launch and test a ROS2 communication graph
+- Understand the message flow between publisher and subscriber nodes
+- Use ROS2 tools to verify communication between nodes
 
-**Lesson Scope**: This practical lesson teaches you to implement the most fundamental ROS2 communication pattern: publisher-subscriber. You'll write your first ROS2 nodes in Python, creating a publisher that sends messages and a subscriber that receives them. The lesson emphasizes understanding message flow and the asynchronous nature of topic-based communication.
+## Concept Overview and Scope
 
-**Key Outcomes**: By the end of this lesson, you will have written and executed a basic publisher node in Python, written and executed a basic subscriber node in Python, launched and tested a ROS2 communication graph, and understood the message flow between publisher and subscriber nodes.
+This practical lesson teaches you to implement the most fundamental ROS2 communication pattern: publisher-subscriber. You'll write your first ROS2 nodes in Python, creating a publisher that sends messages and a subscriber that receives them. The lesson emphasizes understanding message flow and the asynchronous nature of topic-based communication.
 
-**Tools**: Python 3.8+, rclpy, ROS2
-
-**Key Activities**:
-- Writing a "Hello World" publisher node
-- Writing a "Hello World" subscriber node
-- Launching the communication graph
-- Testing communication between nodes
-- Documenting the communication pattern
+The publisher-subscriber pattern is fundamental to Physical AI systems, enabling distributed, modular robot architectures where sensor nodes, processing nodes, and control nodes can communicate seamlessly.
 
 ## Understanding Publisher-Subscriber Communication Pattern
 

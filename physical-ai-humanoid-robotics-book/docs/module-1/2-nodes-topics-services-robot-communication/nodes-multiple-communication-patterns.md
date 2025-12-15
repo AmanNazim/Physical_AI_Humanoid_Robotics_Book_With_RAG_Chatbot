@@ -4,17 +4,17 @@ sidebar_position: 2
 
 # Nodes with Multiple Communication Patterns
 
-## Lesson Overview
-
-In this lesson, you will learn to create nodes that implement multiple communication patterns simultaneously, specifically nodes that both publish and subscribe to different topics within the same node process. This approach creates more sophisticated communication architectures that are essential for complex robotic systems. You will understand how to manage different message types and timing requirements within a single node while maintaining proper lifecycle management and callback execution guarantees.
-
 ## Learning Objectives
 
-After completing this lesson, you will be able to:
+By the end of this lesson, you will be able to:
 - Design nodes that can both publish and subscribe to different topics within the same node
 - Implement proper node lifecycle management with multiple communication flows
 - Understand callback execution guarantees in multi-communication nodes
 - Manage different message types and timing requirements within a single node process
+
+## Concept Overview and Scope
+
+In this lesson, you will learn to create nodes that implement multiple communication patterns simultaneously, specifically nodes that both publish and subscribe to different topics within the same node process. This approach creates more sophisticated communication architectures that are essential for complex robotic systems. You will understand how to manage different message types and timing requirements within a single node while maintaining proper lifecycle management and callback execution guarantees.
 
 ## Required Tools and Technologies
 

@@ -1,3 +1,7 @@
+---
+title: Lesson 1.2 – Environment Creation and World Building
+---
+
 # Lesson 1.2 – Environment Creation and World Building
 
 ## Learning Objectives

@@ -1,4 +1,5 @@
 ---
+title: Lesson 2.3 - AI Enhanced Navigation and Obstacle Avoidance
 sidebar_position: 3
 description: Learn to combine AI reasoning with navigation for intelligent path planning and obstacle avoidance in humanoid robots
 ---

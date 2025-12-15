@@ -1,4 +1,5 @@
 ---
+title: Lesson 3.1 - Cognitive Architectures for Robot Intelligence
 sidebar_position: 1
 description: Design cognitive architectures for humanoid robot decision-making
 ---

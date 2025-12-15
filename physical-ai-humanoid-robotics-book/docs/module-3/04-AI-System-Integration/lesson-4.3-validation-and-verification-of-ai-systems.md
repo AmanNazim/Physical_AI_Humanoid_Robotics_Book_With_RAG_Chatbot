@@ -1,6 +1,6 @@
 ---
+title: Lesson 4.3 - Validation and Verification of AI Systems
 sidebar_position: 3
-title: "Lesson 4.3: Validation and Verification of AI Systems"
 ---
 
 # Lesson 4.3: Validation and Verification of AI Systems

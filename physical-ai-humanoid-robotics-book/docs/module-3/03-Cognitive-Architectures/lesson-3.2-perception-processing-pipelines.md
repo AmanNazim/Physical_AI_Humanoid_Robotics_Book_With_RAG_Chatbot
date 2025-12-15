@@ -1,4 +1,5 @@
 ---
+title: Lesson 3.2 - Perception Processing Pipelines
 sidebar_position: 3
 ---
 

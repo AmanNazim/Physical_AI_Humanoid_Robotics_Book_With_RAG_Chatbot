@@ -4,19 +4,19 @@ sidebar_position: 4
 
 # Parameter Server Configuration
 
-## Lesson Overview
-
-In this lesson, you will learn to configure and manage ROS2 parameters for dynamic node behavior and configuration. The ROS2 parameter server provides a centralized system for managing configuration values that can be changed at runtime. You will implement parameterized nodes that can adapt their behavior dynamically, supporting different robot configurations and operational modes. This lesson covers parameter definition, validation, runtime updates, and configuration file management.
-
 ## Learning Objectives
 
-After completing this lesson, you will be able to:
+By the end of this lesson, you will be able to:
 - Understand the ROS2 parameter server and its role in robot configuration
 - Define and use parameters in nodes with proper validation
 - Implement runtime parameter updates for dynamic behavior
 - Create and use parameter configuration files (YAML)
 - Design parameterized nodes that adapt behavior at runtime
 - Implement parameter validation and fallback mechanisms
+
+## Concept Overview and Scope
+
+In this lesson, you will learn to configure and manage ROS2 parameters for dynamic node behavior and configuration. The ROS2 parameter server provides a centralized system for managing configuration values that can be changed at runtime. You will implement parameterized nodes that can adapt their behavior dynamically, supporting different robot configurations and operational modes. This lesson covers parameter definition, validation, runtime updates, and configuration file management.
 
 ## Required Tools and Technologies
 

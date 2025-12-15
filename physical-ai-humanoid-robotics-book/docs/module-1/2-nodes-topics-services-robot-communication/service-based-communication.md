@@ -4,18 +4,18 @@ sidebar_position: 3
 
 # Service-based Communication
 
-## Lesson Overview
-
-In this lesson, you will learn to implement service-server and service-client communication patterns for synchronous operations in ROS2. Services provide request/response communication that is essential for operations requiring guaranteed completion, state queries, and configuration changes. You will understand when to use services versus topics, implement reliable service communication, and handle synchronous operations within the ROS2 framework.
-
 ## Learning Objectives
 
-After completing this lesson, you will be able to:
+By the end of this lesson, you will be able to:
 - Implement service-server and service-client communication patterns
 - Understand when to use services vs topics for different communication needs
 - Handle timeout mechanisms and error responses in service communication
 - Design proper service interfaces for robot state queries and configuration
 - Implement reliable service communication with proper error handling
+
+## Concept Overview and Scope
+
+In this lesson, you will learn to implement service-server and service-client communication patterns for synchronous operations in ROS2. Services provide request/response communication that is essential for operations requiring guaranteed completion, state queries, and configuration changes. You will understand when to use services versus topics, implement reliable service communication, and handle synchronous operations within the ROS2 framework.
 
 ## Required Tools and Technologies
 

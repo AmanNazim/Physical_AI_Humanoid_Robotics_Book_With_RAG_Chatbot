@@ -1,3 +1,7 @@
+---
+title: Lesson 1.3 – Robot Integration in Gazebo
+---
+
 # Lesson 1.3 – Robot Integration in Gazebo
 
 ## Learning Objectives

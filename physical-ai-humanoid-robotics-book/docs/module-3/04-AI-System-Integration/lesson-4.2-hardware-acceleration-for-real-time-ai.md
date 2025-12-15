@@ -1,6 +1,6 @@
 ---
+title: Lesson 4.2 - Hardware Acceleration for Real-Time AI
 sidebar_position: 2
-title: "Lesson 4.2: Hardware Acceleration for Real-Time AI"
 ---
 
 # Lesson 4.2: Hardware Acceleration for Real-Time AI

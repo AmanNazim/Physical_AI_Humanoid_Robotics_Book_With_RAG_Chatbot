@@ -1,4 +1,5 @@
 ---
+title: Lesson 2.2 - Visual SLAM with Isaac ROS
 sidebar_position: 3
 description: Implement Visual SLAM using Isaac ROS hardware acceleration with real-time localization and mapping capabilities
 ---

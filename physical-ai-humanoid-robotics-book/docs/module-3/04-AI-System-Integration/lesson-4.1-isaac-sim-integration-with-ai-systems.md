@@ -1,4 +1,5 @@
 ---
+title: Lesson 4.1 - Isaac Sim Integration with AI Systems
 sidebar_position: 2
 ---
 

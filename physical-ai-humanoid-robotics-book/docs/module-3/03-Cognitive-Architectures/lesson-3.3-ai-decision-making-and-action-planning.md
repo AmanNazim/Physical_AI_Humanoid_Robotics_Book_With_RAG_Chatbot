@@ -1,6 +1,6 @@
 ---
+title: Lesson 3.3 - AI Decision Making and Action Planning
 sidebar_position: 4
-title: "Lesson 3.3: AI Decision Making and Action Planning"
 ---
 
 # Lesson 3.3: AI Decision Making and Action Planning
