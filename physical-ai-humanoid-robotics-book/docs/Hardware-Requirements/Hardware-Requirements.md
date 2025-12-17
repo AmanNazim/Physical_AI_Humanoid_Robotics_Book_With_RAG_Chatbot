@@ -36,7 +36,7 @@ The optional/premium tier describes environments for advanced applications and s
 
 - **Edge devices**: NVIDIA Jetson platforms (such as Orin Nano or Orin NX) for deployment to resource-constrained environments, described as illustrative examples only
 - **Sensors**: Depth cameras (such as Intel RealSense series), IMUs, and microphones for perception and interaction, described as illustrative examples only
-- **Robots**: Humanoid or quadruped platforms for physical deployment, described as illustrative examples only
+- **Robots**: Humanoid or quadruped platforms for potential physical applications, described as illustrative examples only
 
 This tier is explicitly optional and represents advanced applications beyond the core curriculum. Physical hardware is not required for course completion, and these represent extensions for readers interested in sim-to-real experimentation and edge deployment scenarios.
 
@@ -64,7 +64,7 @@ These roles represent functional categories rather than specific implementation 
 Different computational environments present various tradeoffs and considerations:
 
 - **Local vs. Cloud Setups**: Local machines offer lower latency and direct hardware control, while cloud environments provide scalable resources and eliminate hardware maintenance
-- **Local vs. Physical Setups**: Simulation environments enable rapid iteration and safe experimentation, while physical robots provide real-world validation but introduce safety and debugging complexities
+- **Local vs. Simulation Setups**: Simulation environments enable rapid iteration and safe experimentation, while potential physical implementations provide real-world validation but introduce safety and debugging complexities
 - **Cloud vs. Physical Setups**: Cloud simulation offers unlimited scalability but may introduce network latency when interfacing with physical systems
 
 Resource constraints in edge environments may limit the complexity of AI models that can be deployed, requiring optimization techniques that differ from workstation-scale computing.

@@ -204,7 +204,7 @@ Module 2 teaches students how to create detailed simulation environments that wi
 Students learn to simulate LiDAR, Depth Cameras, and IMU sensors with realistic noise models and data formats. This capability is essential for Module 3, where AI perception systems will be trained on simulated sensor data. Students know how to simulate various sensor types and understand simulation-to-reality transfer principles.
 
 ### Multi-Platform Validation Techniques
-Module 2 teaches students how to validate robot behaviors across different simulation platforms, establishing the validation methodologies that will be crucial when AI systems from Module 3 are tested in simulation before real-world deployment. Students can integrate different simulation platforms.
+Module 2 teaches students how to validate robot behaviors across different simulation platforms, establishing the validation methodologies that will be crucial when AI systems from Module 3 are tested in simulation before potential real-world applications. Students can integrate different simulation platforms.
 
 ### Integration Preparation
 Module 3 can assume that students understand physics simulation concepts and tools, can create and validate simulation environments, know how to simulate various sensor types, understand simulation-to-reality transfer principles, and can integrate different simulation platforms.

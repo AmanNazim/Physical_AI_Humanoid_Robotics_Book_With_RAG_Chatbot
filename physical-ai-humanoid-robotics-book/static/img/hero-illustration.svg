@@ -1,0 +1,171 @@
+<svg width="1000" height="400" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e0f7fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bbdefb;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="robotMainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a6fa5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2c3e50;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="robotAccentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00b4db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0083b0;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="sensorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9e00;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff5400;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Patterns -->
+    <pattern id="gridPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" opacity="0.1">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#3498db" stroke-width="0.5"/>
+    </pattern>
+
+    <!-- Filters -->
+    <filter id="mainGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+    </filter>
+
+    <filter id="sensorGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="400" fill="url(#skyGradient)" />
+  <rect width="1000" height="400" fill="url(#gridPattern)" />
+
+  <!-- Ground -->
+  <rect x="0" y="320" width="1000" height="80" fill="#3d5a80" />
+
+  <!-- Distant mountains -->
+  <path d="M0 320 L150 250 L300 300 L450 220 L600 280 L750 230 L900 270 L1000 240 L1000 320 Z" fill="#34495e" opacity="0.4" />
+
+  <!-- Sun -->
+  <circle cx="850" cy="80" r="45" fill="#ffeb3b" filter="url(#mainGlow)" />
+  <g fill="#ffc107" opacity="0.6">
+    <circle cx="890" cy="40" r="10" />
+    <circle cx="910" cy="80" r="10" />
+    <circle cx="890" cy="120" r="10" />
+    <circle cx="850" cy="140" r="10" />
+    <circle cx="810" cy="120" r="10" />
+    <circle cx="790" cy="80" r="10" />
+    <circle cx="810" cy="40" r="10" />
+    <circle cx="850" cy="20" r="10" />
+  </g>
+
+  <!-- Main humanoid robot -->
+  <g transform="translate(500, 220)">
+    <!-- Body core -->
+    <path d="M-60 0 C-75 0, -75 70, -60 85 C0 100, 0 100, 60 85 C75 70, 75 0, 60 0 C20 -20, -20 -20, -60 0 Z"
+          fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="3" filter="url(#mainGlow)" />
+
+    <!-- Head -->
+    <path d="M-35 -60 C-50 -60, -50 -20, -35 -10 C0 0, 0 0, 35 -10 C50 -20, 50 -60, 35 -60 C10 -70, -10 -70, -35 -60 Z"
+          fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="2.5" />
+
+    <!-- Eyes -->
+    <g>
+      <circle cx="-18" cy="-45" r="8" fill="#1e293b" stroke="#ffffff" stroke-width="1.5" />
+      <circle cx="18" cy="-45" r="8" fill="#1e293b" stroke="#ffffff" stroke-width="1.5" />
+      <circle cx="-16" cy="-47" r="3" fill="#00d4ff" />
+      <circle cx="20" cy="-47" r="3" fill="#00d4ff" />
+      <circle cx="-15" cy="-48" r="1.5" fill="#ffffff" />
+      <circle cx="21" cy="-48" r="1.5" fill="#ffffff" />
+    </g>
+
+    <!-- Face details -->
+    <path d="M-10 -30 Q0 -25 10 -30" stroke="#f8fafc" stroke-width="1.5" fill="none" />
+    <circle cx="0" cy="-35" r="1" fill="#f8fafc" />
+
+    <!-- Chest panel -->
+    <rect x="-35" y="15" width="70" height="25" rx="5" fill="url(#robotAccentGradient)" stroke="#ffffff" stroke-width="2" opacity="0.9" />
+
+    <!-- Circuit pattern in chest -->
+    <g transform="translate(-30, 20)">
+      <path d="M0 0 L8 0 M12 0 L20 0 M0 5 L12 5 M16 5 L24 5 M0 10 L6 10 M12 10 L24 10"
+            stroke="#ffffff" stroke-width="1" stroke-linecap="round" opacity="0.8" />
+      <circle cx="4" cy="2" r="1.2" fill="#ffffff" opacity="0.8" />
+      <circle cx="18" cy="2" r="1.2" fill="#ffffff" opacity="0.8" />
+      <circle cx="10" cy="7" r="1.2" fill="#ffffff" opacity="0.8" />
+      <circle cx="20" cy="7" r="1.2" fill="#ffffff" opacity="0.8" />
+      <circle cx="6" cy="12" r="1.2" fill="#ffffff" opacity="0.8" />
+      <circle cx="16" cy="12" r="1.2" fill="#ffffff" opacity="0.8" />
+    </g>
+
+    <!-- Neck -->
+    <rect x="-8" y="-10" width="16" height="10" fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="1.5" />
+
+    <!-- Arms -->
+    <path d="M-60 10 C-90 10, -90 50, -60 60" stroke="url(#robotMainGradient)" stroke-width="14" fill="none" stroke-linecap="round" />
+    <path d="M60 10 C90 10, 90 50, 60 60" stroke="url(#robotMainGradient)" stroke-width="14" fill="none" stroke-linecap="round" />
+
+    <!-- Hands -->
+    <circle cx="-60" cy="60" r="10" fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="2" />
+    <circle cx="60" cy="60" r="10" fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="2" />
+
+    <!-- Fingers -->
+    <line x1="-65" y1="55" x2="-70" y2="50" stroke="#1a237e" stroke-width="2" />
+    <line x1="-60" y1="58" x2="-65" y2="53" stroke="#1a237e" stroke-width="2" />
+    <line x1="-55" y1="55" x2="-60" y2="50" stroke="#1a237e" stroke-width="2" />
+    <line x1="65" y1="55" x2="70" y2="50" stroke="#1a237e" stroke-width="2" />
+    <line x1="60" y1="58" x2="65" y2="53" stroke="#1a237e" stroke-width="2" />
+    <line x1="55" y1="55" x2="60" y2="50" stroke="#1a237e" stroke-width="2" />
+
+    <!-- Legs -->
+    <path d="M-20 85 L-20 150" stroke="url(#robotMainGradient)" stroke-width="16" />
+    <path d="M20 85 L20 150" stroke="url(#robotMainGradient)" stroke-width="16" />
+
+    <!-- Feet -->
+    <rect x="-30" y="150" width="20" height="8" rx="4" fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="2" />
+    <rect x="10" y="150" width="20" height="8" rx="4" fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="2" />
+
+    <!-- Antenna -->
+    <line x1="0" y1="-90" x2="0" y2="-110" stroke="#00d4ff" stroke-width="3" />
+    <circle cx="0" cy="-115" r="6" fill="url(#sensorGradient)" stroke="#ffffff" stroke-width="2" filter="url(#sensorGlow)" />
+
+    <!-- Shoulder details -->
+    <circle cx="-55" cy="5" r="6" fill="url(#robotAccentGradient)" stroke="#ffffff" stroke-width="1.5" />
+    <circle cx="55" cy="5" r="6" fill="url(#robotAccentGradient)" stroke="#ffffff" stroke-width="1.5" />
+  </g>
+
+  <!-- Smaller robots in background -->
+  <g transform="translate(200, 280) scale(0.5)">
+    <path d="M-40 0 C-50 0, -50 40, -40 50 C0 60, 0 60, 40 50 C50 40, 50 0, 40 0 C10 -15, -10 -15, -40 0 Z"
+          fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="2" />
+    <circle cx="0" cy="-35" r="20" fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="2" />
+    <circle cx="-10" cy="-40" r="4" fill="#1e293b" />
+    <circle cx="10" cy="-40" r="4" fill="#1e293b" />
+    <rect x="-20" y="10" width="40" height="15" rx="3" fill="url(#robotAccentGradient)" stroke="#ffffff" stroke-width="1.5" />
+  </g>
+
+  <g transform="translate(800, 300) scale(0.4)">
+    <path d="M-40 0 C-50 0, -50 40, -40 50 C0 60, 0 60, 40 50 C50 40, 50 0, 40 0 C10 -15, -10 -15, -40 0 Z"
+          fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="2" />
+    <circle cx="0" cy="-35" r="20" fill="url(#robotMainGradient)" stroke="#1a237e" stroke-width="2" />
+    <circle cx="-10" cy="-40" r="4" fill="#1e293b" />
+    <circle cx="10" cy="-40" r="4" fill="#1e293b" />
+    <rect x="-20" y="10" width="40" height="15" rx="3" fill="url(#robotAccentGradient)" stroke="#ffffff" stroke-width="1.5" />
+  </g>
+
+  <!-- Data streams/connections -->
+  <path d="M500 160 Q400 120 350 160" stroke="url(#robotAccentGradient)" stroke-width="2" fill="none" opacity="0.6" stroke-dasharray="6,4" />
+  <path d="M500 160 Q600 120 650 160" stroke="url(#robotAccentGradient)" stroke-width="2" fill="none" opacity="0.6" stroke-dasharray="6,4" />
+  <path d="M500 160 Q500 60 550 40" stroke="url(#robotAccentGradient)" stroke-width="2" fill="none" opacity="0.6" stroke-dasharray="6,4" />
+
+  <!-- Floating data nodes -->
+  <circle cx="350" cy="160" r="7" fill="url(#sensorGradient)" stroke="#ffffff" stroke-width="1.5" filter="url(#sensorGlow)" />
+  <circle cx="650" cy="160" r="7" fill="url(#sensorGradient)" stroke="#ffffff" stroke-width="1.5" filter="url(#sensorGlow)" />
+  <circle cx="550" cy="40" r="7" fill="url(#sensorGradient)" stroke="#ffffff" stroke-width="1.5" filter="url(#sensorGlow)" />
+
+  <!-- Title text -->
+  <text x="500" y="60" text-anchor="middle" fill="#1e293b" font-size="32" font-family="Arial" font-weight="bold" opacity="0.9">Physical AI & Humanoid Robotics</text>
+  <text x="500" y="90" text-anchor="middle" fill="#475569" font-size="18" font-family="Arial" opacity="0.9">Advanced Learning Platform</text>
+</svg>

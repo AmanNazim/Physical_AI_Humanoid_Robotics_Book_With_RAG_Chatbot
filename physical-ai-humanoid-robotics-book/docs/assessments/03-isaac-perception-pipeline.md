@@ -2,7 +2,7 @@
 
 ## Assessment Overview
 
-This assessment validates your ability to implement a complete perception pipeline using Isaac technologies. The project evaluates the ability to process sensor data, perform object perception tasks, and integrate perception outputs with higher-level robotic decision-making systems in simulation.
+This assessment validates your ability to implement a complete perception pipeline using Isaac technologies. The project evaluates the ability to process sensor data, perform object perception tasks, and integrate perception outputs with higher-level robotic decision-making systems in simulation. This assessment represents a critical component of Physical AI systems, where perception capabilities enable robots to understand and interact with their physical environment through sophisticated AI reasoning processes.
 
 ## What You Have Learned
 
@@ -100,9 +100,9 @@ This assessment requires integration of multiple perception technologies and alg
 - Performance benchmarks and validation results
 - Video demonstration of perception capabilities
 
-## Demonstration and Deployment Guidelines
+## Demonstration and Validation Guidelines
 
-Students will showcase their project-ready implementations through portfolio presentation and real-world deployment validation:
+Students will showcase their project-ready implementations through portfolio presentation and simulation-based validation:
 - Complete Isaac perception pipeline code
 - Configuration files and parameter settings
 - Technical documentation

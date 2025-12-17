@@ -76,7 +76,7 @@ Throughout this chapter, you will work extensively with:
 
 - **Isaac ROS Packages**: NVIDIA's hardware-accelerated ROS packages for perception and navigation. These packages leverage GPU acceleration to provide real-time processing of sensor data, significantly improving performance compared to CPU-only implementations.
 
-- **Isaac Sim**: NVIDIA's photorealistic simulation environment for validating navigation systems. Isaac Sim provides high-fidelity physics simulation and realistic sensor models that enable comprehensive testing before physical deployment.
+- **Isaac Sim**: NVIDIA's photorealistic simulation environment for validating navigation systems. Isaac Sim provides high-fidelity physics simulation and realistic sensor models that enable comprehensive testing before potential physical deployment.
 
 - **CUDA and GPU Acceleration**: Leveraging NVIDIA GPUs for real-time processing of SLAM algorithms. Hardware acceleration is crucial for achieving the performance requirements of real-time Visual SLAM and navigation systems.
 
@@ -169,7 +169,7 @@ Upon completing this chapter, you will have developed a comprehensive understand
 
 4. **Combine AI reasoning with navigation** to create intelligent path planning and obstacle avoidance systems that demonstrate sophisticated autonomous behavior. You'll learn to implement decision-making algorithms that consider multiple factors in navigation planning.
 
-5. **Validate and test navigation systems** in simulation environments before considering any physical deployment, following the simulation-first approach emphasized throughout this curriculum. You'll develop comprehensive testing strategies for navigation and perception systems.
+5. **Validate and test navigation systems** in simulation environments before considering any potential physical deployment, following the simulation-first approach emphasized throughout this curriculum. You'll develop comprehensive testing strategies for navigation and perception systems.
 
 These capabilities form the foundation for the cognitive architectures you will explore in the next chapter, where perception and navigation systems will be integrated with higher-level decision-making processes to create truly intelligent humanoid robots.
 
@@ -211,7 +211,7 @@ As you work through this chapter, consider these important risk mitigation strat
 
 ### Implementation Best Practices:
 - **Incremental Development**: Build and test systems incrementally, validating each component before integrating with others
-- **Simulation Validation**: Thoroughly test all systems in simulation before considering any physical deployment
+- **Simulation Validation**: Thoroughly test all systems in simulation before considering any potential physical deployment
 - **Performance Monitoring**: Continuously monitor computational performance to ensure real-time requirements are met
 - **Safety First**: Always implement safety mechanisms and emergency stop procedures when working with navigation systems
 

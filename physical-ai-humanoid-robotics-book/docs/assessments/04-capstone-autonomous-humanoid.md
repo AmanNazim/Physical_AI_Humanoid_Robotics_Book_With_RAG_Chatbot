@@ -2,7 +2,7 @@
 
 ## Assessment Overview
 
-This capstone assessment integrates all major systems developed throughout the book to create a simulated autonomous humanoid robot that demonstrates the full Vision-Language-Action (VLA) loop, where speech, perception, reasoning, and physical action are combined into a single coherent system operating entirely in simulation.
+This capstone assessment integrates all major systems developed throughout the book to create a simulated autonomous humanoid robot that demonstrates the full Vision-Language-Action (VLA) loop, where speech, perception, reasoning, and physical action are combined into a single coherent system operating entirely in simulation. This assessment represents the culmination of the Physical AI curriculum, where all foundational concepts from ROS 2 communication, simulation environments, AI perception, and multimodal interaction are synthesized into a complete autonomous humanoid system that operates safely within simulation constraints.
 
 ## What You Have Learned
 
@@ -102,9 +102,9 @@ This is the only assessment that requires integration of ALL modules into a sing
 - Performance metrics and validation results
 - Safety analysis and validation report
 
-## Demonstration and Deployment Guidelines
+## Demonstration and Validation Guidelines
 
-Students will showcase their project-ready implementations through portfolio presentation and real-world deployment validation:
+Students will showcase their project-ready implementations through portfolio presentation and simulation-based validation:
 - Complete integrated system source code
 - All configuration files and launch scripts
 - Comprehensive technical documentation

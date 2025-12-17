@@ -28,3 +28,53 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Sidebar styling for minimal UI and proper heights */
+.menu {
+  padding: 0.5rem 0.75rem !important;
+}
+
+.menu__list {
+  margin: 0;
+}
+
+.menu__list-item {
+  margin-bottom: 0.25rem;
+}
+
+.menu__list-item:last-child {
+  margin-bottom: 0;
+}
+
+.menu__link {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  margin: 0.125rem 0;
+}
+
+.menu__link--active {
+  border-left: 3px solid var(--ifm-color-primary);
+  padding-left: calc(1rem - 3px);
+}
+
+/* Ensure proper height for sidebar items */
+.theme-doc-sidebar-menu {
+  min-height: calc(100vh - 60px);
+}
+
+/* Minimal UI styling */
+.menu__caret,
+.menu__link--sublist {
+  padding: 0.5rem 1rem !important;
+}
+
+/* Adjust sidebar width if needed */
+.sidebar {
+  width: 280px;
+}
+
+/* Ensure proper scrolling */
+.menu {
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+}

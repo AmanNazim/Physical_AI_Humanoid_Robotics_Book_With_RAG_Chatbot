@@ -1,5 +1,5 @@
 ---
-title: Preface
+title: Preface - Physical AI & Humanoid Robotics
 ---
 
 # Preface: Physical AI & Humanoid Robotics
@@ -47,7 +47,7 @@ This book is organized into four comprehensive modules, each building upon the p
 
 Each module contains 4 chapters, allowing for deep exploration of each concept with plenty of hands-on examples and exercises.
 
-## What You'll Be Able to Build
+## What You'll Be able to Build
 
 By the end of this book, you'll have the knowledge and skills to:
 
@@ -67,7 +67,7 @@ Throughout this book, we'll work with industry-standard tools:
 - **Gazebo**: A powerful physics-based simulation environment
 - **Unity**: For advanced visualization and simulation scenarios
 - **NVIDIA Isaac**: For AI reasoning and decision-making systems
-- **Various sensors and actuators**: Both in simulation and potentially with physical robots
+- **Various sensors and actuators**: Both in simulation and potentially in physical implementations
 
 All tools used in this book are accessible to students and include both free and open-source options where possible.
 
@@ -88,12 +88,12 @@ You're about to embark on an exciting journey into one of the most dynamic field
 
 Each module is designed to be completed at your own pace, with plenty of opportunities to practice and reinforce your learning. Don't worry if some concepts seem challenging at first - the progressive structure ensures that understanding will build naturally as you advance through the material.
 
-At the end of the book, you'll find comprehensive assessments that allow you to demonstrate your knowledge and apply all the concepts you've learned across the four modules in integrated projects:
+At the end of the book, you'll find comprehensive assessments that allow you to demonstrate your knowledge and apply all the concepts you've learned across the four modules in integrated projects within the Physical AI framework:
 
-- **Assessment 1: ROS 2 Package Development Project** - Validates your foundational understanding of ROS 2 architecture and communication patterns
-- **Assessment 2: Gazebo Simulation Implementation** - Tests your ability to create and configure realistic robotic simulation environments
-- **Assessment 3: Isaac-Based Perception Pipeline** - Evaluates your ability to implement complete perception pipelines using AI technologies
-- **Assessment 4: Capstone: Autonomous Humanoid (Vision-Language-Action)** - Integrates all systems from previous modules into a comprehensive autonomous humanoid robot system
+- **Assessment 1: ROS 2 Package Development Project** - Validates your foundational understanding of ROS 2 architecture and communication patterns for Physical AI systems
+- **Assessment 2: Gazebo Simulation Implementation** - Tests your ability to create and configure realistic robotic simulation environments using Physical AI simulation-first approaches
+- **Assessment 3: Isaac-Based Perception Pipeline** - Evaluates your ability to implement complete perception pipelines using AI technologies in Physical AI contexts
+- **Assessment 4: Capstone: Autonomous Humanoid (Vision-Language-Action)** - Integrates all systems from previous modules into a comprehensive autonomous humanoid robot system within Physical AI constraints
 
 Each assessment builds upon the previous ones, creating a cumulative learning experience that validates your ability to integrate concepts from all modules progressively.
 

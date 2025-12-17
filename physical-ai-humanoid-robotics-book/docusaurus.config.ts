@@ -1,13 +1,14 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import { themes as prismThemes } from "prism-react-renderer";
+import type { Config } from "@docusaurus/types";
+import type * as Preset from "@docusaurus/preset-classic";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Physical AI & Humanoid Robotics',
-  tagline: 'A comprehensive educational resource for Physical AI and Humanoid Robotics',
-  favicon: 'img/favicon.ico',
+  title: "Physical AI & Humanoid Robotics",
+  tagline:
+    "A comprehensive educational resource for Physical AI and Humanoid Robotics",
+  favicon: "img/physical-ai-logo.png",
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -15,54 +16,39 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-book-site.example.com',
+  url: "https://your-book-site.example.com",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'your-org', // Usually your GitHub org/user name.
-  projectName: 'physical-ai-humanoid-robotics-book', // Usually your repo name.
+  organizationName: "your-org", // Usually your GitHub org/user name.
+  projectName: "physical-ai-humanoid-robotics-book", // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: "throw",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: "./sidebars.ts",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/your-org/physical-ai-humanoid-robotics-book/edit/main/',
-        },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/your-org/physical-ai-humanoid-robotics-book/edit/main/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+            "https://github.com/AmanNazim/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/edit/main/physical-ai-humanoid-robotics-book/",
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       } satisfies Preset.Options,
     ],
@@ -70,67 +56,94 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/book-social-card.jpg',
+    image: "img/docusaurus-social-card.jpg",
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Physical AI & Humanoid Robotics',
+      title: "Physical AI & Humanoid Robotics",
       logo: {
-        alt: 'Physical AI & Humanoid Robotics Book Logo',
-        src: 'img/logo.svg',
+        alt: "Physical AI & Humanoid Robotics Book Logo",
+        src: "img/physical-ai-logo.png",
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Book',
+          type: "docSidebar",
+          sidebarId: "tutorialSidebar",
+          position: "left",
+          label: "Book",
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/your-org/physical-ai-humanoid-robotics-book',
-          label: 'GitHub',
-          position: 'right',
+          href: "https://github.com/AmanNazim/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot",
+          label: "GitHub",
+          position: "right",
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Book Content',
+          title: "Book Content",
           items: [
             {
-              label: 'Preface',
-              to: '/docs/preface/README',
+              label: "Preface",
+              to: "/docs/preface/",
+            },
+            {
+              label: "Module 1: ROS 2 Nervous System",
+              to: "/docs/module-1/introduction",
+            },
+            {
+              label: "Module 2: AI Action System",
+              to: "/docs/module-2/introduction",
+            },
+            {
+              label: "Module 3: Humanoid Robot Control",
+              to: "/docs/module-3/introduction",
+            },
+            {
+              label: "Module 4: Vision-Language-Action",
+              to: "/docs/module-4/introduction",
+            },
+            {
+              label: "Assessments",
+              to: "/docs/assessments/",
+            },
+            {
+              label: "Hardware Requirements",
+              to: "/docs/Hardware-Requirements/",
             },
           ],
         },
         {
-          title: 'Community',
+          title: "Resources",
           items: [
             {
-              label: 'GitHub Discussions',
-              href: 'https://github.com/your-org/physical-ai-humanoid-robotics-book/discussions',
+              label: "GitHub",
+              href: "https://github.com/AmanNazim/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot",
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/your-book',
+              label: "Contributing",
+              href: "https://github.com/AmanNazim/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/blob/main/CONTRIBUTING.md",
             },
           ],
         },
         {
-          title: 'More',
+          title: "More",
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/your-org/physical-ai-humanoid-robotics-book',
+              label: "Physical AI",
+              href: "https://en.wikipedia.org/wiki/Physical_artificial_intelligence",
+            },
+            {
+              label: "ROS 2",
+              href: "https://docs.ros.org/en/humble/",
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Book. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Book. Built by Aman Nazim.`,
     },
     prism: {
       theme: prismThemes.github,

@@ -16,7 +16,7 @@ The chapter is designed to bridge the gap between the ROS 2 communication infras
 
 NVIDIA Isaac represents a paradigm shift in robotics development, moving from traditional rule-based systems to AI-driven approaches that can adapt to complex and dynamic environments. The platform leverages NVIDIA's expertise in GPU computing and AI to provide:
 
-- **Photorealistic Simulation**: Isaac Sim creates high-fidelity environments that accurately replicate real-world conditions, enabling AI models to be trained and validated in safe, controlled settings before deployment on physical robots.
+- **Photorealistic Simulation**: Isaac Sim creates high-fidelity environments that accurately replicate real-world conditions, enabling AI models to be trained and validated in safe, controlled settings before potential physical deployment.
 
 - **Hardware Acceleration**: The platform takes full advantage of NVIDIA's GPU architecture to accelerate AI inference, perception processing, and other computationally intensive tasks that are essential for real-time robotic operation.
 

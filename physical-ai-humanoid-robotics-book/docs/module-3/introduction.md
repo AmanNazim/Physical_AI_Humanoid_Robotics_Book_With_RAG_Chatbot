@@ -6,7 +6,7 @@ title: Introduction to Module 3 - The AI-Robot Brain (NVIDIA Isaac™)
 
 ## Overview
 
-Module 3 focuses on integrating artificial intelligence systems with humanoid robotics platforms using the NVIDIA Isaac ecosystem. This module establishes NVIDIA Isaac as the essential framework for connecting AI reasoning and decision-making capabilities with robotic platforms. By providing hardware-accelerated AI processing, optimized perception pipelines, and cognitive architectures, this module enables students to develop intelligent systems that can perceive, reason, and act in complex physical environments.
+Module 3 focuses on integrating artificial intelligence systems with humanoid robotics platforms using the NVIDIA Isaac ecosystem. This module establishes NVIDIA Isaac as the essential framework for connecting AI reasoning and decision-making capabilities with robotic platforms. By providing hardware-accelerated AI processing, optimized perception pipelines, and cognitive architectures, this module enables students to develop intelligent systems that can perceive, reason, and act in complex physical environments. This module represents a critical component of Physical AI systems, where AI reasoning capabilities are integrated with robotic platforms to create truly intelligent humanoid robots that can operate safely and intelligently in human environments.
 
 This module is designed to empower students with the foundational knowledge and practical skills to architect and implement AI systems that connect seamlessly with humanoid robots. Mastering NVIDIA Isaac integration is not merely about learning a platform; it is about adopting a paradigm for building intelligent, adaptive, and responsive robotic systems that can safely and intelligently operate in human environments. It builds upon the communication infrastructure of Module 1 and simulation foundations of Module 2 to create cognitive capabilities that enable robots to understand and interact with the world around them. This module prepares students for advanced topics in multimodal perception-action systems and real-world robot deployment.
 
@@ -23,7 +23,7 @@ Upon completion of this module, students will be able to:
 - Validate AI systems in simulation before physical deployment
 - Assess the advantages of hardware-accelerated AI for physical AI applications
 - Articulate the significance of intelligent systems in ensuring robot autonomy and adaptability
-- Configure AI-ready frameworks that support both simulation and real-world deployment
+- Configure AI-ready frameworks that support both simulation and potential real-world applications
 
 ## Core Concepts
 
@@ -53,7 +53,7 @@ AI processing components must leverage NVIDIA GPU hardware for real-time perform
 
 ### Sim-to-Real Transfer Techniques
 
-The module includes techniques for transferring AI models from simulation to real-world deployment, ensuring that systems validated in Isaac Sim can be effectively deployed on physical robots. This process involves domain randomization, synthetic data generation, and careful calibration to bridge the reality gap between simulation and the physical world. Proper sim-to-real transfer techniques help ensure that AI systems trained in simulation perform reliably when deployed on actual robots.
+The module includes techniques for transferring AI models from simulation to potential real-world deployment, ensuring that systems validated in Isaac Sim follow proper sim-to-real transfer methodologies. This process involves domain randomization, synthetic data generation, and careful calibration to bridge the reality gap between simulation and the physical world. Proper sim-to-real transfer techniques help ensure that AI systems trained in simulation maintain safety and reliability standards for future physical applications.
 
 ## System Architecture
 

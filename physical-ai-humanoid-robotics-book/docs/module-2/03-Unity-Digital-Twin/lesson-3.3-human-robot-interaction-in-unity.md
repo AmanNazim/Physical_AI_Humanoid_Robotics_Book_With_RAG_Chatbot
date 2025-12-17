@@ -19,7 +19,7 @@ By the end of this lesson, you will be able to:
 
 Human-robot interaction (HRI) represents a critical aspect of modern robotics, especially for humanoid robots designed to work alongside humans. This lesson focuses on implementing sophisticated interaction systems within Unity that enable meaningful collaboration between humans and robots. Through intuitive user interfaces and well-designed interaction mechanics, you'll learn to create scenarios where humans and robots can work together effectively in shared environments.
 
-The Unity environment provides unique advantages for developing and testing HRI scenarios. Its real-time rendering capabilities allow for immediate visual feedback, while its flexible scripting system enables complex interaction behaviors. The visual nature of Unity also makes it ideal for prototyping and validating HRI concepts before implementing them on physical robots.
+The Unity environment provides unique advantages for developing and testing HRI scenarios. Its real-time rendering capabilities allow for immediate visual feedback, while its flexible scripting system enables complex interaction behaviors. The visual nature of Unity also makes it ideal for prototyping and validating HRI concepts in simulation environments.
 
 ## Understanding Human-Robot Interaction in Unity
 

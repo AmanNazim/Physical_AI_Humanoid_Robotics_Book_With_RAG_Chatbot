@@ -469,7 +469,7 @@ ros2 topic echo /my_robot/imu/data
 
 In this lesson, you've learned to integrate humanoid robots into the Gazebo simulation environment. You've mastered the conversion from URDF to SDF format, configured joint constraints and collision properties, and learned how to spawn and test robots in simulation.
 
-The integration process you've completed creates a bridge between the robot description you created in Module 1 and the simulation environment established in this module. This integration is crucial for testing your robots in a safe, repeatable environment before physical deployment.
+The integration process you've completed creates a bridge between the robot description you created in Module 1 and the simulation environment established in this module. This integration is crucial for testing your robots in a safe, repeatable environment before any potential physical application.
 
 ## Next Steps
 

@@ -1,0 +1,235 @@
+<svg width="900" height="300" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="featureGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a6fa5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2c3e50;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="featureGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00b4db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0083b0;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="featureGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9e00;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff5400;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Patterns -->
+    <pattern id="circuitPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse" opacity="0.2">
+      <path d="M 0 5 L 10 5 M 5 0 L 5 10" stroke="#00d4ff" stroke-width="0.5" />
+    </pattern>
+
+    <!-- Filters -->
+    <filter id="featureGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="300" fill="#f8fafc" />
+  <rect width="900" height="300" fill="url(#circuitPattern)" />
+
+  <!-- Feature 1: Physical AI Foundations -->
+  <g transform="translate(150, 150)">
+    <!-- Panel background -->
+    <rect x="-100" y="-100" width="200" height="180" rx="15" fill="#ffffff" stroke="#4a6fa5" stroke-width="2" filter="url(#featureGlow)" />
+
+    <!-- Section title -->
+    <text x="0" y="-80" text-anchor="middle" fill="#2c3e50" font-size="18" font-family="Arial" font-weight="bold">Physical AI</text>
+    <text x="0" y="-60" text-anchor="middle" fill="#4a6fa5" font-size="14" font-family="Arial">Foundations</text>
+
+    <!-- Robot representation -->
+    <g transform="scale(0.8)">
+      <!-- Body -->
+      <path d="M-35 -10 C-45 -10, -45 40, -35 50 C0 60, 0 60, 35 50 C45 40, 45 -10, 35 -10 C10 -25, -10 -25, -35 -10 Z"
+            fill="url(#featureGradient1)" stroke="#1a237e" stroke-width="2" />
+
+      <!-- Head -->
+      <circle cx="0" cy="-40" r="20" fill="url(#featureGradient1)" stroke="#1a237e" stroke-width="2" />
+
+      <!-- Eyes -->
+      <circle cx="-8" cy="-45" r="3.5" fill="#1e293b" />
+      <circle cx="8" cy="-45" r="3.5" fill="#1e293b" />
+      <circle cx="-7" cy="-46" r="1.5" fill="#ffffff" />
+
+      <!-- Brain pattern -->
+      <path d="M-12 -35 Q0 -40 12 -35 Q0 -30 -12 -35 Z" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.8" />
+
+      <!-- Chest panel -->
+      <rect x="-15" y="10" width="30" height="15" rx="3" fill="url(#featureGradient1)" stroke="#ffffff" stroke-width="1.2" opacity="0.9" />
+
+      <!-- Circuit pattern -->
+      <g transform="translate(-12, 13)">
+        <path d="M0 0 L4 0 M7 0 L10 0 M0 3 L7 3 M8 3 L12 3 M0 6 L4 6 M7 6 L12 6"
+              stroke="#ffffff" stroke-width="0.8" stroke-linecap="round" opacity="0.9" />
+        <circle cx="2" cy="1.5" r="0.8" fill="#ffffff" opacity="0.9" />
+        <circle cx="9" cy="4.5" r="0.8" fill="#ffffff" opacity="0.9" />
+      </g>
+
+      <!-- Arms -->
+      <path d="M-35 0 C-50 0, -50 25, -35 30" stroke="url(#featureGradient1)" stroke-width="6" fill="none" stroke-linecap="round" />
+      <path d="M35 0 C50 0, 50 25, 35 30" stroke="url(#featureGradient1)" stroke-width="6" fill="none" stroke-linecap="round" />
+
+      <!-- Hands -->
+      <circle cx="-35" cy="30" r="4" fill="url(#featureGradient1)" stroke="#1a237e" stroke-width="1" />
+      <circle cx="35" cy="30" r="4" fill="url(#featureGradient1)" stroke="#1a237e" stroke-width="1" />
+
+      <!-- Legs -->
+      <path d="M-12 50 L-12 75" stroke="url(#featureGradient1)" stroke-width="7" />
+      <path d="M12 50 L12 75" stroke="url(#featureGradient1)" stroke-width="7" />
+
+      <!-- Feet -->
+      <rect x="-18" y="75" width="12" height="4" rx="2" fill="url(#featureGradient1)" stroke="#1a237e" stroke-width="1" />
+      <rect x="6" y="75" width="12" height="4" rx="2" fill="url(#featureGradient1)" stroke="#1a237e" stroke-width="1" />
+    </g>
+
+    <!-- Description text -->
+    <text x="0" y="60" text-anchor="middle" fill="#475569" font-size="12" font-family="Arial">Embodied Intelligence</text>
+    <text x="0" y="75" text-anchor="middle" fill="#475569" font-size="12" font-family="Arial">Real-world Interaction</text>
+  </g>
+
+  <!-- Feature 2: Humanoid Robotics -->
+  <g transform="translate(450, 150)">
+    <!-- Panel background -->
+    <rect x="-100" y="-100" width="200" height="180" rx="15" fill="#ffffff" stroke="#00b4db" stroke-width="2" filter="url(#featureGlow)" />
+
+    <!-- Section title -->
+    <text x="0" y="-80" text-anchor="middle" fill="#0083b0" font-size="18" font-family="Arial" font-weight="bold">Humanoid</text>
+    <text x="0" y="-60" text-anchor="middle" fill="#00b4db" font-size="14" font-family="Arial">Robotics</text>
+
+    <!-- Robot representation -->
+    <g transform="scale(0.8)">
+      <!-- Body with more human-like proportions -->
+      <path d="M-30 0 C-40 0, -40 45, -30 55 C0 65, 0 65, 30 55 C40 45, 40 0, 30 0 C5 -15, -5 -15, -30 0 Z"
+            fill="url(#featureGradient2)" stroke="#0066cc" stroke-width="2" />
+
+      <!-- Head -->
+      <circle cx="0" cy="-35" r="18" fill="url(#featureGradient2)" stroke="#0066cc" stroke-width="2" />
+
+      <!-- Eyes -->
+      <circle cx="-7" cy="-40" r="3.5" fill="#1e293b" />
+      <circle cx="7" cy="-40" r="3.5" fill="#1e293b" />
+      <circle cx="-6" cy="-41" r="1.5" fill="#ffffff" />
+
+      <!-- Mouth -->
+      <rect x="-5" y="-28" width="10" height="2" rx="1" fill="#f8fafc" stroke="#1e293b" stroke-width="0.5" />
+
+      <!-- Chest panel with complex circuit -->
+      <rect x="-12" y="12" width="24" height="12" rx="3" fill="url(#featureGradient2)" stroke="#ffffff" stroke-width="1.2" opacity="0.9" />
+
+      <!-- Complex circuit pattern -->
+      <g transform="translate(-10, 14)">
+        <path d="M0 0 L3 0 M5 0 L8 0 M0 2.5 L5 2.5 M6 2.5 L9 2.5 M0 5 L3 5 M5 5 L9 5"
+              stroke="#ffffff" stroke-width="0.8" stroke-linecap="round" opacity="0.9" />
+        <circle cx="1.5" cy="1.25" r="0.6" fill="#ffffff" opacity="0.9" />
+        <circle cx="7" cy="3.75" r="0.6" fill="#ffffff" opacity="0.9" />
+        <path d="M2 5 Q2.5 4 3 5" stroke="#ffffff" stroke-width="0.5" opacity="0.9" />
+      </g>
+
+      <!-- Arms -->
+      <path d="M-30 5 C-45 5, -45 30, -30 35" stroke="url(#featureGradient2)" stroke-width="6" fill="none" stroke-linecap="round" />
+      <path d="M30 5 C45 5, 45 30, 30 35" stroke="url(#featureGradient2)" stroke-width="6" fill="none" stroke-linecap="round" />
+
+      <!-- Hands -->
+      <circle cx="-30" cy="35" r="4" fill="url(#featureGradient2)" stroke="#0066cc" stroke-width="1" />
+      <circle cx="30" cy="35" r="4" fill="url(#featureGradient2)" stroke="#0066cc" stroke-width="1" />
+
+      <!-- Fingers -->
+      <g stroke="#0066cc" stroke-width="1.2">
+        <line x1="-33" y1="33" x2="-36" y2="30" />
+        <line x1="-31" y1="34" x2="-34" y2="31" />
+        <line x1="-29" y1="33" x2="-32" y2="30" />
+        <line x1="33" y1="33" x2="36" y2="30" />
+        <line x1="31" y1="34" x2="34" y2="31" />
+        <line x1="29" y1="33" x2="32" y2="30" />
+      </g>
+
+      <!-- Legs -->
+      <path d="M-10 55 L-10 85" stroke="url(#featureGradient2)" stroke-width="6" />
+      <path d="M10 55 L10 85" stroke="url(#featureGradient2)" stroke-width="6" />
+
+      <!-- Feet -->
+      <rect x="-15" y="85" width="10" height="4" rx="2" fill="url(#featureGradient2)" stroke="#0066cc" stroke-width="1" />
+      <rect x="5" y="85" width="10" height="4" rx="2" fill="url(#featureGradient2)" stroke="#0066cc" stroke-width="1" />
+    </g>
+
+    <!-- Description text -->
+    <text x="0" y="60" text-anchor="middle" fill="#475569" font-size="12" font-family="Arial">Bipedal Locomotion</text>
+    <text x="0" y="75" text-anchor="middle" fill="#475569" font-size="12" font-family="Arial">Human Interaction</text>
+  </g>
+
+  <!-- Feature 3: Complete Learning Path -->
+  <g transform="translate(750, 150)">
+    <!-- Panel background -->
+    <rect x="-100" y="-100" width="200" height="180" rx="15" fill="#ffffff" stroke="#ff9e00" stroke-width="2" filter="url(#featureGlow)" />
+
+    <!-- Section title -->
+    <text x="0" y="-80" text-anchor="middle" fill="#ff5400" font-size="18" font-family="Arial" font-weight="bold">Learning</text>
+    <text x="0" y="-60" text-anchor="middle" fill="#ff9e00" font-size="14" font-family="Arial">Path</text>
+
+    <!-- Robot with learning symbols -->
+    <g transform="scale(0.8)">
+      <!-- Robot body with learning symbols -->
+      <path d="M-25 -5 C-35 -5, -35 40, -25 50 C0 60, 0 60, 25 50 C35 40, 35 -5, 25 -5 C0 -20, 0 -20, -25 -5 Z"
+            fill="url(#featureGradient3)" stroke="#b33900" stroke-width="2" />
+
+      <!-- Head -->
+      <circle cx="0" cy="-35" r="16" fill="url(#featureGradient3)" stroke="#b33900" stroke-width="2" />
+
+      <!-- Eyes -->
+      <circle cx="-6" cy="-40" r="3.5" fill="#1e293b" />
+      <circle cx="6" cy="-40" r="3.5" fill="#1e293b" />
+      <circle cx="-5" cy="-41" r="1.5" fill="#ffffff" />
+
+      <!-- Learning symbol in head -->
+      <path d="M-10 -30 Q0 -35 10 -30 Q0 -25 -10 -30 Z" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.9" />
+      <circle cx="0" cy="-30" r="1.2" fill="#ffffff" opacity="0.9" />
+
+      <!-- Chest panel with path indicator -->
+      <rect x="-12" y="10" width="24" height="14" rx="3" fill="url(#featureGradient3)" stroke="#ffffff" stroke-width="1.2" opacity="0.9" />
+
+      <!-- Learning path circuit -->
+      <g transform="translate(-10, 12)">
+        <path d="M0 0 L4 0 L4 2 L8 2 L8 4 L12 4" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.9" />
+        <circle cx="0" cy="0" r="1" fill="#ffffff" opacity="0.9" />
+        <circle cx="4" cy="0" r="1" fill="#ffffff" opacity="0.9" />
+        <circle cx="8" cy="2" r="1" fill="#ffffff" opacity="0.9" />
+        <circle cx="12" cy="4" r="1" fill="#ffffff" opacity="0.9" />
+      </g>
+
+      <!-- Arms -->
+      <path d="M-25 0 C-40 0, -40 25, -25 30" stroke="url(#featureGradient3)" stroke-width="5" fill="none" stroke-linecap="round" />
+      <path d="M25 0 C40 0, 40 25, 25 30" stroke="url(#featureGradient3)" stroke-width="5" fill="none" stroke-linecap="round" />
+
+      <!-- Hands -->
+      <circle cx="-25" cy="30" r="3.5" fill="url(#featureGradient3)" stroke="#b33900" stroke-width="1" />
+      <circle cx="25" cy="30" r="3.5" fill="url(#featureGradient3)" stroke="#b39300" stroke-width="1" />
+
+      <!-- Legs -->
+      <path d="M-8 50 L-8 80" stroke="url(#featureGradient3)" stroke-width="5.5" />
+      <path d="M8 50 L8 80" stroke="url(#featureGradient3)" stroke-width="5.5" />
+
+      <!-- Feet -->
+      <rect x="-12" y="80" width="8" height="4" rx="2" fill="url(#featureGradient3)" stroke="#b33900" stroke-width="1" />
+      <rect x="4" y="80" width="8" height="4" rx="2" fill="url(#featureGradient3)" stroke="#b33900" stroke-width="1" />
+
+      <!-- Learning path arrow -->
+      <path d="M30 0 L45 0 L45 -12 L55 0 L45 12 L45 0 Z" fill="#ff9e00" stroke="#ffffff" stroke-width="0.5" />
+    </g>
+
+    <!-- Description text -->
+    <text x="0" y="60" text-anchor="middle" fill="#475569" font-size="12" font-family="Arial">Structured Curriculum</text>
+    <text x="0" y="75" text-anchor="middle" fill="#475569" font-size="12" font-family="Arial">Hands-on Learning</text>
+  </g>
+
+  <!-- Connecting elements -->
+  <path d="M230 150 Q320 120 410 150" stroke="#00b4db" stroke-width="2" fill="none" opacity="0.6" stroke-dasharray="6,4" />
+  <path d="M530 150 Q620 120 710 150" stroke="#ff9e00" stroke-width="2" fill="none" opacity="0.6" stroke-dasharray="6,4" />
+
+  <!-- Floating elements -->
+  <circle cx="320" cy="110" r="5" fill="#00b4db" opacity="0.7" />
+  <circle cx="620" cy="110" r="5" fill="#ff9e00" opacity="0.7" />
+</svg>

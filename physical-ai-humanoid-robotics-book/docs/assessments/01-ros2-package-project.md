@@ -2,7 +2,7 @@
 
 ## Assessment Overview
 
-This assessment validates your foundational understanding of ROS 2 architecture and communication patterns by requiring you to develop a comprehensive ROS 2 package that follows best practices for node organization, message handling, launch files, and modular architecture. The project evaluates your understanding of ROS 2 fundamentals, inter-node communication, and maintainable robotics software design.
+This assessment validates your foundational understanding of ROS 2 architecture and communication patterns by requiring you to develop a comprehensive ROS 2 package that follows best practices for node organization, message handling, launch files, and modular architecture. The project evaluates your understanding of ROS 2 fundamentals, inter-node communication, and maintainable robotics software design. This assessment serves as the foundation for all Physical AI systems, establishing the essential communication infrastructure that enables humanoid robots to coordinate their perception, cognition, and actuation systems.
 
 ## What You Have Learned
 

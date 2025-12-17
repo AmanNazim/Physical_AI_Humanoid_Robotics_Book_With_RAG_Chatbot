@@ -1,4 +1,4 @@
-import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
+import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -19,74 +19,74 @@ const sidebars: SidebarsConfig = {
   // Manual sidebar for the Physical AI Humanoid Robotics Book
   tutorialSidebar: [
     {
-      type: 'category',
-      label: 'Preface',
-      items: ['preface/README'],
+      type: "category",
+      label: "Preface - Physical AI & Humanoid Robotics",
+      items: ["preface/index"],
     },
     {
-      type: 'category',
-      label: 'Module 1: ROS 2 Nervous System',
+      type: "category",
+      label: "Module 1: ROS 2 Nervous System",
       items: [
-        'module-1/introduction',
+        "module-1/introduction",
         {
-          type: 'category',
-          label: 'Chapters',
+          type: "category",
+          label: "Chapters",
           items: [
             {
-              type: 'category',
-              label: 'Chapter 1: ROS 2 and the Physical AI Nervous System',
+              type: "category",
+              label: "Chapter 1: ROS 2 and the Physical AI Nervous System",
               items: [
-                'module-1/ros2-architecture-and-communication/index',
+                "module-1/ros2-architecture-and-communication/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-1/ros2-architecture-and-communication/lesson-1.1-introduction-to-ros2-architecture',
-                    'module-1/ros2-architecture-and-communication/lesson-1.2-environment-setup-and-workspace-creation',
-                    'module-1/ros2-architecture-and-communication/lesson-1.3-basic-publisher-subscriber-implementation',
-                    'module-1/ros2-architecture-and-communication/lesson-1.4-ros2-command-line-tools',
+                    "module-1/ros2-architecture-and-communication/lesson-1.1-introduction-to-ros2-architecture",
+                    "module-1/ros2-architecture-and-communication/lesson-1.2-environment-setup-and-workspace-creation",
+                    "module-1/ros2-architecture-and-communication/lesson-1.3-basic-publisher-subscriber-implementation",
+                    "module-1/ros2-architecture-and-communication/lesson-1.4-ros2-command-line-tools",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 2: Advanced ROS2 Communication Patterns',
+              type: "category",
+              label: "Chapter 2: Advanced ROS2 Communication Patterns",
               items: [
-                'module-1/nodes-topics-services-robot-communication/index',
-                'module-1/nodes-topics-services-robot-communication/nodes-multiple-communication-patterns',
-                'module-1/nodes-topics-services-robot-communication/service-based-communication',
-                'module-1/nodes-topics-services-robot-communication/parameter-server-configuration',
+                "module-1/nodes-topics-services-robot-communication/index",
+                "module-1/nodes-topics-services-robot-communication/nodes-multiple-communication-patterns",
+                "module-1/nodes-topics-services-robot-communication/service-based-communication",
+                "module-1/nodes-topics-services-robot-communication/parameter-server-configuration",
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 3: Robot Description with URDF and Xacro',
+              type: "category",
+              label: "Chapter 3: Robot Description with URDF and Xacro",
               items: [
-                'module-1/robot-description-urdf-xacro/index',
+                "module-1/robot-description-urdf-xacro/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-1/robot-description-urdf-xacro/lesson-3.1-introduction-to-urdf-and-robot-description',
-                    'module-1/robot-description-urdf-xacro/lesson-3.2-xacro-parameterization-and-macros',
-                    'module-1/robot-description-urdf-xacro/lesson-3.3-visualization-and-validation',
+                    "module-1/robot-description-urdf-xacro/lesson-3.1-introduction-to-urdf-and-robot-description",
+                    "module-1/robot-description-urdf-xacro/lesson-3.2-xacro-parameterization-and-macros",
+                    "module-1/robot-description-urdf-xacro/lesson-3.3-visualization-and-validation",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 4: Python-based ROS2 Integration with rclpy',
+              type: "category",
+              label: "Chapter 4: Python-based ROS2 Integration with rclpy",
               items: [
-                'module-1/python-ros2-integration-rclpy/index',
+                "module-1/python-ros2-integration-rclpy/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-1/python-ros2-integration-rclpy/lesson-4.1-python-ros2-integration-with-rclpy',
-                    'module-1/python-ros2-integration-rclpy/lesson-4.2-simulation-environment-setup',
-                    'module-1/python-ros2-integration-rclpy/lesson-4.3-complete-system-integration',
+                    "module-1/python-ros2-integration-rclpy/lesson-4.1-python-ros2-integration-with-rclpy",
+                    "module-1/python-ros2-integration-rclpy/lesson-4.2-simulation-environment-setup",
+                    "module-1/python-ros2-integration-rclpy/lesson-4.3-complete-system-integration",
                   ],
                 },
               ],
@@ -96,74 +96,74 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
-      type: 'category',
-      label: 'Module 2: Digital Twin (Gazebo & Unity)',
+      type: "category",
+      label: "Module 2: Digital Twin (Gazebo & Unity)",
       items: [
-        'module-2/introduction',
+        "module-2/introduction",
         {
-          type: 'category',
-          label: 'Chapters',
+          type: "category",
+          label: "Chapters",
           items: [
             {
-              type: 'category',
-              label: 'Chapter 1 – Gazebo Simulation',
+              type: "category",
+              label: "Chapter 1 – Gazebo Simulation",
               items: [
-                'module-2/Gazebo-Simulation/index',
+                "module-2/Gazebo-Simulation/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-2/Gazebo-Simulation/lesson-1.1-introduction-to-gazebo-and-physics-simulation',
-                    'module-2/Gazebo-Simulation/lesson-1.2-environment-creation-and-world-building',
-                    'module-2/Gazebo-Simulation/lesson-1.3-robot-integration-in-gazebo',
+                    "module-2/Gazebo-Simulation/lesson-1.1-introduction-to-gazebo-and-physics-simulation",
+                    "module-2/Gazebo-Simulation/lesson-1.2-environment-creation-and-world-building",
+                    "module-2/Gazebo-Simulation/lesson-1.3-robot-integration-in-gazebo",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 2 – Physics & Sensors',
+              type: "category",
+              label: "Chapter 2 – Physics & Sensors",
               items: [
-                'module-2/Physics-&-Sensors/index',
+                "module-2/Physics-&-Sensors/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-2/Physics-&-Sensors/lesson-2.1-physics-simulation-fundamentals',
-                    'module-2/Physics-&-Sensors/lesson-2.2-lidar-simulation-in-virtual-environments',
-                    'module-2/Physics-&-Sensors/lesson-2.3-depth-camera-and-imu-simulation',
+                    "module-2/Physics-&-Sensors/lesson-2.1-physics-simulation-fundamentals",
+                    "module-2/Physics-&-Sensors/lesson-2.2-lidar-simulation-in-virtual-environments",
+                    "module-2/Physics-&-Sensors/lesson-2.3-depth-camera-and-imu-simulation",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 3 – Unity Digital Twin',
+              type: "category",
+              label: "Chapter 3 – Unity Digital Twin",
               items: [
-                'module-2/Unity-Digital-Twin/index',
+                "module-2/Unity-Digital-Twin/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-2/Unity-Digital-Twin/lesson-3.1-unity-environment-setup-for-robotics',
-                    'module-2/Unity-Digital-Twin/lesson-3.2-high-fidelity-rendering-and-visualization',
-                    'module-2/Unity-Digital-Twin/lesson-3.3-human-robot-interaction-in-unity',
+                    "module-2/Unity-Digital-Twin/lesson-3.1-unity-environment-setup-for-robotics",
+                    "module-2/Unity-Digital-Twin/lesson-3.2-high-fidelity-rendering-and-visualization",
+                    "module-2/Unity-Digital-Twin/lesson-3.3-human-robot-interaction-in-unity",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 4 – Multi-Simulator Integration',
+              type: "category",
+              label: "Chapter 4 – Multi-Simulator Integration",
               items: [
-                'module-2/Multi-Simulator-Integration/index',
+                "module-2/Multi-Simulator-Integration/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-2/Multi-Simulator-Integration/lesson-4.1-gazebo-unity-integration-strategies',
-                    'module-2/Multi-Simulator-Integration/lesson-4.2-sensor-data-consistency-across-platforms',
-                    'module-2/Multi-Simulator-Integration/lesson-4.3-validation-and-verification-techniques',
+                    "module-2/Multi-Simulator-Integration/lesson-4.1-gazebo-unity-integration-strategies",
+                    "module-2/Multi-Simulator-Integration/lesson-4.2-sensor-data-consistency-across-platforms",
+                    "module-2/Multi-Simulator-Integration/lesson-4.3-validation-and-verification-techniques",
                   ],
                 },
               ],
@@ -173,74 +173,74 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
-      type: 'category',
-      label: 'Module 3: AI-Robot Brain (NVIDIA Isaac)',
+      type: "category",
+      label: "Module 3: AI-Robot Brain (NVIDIA Isaac)",
       items: [
-        'module-3/introduction',
+        "module-3/introduction",
         {
-          type: 'category',
-          label: 'Chapters',
+          type: "category",
+          label: "Chapters",
           items: [
             {
-              type: 'category',
-              label: 'Chapter 1 – Isaac Sim & AI Integration',
+              type: "category",
+              label: "Chapter 1 – Isaac Sim & AI Integration",
               items: [
-                'module-3/Isaac-Sim-&-AI-Integration/index',
+                "module-3/Isaac-Sim-&-AI-Integration/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-3/Isaac-Sim-&-AI-Integration/lesson-1.1-introduction-to-nvidia-isaac-and-ai-integration',
-                    'module-3/Isaac-Sim-&-AI-Integration/lesson-1.2-nvidia-isaac-sim-for-photorealistic-simulation',
-                    'module-3/Isaac-Sim-&-AI-Integration/lesson-1.3-isaac-ros-for-hardware-accelerated-perception',
+                    "module-3/Isaac-Sim-&-AI-Integration/lesson-1.1-introduction-to-nvidia-isaac-and-ai-integration",
+                    "module-3/Isaac-Sim-&-AI-Integration/lesson-1.2-nvidia-isaac-sim-for-photorealistic-simulation",
+                    "module-3/Isaac-Sim-&-AI-Integration/lesson-1.3-isaac-ros-for-hardware-accelerated-perception",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 2 – Visual SLAM & Navigation',
+              type: "category",
+              label: "Chapter 2 – Visual SLAM & Navigation",
               items: [
-                'module-3/Visual-SLAM-&-Navigation/index',
+                "module-3/Visual-SLAM-&-Navigation/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-3/Visual-SLAM-&-Navigation/lesson-2.1-nav2-path-planning-for-humanoid-robots',
-                    'module-3/Visual-SLAM-&-Navigation/lesson-2.2-visual-slam-with-isaac-ros',
-                    'module-3/Visual-SLAM-&-Navigation/lesson-2.3-ai-enhanced-navigation-and-obstacle-avoidance',
+                    "module-3/Visual-SLAM-&-Navigation/lesson-2.1-nav2-path-planning-for-humanoid-robots",
+                    "module-3/Visual-SLAM-&-Navigation/lesson-2.2-visual-slam-with-isaac-ros",
+                    "module-3/Visual-SLAM-&-Navigation/lesson-2.3-ai-enhanced-navigation-and-obstacle-avoidance",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 3 – Cognitive Architectures',
+              type: "category",
+              label: "Chapter 3 – Cognitive Architectures",
               items: [
-                'module-3/Cognitive-Architectures/index',
+                "module-3/Cognitive-Architectures/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-3/Cognitive-Architectures/lesson-3.1-cognitive-architectures-for-robot-intelligence',
-                    'module-3/Cognitive-Architectures/lesson-3.2-perception-processing-pipelines',
-                    'module-3/Cognitive-Architectures/lesson-3.3-ai-decision-making-and-action-planning',
+                    "module-3/Cognitive-Architectures/lesson-3.1-cognitive-architectures-for-robot-intelligence",
+                    "module-3/Cognitive-Architectures/lesson-3.2-perception-processing-pipelines",
+                    "module-3/Cognitive-Architectures/lesson-3.3-ai-decision-making-and-action-planning",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 4 – AI System Integration',
+              type: "category",
+              label: "Chapter 4 – AI System Integration",
               items: [
-                'module-3/AI-System-Integration/index',
+                "module-3/AI-System-Integration/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-3/AI-System-Integration/lesson-4.1-isaac-sim-integration-with-ai-systems',
-                    'module-3/AI-System-Integration/lesson-4.2-hardware-acceleration-for-real-time-ai',
-                    'module-3/AI-System-Integration/lesson-4.3-validation-and-verification-of-ai-systems',
+                    "module-3/AI-System-Integration/lesson-4.1-isaac-sim-integration-with-ai-systems",
+                    "module-3/AI-System-Integration/lesson-4.2-hardware-acceleration-for-real-time-ai",
+                    "module-3/AI-System-Integration/lesson-4.3-validation-and-verification-of-ai-systems",
                   ],
                 },
               ],
@@ -250,74 +250,74 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
-      type: 'category',
-      label: 'Module 4: Vision-Language-Action (VLA)',
+      type: "category",
+      label: "Module 4: Vision-Language-Action (VLA)",
       items: [
-        'module-4/introduction',
+        "module-4/introduction",
         {
-          type: 'category',
-          label: 'Chapters',
+          type: "category",
+          label: "Chapters",
           items: [
             {
-              type: 'category',
-              label: 'Chapter 1 – Vision-Language-Action Fundamentals',
+              type: "category",
+              label: "Chapter 1 – Vision-Language-Action Fundamentals",
               items: [
-                'module-4/vision-language-action-fundamentals/index',
+                "module-4/vision-language-action-fundamentals/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-4/vision-language-action-fundamentals/lesson-1.1-introduction-to-vla-systems',
-                    'module-4/vision-language-action-fundamentals/lesson-1.2-multimodal-perception-systems',
-                    'module-4/vision-language-action-fundamentals/lesson-1.3-instruction-understanding-natural-language-processing',
+                    "module-4/vision-language-action-fundamentals/lesson-1.1-introduction-to-vla-systems",
+                    "module-4/vision-language-action-fundamentals/lesson-1.2-multimodal-perception-systems",
+                    "module-4/vision-language-action-fundamentals/lesson-1.3-instruction-understanding-natural-language-processing",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 2 – AI Decision Making and Action Grounding',
+              type: "category",
+              label: "Chapter 2 – AI Decision Making and Action Grounding",
               items: [
-                'module-4/ai-decision-making-and-action-grounding/index',
+                "module-4/ai-decision-making-and-action-grounding/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-4/ai-decision-making-and-action-grounding/lesson-2.1-ai-decision-making-frameworks',
-                    'module-4/ai-decision-making-and-action-grounding/lesson-2.2-action-grounding-and-motion-planning',
-                    'module-4/ai-decision-making-and-action-grounding/lesson-2.3-safety-constraints-and-validation-systems',
+                    "module-4/ai-decision-making-and-action-grounding/lesson-2.1-ai-decision-making-frameworks",
+                    "module-4/ai-decision-making-and-action-grounding/lesson-2.2-action-grounding-and-motion-planning",
+                    "module-4/ai-decision-making-and-action-grounding/lesson-2.3-safety-constraints-and-validation-systems",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 3 – Advanced Multimodal Processing',
+              type: "category",
+              label: "Chapter 3 – Advanced Multimodal Processing",
               items: [
-                'module-4/advanced-multimodal-processing/index',
+                "module-4/advanced-multimodal-processing/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-4/advanced-multimodal-processing/lesson-3.1-vision-processing-and-scene-understanding',
-                    'module-4/advanced-multimodal-processing/lesson-3.2-language-to-action-mapping',
-                    'module-4/advanced-multimodal-processing/lesson-3.3-multimodal-fusion-and-attention-mechanisms',
+                    "module-4/advanced-multimodal-processing/lesson-3.1-vision-processing-and-scene-understanding",
+                    "module-4/advanced-multimodal-processing/lesson-3.2-language-to-action-mapping",
+                    "module-4/advanced-multimodal-processing/lesson-3.3-multimodal-fusion-and-attention-mechanisms",
                   ],
                 },
               ],
             },
             {
-              type: 'category',
-              label: 'Chapter 4 – Human-Robot Interaction and Validation',
+              type: "category",
+              label: "Chapter 4 – Human-Robot Interaction and Validation",
               items: [
-                'module-4/human-robot-interaction-and-validation/index',
+                "module-4/human-robot-interaction-and-validation/index",
                 {
-                  type: 'category',
-                  label: 'Lessons',
+                  type: "category",
+                  label: "Lessons",
                   items: [
-                    'module-4/human-robot-interaction-and-validation/lesson-4.1-vla-integration-with-simulation-environments',
-                    'module-4/human-robot-interaction-and-validation/lesson-4.2-uncertainty-quantification-and-confidence-management',
-                    'module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication',
+                    "module-4/human-robot-interaction-and-validation/lesson-4.1-vla-integration-with-simulation-environments",
+                    "module-4/human-robot-interaction-and-validation/lesson-4.2-uncertainty-quantification-and-confidence-management",
+                    "module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication",
                   ],
                 },
               ],
@@ -327,21 +327,19 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
-      type: 'category',
-      label: 'Assessments',
+      type: "category",
+      label: "Assessments",
       items: [
-        'assessments/ros2-package-project',
-        'assessments/gazebo-simulation',
-        'assessments/isaac-perception-pipeline',
-        'assessments/capstone-autonomous-humanoid',
+        "assessments/ros2-package-project",
+        "assessments/gazebo-simulation",
+        "assessments/isaac-perception-pipeline",
+        "assessments/capstone-autonomous-humanoid",
       ],
     },
     {
-      type: 'category',
-      label: 'Hardware Requirements',
-      items: [
-        'Hardware-Requirements/Hardware-Requirements',
-      ],
+      type: "category",
+      label: "Hardware Requirements",
+      items: ["Hardware-Requirements/Hardware-Requirements"],
     },
   ],
 };

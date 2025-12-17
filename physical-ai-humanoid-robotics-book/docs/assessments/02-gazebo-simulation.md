@@ -2,7 +2,7 @@
 
 ## Assessment Overview
 
-This assessment validates your ability to create and configure realistic robotic simulation environments using Gazebo. This assessment focuses on spawning robots, configuring sensors and actuators, validating kinematic behavior, and testing control logic safely within a physics-based simulation environment.
+This assessment validates your ability to create and configure realistic robotic simulation environments using Gazebo. This assessment focuses on spawning robots, configuring sensors and actuators, validating kinematic behavior, and testing control logic safely within a physics-based simulation environment. As part of the Physical AI curriculum, this assessment emphasizes the importance of simulation-first development approaches that ensure safe validation of robotic systems before any potential real-world deployment.
 
 ## What You Have Learned
 
@@ -59,7 +59,7 @@ This assessment requires integration of multiple complex components including ro
 
 ## Real-World Applications
 
-- Robot testing and validation before physical deployment
+- Robot testing and validation before potential physical applications
 - Training machine learning models in safe environments
 - Multi-robot coordination and swarm behavior testing
 - Robot behavior validation in various scenarios
