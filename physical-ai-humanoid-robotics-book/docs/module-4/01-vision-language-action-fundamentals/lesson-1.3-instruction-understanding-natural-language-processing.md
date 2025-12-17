@@ -385,7 +385,7 @@ Consider the instruction: "Please bring me the red cup on the table"
 1. **Input Processing**: Text is normalized and tokenized
 2. **Semantic Parsing**:
    - Intent: "fetch_object"
-   - Entities: {"object": "cup", "color": "red", "location": "table"}
+   - Entities: `{`"object": "cup", "color": "red", "location": "table"`}`
    - Roles: [Agent: "robot", Action: "bring", Patient: "red cup"]
 
 3. **Grounding**:

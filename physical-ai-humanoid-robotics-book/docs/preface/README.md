@@ -57,6 +57,7 @@ By the end of this book, you'll have the knowledge and skills to:
 - Build systems that can perceive, understand, and respond to human commands
 - Develop safety-conscious robotic applications
 - Understand the architecture of complex robotic systems
+- Demonstrate your knowledge through comprehensive assessments and projects
 
 ## What Hardware/Simulation Tools You'll Use
 
@@ -86,5 +87,14 @@ No prior robotics knowledge is assumed. We'll introduce concepts step-by-step, w
 You're about to embark on an exciting journey into one of the most dynamic fields in technology. The combination of Physical AI and humanoid robotics represents the future of human-robot collaboration, and this book will provide you with the foundational knowledge to be part of that future.
 
 Each module is designed to be completed at your own pace, with plenty of opportunities to practice and reinforce your learning. Don't worry if some concepts seem challenging at first - the progressive structure ensures that understanding will build naturally as you advance through the material.
+
+At the end of the book, you'll find comprehensive assessments that allow you to demonstrate your knowledge and apply all the concepts you've learned across the four modules in integrated projects:
+
+- **Assessment 1: ROS 2 Package Development Project** - Validates your foundational understanding of ROS 2 architecture and communication patterns
+- **Assessment 2: Gazebo Simulation Implementation** - Tests your ability to create and configure realistic robotic simulation environments
+- **Assessment 3: Isaac-Based Perception Pipeline** - Evaluates your ability to implement complete perception pipelines using AI technologies
+- **Assessment 4: Capstone: Autonomous Humanoid (Vision-Language-Action)** - Integrates all systems from previous modules into a comprehensive autonomous humanoid robot system
+
+Each assessment builds upon the previous ones, creating a cumulative learning experience that validates your ability to integrate concepts from all modules progressively.
 
 Let's begin exploring the fascinating world of Physical AI and humanoid robotics!
