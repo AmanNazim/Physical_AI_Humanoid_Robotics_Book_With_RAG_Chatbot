@@ -1,0 +1,124 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients for complex coloring -->
+    <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3a86ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8338ec;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="bodyGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4361ee;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3a0ca3;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="highlightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.2" />
+    </linearGradient>
+
+    <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
+    </linearGradient>
+
+    <radialGradient id="eyeGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Filter for subtle glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+    </filter>
+
+    <!-- Filter for inner glow -->
+    <filter id="innerGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Robot head with refined shape -->
+  <path d="M14 12 C10 12, 10 20, 14 24 C18 28, 30 28, 34 24 C38 20, 38 12, 34 12 C30 12, 18 12, 14 12 Z"
+        fill="url(#bodyGradient)" stroke="url(#edgeGradient)" stroke-width="1" filter="url(#glow)"/>
+
+  <!-- Head details -->
+  <path d="M16 14 C12 14, 12 20, 16 22 C20 24, 28 24, 32 22 C36 20, 36 14, 32 14 C28 14, 20 14, 16 14 Z"
+        fill="none" stroke="url(#highlightGradient)" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- Eyes with better definition -->
+  <circle cx="20" cy="20" r="2.5" fill="#1e293b" stroke="#f8fafc" stroke-width="0.5"/>
+  <circle cx="28" cy="20" r="2.5" fill="#1e293b" stroke="#f8fafc" stroke-width="0.5"/>
+
+  <!-- Eye highlights -->
+  <circle cx="19" cy="19" r="1" fill="url(#eyeGradient)"/>
+  <circle cx="27" cy="19" r="1" fill="url(#eyeGradient)"/>
+
+  <!-- Mouth/Interface -->
+  <rect x="22" y="26" width="4" height="1" rx="0.5" fill="#f8fafc" stroke="#1e293b" stroke-width="0.2"/>
+
+  <!-- Enhanced body/chest with more details -->
+  <path d="M16 28 C14 30, 14 34, 16 36 C24 40, 24 40, 32 36 C34 34, 34 30, 32 28 C28 26, 20 26, 16 28 Z"
+        fill="url(#bodyGradient2)" stroke="url(#edgeGradient)" stroke-width="0.8"/>
+
+  <!-- Chest panel with more complex circuit pattern -->
+  <rect x="18" y="30" width="12" height="6" rx="1.5" fill="none" stroke="#00d4ff" stroke-width="0.8" filter="url(#innerGlow)"/>
+
+  <!-- Complex circuit pattern inside chest -->
+  <path d="M19 31.5 L21 31.5 M23 31.5 L25 31.5 M27 31.5 L29 31.5 M20 33 L24 33 M26 33 L30 33 M19 34.5 L23 34.5 M25 34.5 L29 34.5"
+        stroke="#00d4ff" stroke-width="0.4" stroke-linecap="round" opacity="0.9"/>
+  <circle cx="22" cy="32.5" r="0.5" fill="#00d4ff" opacity="0.9"/>
+  <circle cx="26" cy="32.5" r="0.5" fill="#00d4ff" opacity="0.9"/>
+  <circle cx="24" cy="34.5" r="0.5" fill="#00d4ff" opacity="0.9"/>
+
+  <!-- Additional body details -->
+  <path d="M20 36 L28 36" stroke="#00d4ff" stroke-width="0.6" opacity="0.7"/>
+  <path d="M22 37 L26 37" stroke="#00d4ff" stroke-width="0.6" opacity="0.7"/>
+
+  <!-- Waist section -->
+  <path d="M20 37 C18 38, 30 38, 28 37" stroke="none" fill="url(#bodyGradient2)" opacity="0.9"/>
+
+  <!-- Antenna with better detail -->
+  <line x1="24" y1="10" x2="24" y2="6" stroke="url(#edgeGradient)" stroke-width="1.2"/>
+  <circle cx="24" cy="5" r="1.4" fill="url(#bodyGradient)" stroke="#f8fafc" stroke-width="0.5"/>
+
+  <!-- Shoulders with more detail -->
+  <path d="M12 22 L14 22 M34 22 L36 22" stroke="url(#edgeGradient)" stroke-width="1.4" stroke-linecap="round"/>
+  <circle cx="13" cy="22" r="1" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.4"/>
+  <circle cx="35" cy="22" r="1" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.4"/>
+
+  <!-- Enhanced arms with joints -->
+  <path d="M12 24 C8 24, 8 28, 12 30" stroke="url(#edgeGradient)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M36 24 C40 24, 40 28, 36 30" stroke="url(#edgeGradient)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <circle cx="10" cy="27" r="1.2" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.4"/>  <!-- Elbow joint left -->
+  <circle cx="38" cy="27" r="1.2" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.4"/>  <!-- Elbow joint right -->
+  <circle cx="12" cy="30" r="1.4" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.5"/> <!-- Hand left -->
+  <circle cx="36" cy="30" r="1.4" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.5"/> <!-- Hand right -->
+
+  <!-- Enhanced legs with joints -->
+  <path d="M22 36 L22 40" stroke="url(#edgeGradient)" stroke-width="1.6"/>
+  <path d="M26 36 L26 40" stroke="url(#edgeGradient)" stroke-width="1.6"/>
+  <circle cx="22" cy="36" r="1.2" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.4"/>  <!-- Hip joint left -->
+  <circle cx="26" cy="36" r="1.2" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.4"/>  <!-- Hip joint right -->
+  <circle cx="22" cy="40" r="1.2" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.4"/>  <!-- Knee left -->
+  <circle cx="26" cy="40" r="1.2" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.4"/>  <!-- Knee right -->
+
+  <!-- Feet with better definition -->
+  <path d="M20 40 L24 40 M24 40 L28 40" stroke="url(#edgeGradient)" stroke-width="1.6"/>
+  <path d="M19 41 L21 41 M27 41 L29 41" stroke="url(#edgeGradient)" stroke-width="1.2"/>
+  <circle cx="20" cy="40" r="0.8" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.3"/>
+  <circle cx="28" cy="40" r="0.8" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.3"/>
+
+  <!-- Decorative elements -->
+  <circle cx="24" cy="14" r="1" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.4" opacity="0.9"/>
+  <circle cx="18" cy="16" r="0.7" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.3" opacity="0.8"/>
+  <circle cx="30" cy="16" r="0.7" fill="url(#bodyGradient)" stroke="#00d4ff" stroke-width="0.3" opacity="0.8"/>
+
+  <!-- Additional details for depth -->
+  <path d="M18 26 L30 26" stroke="#00d4ff" stroke-width="0.5" opacity="0.5"/>
+  <path d="M20 27 L28 27" stroke="#00d4ff" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Subtle background glow for the entire figure -->
+  <circle cx="24" cy="28" r="20" fill="none" stroke="#3a86ff" stroke-width="0.2" opacity="0.2"/>
+</svg>
