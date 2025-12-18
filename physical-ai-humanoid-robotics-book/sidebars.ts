@@ -330,6 +330,7 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "Assessments",
       items: [
+        "assessments/index",
         "assessments/ros2-package-project",
         "assessments/gazebo-simulation",
         "assessments/isaac-perception-pipeline",
