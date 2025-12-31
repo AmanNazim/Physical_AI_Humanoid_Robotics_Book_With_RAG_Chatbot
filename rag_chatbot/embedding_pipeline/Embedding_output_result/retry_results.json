@@ -1,0 +1,17 @@
+{
+  "successful": [
+    {
+      "url": "https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication",
+      "attempt": 1,
+      "chunks_processed": 5,
+      "embeddings_generated": 5,
+      "embeddings_stored": 5
+    }
+  ],
+  "failed": [],
+  "stats": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+  }
+}

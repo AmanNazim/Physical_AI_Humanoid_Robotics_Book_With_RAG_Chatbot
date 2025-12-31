@@ -1,0 +1,7 @@
+agents_sdk
+backend
+databases
+embedding_pipeline
+frontend
+rag_core
+shared

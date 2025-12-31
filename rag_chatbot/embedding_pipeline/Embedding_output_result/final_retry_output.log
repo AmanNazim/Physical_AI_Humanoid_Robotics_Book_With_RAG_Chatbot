@@ -1,0 +1,41 @@
+2026-01-01 00:05:24,120 - INFO - Loading failed URLs from failed_url_final.txt
+2026-01-01 00:05:24,139 - INFO - Found 1 URLs to retry
+2026-01-01 00:05:24,141 - INFO - Starting retry process...
+2026-01-01 00:05:32,020 - INFO - HTTP Request: GET https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333 "HTTP/1.1 200 OK"
+2026-01-01 00:05:36,348 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2026-01-01 00:05:37,520 - INFO - HTTP Request: GET https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections "HTTP/1.1 200 OK"
+2026-01-01 00:05:37,526 - INFO - Qdrant collection book_embeddings already exists
+2026-01-01 00:05:41,506 - INFO - Neon database initialized successfully
+2026-01-01 00:05:41,508 - INFO - Retrying URL 1/1: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication
+2026-01-01 00:05:41,510 - INFO -   Attempt 1/5
+2026-01-01 00:05:44,695 - WARNING - Chunk validation errors: ['Chunk 0 (2207d951c5efad8c) has 685 tokens, below minimum of 800', 'Chunk 1 (35bff1fa79ab699d) has 2115 tokens, above maximum of 1200', 'Chunk 4 (0b7a77de0d7acee9) has 157 tokens, below minimum of 800']
+2026-01-01 00:05:44,696 - INFO - Created 5 chunks from content
+2026-01-01 00:05:46,104 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2026-01-01 00:05:46,820 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2026-01-01 00:05:47,418 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2026-01-01 00:05:48,149 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2026-01-01 00:05:48,761 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2026-01-01 00:05:48,868 - INFO - Generated 5 embeddings
+2026-01-01 00:05:50,809 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2026-01-01 00:05:50,813 - INFO - Stored batch 1 of 1 to Qdrant
+2026-01-01 00:05:50,814 - INFO - Stored 5 embeddings to Qdrant
+2026-01-01 00:05:51,731 - INFO - Stored metadata for chunk 2207d951c5efad8c
+2026-01-01 00:05:52,346 - INFO - Stored metadata for chunk 35bff1fa79ab699d
+2026-01-01 00:05:52,860 - INFO - Stored metadata for chunk 66e0e47f4801fb78
+2026-01-01 00:05:53,474 - INFO - Stored metadata for chunk 7100cbcc43f89463
+2026-01-01 00:05:54,087 - INFO - Stored metadata for chunk 0b7a77de0d7acee9
+2026-01-01 00:05:54,089 - INFO - Successfully stored 5 embeddings to database
+2026-01-01 00:05:54,092 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication
+2026-01-01 00:05:54,094 - INFO - === RETRY SUMMARY ===
+2026-01-01 00:05:54,096 - INFO - Total URLs to retry: 1
+2026-01-01 00:05:54,097 - INFO - Successfully processed: 1
+2026-01-01 00:05:54,099 - INFO - Still failed: 0
+2026-01-01 00:05:54,101 - INFO - 
+Successfully processed URLs:
+2026-01-01 00:05:54,102 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication (attempt 1)
+2026-01-01 00:05:54,121 - INFO - Results saved to retry_results.json
+2026-01-01 00:05:54,336 - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7872d7fef050>
+2026-01-01 00:05:54,338 - ERROR - Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7872d7bcc7d0>, 3640.839446699)])']
+connector: <aiohttp.connector.TCPConnector object at 0x7872d7bbbfb0>

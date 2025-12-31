@@ -1,0 +1,1104 @@
+2025-12-31 23:32:30,223 - __main__ - INFO - Starting embeddings pipeline for source: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/sitemap.xml
+2025-12-31 23:32:38,721 - httpx - INFO - HTTP Request: GET https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333 "HTTP/1.1 200 OK"
+2025-12-31 23:32:38,804 - __main__ - INFO - Initializing pipeline...
+2025-12-31 23:32:42,809 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:32:44,132 - httpx - INFO - HTTP Request: GET https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections "HTTP/1.1 200 OK"
+2025-12-31 23:32:44,589 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings "HTTP/1.1 200 OK"
+2025-12-31 23:32:44,594 - embedding_pipeline.database - INFO - Created Qdrant collection: book_embeddings
+2025-12-31 23:32:47,530 - embedding_pipeline.database - INFO - Neon database initialized successfully
+2025-12-31 23:32:47,533 - __main__ - INFO - Pipeline initialized successfully
+2025-12-31 23:32:47,534 - __main__ - INFO - Processing sitemap from: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/sitemap.xml
+2025-12-31 23:32:47,536 - __main__ - INFO - Starting sitemap crawling and embedding generation...
+2025-12-31 23:32:50,612 - httpx - INFO - HTTP Request: GET https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333 "HTTP/1.1 200 OK"
+2025-12-31 23:32:54,812 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:32:55,805 - httpx - INFO - HTTP Request: GET https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections "HTTP/1.1 200 OK"
+2025-12-31 23:32:55,807 - embedding_pipeline.database - INFO - Qdrant collection book_embeddings already exists
+2025-12-31 23:32:58,279 - embedding_pipeline.database - INFO - Neon database initialized successfully
+2025-12-31 23:32:58,281 - embedding_pipeline.pipeline - INFO - Starting sitemap-based processing from: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/sitemap.xml
+2025-12-31 23:32:58,595 - embedding_pipeline.pipeline - INFO - Found 78 URLs to process
+2025-12-31 23:32:58,597 - embedding_pipeline.pipeline - INFO - Processing URL 1/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/markdown-page
+2025-12-31 23:33:00,899 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (96720e47cf66e30d) has 69 tokens, below minimum of 800']
+2025-12-31 23:33:00,900 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:33:02,193 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:02,301 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:33:03,613 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:03,616 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:03,617 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:33:04,633 - embedding_pipeline.database - INFO - Stored metadata for chunk 96720e47cf66e30d
+2025-12-31 23:33:04,635 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:33:04,637 - embedding_pipeline.pipeline - INFO - Processing URL 2/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/
+2025-12-31 23:33:04,981 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (7ebf5bf0daa990b7) has 325 tokens, below minimum of 800']
+2025-12-31 23:33:04,983 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:33:05,552 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:05,659 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:33:06,369 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:06,372 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:06,374 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:33:06,886 - embedding_pipeline.database - INFO - Stored metadata for chunk 7ebf5bf0daa990b7
+2025-12-31 23:33:06,887 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:33:06,889 - embedding_pipeline.pipeline - INFO - Processing URL 3/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/capstone-autonomous-humanoid
+2025-12-31 23:33:07,396 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (dc3ed97377d988ca) has 331 tokens, below minimum of 800']
+2025-12-31 23:33:07,397 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:33:08,119 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:08,723 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:08,835 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:33:09,948 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:09,951 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:09,952 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:33:10,562 - embedding_pipeline.database - INFO - Stored metadata for chunk 73e52d55da6ccc0e
+2025-12-31 23:33:11,175 - embedding_pipeline.database - INFO - Stored metadata for chunk dc3ed97377d988ca
+2025-12-31 23:33:11,176 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:33:11,178 - embedding_pipeline.pipeline - INFO - Processing URL 4/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/gazebo-simulation
+2025-12-31 23:33:11,879 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:33:12,455 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:12,565 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:33:13,213 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:13,215 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:13,216 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:33:13,731 - embedding_pipeline.database - INFO - Stored metadata for chunk 20b9f0176366068f
+2025-12-31 23:33:13,733 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:33:13,735 - embedding_pipeline.pipeline - INFO - Processing URL 5/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/isaac-perception-pipeline
+2025-12-31 23:33:14,868 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (8f21de21271d7e7f) has 1212 tokens, above maximum of 1200']
+2025-12-31 23:33:14,871 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:33:15,476 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:15,586 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:33:16,191 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:16,194 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:16,196 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:33:16,624 - embedding_pipeline.database - INFO - Stored metadata for chunk 8f21de21271d7e7f
+2025-12-31 23:33:16,625 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:33:16,628 - embedding_pipeline.pipeline - INFO - Processing URL 6/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/ros2-package-project
+2025-12-31 23:33:17,172 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:33:17,907 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:18,018 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:33:18,884 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:18,888 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:18,889 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:33:19,474 - embedding_pipeline.database - INFO - Stored metadata for chunk 3d5e7b8822cb8a75
+2025-12-31 23:33:19,476 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:33:19,479 - embedding_pipeline.pipeline - INFO - Processing URL 7/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/Hardware-Requirements/
+2025-12-31 23:33:19,850 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (c2ab9a69ad66186b) has 136 tokens, below minimum of 800']
+2025-12-31 23:33:19,852 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:33:20,500 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:21,118 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:21,228 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:33:22,209 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:22,212 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:22,214 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:33:22,752 - embedding_pipeline.database - INFO - Stored metadata for chunk eface23d83761096
+2025-12-31 23:33:23,372 - embedding_pipeline.database - INFO - Stored metadata for chunk c2ab9a69ad66186b
+2025-12-31 23:33:23,374 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:33:23,376 - embedding_pipeline.pipeline - INFO - Processing URL 8/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/introduction
+2025-12-31 23:33:24,112 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (3379e7c6a83ca9db) has 751 tokens, below minimum of 800']
+2025-12-31 23:33:24,113 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:33:24,838 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:25,457 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:26,031 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:26,142 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:33:27,202 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:27,206 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:27,208 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:33:27,812 - embedding_pipeline.database - INFO - Stored metadata for chunk 3379e7c6a83ca9db
+2025-12-31 23:33:28,424 - embedding_pipeline.database - INFO - Stored metadata for chunk 05556d80084c84a1
+2025-12-31 23:33:28,946 - embedding_pipeline.database - INFO - Stored metadata for chunk 281d989e67b40fa1
+2025-12-31 23:33:28,948 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:33:28,950 - embedding_pipeline.pipeline - INFO - Processing URL 9/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/nodes-topics-services-robot-communication/
+2025-12-31 23:33:29,413 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (3edfe1180b57d379) has 765 tokens, below minimum of 800']
+2025-12-31 23:33:29,415 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:33:29,969 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:30,080 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:33:30,793 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:30,795 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:30,796 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:33:31,410 - embedding_pipeline.database - INFO - Stored metadata for chunk 3edfe1180b57d379
+2025-12-31 23:33:31,411 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:33:31,412 - embedding_pipeline.pipeline - INFO - Processing URL 10/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/nodes-topics-services-robot-communication/nodes-multiple-communication-patterns
+2025-12-31 23:33:32,487 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:33:33,162 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:33,774 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:33,883 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:33:35,083 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:35,086 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:35,087 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:33:35,702 - embedding_pipeline.database - INFO - Stored metadata for chunk 7dfa6a395a9751d5
+2025-12-31 23:33:36,311 - embedding_pipeline.database - INFO - Stored metadata for chunk 7bfaa79d5afd4619
+2025-12-31 23:33:36,312 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:33:36,314 - embedding_pipeline.pipeline - INFO - Processing URL 11/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/nodes-topics-services-robot-communication/parameter-server-configuration
+2025-12-31 23:33:37,920 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 2 (1ddf6b656f3992c1) has 1201 tokens, above maximum of 1200']
+2025-12-31 23:33:37,921 - embedding_pipeline.pipeline - INFO - Created 5 chunks from content
+2025-12-31 23:33:38,566 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:39,198 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:39,899 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:40,515 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:41,136 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:41,245 - embedding_pipeline.pipeline - INFO - Generated 5 embeddings
+2025-12-31 23:33:43,573 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:43,576 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:43,577 - embedding_pipeline.database - INFO - Stored 5 embeddings to Qdrant
+2025-12-31 23:33:44,311 - embedding_pipeline.database - INFO - Stored metadata for chunk 8f1b9b5abc2db242
+2025-12-31 23:33:44,895 - embedding_pipeline.database - INFO - Stored metadata for chunk fbffa3e82ea7f912
+2025-12-31 23:33:45,504 - embedding_pipeline.database - INFO - Stored metadata for chunk 1ddf6b656f3992c1
+2025-12-31 23:33:46,118 - embedding_pipeline.database - INFO - Stored metadata for chunk 8ad9d1ad5f35e711
+2025-12-31 23:33:46,730 - embedding_pipeline.database - INFO - Stored metadata for chunk eb261ecd40e4f499
+2025-12-31 23:33:46,732 - embedding_pipeline.pipeline - INFO - Successfully stored 5 embeddings to database
+2025-12-31 23:33:46,734 - embedding_pipeline.pipeline - INFO - Processing URL 12/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/nodes-topics-services-robot-communication/service-based-communication
+2025-12-31 23:33:48,314 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 2 (e4a8348ad0da95ad) has 510 tokens, below minimum of 800']
+2025-12-31 23:33:48,315 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:33:49,702 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:50,313 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:50,930 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:51,039 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:33:52,868 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:52,871 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:52,873 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:33:53,473 - embedding_pipeline.database - INFO - Stored metadata for chunk 05bd27e994ad9b96
+2025-12-31 23:33:54,083 - embedding_pipeline.database - INFO - Stored metadata for chunk dfe0f96883de11c6
+2025-12-31 23:33:54,595 - embedding_pipeline.database - INFO - Stored metadata for chunk e4a8348ad0da95ad
+2025-12-31 23:33:54,597 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:33:54,598 - embedding_pipeline.pipeline - INFO - Processing URL 13/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/
+2025-12-31 23:33:55,064 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:33:55,731 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:55,841 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:33:56,456 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:33:56,459 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:33:56,460 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:33:57,077 - embedding_pipeline.database - INFO - Stored metadata for chunk ec32a88eb47961ea
+2025-12-31 23:33:57,078 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:33:57,080 - embedding_pipeline.pipeline - INFO - Processing URL 14/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.1-python-ros2-integration-with-rclpy
+2025-12-31 23:33:58,149 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (2286dd9f97076af3) has 754 tokens, below minimum of 800']
+2025-12-31 23:33:58,150 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:33:58,732 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:59,344 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:33:59,457 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:34:00,474 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:34:00,477 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:34:00,478 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:34:01,091 - embedding_pipeline.database - INFO - Stored metadata for chunk 2286dd9f97076af3
+2025-12-31 23:34:01,706 - embedding_pipeline.database - INFO - Stored metadata for chunk 238868a0a6622242
+2025-12-31 23:34:01,707 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:34:01,709 - embedding_pipeline.pipeline - INFO - Processing URL 15/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.2-simulation-environment-setup
+2025-12-31 23:34:02,732 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 2 (c5959da3816162dd) has 628 tokens, below minimum of 800']
+2025-12-31 23:34:02,733 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:34:03,349 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:04,069 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:04,478 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:04,483 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:05,714 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:05,718 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:07,936 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:07,940 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:07,942 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d141ff20 state=finished raised ClientError>]
+2025-12-31 23:34:07,944 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 3, got 2
+2025-12-31 23:34:07,945 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:34:07,947 - embedding_pipeline.pipeline - WARNING - Mismatch: 3 chunks but 2 embeddings
+2025-12-31 23:34:07,948 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 3 vs 2
+2025-12-31 23:34:07,949 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:34:07,951 - embedding_pipeline.pipeline - INFO - Processing URL 16/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.3-complete-system-integration
+2025-12-31 23:34:09,329 - embedding_pipeline.pipeline - INFO - Created 4 chunks from content
+2025-12-31 23:34:09,575 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:09,580 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:10,805 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:10,808 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:13,051 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:13,056 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:13,057 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d1c4f9e0 state=finished raised ClientError>]
+2025-12-31 23:34:13,059 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 4, got 0
+2025-12-31 23:34:13,060 - embedding_pipeline.pipeline - INFO - Generated 0 embeddings
+2025-12-31 23:34:13,062 - embedding_pipeline.pipeline - WARNING - Mismatch: 4 chunks but 0 embeddings
+2025-12-31 23:34:13,063 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 4 vs 0
+2025-12-31 23:34:13,065 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:34:13,066 - embedding_pipeline.pipeline - INFO - Processing URL 17/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/
+2025-12-31 23:34:13,463 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:34:13,677 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:13,681 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:14,888 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:14,891 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:17,122 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:17,126 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:17,127 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d1c5cc80 state=finished raised ClientError>]
+2025-12-31 23:34:17,129 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 1, got 0
+2025-12-31 23:34:17,130 - embedding_pipeline.pipeline - INFO - Generated 0 embeddings
+2025-12-31 23:34:17,131 - embedding_pipeline.pipeline - WARNING - Mismatch: 1 chunks but 0 embeddings
+2025-12-31 23:34:17,133 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 1 vs 0
+2025-12-31 23:34:17,134 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:34:17,136 - embedding_pipeline.pipeline - INFO - Processing URL 18/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/lesson-3.1-introduction-to-urdf-and-robot-description
+2025-12-31 23:34:17,779 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (0d612d2a495374a6) has 180 tokens, below minimum of 800']
+2025-12-31 23:34:17,780 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:34:18,044 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:18,048 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:19,269 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:34:19,274 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:34:21,936 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:22,541 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:22,649 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:34:24,579 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:34:24,582 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:34:24,584 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:34:25,088 - embedding_pipeline.database - INFO - Stored metadata for chunk 97731d1d779a2c15
+2025-12-31 23:34:25,700 - embedding_pipeline.database - INFO - Stored metadata for chunk 0d612d2a495374a6
+2025-12-31 23:34:25,702 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:34:25,704 - embedding_pipeline.pipeline - INFO - Processing URL 19/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/lesson-3.2-xacro-parameterization-and-macros
+2025-12-31 23:34:26,601 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:34:27,160 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:27,269 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:34:28,051 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:34:28,054 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:34:28,056 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:34:28,668 - embedding_pipeline.database - INFO - Stored metadata for chunk 8fc6394c9bba0d69
+2025-12-31 23:34:28,670 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:34:28,672 - embedding_pipeline.pipeline - INFO - Processing URL 20/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/lesson-3.3-visualization-and-validation
+2025-12-31 23:34:29,542 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (3c98a4c7add2fd43) has 1202 tokens, above maximum of 1200', 'Chunk 1 (0bdf7637331c333c) has 597 tokens, below minimum of 800']
+2025-12-31 23:34:29,543 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:34:31,417 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:32,972 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:33,090 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:34:34,855 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:34:34,859 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:34:34,861 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:34:35,468 - embedding_pipeline.database - INFO - Stored metadata for chunk 3c98a4c7add2fd43
+2025-12-31 23:34:36,084 - embedding_pipeline.database - INFO - Stored metadata for chunk 0bdf7637331c333c
+2025-12-31 23:34:36,086 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:34:36,088 - embedding_pipeline.pipeline - INFO - Processing URL 21/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/
+2025-12-31 23:34:36,460 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (ce90591e1d11a9b5) has 1213 tokens, above maximum of 1200', 'Chunk 1 (7e741b76eab32667) has 666 tokens, below minimum of 800']
+2025-12-31 23:34:36,462 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:34:37,112 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:37,726 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:37,838 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:34:38,954 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:34:38,957 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:34:38,958 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:34:39,568 - embedding_pipeline.database - INFO - Stored metadata for chunk ce90591e1d11a9b5
+2025-12-31 23:34:40,080 - embedding_pipeline.database - INFO - Stored metadata for chunk 7e741b76eab32667
+2025-12-31 23:34:40,081 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:34:40,083 - embedding_pipeline.pipeline - INFO - Processing URL 22/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/lesson-1.1-introduction-to-ros2-architecture
+2025-12-31 23:34:40,765 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (88ca6d093d8b6b27) has 392 tokens, below minimum of 800']
+2025-12-31 23:34:40,766 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:34:41,412 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:42,025 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:42,134 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:34:43,148 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:34:43,151 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:34:43,153 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:34:43,873 - embedding_pipeline.database - INFO - Stored metadata for chunk 7ade87c2f62cf483
+2025-12-31 23:34:44,579 - embedding_pipeline.database - INFO - Stored metadata for chunk 88ca6d093d8b6b27
+2025-12-31 23:34:44,580 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:34:44,582 - embedding_pipeline.pipeline - INFO - Processing URL 23/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/lesson-1.2-environment-setup-and-workspace-creation
+2025-12-31 23:34:45,296 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (27196eac2a7ea72f) has 559 tokens, below minimum of 800']
+2025-12-31 23:34:45,297 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:34:45,909 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:46,522 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:46,631 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:34:47,531 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:34:47,535 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:34:47,537 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:34:48,154 - embedding_pipeline.database - INFO - Stored metadata for chunk 66319a868b3d13fb
+2025-12-31 23:34:48,767 - embedding_pipeline.database - INFO - Stored metadata for chunk 27196eac2a7ea72f
+2025-12-31 23:34:48,769 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:34:48,771 - embedding_pipeline.pipeline - INFO - Processing URL 24/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/lesson-1.3-basic-publisher-subscriber-implementation
+2025-12-31 23:34:49,550 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (b6943f8135db67a6) has 440 tokens, below minimum of 800', 'Chunk 2 (0a975d2a634c838c) has 597 tokens, below minimum of 800']
+2025-12-31 23:34:49,551 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:34:50,260 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:50,895 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:51,426 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:51,531 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:34:52,545 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:34:52,548 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:34:52,549 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:34:53,157 - embedding_pipeline.database - INFO - Stored metadata for chunk b6943f8135db67a6
+2025-12-31 23:34:53,769 - embedding_pipeline.database - INFO - Stored metadata for chunk 53b19dc0ea750b23
+2025-12-31 23:34:54,382 - embedding_pipeline.database - INFO - Stored metadata for chunk 0a975d2a634c838c
+2025-12-31 23:34:54,384 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:34:54,386 - embedding_pipeline.pipeline - INFO - Processing URL 25/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/lesson-1.4-ros2-command-line-tools
+2025-12-31 23:34:55,130 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:34:55,813 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:56,427 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:56,536 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:34:57,547 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:34:57,550 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:34:57,552 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:34:58,159 - embedding_pipeline.database - INFO - Stored metadata for chunk b2490ca67233609b
+2025-12-31 23:34:58,771 - embedding_pipeline.database - INFO - Stored metadata for chunk 92bf26bb51a0d400
+2025-12-31 23:34:58,773 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:34:58,774 - embedding_pipeline.pipeline - INFO - Processing URL 26/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Gazebo-Simulation/
+2025-12-31 23:34:59,131 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:34:59,670 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:34:59,780 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:35:00,381 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:00,384 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:00,385 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:35:01,036 - embedding_pipeline.database - INFO - Stored metadata for chunk b27536bf6efa3c32
+2025-12-31 23:35:01,037 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:35:01,039 - embedding_pipeline.pipeline - INFO - Processing URL 27/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Gazebo-Simulation/lesson-1.1-introduction-to-gazebo-and-physics-simulation
+2025-12-31 23:35:01,716 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (1614bae72beaac32) has 720 tokens, below minimum of 800']
+2025-12-31 23:35:01,717 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:35:02,331 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:02,905 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:03,018 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:35:04,039 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:04,041 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:04,042 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:35:04,656 - embedding_pipeline.database - INFO - Stored metadata for chunk d3965f5a1c74caa4
+2025-12-31 23:35:05,276 - embedding_pipeline.database - INFO - Stored metadata for chunk 1614bae72beaac32
+2025-12-31 23:35:05,278 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:35:05,279 - embedding_pipeline.pipeline - INFO - Processing URL 28/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Gazebo-Simulation/lesson-1.2-environment-creation-and-world-building
+2025-12-31 23:35:06,482 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:35:07,035 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:07,645 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:07,759 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:35:08,879 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:08,882 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:08,883 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:35:09,497 - embedding_pipeline.database - INFO - Stored metadata for chunk 5cd3ce1a04d71d87
+2025-12-31 23:35:10,110 - embedding_pipeline.database - INFO - Stored metadata for chunk e937021d1bfa0685
+2025-12-31 23:35:10,111 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:35:10,113 - embedding_pipeline.pipeline - INFO - Processing URL 29/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Gazebo-Simulation/lesson-1.3-robot-integration-in-gazebo
+2025-12-31 23:35:10,986 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (9166bf418c2a8b22) has 318 tokens, below minimum of 800', 'Chunk 2 (28c66f3dc5399bb1) has 356 tokens, below minimum of 800']
+2025-12-31 23:35:10,987 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:35:11,546 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:12,270 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:12,879 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:12,987 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:35:14,007 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:14,010 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:14,011 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:35:14,615 - embedding_pipeline.database - INFO - Stored metadata for chunk 9166bf418c2a8b22
+2025-12-31 23:35:15,330 - embedding_pipeline.database - INFO - Stored metadata for chunk d62531868f05546b
+2025-12-31 23:35:15,944 - embedding_pipeline.database - INFO - Stored metadata for chunk 28c66f3dc5399bb1
+2025-12-31 23:35:15,945 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:35:15,947 - embedding_pipeline.pipeline - INFO - Processing URL 30/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/introduction
+2025-12-31 23:35:16,663 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (22155b059133f090) has 645 tokens, below minimum of 800']
+2025-12-31 23:35:16,664 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:35:17,273 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:17,886 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:18,500 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:18,608 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:35:19,720 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:19,723 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:19,725 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:35:20,332 - embedding_pipeline.database - INFO - Stored metadata for chunk 22155b059133f090
+2025-12-31 23:35:20,846 - embedding_pipeline.database - INFO - Stored metadata for chunk b6effcf15a52beec
+2025-12-31 23:35:21,368 - embedding_pipeline.database - INFO - Stored metadata for chunk 16b6fe25733d6b7b
+2025-12-31 23:35:21,370 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:35:21,371 - embedding_pipeline.pipeline - INFO - Processing URL 31/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Multi-Simulator-Integration/
+2025-12-31 23:35:21,724 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (04e4e7fbcb72a00a) has 130 tokens, below minimum of 800']
+2025-12-31 23:35:21,725 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:35:22,457 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:23,196 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:23,310 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:35:25,232 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:25,235 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:25,237 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:35:25,665 - embedding_pipeline.database - INFO - Stored metadata for chunk 41e3eb339f9be6f2
+2025-12-31 23:35:26,095 - embedding_pipeline.database - INFO - Stored metadata for chunk 04e4e7fbcb72a00a
+2025-12-31 23:35:26,097 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:35:26,098 - embedding_pipeline.pipeline - INFO - Processing URL 32/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Multi-Simulator-Integration/lesson-4.1-gazebo-unity-integration-strategies
+2025-12-31 23:35:27,142 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (e551972bb4595436) has 696 tokens, below minimum of 800', 'Chunk 1 (7fbb3213f787d035) has 2234 tokens, above maximum of 1200', 'Chunk 2 (e1b9222a678f97bd) has 231 tokens, below minimum of 800']
+2025-12-31 23:35:27,143 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:35:27,777 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:28,491 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:29,102 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:29,211 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:35:30,225 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:30,228 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:30,230 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:35:30,835 - embedding_pipeline.database - INFO - Stored metadata for chunk e551972bb4595436
+2025-12-31 23:35:31,448 - embedding_pipeline.database - INFO - Stored metadata for chunk 7fbb3213f787d035
+2025-12-31 23:35:32,059 - embedding_pipeline.database - INFO - Stored metadata for chunk e1b9222a678f97bd
+2025-12-31 23:35:32,060 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:35:32,062 - embedding_pipeline.pipeline - INFO - Processing URL 33/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Multi-Simulator-Integration/lesson-4.2-sensor-data-consistency-across-platforms
+2025-12-31 23:35:34,047 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (4208648918fbe331) has 285 tokens, below minimum of 800', 'Chunk 1 (ab20fa7704161efa) has 3962 tokens, above maximum of 1200', 'Chunk 2 (a3c5f471197c5cd2) has 312 tokens, below minimum of 800']
+2025-12-31 23:35:34,048 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:35:34,641 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:35,466 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:35,984 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:36,094 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:35:38,458 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:38,461 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:38,463 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:35:39,076 - embedding_pipeline.database - INFO - Stored metadata for chunk 4208648918fbe331
+2025-12-31 23:35:39,694 - embedding_pipeline.database - INFO - Stored metadata for chunk ab20fa7704161efa
+2025-12-31 23:35:40,215 - embedding_pipeline.database - INFO - Stored metadata for chunk a3c5f471197c5cd2
+2025-12-31 23:35:40,217 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:35:40,219 - embedding_pipeline.pipeline - INFO - Processing URL 34/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Multi-Simulator-Integration/lesson-4.3-validation-and-verification-techniques
+2025-12-31 23:35:42,446 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (22ef8cca8dbbf5a3) has 343 tokens, below minimum of 800', 'Chunk 1 (7f35ac88e4b206a3) has 4431 tokens, above maximum of 1200', 'Chunk 2 (b34473aac7dd3a57) has 396 tokens, below minimum of 800']
+2025-12-31 23:35:42,447 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:35:43,903 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:44,723 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:45,340 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:45,449 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:35:47,735 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:47,738 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:47,740 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:35:48,303 - embedding_pipeline.database - INFO - Stored metadata for chunk 22ef8cca8dbbf5a3
+2025-12-31 23:35:48,914 - embedding_pipeline.database - INFO - Stored metadata for chunk 7f35ac88e4b206a3
+2025-12-31 23:35:49,342 - embedding_pipeline.database - INFO - Stored metadata for chunk b34473aac7dd3a57
+2025-12-31 23:35:49,343 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:35:49,345 - embedding_pipeline.pipeline - INFO - Processing URL 35/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/
+2025-12-31 23:35:49,786 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:35:50,446 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:50,556 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:35:51,260 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:51,263 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:51,265 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:35:51,874 - embedding_pipeline.database - INFO - Stored metadata for chunk 06a6cf5f747cd50c
+2025-12-31 23:35:51,875 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:35:51,877 - embedding_pipeline.pipeline - INFO - Processing URL 36/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.1-physics-simulation-fundamentals
+2025-12-31 23:35:53,365 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (70b52f62f7c3be7d) has 595 tokens, below minimum of 800']
+2025-12-31 23:35:53,367 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:35:53,908 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:54,519 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:35:54,628 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:35:55,641 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:35:55,644 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:35:55,645 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:35:56,252 - embedding_pipeline.database - INFO - Stored metadata for chunk 70b52f62f7c3be7d
+2025-12-31 23:35:56,866 - embedding_pipeline.database - INFO - Stored metadata for chunk 231b4245e0f057dd
+2025-12-31 23:35:56,868 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:35:56,870 - embedding_pipeline.pipeline - INFO - Processing URL 37/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.2-lidar-simulation-in-virtual-environments
+2025-12-31 23:35:58,174 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (9daf67f6eeb745fd) has 644 tokens, below minimum of 800', 'Chunk 2 (e16b8d6fc65ca15a) has 229 tokens, below minimum of 800']
+2025-12-31 23:35:58,176 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:35:58,600 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:35:58,604 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:35:59,783 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:35:59,787 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:02,196 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:02,201 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:02,202 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d1f6ae10 state=finished raised ClientError>]
+2025-12-31 23:36:02,204 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 3, got 0
+2025-12-31 23:36:02,206 - embedding_pipeline.pipeline - INFO - Generated 0 embeddings
+2025-12-31 23:36:02,207 - embedding_pipeline.pipeline - WARNING - Mismatch: 3 chunks but 0 embeddings
+2025-12-31 23:36:02,209 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 3 vs 0
+2025-12-31 23:36:02,210 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:36:02,211 - embedding_pipeline.pipeline - INFO - Processing URL 38/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.3-depth-camera-and-imu-simulation
+2025-12-31 23:36:04,701 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (1a46bda7ae0061f6) has 363 tokens, below minimum of 800', 'Chunk 1 (e193969040a88db0) has 1765 tokens, above maximum of 1200', 'Chunk 2 (5a0edd510920d94e) has 2349 tokens, above maximum of 1200', 'Chunk 3 (61bae029130930e9) has 295 tokens, below minimum of 800']
+2025-12-31 23:36:04,702 - embedding_pipeline.pipeline - INFO - Created 4 chunks from content
+2025-12-31 23:36:05,236 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:05,651 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:05,655 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:06,892 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:06,896 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:09,161 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:09,165 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:09,167 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d16c2450 state=finished raised ClientError>]
+2025-12-31 23:36:09,169 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 4, got 1
+2025-12-31 23:36:09,170 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:36:09,172 - embedding_pipeline.pipeline - WARNING - Mismatch: 4 chunks but 1 embeddings
+2025-12-31 23:36:09,173 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 4 vs 1
+2025-12-31 23:36:09,174 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:36:09,176 - embedding_pipeline.pipeline - INFO - Processing URL 39/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/
+2025-12-31 23:36:09,636 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (30489b8c8320867f) has 1210 tokens, above maximum of 1200', 'Chunk 1 (35528e51beda8fb4) has 304 tokens, below minimum of 800']
+2025-12-31 23:36:09,638 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:36:09,884 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:09,889 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:11,119 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:11,124 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:13,390 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:13,393 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:13,395 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d0a5db80 state=finished raised ClientError>]
+2025-12-31 23:36:13,397 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 2, got 0
+2025-12-31 23:36:13,398 - embedding_pipeline.pipeline - INFO - Generated 0 embeddings
+2025-12-31 23:36:13,399 - embedding_pipeline.pipeline - WARNING - Mismatch: 2 chunks but 0 embeddings
+2025-12-31 23:36:13,401 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 2 vs 0
+2025-12-31 23:36:13,402 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:36:13,404 - embedding_pipeline.pipeline - INFO - Processing URL 40/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/lesson-3.1-unity-environment-setup-for-robotics
+2025-12-31 23:36:14,327 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 2 (14b5f6b5f00c178a) has 295 tokens, below minimum of 800']
+2025-12-31 23:36:14,329 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:36:14,812 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:14,817 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:16,039 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:16,043 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:18,290 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:18,293 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:18,295 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d09e3440 state=finished raised ClientError>]
+2025-12-31 23:36:18,297 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 3, got 0
+2025-12-31 23:36:18,298 - embedding_pipeline.pipeline - INFO - Generated 0 embeddings
+2025-12-31 23:36:18,299 - embedding_pipeline.pipeline - WARNING - Mismatch: 3 chunks but 0 embeddings
+2025-12-31 23:36:18,300 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 3 vs 0
+2025-12-31 23:36:18,302 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:36:18,303 - embedding_pipeline.pipeline - INFO - Processing URL 41/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/lesson-3.2-high-fidelity-rendering-and-visualization
+2025-12-31 23:36:19,243 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 3 (6693f0b8e6bbcdec) has 62 tokens, below minimum of 800']
+2025-12-31 23:36:19,244 - embedding_pipeline.pipeline - INFO - Created 4 chunks from content
+2025-12-31 23:36:19,518 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:36:19,522 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:36:21,092 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:21,666 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:22,694 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:23,068 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:23,204 - embedding_pipeline.pipeline - INFO - Generated 4 embeddings
+2025-12-31 23:36:25,849 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:36:25,853 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:36:25,855 - embedding_pipeline.database - INFO - Stored 4 embeddings to Qdrant
+2025-12-31 23:36:26,463 - embedding_pipeline.database - INFO - Stored metadata for chunk e139af372ca1f08a
+2025-12-31 23:36:27,073 - embedding_pipeline.database - INFO - Stored metadata for chunk 9620105be04df84b
+2025-12-31 23:36:27,583 - embedding_pipeline.database - INFO - Stored metadata for chunk f365caa625e6cfed
+2025-12-31 23:36:28,196 - embedding_pipeline.database - INFO - Stored metadata for chunk 6693f0b8e6bbcdec
+2025-12-31 23:36:28,197 - embedding_pipeline.pipeline - INFO - Successfully stored 4 embeddings to database
+2025-12-31 23:36:28,199 - embedding_pipeline.pipeline - INFO - Processing URL 42/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/lesson-3.3-human-robot-interaction-in-unity
+2025-12-31 23:36:29,332 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:36:30,752 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:31,509 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:33,020 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:33,128 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:36:35,135 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:36:35,138 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:36:35,139 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:36:35,651 - embedding_pipeline.database - INFO - Stored metadata for chunk 719aa24f89f9cebc
+2025-12-31 23:36:36,255 - embedding_pipeline.database - INFO - Stored metadata for chunk cc522f6434e9b33e
+2025-12-31 23:36:36,773 - embedding_pipeline.database - INFO - Stored metadata for chunk 5a5eefb3fd8b2ade
+2025-12-31 23:36:36,775 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:36:36,777 - embedding_pipeline.pipeline - INFO - Processing URL 43/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/
+2025-12-31 23:36:37,143 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (67bfed213424a708) has 576 tokens, below minimum of 800']
+2025-12-31 23:36:37,144 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:36:37,788 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:38,408 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:38,520 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:36:39,550 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:36:39,553 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:36:39,554 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:36:40,068 - embedding_pipeline.database - INFO - Stored metadata for chunk 519df7f28feb438c
+2025-12-31 23:36:40,691 - embedding_pipeline.database - INFO - Stored metadata for chunk 67bfed213424a708
+2025-12-31 23:36:40,692 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:36:40,694 - embedding_pipeline.pipeline - INFO - Processing URL 44/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/lesson-4.1-isaac-sim-integration-with-ai-systems
+2025-12-31 23:36:41,622 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (f1f632c1182af4a0) has 711 tokens, below minimum of 800', 'Chunk 3 (899b7da417842cca) has 337 tokens, below minimum of 800']
+2025-12-31 23:36:41,623 - embedding_pipeline.pipeline - INFO - Created 4 chunks from content
+2025-12-31 23:36:42,561 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:43,401 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:44,105 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:44,727 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:44,837 - embedding_pipeline.pipeline - INFO - Generated 4 embeddings
+2025-12-31 23:36:47,079 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:36:47,082 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:36:47,083 - embedding_pipeline.database - INFO - Stored 4 embeddings to Qdrant
+2025-12-31 23:36:47,512 - embedding_pipeline.database - INFO - Stored metadata for chunk f1f632c1182af4a0
+2025-12-31 23:36:48,001 - embedding_pipeline.database - INFO - Stored metadata for chunk b3c9f452743d92e2
+2025-12-31 23:36:48,617 - embedding_pipeline.database - INFO - Stored metadata for chunk 714a3b61dc3e2b9f
+2025-12-31 23:36:49,231 - embedding_pipeline.database - INFO - Stored metadata for chunk 899b7da417842cca
+2025-12-31 23:36:49,233 - embedding_pipeline.pipeline - INFO - Successfully stored 4 embeddings to database
+2025-12-31 23:36:49,235 - embedding_pipeline.pipeline - INFO - Processing URL 45/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/lesson-4.2-hardware-acceleration-for-real-time-ai
+2025-12-31 23:36:50,404 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (42211c550fd0f1dc) has 684 tokens, below minimum of 800', 'Chunk 1 (fb930b876ef33027) has 1351 tokens, above maximum of 1200', 'Chunk 2 (998447bb119fc31e) has 382 tokens, below minimum of 800']
+2025-12-31 23:36:50,405 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:36:51,792 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:52,407 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:53,358 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:36:53,467 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:36:55,877 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:36:55,880 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:36:55,882 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:36:56,488 - embedding_pipeline.database - INFO - Stored metadata for chunk 42211c550fd0f1dc
+2025-12-31 23:36:57,101 - embedding_pipeline.database - INFO - Stored metadata for chunk fb930b876ef33027
+2025-12-31 23:36:57,611 - embedding_pipeline.database - INFO - Stored metadata for chunk 998447bb119fc31e
+2025-12-31 23:36:57,612 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:36:57,614 - embedding_pipeline.pipeline - INFO - Processing URL 46/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/lesson-4.3-validation-and-verification-of-ai-systems
+2025-12-31 23:36:59,388 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (a9fdd1a22de3de14) has 752 tokens, below minimum of 800', 'Chunk 3 (1fefec613ffd1cc7) has 2646 tokens, above maximum of 1200', 'Chunk 4 (e7fc3164d6f9f1b1) has 357 tokens, below minimum of 800']
+2025-12-31 23:36:59,389 - embedding_pipeline.pipeline - INFO - Created 5 chunks from content
+2025-12-31 23:37:00,777 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:01,489 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:02,100 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:02,816 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:03,431 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:03,540 - embedding_pipeline.pipeline - INFO - Generated 5 embeddings
+2025-12-31 23:37:08,617 - embedding_pipeline.database - ERROR - Error storing embeddings to Qdrant: timed out
+2025-12-31 23:37:10,893 - embedding_pipeline.database - INFO - Stored metadata for chunk a9fdd1a22de3de14
+2025-12-31 23:37:12,531 - embedding_pipeline.database - INFO - Stored metadata for chunk 35d16d75518af2a2
+2025-12-31 23:37:13,025 - embedding_pipeline.database - INFO - Stored metadata for chunk 5e0b15368bfa8694
+2025-12-31 23:37:13,737 - embedding_pipeline.database - INFO - Stored metadata for chunk 1fefec613ffd1cc7
+2025-12-31 23:37:14,462 - embedding_pipeline.database - INFO - Stored metadata for chunk e7fc3164d6f9f1b1
+2025-12-31 23:37:14,464 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:37:14,465 - embedding_pipeline.pipeline - INFO - Processing URL 47/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Cognitive-Architectures/
+2025-12-31 23:37:15,177 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (b19113c798b17904) has 668 tokens, below minimum of 800']
+2025-12-31 23:37:15,178 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:37:16,590 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:17,202 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:17,812 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:17,920 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:37:19,860 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:37:19,863 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:37:19,864 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:37:20,472 - embedding_pipeline.database - INFO - Stored metadata for chunk 927ae5ce12e4d09b
+2025-12-31 23:37:20,992 - embedding_pipeline.database - INFO - Stored metadata for chunk b19113c798b17904
+2025-12-31 23:37:21,600 - embedding_pipeline.database - INFO - Stored metadata for chunk 23bf5c0650cea036
+2025-12-31 23:37:21,601 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:37:21,603 - embedding_pipeline.pipeline - INFO - Processing URL 48/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Cognitive-Architectures/lesson-3.1-cognitive-architectures-for-robot-intelligence
+2025-12-31 23:37:22,957 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (2f379b6131f5af6a) has 769 tokens, below minimum of 800', 'Chunk 1 (5e770dc8ad2295d9) has 559 tokens, below minimum of 800', 'Chunk 4 (96fbf9a9ce380432) has 180 tokens, below minimum of 800']
+2025-12-31 23:37:22,958 - embedding_pipeline.pipeline - INFO - Created 5 chunks from content
+2025-12-31 23:37:24,343 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:24,916 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:25,587 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:26,199 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:26,716 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:26,829 - embedding_pipeline.pipeline - INFO - Generated 5 embeddings
+2025-12-31 23:37:29,316 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:37:29,320 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:37:29,321 - embedding_pipeline.database - INFO - Stored 5 embeddings to Qdrant
+2025-12-31 23:37:29,929 - embedding_pipeline.database - INFO - Stored metadata for chunk 2f379b6131f5af6a
+2025-12-31 23:37:30,541 - embedding_pipeline.database - INFO - Stored metadata for chunk 5e770dc8ad2295d9
+2025-12-31 23:37:31,151 - embedding_pipeline.database - INFO - Stored metadata for chunk 38e961f921b9bc0d
+2025-12-31 23:37:31,763 - embedding_pipeline.database - INFO - Stored metadata for chunk f18c1dbf6fde9788
+2025-12-31 23:37:32,281 - embedding_pipeline.database - INFO - Stored metadata for chunk 96fbf9a9ce380432
+2025-12-31 23:37:32,283 - embedding_pipeline.pipeline - INFO - Successfully stored 5 embeddings to database
+2025-12-31 23:37:32,285 - embedding_pipeline.pipeline - INFO - Processing URL 49/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Cognitive-Architectures/lesson-3.2-perception-processing-pipelines
+2025-12-31 23:37:33,909 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (e011e52819fd38e9) has 2110 tokens, above maximum of 1200', 'Chunk 2 (c5bd8e0cb091781e) has 504 tokens, below minimum of 800']
+2025-12-31 23:37:33,910 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:37:35,374 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:36,236 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:36,738 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:36,848 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:37:38,440 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:37:38,443 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:37:38,445 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:37:39,045 - embedding_pipeline.database - INFO - Stored metadata for chunk b01b9e4d89c35db1
+2025-12-31 23:37:39,656 - embedding_pipeline.database - INFO - Stored metadata for chunk e011e52819fd38e9
+2025-12-31 23:37:40,269 - embedding_pipeline.database - INFO - Stored metadata for chunk c5bd8e0cb091781e
+2025-12-31 23:37:40,271 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:37:40,273 - embedding_pipeline.pipeline - INFO - Processing URL 50/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Cognitive-Architectures/lesson-3.3-ai-decision-making-and-action-planning
+2025-12-31 23:37:42,031 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 2 (580fdca2320ad2f7) has 1287 tokens, above maximum of 1200', 'Chunk 4 (ea61abddb6cb568e) has 240 tokens, below minimum of 800']
+2025-12-31 23:37:42,032 - embedding_pipeline.pipeline - INFO - Created 5 chunks from content
+2025-12-31 23:37:44,949 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:46,449 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:47,105 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:47,712 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:48,332 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:48,441 - embedding_pipeline.pipeline - INFO - Generated 5 embeddings
+2025-12-31 23:37:50,800 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:37:50,802 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:37:50,804 - embedding_pipeline.database - INFO - Stored 5 embeddings to Qdrant
+2025-12-31 23:37:51,416 - embedding_pipeline.database - INFO - Stored metadata for chunk 2728dc4171b97fe8
+2025-12-31 23:37:52,032 - embedding_pipeline.database - INFO - Stored metadata for chunk 18acb832e14b8bdd
+2025-12-31 23:37:52,648 - embedding_pipeline.database - INFO - Stored metadata for chunk 580fdca2320ad2f7
+2025-12-31 23:37:53,264 - embedding_pipeline.database - INFO - Stored metadata for chunk c6842db83a8a0282
+2025-12-31 23:37:53,880 - embedding_pipeline.database - INFO - Stored metadata for chunk ea61abddb6cb568e
+2025-12-31 23:37:53,882 - embedding_pipeline.pipeline - INFO - Successfully stored 5 embeddings to database
+2025-12-31 23:37:53,884 - embedding_pipeline.pipeline - INFO - Processing URL 51/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/introduction
+2025-12-31 23:37:54,588 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 2 (970bff68dd5d7d67) has 204 tokens, below minimum of 800']
+2025-12-31 23:37:54,590 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:37:55,936 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:56,548 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:57,057 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:37:57,166 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:37:59,208 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:37:59,211 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:37:59,212 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:37:59,818 - embedding_pipeline.database - INFO - Stored metadata for chunk 7be544521f4e90fe
+2025-12-31 23:38:00,427 - embedding_pipeline.database - INFO - Stored metadata for chunk 8de3a5ce7b72d830
+2025-12-31 23:38:01,038 - embedding_pipeline.database - INFO - Stored metadata for chunk 970bff68dd5d7d67
+2025-12-31 23:38:01,040 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:38:01,041 - embedding_pipeline.pipeline - INFO - Processing URL 52/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/
+2025-12-31 23:38:01,433 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:38:02,057 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:02,668 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:02,776 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:38:03,988 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:38:03,991 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:38:03,992 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:38:04,597 - embedding_pipeline.database - INFO - Stored metadata for chunk e45ac1c11466c116
+2025-12-31 23:38:05,822 - embedding_pipeline.database - INFO - Stored metadata for chunk 65ee0fd0cab0ac8c
+2025-12-31 23:38:05,824 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:38:05,826 - embedding_pipeline.pipeline - INFO - Processing URL 53/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/lesson-1.1-introduction-to-nvidia-isaac-and-ai-integration
+2025-12-31 23:38:06,543 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (ecca602d0caee8fd) has 760 tokens, below minimum of 800']
+2025-12-31 23:38:06,544 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:38:07,162 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:07,766 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:07,877 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:38:10,292 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:38:10,294 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:38:10,296 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:38:11,048 - embedding_pipeline.database - INFO - Stored metadata for chunk ecca602d0caee8fd
+2025-12-31 23:38:11,944 - embedding_pipeline.database - INFO - Stored metadata for chunk e9d32ab2d90709f5
+2025-12-31 23:38:11,945 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:38:11,947 - embedding_pipeline.pipeline - INFO - Processing URL 54/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/lesson-1.2-nvidia-isaac-sim-for-photorealistic-simulation
+2025-12-31 23:38:12,944 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (bc66b469977a7d75) has 1252 tokens, above maximum of 1200', 'Chunk 2 (8d02fd1571682107) has 439 tokens, below minimum of 800']
+2025-12-31 23:38:12,945 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:38:14,406 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:14,809 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:38:14,813 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:38:16,031 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:38:16,036 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:38:18,789 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:38:18,793 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:38:18,795 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d078a480 state=finished raised ClientError>]
+2025-12-31 23:38:18,796 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 3, got 1
+2025-12-31 23:38:18,798 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:38:18,799 - embedding_pipeline.pipeline - WARNING - Mismatch: 3 chunks but 1 embeddings
+2025-12-31 23:38:18,800 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 3 vs 1
+2025-12-31 23:38:18,802 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:38:18,803 - embedding_pipeline.pipeline - INFO - Processing URL 55/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/lesson-1.3-isaac-ros-for-hardware-accelerated-perception
+2025-12-31 23:38:20,472 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (486e851ff817bfda) has 3292 tokens, above maximum of 1200', 'Chunk 2 (42cd7f24bfb38cee) has 519 tokens, below minimum of 800']
+2025-12-31 23:38:20,473 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:38:21,126 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:21,843 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:22,358 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:22,467 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:38:24,500 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:38:24,503 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:38:24,504 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:38:25,113 - embedding_pipeline.database - INFO - Stored metadata for chunk 3950494efa7f9cec
+2025-12-31 23:38:25,727 - embedding_pipeline.database - INFO - Stored metadata for chunk 486e851ff817bfda
+2025-12-31 23:38:26,341 - embedding_pipeline.database - INFO - Stored metadata for chunk 42cd7f24bfb38cee
+2025-12-31 23:38:26,343 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:38:26,344 - embedding_pipeline.pipeline - INFO - Processing URL 56/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/
+2025-12-31 23:38:26,757 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (07f8c260336f3773) has 1202 tokens, above maximum of 1200']
+2025-12-31 23:38:26,758 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:38:27,335 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:27,980 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:28,601 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:28,710 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:38:31,165 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:38:31,168 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:38:31,169 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:38:31,703 - embedding_pipeline.database - INFO - Stored metadata for chunk 02f6c152a26f45e8
+2025-12-31 23:38:32,218 - embedding_pipeline.database - INFO - Stored metadata for chunk 07f8c260336f3773
+2025-12-31 23:38:32,725 - embedding_pipeline.database - INFO - Stored metadata for chunk 729605b7f926d1ac
+2025-12-31 23:38:32,726 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:38:32,728 - embedding_pipeline.pipeline - INFO - Processing URL 57/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.1-nav2-path-planning-for-humanoid-robots
+2025-12-31 23:38:34,191 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 2 (0f6f29ffa1817992) has 738 tokens, below minimum of 800', 'Chunk 3 (2790e72d6c9e810b) has 520 tokens, below minimum of 800', 'Chunk 5 (67a7cf63e03f52a9) has 507 tokens, below minimum of 800']
+2025-12-31 23:38:34,192 - embedding_pipeline.pipeline - INFO - Created 6 chunks from content
+2025-12-31 23:38:35,500 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:36,220 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:36,833 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:37,379 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:38,064 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:38,781 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:38:38,891 - embedding_pipeline.pipeline - INFO - Generated 6 embeddings
+2025-12-31 23:38:41,648 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:38:41,651 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:38:41,652 - embedding_pipeline.database - INFO - Stored 6 embeddings to Qdrant
+2025-12-31 23:38:45,238 - embedding_pipeline.database - INFO - Stored metadata for chunk 8a5ed91af6a9ee9e
+2025-12-31 23:38:56,672 - embedding_pipeline.database - INFO - Stored metadata for chunk 1658572dd29fc155
+2025-12-31 23:39:02,509 - embedding_pipeline.database - INFO - Stored metadata for chunk 0f6f29ffa1817992
+2025-12-31 23:39:13,563 - embedding_pipeline.database - INFO - Stored metadata for chunk 2790e72d6c9e810b
+2025-12-31 23:39:15,987 - embedding_pipeline.database - INFO - Stored metadata for chunk 9786c5261585d19f
+2025-12-31 23:39:22,653 - embedding_pipeline.database - INFO - Stored metadata for chunk 67a7cf63e03f52a9
+2025-12-31 23:39:22,655 - embedding_pipeline.pipeline - INFO - Successfully stored 6 embeddings to database
+2025-12-31 23:39:22,658 - embedding_pipeline.pipeline - INFO - Processing URL 58/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.2-visual-slam-with-isaac-ros
+2025-12-31 23:40:08,840 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (58cbcb520e233722) has 1618 tokens, above maximum of 1200', 'Chunk 2 (d1b149ec8c710185) has 477 tokens, below minimum of 800']
+2025-12-31 23:40:08,841 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:40:14,542 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:40:17,044 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:40:29,061 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:40:29,171 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:40:38,827 - embedding_pipeline.database - ERROR - Error storing embeddings to Qdrant: The read operation timed out
+2025-12-31 23:40:49,953 - embedding_pipeline.database - INFO - Stored metadata for chunk 2383941e08d8bf09
+2025-12-31 23:40:50,556 - embedding_pipeline.database - INFO - Stored metadata for chunk 58cbcb520e233722
+2025-12-31 23:40:51,171 - embedding_pipeline.database - INFO - Stored metadata for chunk d1b149ec8c710185
+2025-12-31 23:40:51,173 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:40:51,174 - embedding_pipeline.pipeline - INFO - Processing URL 59/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.3-ai-enhanced-navigation-and-obstacle-avoidance
+2025-12-31 23:40:58,305 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (c6386db5f80e3a57) has 386 tokens, below minimum of 800', 'Chunk 1 (e67364029cab6121) has 2341 tokens, above maximum of 1200', 'Chunk 2 (9ffa7478b2c76607) has 568 tokens, below minimum of 800', 'Chunk 3 (498c479b6bf73583) has 1815 tokens, above maximum of 1200', 'Chunk 4 (7bc3e9e45e3afac9) has 571 tokens, below minimum of 800']
+2025-12-31 23:40:58,306 - embedding_pipeline.pipeline - INFO - Created 5 chunks from content
+2025-12-31 23:41:08,322 - embedding_pipeline.gemini_client - ERROR - Gemini API error: [Errno -3] Temporary failure in name resolution
+2025-12-31 23:41:10,117 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:10,936 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:11,551 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:12,268 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:12,810 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:12,918 - embedding_pipeline.pipeline - INFO - Generated 5 embeddings
+2025-12-31 23:41:19,286 - embedding_pipeline.database - ERROR - Error storing embeddings to Qdrant: The read operation timed out
+2025-12-31 23:41:26,337 - embedding_pipeline.database - INFO - Stored metadata for chunk c6386db5f80e3a57
+2025-12-31 23:41:27,136 - embedding_pipeline.database - INFO - Stored metadata for chunk e67364029cab6121
+2025-12-31 23:41:41,248 - embedding_pipeline.database - INFO - Stored metadata for chunk 9ffa7478b2c76607
+2025-12-31 23:41:41,862 - embedding_pipeline.database - INFO - Stored metadata for chunk 498c479b6bf73583
+2025-12-31 23:41:42,481 - embedding_pipeline.database - INFO - Stored metadata for chunk 7bc3e9e45e3afac9
+2025-12-31 23:41:42,483 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:41:42,484 - embedding_pipeline.pipeline - INFO - Processing URL 60/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/advanced-multimodal-processing/
+2025-12-31 23:41:42,960 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (6aa4567658880bd1) has 1206 tokens, above maximum of 1200', 'Chunk 1 (dd36b7ff1567e04a) has 453 tokens, below minimum of 800']
+2025-12-31 23:41:42,961 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:41:44,461 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:45,083 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:45,193 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:41:46,944 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:41:46,947 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:41:46,949 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:41:47,469 - embedding_pipeline.database - INFO - Stored metadata for chunk 6aa4567658880bd1
+2025-12-31 23:41:47,977 - embedding_pipeline.database - INFO - Stored metadata for chunk dd36b7ff1567e04a
+2025-12-31 23:41:47,981 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:41:47,983 - embedding_pipeline.pipeline - INFO - Processing URL 61/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/advanced-multimodal-processing/lesson-3.1-vision-processing-and-scene-understanding
+2025-12-31 23:41:48,952 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (2446868b62141bcf) has 646 tokens, below minimum of 800']
+2025-12-31 23:41:48,953 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:41:49,626 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:50,251 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:50,863 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:50,973 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:41:52,098 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:41:52,101 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:41:52,103 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:41:52,613 - embedding_pipeline.database - INFO - Stored metadata for chunk 6130462b27d3013e
+2025-12-31 23:41:53,228 - embedding_pipeline.database - INFO - Stored metadata for chunk 2446868b62141bcf
+2025-12-31 23:41:53,846 - embedding_pipeline.database - INFO - Stored metadata for chunk 36d741f3493a78fd
+2025-12-31 23:41:53,848 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:41:53,849 - embedding_pipeline.pipeline - INFO - Processing URL 62/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/advanced-multimodal-processing/lesson-3.2-language-to-action-mapping
+2025-12-31 23:41:55,319 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 3 (15d85b0b0905340d) has 182 tokens, below minimum of 800']
+2025-12-31 23:41:55,320 - embedding_pipeline.pipeline - INFO - Created 4 chunks from content
+2025-12-31 23:41:55,903 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:56,519 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:57,133 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:57,748 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:41:57,864 - embedding_pipeline.pipeline - INFO - Generated 4 embeddings
+2025-12-31 23:42:00,224 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:42:00,227 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:42:00,229 - embedding_pipeline.database - INFO - Stored 4 embeddings to Qdrant
+2025-12-31 23:42:00,828 - embedding_pipeline.database - INFO - Stored metadata for chunk 4361479f37a1bcfb
+2025-12-31 23:42:01,443 - embedding_pipeline.database - INFO - Stored metadata for chunk 7112d709c4ce7aa8
+2025-12-31 23:42:02,365 - embedding_pipeline.database - INFO - Stored metadata for chunk 23c4744fc77e602f
+2025-12-31 23:42:02,979 - embedding_pipeline.database - INFO - Stored metadata for chunk 15d85b0b0905340d
+2025-12-31 23:42:02,981 - embedding_pipeline.pipeline - INFO - Successfully stored 4 embeddings to database
+2025-12-31 23:42:02,983 - embedding_pipeline.pipeline - INFO - Processing URL 63/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/advanced-multimodal-processing/lesson-3.3-multimodal-fusion-and-attention-mechanisms
+2025-12-31 23:42:04,304 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 3 (0a31a54a2979bd6d) has 230 tokens, below minimum of 800', 'Chunk 5 (2d426a4f14b80cbb) has 439 tokens, below minimum of 800']
+2025-12-31 23:42:04,305 - embedding_pipeline.pipeline - INFO - Created 6 chunks from content
+2025-12-31 23:42:05,649 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:06,362 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:07,084 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:07,694 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:08,310 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:09,031 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:09,141 - embedding_pipeline.pipeline - INFO - Generated 6 embeddings
+2025-12-31 23:42:11,896 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:42:11,898 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:42:11,900 - embedding_pipeline.database - INFO - Stored 6 embeddings to Qdrant
+2025-12-31 23:42:12,416 - embedding_pipeline.database - INFO - Stored metadata for chunk b44f2d0be0396174
+2025-12-31 23:42:12,918 - embedding_pipeline.database - INFO - Stored metadata for chunk 81ca23b25dce3d03
+2025-12-31 23:42:13,513 - embedding_pipeline.database - INFO - Stored metadata for chunk cd698b0fed3df3c5
+2025-12-31 23:42:14,147 - embedding_pipeline.database - INFO - Stored metadata for chunk 0a31a54a2979bd6d
+2025-12-31 23:42:14,761 - embedding_pipeline.database - INFO - Stored metadata for chunk e4484672dbe8d147
+2025-12-31 23:42:15,373 - embedding_pipeline.database - INFO - Stored metadata for chunk 2d426a4f14b80cbb
+2025-12-31 23:42:15,375 - embedding_pipeline.pipeline - INFO - Successfully stored 6 embeddings to database
+2025-12-31 23:42:15,377 - embedding_pipeline.pipeline - INFO - Processing URL 64/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/ai-decision-making-and-action-grounding/
+2025-12-31 23:42:15,850 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:42:17,214 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:17,792 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:17,905 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:42:19,460 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:42:19,463 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:42:19,464 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:42:20,072 - embedding_pipeline.database - INFO - Stored metadata for chunk 72589511b6678322
+2025-12-31 23:42:20,686 - embedding_pipeline.database - INFO - Stored metadata for chunk 5852a01ed663c068
+2025-12-31 23:42:20,688 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:42:20,690 - embedding_pipeline.pipeline - INFO - Processing URL 65/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/ai-decision-making-and-action-grounding/lesson-2.1-ai-decision-making-frameworks
+2025-12-31 23:42:21,855 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (b20869483ae0abb9) has 1698 tokens, above maximum of 1200', 'Chunk 2 (31f44fd25cd8edc3) has 379 tokens, below minimum of 800']
+2025-12-31 23:42:21,856 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:42:22,416 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:23,139 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:23,619 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:23,727 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:42:24,650 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:42:24,652 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:42:24,654 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:42:25,248 - embedding_pipeline.database - INFO - Stored metadata for chunk 9c87d5ab95129bcc
+2025-12-31 23:42:25,939 - embedding_pipeline.database - INFO - Stored metadata for chunk b20869483ae0abb9
+2025-12-31 23:42:26,859 - embedding_pipeline.database - INFO - Stored metadata for chunk 31f44fd25cd8edc3
+2025-12-31 23:42:26,861 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:42:26,863 - embedding_pipeline.pipeline - INFO - Processing URL 66/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/ai-decision-making-and-action-grounding/lesson-2.2-action-grounding-and-motion-planning
+2025-12-31 23:42:28,229 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (f38fd2cba6ffdff4) has 481 tokens, below minimum of 800', 'Chunk 1 (eca1731211950f26) has 1989 tokens, above maximum of 1200', 'Chunk 2 (77085dffd5e92002) has 166 tokens, below minimum of 800']
+2025-12-31 23:42:28,230 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:42:28,761 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:29,522 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:30,138 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:30,248 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:42:32,202 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:42:32,205 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:42:32,206 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:42:32,720 - embedding_pipeline.database - INFO - Stored metadata for chunk f38fd2cba6ffdff4
+2025-12-31 23:42:33,345 - embedding_pipeline.database - INFO - Stored metadata for chunk eca1731211950f26
+2025-12-31 23:42:33,969 - embedding_pipeline.database - INFO - Stored metadata for chunk 77085dffd5e92002
+2025-12-31 23:42:33,971 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:42:33,973 - embedding_pipeline.pipeline - INFO - Processing URL 67/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/ai-decision-making-and-action-grounding/lesson-2.3-safety-constraints-and-validation-systems
+2025-12-31 23:42:35,990 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (64884bb46eb410c7) has 384 tokens, below minimum of 800', 'Chunk 2 (314b510ffd70912a) has 1262 tokens, above maximum of 1200', 'Chunk 3 (7710ec31f6ba7fe0) has 2044 tokens, above maximum of 1200', 'Chunk 4 (7f5c9ca3d4fe7a1b) has 243 tokens, below minimum of 800']
+2025-12-31 23:42:35,991 - embedding_pipeline.pipeline - INFO - Created 5 chunks from content
+2025-12-31 23:42:37,257 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:37,961 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:38,678 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:39,321 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:39,816 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:39,927 - embedding_pipeline.pipeline - INFO - Generated 5 embeddings
+2025-12-31 23:42:42,168 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:42:42,172 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:42:42,174 - embedding_pipeline.database - INFO - Stored 5 embeddings to Qdrant
+2025-12-31 23:42:42,613 - embedding_pipeline.database - INFO - Stored metadata for chunk 64884bb46eb410c7
+2025-12-31 23:42:43,104 - embedding_pipeline.database - INFO - Stored metadata for chunk 900d1bf31fb162b9
+2025-12-31 23:42:43,535 - embedding_pipeline.database - INFO - Stored metadata for chunk 314b510ffd70912a
+2025-12-31 23:42:44,118 - embedding_pipeline.database - INFO - Stored metadata for chunk 7710ec31f6ba7fe0
+2025-12-31 23:42:44,728 - embedding_pipeline.database - INFO - Stored metadata for chunk 7f5c9ca3d4fe7a1b
+2025-12-31 23:42:44,729 - embedding_pipeline.pipeline - INFO - Successfully stored 5 embeddings to database
+2025-12-31 23:42:44,731 - embedding_pipeline.pipeline - INFO - Processing URL 68/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/
+2025-12-31 23:42:45,180 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (6d5c7a233d002e47) has 1206 tokens, above maximum of 1200', 'Chunk 1 (aad23db3889f4628) has 565 tokens, below minimum of 800']
+2025-12-31 23:42:45,181 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:42:46,681 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:47,297 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:47,403 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:42:49,137 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:42:49,140 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:42:49,142 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:42:49,751 - embedding_pipeline.database - INFO - Stored metadata for chunk 6d5c7a233d002e47
+2025-12-31 23:42:50,368 - embedding_pipeline.database - INFO - Stored metadata for chunk aad23db3889f4628
+2025-12-31 23:42:50,370 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:42:50,373 - embedding_pipeline.pipeline - INFO - Processing URL 69/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.1-vla-integration-with-simulation-environments
+2025-12-31 23:42:51,497 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (7837e694cb5b8b62) has 718 tokens, below minimum of 800', 'Chunk 1 (6d3776cda7792aac) has 1417 tokens, above maximum of 1200', 'Chunk 2 (d0120d5a99cb8830) has 314 tokens, below minimum of 800']
+2025-12-31 23:42:51,498 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:42:52,112 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:52,829 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:53,441 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:53,552 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:42:54,668 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:42:54,672 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:42:54,673 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:42:55,281 - embedding_pipeline.database - INFO - Stored metadata for chunk 7837e694cb5b8b62
+2025-12-31 23:42:55,896 - embedding_pipeline.database - INFO - Stored metadata for chunk 6d3776cda7792aac
+2025-12-31 23:42:56,510 - embedding_pipeline.database - INFO - Stored metadata for chunk d0120d5a99cb8830
+2025-12-31 23:42:56,512 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:42:56,514 - embedding_pipeline.pipeline - INFO - Processing URL 70/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.2-uncertainty-quantification-and-confidence-management
+2025-12-31 23:42:57,802 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (57aec6655c354be0) has 495 tokens, below minimum of 800', 'Chunk 1 (1bc9769ac73ffa4b) has 1712 tokens, above maximum of 1200', 'Chunk 2 (249f776e07ffdd6e) has 325 tokens, below minimum of 800']
+2025-12-31 23:42:57,803 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:42:58,356 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:59,072 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:59,690 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:42:59,800 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:43:01,635 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:43:01,638 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:43:01,640 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:43:02,246 - embedding_pipeline.database - INFO - Stored metadata for chunk 57aec6655c354be0
+2025-12-31 23:43:02,861 - embedding_pipeline.database - INFO - Stored metadata for chunk 1bc9769ac73ffa4b
+2025-12-31 23:43:03,476 - embedding_pipeline.database - INFO - Stored metadata for chunk 249f776e07ffdd6e
+2025-12-31 23:43:03,478 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:43:03,480 - embedding_pipeline.pipeline - INFO - Processing URL 71/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication
+2025-12-31 23:43:05,391 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (2207d951c5efad8c) has 685 tokens, below minimum of 800', 'Chunk 1 (35bff1fa79ab699d) has 2115 tokens, above maximum of 1200', 'Chunk 4 (0b7a77de0d7acee9) has 157 tokens, below minimum of 800']
+2025-12-31 23:43:05,392 - embedding_pipeline.pipeline - INFO - Created 5 chunks from content
+2025-12-31 23:43:06,756 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:43:07,163 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:43:07,166 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:43:08,801 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:43:08,805 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:43:11,058 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:43:11,062 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:43:11,063 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d094a510 state=finished raised ClientError>]
+2025-12-31 23:43:11,065 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 5, got 1
+2025-12-31 23:43:11,066 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:43:11,068 - embedding_pipeline.pipeline - WARNING - Mismatch: 5 chunks but 1 embeddings
+2025-12-31 23:43:11,069 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 5 vs 1
+2025-12-31 23:43:11,070 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:43:11,072 - embedding_pipeline.pipeline - INFO - Processing URL 72/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/introduction
+2025-12-31 23:43:12,189 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (897f5b4ca7179717) has 1207 tokens, above maximum of 1200', 'Chunk 1 (f30a9a91bca3ce04) has 648 tokens, below minimum of 800']
+2025-12-31 23:43:12,190 - embedding_pipeline.pipeline - INFO - Created 4 chunks from content
+2025-12-31 23:43:12,796 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:43:13,125 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:43:13,129 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:43:14,301 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:43:14,306 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:43:16,480 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:43:16,484 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:43:16,486 - embedding_pipeline.gemini_client - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x78b8d139f620 state=finished raised ClientError>]
+2025-12-31 23:43:16,488 - embedding_pipeline.gemini_client - WARNING - Mismatch in embedding count: expected 4, got 1
+2025-12-31 23:43:16,489 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:43:16,490 - embedding_pipeline.pipeline - WARNING - Mismatch: 4 chunks but 1 embeddings
+2025-12-31 23:43:16,492 - embedding_pipeline.database - ERROR - Chunk and embedding count mismatch: 4 vs 1
+2025-12-31 23:43:16,493 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:43:16,494 - embedding_pipeline.pipeline - INFO - Processing URL 73/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/
+2025-12-31 23:43:17,613 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (1da0f8ffada96caf) has 1207 tokens, above maximum of 1200', 'Chunk 1 (d1c9b64fcde65ae7) has 460 tokens, below minimum of 800']
+2025-12-31 23:43:17,614 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:43:17,810 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:43:17,815 - embedding_pipeline.gemini_client - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:43:19,454 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:43:20,131 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:43:20,245 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:43:22,072 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:43:22,075 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:43:22,076 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:43:25,209 - embedding_pipeline.database - INFO - Stored metadata for chunk 1da0f8ffada96caf
+2025-12-31 23:43:26,294 - embedding_pipeline.database - INFO - Stored metadata for chunk d1c9b64fcde65ae7
+2025-12-31 23:43:26,296 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:43:26,297 - embedding_pipeline.pipeline - INFO - Processing URL 74/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/lesson-1.1-introduction-to-vla-systems
+2025-12-31 23:43:27,394 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (4793dc93b2582945) has 1204 tokens, above maximum of 1200', 'Chunk 1 (ab5efbdf9e888f09) has 721 tokens, below minimum of 800']
+2025-12-31 23:43:27,395 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:43:30,894 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:43:42,464 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:43:42,593 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:43:50,747 - embedding_pipeline.database - ERROR - Error storing embeddings to Qdrant: timed out
+2025-12-31 23:43:58,664 - embedding_pipeline.database - INFO - Stored metadata for chunk 4793dc93b2582945
+2025-12-31 23:43:59,242 - embedding_pipeline.database - INFO - Stored metadata for chunk ab5efbdf9e888f09
+2025-12-31 23:43:59,244 - embedding_pipeline.pipeline - ERROR - Failed to store embeddings to database
+2025-12-31 23:43:59,245 - embedding_pipeline.pipeline - INFO - Processing URL 75/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/lesson-1.2-multimodal-perception-systems
+2025-12-31 23:44:00,197 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (bbaf8a705707d099) has 372 tokens, below minimum of 800', 'Chunk 1 (01f469e317314da9) has 1704 tokens, above maximum of 1200', 'Chunk 2 (daaaf8f1c32900ac) has 309 tokens, below minimum of 800']
+2025-12-31 23:44:00,198 - embedding_pipeline.pipeline - INFO - Created 3 chunks from content
+2025-12-31 23:44:01,533 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:02,246 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:02,860 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:02,968 - embedding_pipeline.pipeline - INFO - Generated 3 embeddings
+2025-12-31 23:44:04,728 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:44:04,730 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:44:04,732 - embedding_pipeline.database - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:44:05,312 - embedding_pipeline.database - INFO - Stored metadata for chunk bbaf8a705707d099
+2025-12-31 23:44:05,927 - embedding_pipeline.database - INFO - Stored metadata for chunk 01f469e317314da9
+2025-12-31 23:44:06,540 - embedding_pipeline.database - INFO - Stored metadata for chunk daaaf8f1c32900ac
+2025-12-31 23:44:06,542 - embedding_pipeline.pipeline - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:44:06,543 - embedding_pipeline.pipeline - INFO - Processing URL 76/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/lesson-1.3-instruction-understanding-natural-language-processing
+2025-12-31 23:44:07,465 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (45ddb5b7b8fceb7e) has 276 tokens, below minimum of 800', 'Chunk 2 (23368c16a4b00243) has 1395 tokens, above maximum of 1200', 'Chunk 3 (a938583968ff82a2) has 440 tokens, below minimum of 800']
+2025-12-31 23:44:07,466 - embedding_pipeline.pipeline - INFO - Created 4 chunks from content
+2025-12-31 23:44:08,076 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:08,693 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:09,307 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:09,924 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:10,033 - embedding_pipeline.pipeline - INFO - Generated 4 embeddings
+2025-12-31 23:44:12,073 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:44:12,076 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:44:12,077 - embedding_pipeline.database - INFO - Stored 4 embeddings to Qdrant
+2025-12-31 23:44:12,582 - embedding_pipeline.database - INFO - Stored metadata for chunk ed878f063d372fa7
+2025-12-31 23:44:14,367 - embedding_pipeline.database - INFO - Stored metadata for chunk 45ddb5b7b8fceb7e
+2025-12-31 23:44:16,285 - embedding_pipeline.database - INFO - Stored metadata for chunk 23368c16a4b00243
+2025-12-31 23:44:17,544 - embedding_pipeline.database - INFO - Stored metadata for chunk a938583968ff82a2
+2025-12-31 23:44:17,546 - embedding_pipeline.pipeline - INFO - Successfully stored 4 embeddings to database
+2025-12-31 23:44:17,548 - embedding_pipeline.pipeline - INFO - Processing URL 77/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/preface/
+2025-12-31 23:44:18,380 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 1 (84d2878f81a2a7ec) has 367 tokens, below minimum of 800']
+2025-12-31 23:44:18,382 - embedding_pipeline.pipeline - INFO - Created 2 chunks from content
+2025-12-31 23:44:19,921 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:20,578 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:20,687 - embedding_pipeline.pipeline - INFO - Generated 2 embeddings
+2025-12-31 23:44:24,093 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:44:24,096 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:44:24,097 - embedding_pipeline.database - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:44:24,568 - embedding_pipeline.database - INFO - Stored metadata for chunk aac8d646418b5c62
+2025-12-31 23:44:25,183 - embedding_pipeline.database - INFO - Stored metadata for chunk 84d2878f81a2a7ec
+2025-12-31 23:44:25,185 - embedding_pipeline.pipeline - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:44:25,187 - embedding_pipeline.pipeline - INFO - Processing URL 78/78: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/
+2025-12-31 23:44:25,615 - embedding_pipeline.chunking_engine - WARNING - Chunk validation errors: ['Chunk 0 (3ec3e2c810e5e99c) has 168 tokens, below minimum of 800']
+2025-12-31 23:44:25,617 - embedding_pipeline.pipeline - INFO - Created 1 chunks from content
+2025-12-31 23:44:26,928 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:44:27,037 - embedding_pipeline.pipeline - INFO - Generated 1 embeddings
+2025-12-31 23:44:31,640 - httpx - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:44:31,643 - embedding_pipeline.database - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:44:31,645 - embedding_pipeline.database - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:44:32,335 - embedding_pipeline.database - INFO - Stored metadata for chunk 3ec3e2c810e5e99c
+2025-12-31 23:44:32,336 - embedding_pipeline.pipeline - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:44:32,338 - embedding_pipeline.pipeline - INFO - Sitemap processing completed. Successful: 64, Failed: 14
+2025-12-31 23:44:32,340 - __main__ - INFO - Sitemap processing completed
+2025-12-31 23:44:32,342 - __main__ - INFO - Processing completed with result: {'successful': [{'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/markdown-page', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/capstone-autonomous-humanoid', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/gazebo-simulation', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/isaac-perception-pipeline', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/ros2-package-project', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/Hardware-Requirements/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/introduction', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/nodes-topics-services-robot-communication/', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/nodes-topics-services-robot-communication/nodes-multiple-communication-patterns', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/nodes-topics-services-robot-communication/parameter-server-configuration', 'chunks_processed': 5, 'embeddings_generated': 5}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/nodes-topics-services-robot-communication/service-based-communication', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.1-python-ros2-integration-with-rclpy', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/lesson-3.1-introduction-to-urdf-and-robot-description', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/lesson-3.2-xacro-parameterization-and-macros', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/lesson-3.3-visualization-and-validation', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/lesson-1.1-introduction-to-ros2-architecture', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/lesson-1.2-environment-setup-and-workspace-creation', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/lesson-1.3-basic-publisher-subscriber-implementation', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/ros2-architecture-and-communication/lesson-1.4-ros2-command-line-tools', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Gazebo-Simulation/', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Gazebo-Simulation/lesson-1.1-introduction-to-gazebo-and-physics-simulation', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Gazebo-Simulation/lesson-1.2-environment-creation-and-world-building', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Gazebo-Simulation/lesson-1.3-robot-integration-in-gazebo', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/introduction', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Multi-Simulator-Integration/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Multi-Simulator-Integration/lesson-4.1-gazebo-unity-integration-strategies', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Multi-Simulator-Integration/lesson-4.2-sensor-data-consistency-across-platforms', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Multi-Simulator-Integration/lesson-4.3-validation-and-verification-techniques', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/', 'chunks_processed': 1, 'embeddings_generated': 1}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.1-physics-simulation-fundamentals', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/lesson-3.2-high-fidelity-rendering-and-visualization', 'chunks_processed': 4, 'embeddings_generated': 4}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/lesson-3.3-human-robot-interaction-in-unity', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/lesson-4.1-isaac-sim-integration-with-ai-systems', 'chunks_processed': 4, 'embeddings_generated': 4}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/lesson-4.2-hardware-acceleration-for-real-time-ai', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Cognitive-Architectures/', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Cognitive-Architectures/lesson-3.1-cognitive-architectures-for-robot-intelligence', 'chunks_processed': 5, 'embeddings_generated': 5}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Cognitive-Architectures/lesson-3.2-perception-processing-pipelines', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Cognitive-Architectures/lesson-3.3-ai-decision-making-and-action-planning', 'chunks_processed': 5, 'embeddings_generated': 5}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/introduction', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/lesson-1.1-introduction-to-nvidia-isaac-and-ai-integration', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/lesson-1.3-isaac-ros-for-hardware-accelerated-perception', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.1-nav2-path-planning-for-humanoid-robots', 'chunks_processed': 6, 'embeddings_generated': 6}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/advanced-multimodal-processing/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/advanced-multimodal-processing/lesson-3.1-vision-processing-and-scene-understanding', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/advanced-multimodal-processing/lesson-3.2-language-to-action-mapping', 'chunks_processed': 4, 'embeddings_generated': 4}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/advanced-multimodal-processing/lesson-3.3-multimodal-fusion-and-attention-mechanisms', 'chunks_processed': 6, 'embeddings_generated': 6}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/ai-decision-making-and-action-grounding/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/ai-decision-making-and-action-grounding/lesson-2.1-ai-decision-making-frameworks', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/ai-decision-making-and-action-grounding/lesson-2.2-action-grounding-and-motion-planning', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/ai-decision-making-and-action-grounding/lesson-2.3-safety-constraints-and-validation-systems', 'chunks_processed': 5, 'embeddings_generated': 5}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.1-vla-integration-with-simulation-environments', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.2-uncertainty-quantification-and-confidence-management', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/lesson-1.2-multimodal-perception-systems', 'chunks_processed': 3, 'embeddings_generated': 3}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/lesson-1.3-instruction-understanding-natural-language-processing', 'chunks_processed': 4, 'embeddings_generated': 4}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/preface/', 'chunks_processed': 2, 'embeddings_generated': 2}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/', 'chunks_processed': 1, 'embeddings_generated': 1}], 'failed': [{'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.2-simulation-environment-setup', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.3-complete-system-integration', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.2-lidar-simulation-in-virtual-environments', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.3-depth-camera-and-imu-simulation', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/lesson-3.1-unity-environment-setup-for-robotics', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/lesson-4.3-validation-and-verification-of-ai-systems', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/lesson-1.2-nvidia-isaac-sim-for-photorealistic-simulation', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.2-visual-slam-with-isaac-ros', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.3-ai-enhanced-navigation-and-obstacle-avoidance', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/introduction', 'error': 'Failed to store embeddings to database'}, {'url': 'https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/lesson-1.1-introduction-to-vla-systems', 'error': 'Failed to store embeddings to database'}], 'stats': {'total_urls': 78, 'successful': 64, 'failed': 14}, 'pipeline_stats': {'documents_processed': 0, 'chunks_created': 213, 'embeddings_generated': 187, 'embeddings_stored': 166, 'total_processing_time': 694.0572957992554, 'start_time': 1767205978.2812304}}
+2025-12-31 23:44:32,343 - __main__ - INFO - Final pipeline statistics: {'documents_processed': 0, 'chunks_created': 0, 'embeddings_generated': 0, 'embeddings_stored': 0, 'total_processing_time': 0, 'start_time': None}
+2025-12-31 23:44:32,345 - __main__ - INFO - === EMBEDDING GENERATION AND STORAGE SUMMARY ===
+2025-12-31 23:44:32,346 - __main__ - INFO - Source processed: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/sitemap.xml
+2025-12-31 23:44:32,348 - __main__ - INFO - Documents processed: 0
+2025-12-31 23:44:32,349 - __main__ - INFO - Chunks created: 0
+2025-12-31 23:44:32,351 - __main__ - INFO - Embeddings generated: 0
+2025-12-31 23:44:32,352 - __main__ - INFO - Embeddings stored: 0
+2025-12-31 23:44:32,353 - __main__ - INFO - Total processing time: 0 seconds
+2025-12-31 23:44:32,355 - __main__ - INFO - Embedding dimension: 1536
+2025-12-31 23:44:32,356 - __main__ - INFO - Total documents attempted: 78
+2025-12-31 23:44:32,358 - __main__ - INFO - Documents processed successfully: 64
+2025-12-31 23:44:32,359 - __main__ - INFO - Documents failed: 14
+2025-12-31 23:44:32,361 - __main__ - INFO - Successfully processed documents (64):
+2025-12-31 23:44:32,362 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/markdown-page (chunks: 1, embeddings: 1)
+2025-12-31 23:44:32,364 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/ (chunks: 1, embeddings: 1)
+2025-12-31 23:44:32,365 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/capstone-autonomous-humanoid (chunks: 2, embeddings: 2)
+2025-12-31 23:44:32,367 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/gazebo-simulation (chunks: 1, embeddings: 1)
+2025-12-31 23:44:32,368 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/assessments/isaac-perception-pipeline (chunks: 1, embeddings: 1)
+2025-12-31 23:44:32,370 - __main__ - INFO -   ... and 59 more
+2025-12-31 23:44:32,371 - __main__ - INFO - Failed documents (14):
+2025-12-31 23:44:32,373 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.2-simulation-environment-setup: Failed to store embeddings to database
+2025-12-31 23:44:32,374 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.3-complete-system-integration: Failed to store embeddings to database
+2025-12-31 23:44:32,375 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/: Failed to store embeddings to database
+2025-12-31 23:44:32,377 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.2-lidar-simulation-in-virtual-environments: Failed to store embeddings to database
+2025-12-31 23:44:32,378 - __main__ - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.3-depth-camera-and-imu-simulation: Failed to store embeddings to database
+2025-12-31 23:44:32,380 - __main__ - INFO -   ... and 9 more
+2025-12-31 23:44:32,381 - __main__ - INFO - Success rate: 82.05%
+2025-12-31 23:44:32,383 - __main__ - INFO - === PROCESSING COMPLETE ===
+Final statistics: {'documents_processed': 0, 'chunks_created': 0, 'embeddings_generated': 0, 'embeddings_stored': 0, 'total_processing_time': 0, 'start_time': None}
+2025-12-31 23:44:32,556 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x78b8d2aa7f20>
+2025-12-31 23:44:32,557 - asyncio - ERROR - Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x78b8d2abd6d0>, 2364.215933447)])']
+connector: <aiohttp.connector.TCPConnector object at 0x78b8d2973d70>

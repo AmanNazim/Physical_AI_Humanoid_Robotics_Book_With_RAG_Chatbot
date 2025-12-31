@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: rag-chatbot
+Version: 0.1.0
+Summary: RAG Chatbot for Physical AI Humanoid Robotics Book
+Author: RAG Chatbot Team
+License: MIT
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.100.0
+Requires-Dist: uvicorn>=0.20.0
+Requires-Dist: qdrant-client>=1.7.0
+Requires-Dist: asyncpg>=0.29.0
+Requires-Dist: sqlalchemy>=2.0.0
+Requires-Dist: cohere>=4.0.0
+Requires-Dist: google-genai>=0.7.0
+Requires-Dist: tiktoken>=0.5.0
+Requires-Dist: openai>=1.0.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: pydantic-settings>=2.0.0
+Requires-Dist: httpx>=0.25.0
+Requires-Dist: aiofiles>=23.0.0
+Requires-Dist: aiohttp>=3.13.2
+Requires-Dist: beautifulsoup4>=4.12.0
+Requires-Dist: psutil>=5.9.0
+Requires-Dist: chardet>=5.2.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: isort>=5.0.0; extra == "dev"

@@ -138,6 +138,7 @@ You are not expected to solve every problem autonomously. You MUST invoke the us
 - Prefer the smallest viable diff; do not refactor unrelated code.
 - Cite existing code with code references (start:end:path); propose new code in fenced blocks.
 - Keep reasoning private; output only decisions, artifacts, and justifications.
+- Use uv for Python package management in the rag_chatbot project: `uv add <package>` to add dependencies, `uv run` to execute scripts.
 
 ### Execution contract for every request
 

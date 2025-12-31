@@ -1,0 +1,339 @@
+2025-12-31 23:55:01,906 - INFO - Loading failed URLs from failed_urls_14.txt
+2025-12-31 23:55:01,929 - INFO - Found 14 URLs to retry
+2025-12-31 23:55:01,931 - INFO - Starting retry process...
+2025-12-31 23:55:10,333 - INFO - HTTP Request: GET https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333 "HTTP/1.1 200 OK"
+2025-12-31 23:55:13,702 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:14,815 - INFO - HTTP Request: GET https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections "HTTP/1.1 200 OK"
+2025-12-31 23:55:14,829 - INFO - Qdrant collection book_embeddings already exists
+2025-12-31 23:55:18,636 - INFO - Neon database initialized successfully
+2025-12-31 23:55:18,639 - INFO - Retrying URL 1/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.2-simulation-environment-setup
+2025-12-31 23:55:18,640 - INFO -   Attempt 1/3
+2025-12-31 23:55:22,292 - WARNING - Chunk validation errors: ['Chunk 2 (c5959da3816162dd) has 628 tokens, below minimum of 800']
+2025-12-31 23:55:22,293 - INFO - Created 3 chunks from content
+2025-12-31 23:55:23,729 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:24,443 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:25,058 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:25,169 - INFO - Generated 3 embeddings
+2025-12-31 23:55:27,001 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:55:27,007 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:55:27,009 - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:55:28,021 - INFO - Stored metadata for chunk 2c03c08f3e883f8c
+2025-12-31 23:55:28,741 - INFO - Stored metadata for chunk e2512e6071d64389
+2025-12-31 23:55:29,465 - INFO - Stored metadata for chunk c5959da3816162dd
+2025-12-31 23:55:29,467 - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:55:29,469 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.2-simulation-environment-setup
+2025-12-31 23:55:29,471 - INFO - Retrying URL 2/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.3-complete-system-integration
+2025-12-31 23:55:29,472 - INFO -   Attempt 1/3
+2025-12-31 23:55:31,423 - INFO - Created 4 chunks from content
+2025-12-31 23:55:32,877 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:33,768 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:34,376 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:35,198 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:35,308 - INFO - Generated 4 embeddings
+2025-12-31 23:55:37,650 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:55:37,653 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:55:37,655 - INFO - Stored 4 embeddings to Qdrant
+2025-12-31 23:55:38,266 - INFO - Stored metadata for chunk af45916b1295b7ce
+2025-12-31 23:55:38,878 - INFO - Stored metadata for chunk 86aa782e43d1e57b
+2025-12-31 23:55:39,390 - INFO - Stored metadata for chunk 39e61c43cab87e43
+2025-12-31 23:55:40,107 - INFO - Stored metadata for chunk 64727ece535b9e45
+2025-12-31 23:55:40,109 - INFO - Successfully stored 4 embeddings to database
+2025-12-31 23:55:40,111 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.3-complete-system-integration
+2025-12-31 23:55:40,113 - INFO - Retrying URL 3/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/
+2025-12-31 23:55:40,115 - INFO -   Attempt 1/3
+2025-12-31 23:55:40,583 - INFO - Created 1 chunks from content
+2025-12-31 23:55:41,852 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:41,959 - INFO - Generated 1 embeddings
+2025-12-31 23:55:42,626 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:55:42,629 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:55:42,631 - INFO - Stored 1 embeddings to Qdrant
+2025-12-31 23:55:43,081 - INFO - Stored metadata for chunk d081a6e3a9987263
+2025-12-31 23:55:43,083 - INFO - Successfully stored 1 embeddings to database
+2025-12-31 23:55:43,085 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/
+2025-12-31 23:55:43,087 - INFO - Retrying URL 4/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.2-lidar-simulation-in-virtual-environments
+2025-12-31 23:55:43,088 - INFO -   Attempt 1/3
+2025-12-31 23:55:44,575 - WARNING - Chunk validation errors: ['Chunk 0 (9daf67f6eeb745fd) has 644 tokens, below minimum of 800', 'Chunk 2 (e16b8d6fc65ca15a) has 229 tokens, below minimum of 800']
+2025-12-31 23:55:44,576 - INFO - Created 3 chunks from content
+2025-12-31 23:55:45,137 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:45,753 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:46,263 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:46,377 - INFO - Generated 3 embeddings
+2025-12-31 23:55:47,297 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:55:47,300 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:55:47,302 - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:55:47,803 - INFO - Stored metadata for chunk 9daf67f6eeb745fd
+2025-12-31 23:55:48,328 - INFO - Stored metadata for chunk 133a6ac71305537d
+2025-12-31 23:55:48,778 - INFO - Stored metadata for chunk e16b8d6fc65ca15a
+2025-12-31 23:55:48,780 - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:55:48,782 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.2-lidar-simulation-in-virtual-environments
+2025-12-31 23:55:48,784 - INFO - Retrying URL 5/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.3-depth-camera-and-imu-simulation
+2025-12-31 23:55:48,786 - INFO -   Attempt 1/3
+2025-12-31 23:55:50,921 - WARNING - Chunk validation errors: ['Chunk 0 (1a46bda7ae0061f6) has 363 tokens, below minimum of 800', 'Chunk 1 (e193969040a88db0) has 1765 tokens, above maximum of 1200', 'Chunk 2 (5a0edd510920d94e) has 2349 tokens, above maximum of 1200', 'Chunk 3 (61bae029130930e9) has 295 tokens, below minimum of 800']
+2025-12-31 23:55:50,922 - INFO - Created 4 chunks from content
+2025-12-31 23:55:51,500 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:52,120 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:52,836 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:53,452 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:55:53,562 - INFO - Generated 4 embeddings
+2025-12-31 23:55:55,920 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:55:55,922 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:55:55,925 - INFO - Stored 4 embeddings to Qdrant
+2025-12-31 23:55:56,632 - INFO - Stored metadata for chunk 1a46bda7ae0061f6
+2025-12-31 23:55:57,248 - INFO - Stored metadata for chunk e193969040a88db0
+2025-12-31 23:55:57,963 - INFO - Stored metadata for chunk 5a0edd510920d94e
+2025-12-31 23:55:58,580 - INFO - Stored metadata for chunk 61bae029130930e9
+2025-12-31 23:55:58,582 - INFO - Successfully stored 4 embeddings to database
+2025-12-31 23:55:58,584 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.3-depth-camera-and-imu-simulation
+2025-12-31 23:55:58,586 - INFO - Retrying URL 6/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/
+2025-12-31 23:55:58,587 - INFO -   Attempt 1/3
+2025-12-31 23:55:59,063 - WARNING - Chunk validation errors: ['Chunk 0 (30489b8c8320867f) has 1210 tokens, above maximum of 1200', 'Chunk 1 (35528e51beda8fb4) has 304 tokens, below minimum of 800']
+2025-12-31 23:55:59,065 - INFO - Created 2 chunks from content
+2025-12-31 23:56:00,433 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:01,049 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:01,175 - INFO - Generated 2 embeddings
+2025-12-31 23:56:02,888 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:56:02,892 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:56:02,894 - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:56:03,312 - INFO - Stored metadata for chunk 30489b8c8320867f
+2025-12-31 23:56:03,929 - INFO - Stored metadata for chunk 35528e51beda8fb4
+2025-12-31 23:56:03,931 - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:56:03,934 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/
+2025-12-31 23:56:03,935 - INFO - Retrying URL 7/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/lesson-3.1-unity-environment-setup-for-robotics
+2025-12-31 23:56:03,937 - INFO -   Attempt 1/3
+2025-12-31 23:56:04,899 - WARNING - Chunk validation errors: ['Chunk 2 (14b5f6b5f00c178a) has 295 tokens, below minimum of 800']
+2025-12-31 23:56:04,900 - INFO - Created 3 chunks from content
+2025-12-31 23:56:05,419 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:06,073 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:06,576 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:06,685 - INFO - Generated 3 embeddings
+2025-12-31 23:56:07,723 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:56:07,726 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:56:07,728 - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:56:08,220 - INFO - Stored metadata for chunk 854591c16d403c5f
+2025-12-31 23:56:08,833 - INFO - Stored metadata for chunk d72327db50d7d7a7
+2025-12-31 23:56:09,446 - INFO - Stored metadata for chunk 14b5f6b5f00c178a
+2025-12-31 23:56:09,448 - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:56:09,449 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/lesson-3.1-unity-environment-setup-for-robotics
+2025-12-31 23:56:09,451 - INFO - Retrying URL 8/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/lesson-4.3-validation-and-verification-of-ai-systems
+2025-12-31 23:56:09,452 - INFO -   Attempt 1/3
+2025-12-31 23:56:11,825 - WARNING - Chunk validation errors: ['Chunk 0 (a9fdd1a22de3de14) has 752 tokens, below minimum of 800', 'Chunk 3 (1fefec613ffd1cc7) has 2646 tokens, above maximum of 1200', 'Chunk 4 (e7fc3164d6f9f1b1) has 357 tokens, below minimum of 800']
+2025-12-31 23:56:11,826 - INFO - Created 5 chunks from content
+2025-12-31 23:56:13,217 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:13,550 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:56:13,554 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:56:14,737 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:56:14,744 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:56:16,988 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:56:16,994 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:56:16,997 - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x744e9b17b4d0 state=finished raised ClientError>]
+2025-12-31 23:56:17,000 - WARNING - Mismatch in embedding count: expected 5, got 1
+2025-12-31 23:56:17,001 - INFO - Generated 1 embeddings
+2025-12-31 23:56:17,004 - WARNING - Mismatch: 5 chunks but 1 embeddings
+2025-12-31 23:56:17,006 - ERROR - Chunk and embedding count mismatch: 5 vs 1
+2025-12-31 23:56:17,007 - ERROR - Failed to store embeddings to database
+2025-12-31 23:56:17,009 - WARNING -   Attempt 1 failed: Failed to store embeddings to database
+2025-12-31 23:56:17,011 - INFO -   Waiting 1s before retry...
+2025-12-31 23:56:18,014 - INFO -   Attempt 2/3
+2025-12-31 23:56:20,249 - WARNING - Chunk validation errors: ['Chunk 0 (a9fdd1a22de3de14) has 752 tokens, below minimum of 800', 'Chunk 3 (1fefec613ffd1cc7) has 2646 tokens, above maximum of 1200', 'Chunk 4 (e7fc3164d6f9f1b1) has 357 tokens, below minimum of 800']
+2025-12-31 23:56:20,250 - INFO - Created 5 chunks from content
+2025-12-31 23:56:20,884 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:21,586 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:22,205 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:22,915 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:23,531 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:23,643 - INFO - Generated 5 embeddings
+2025-12-31 23:56:25,893 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:56:25,896 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:56:25,898 - INFO - Stored 5 embeddings to Qdrant
+2025-12-31 23:56:26,395 - INFO - Stored metadata for chunk a9fdd1a22de3de14
+2025-12-31 23:56:27,009 - INFO - Stored metadata for chunk 35d16d75518af2a2
+2025-12-31 23:56:27,526 - INFO - Stored metadata for chunk 5e0b15368bfa8694
+2025-12-31 23:56:28,033 - INFO - Stored metadata for chunk 1fefec613ffd1cc7
+2025-12-31 23:56:28,541 - INFO - Stored metadata for chunk e7fc3164d6f9f1b1
+2025-12-31 23:56:28,542 - INFO - Successfully stored 5 embeddings to database
+2025-12-31 23:56:28,545 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/lesson-4.3-validation-and-verification-of-ai-systems
+2025-12-31 23:56:28,546 - INFO - Retrying URL 9/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/lesson-1.2-nvidia-isaac-sim-for-photorealistic-simulation
+2025-12-31 23:56:28,548 - INFO -   Attempt 1/3
+2025-12-31 23:56:29,662 - WARNING - Chunk validation errors: ['Chunk 1 (bc66b469977a7d75) has 1252 tokens, above maximum of 1200', 'Chunk 2 (8d02fd1571682107) has 439 tokens, below minimum of 800']
+2025-12-31 23:56:29,663 - INFO - Created 3 chunks from content
+2025-12-31 23:56:31,007 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:31,616 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:32,232 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:32,342 - INFO - Generated 3 embeddings
+2025-12-31 23:56:33,971 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:56:33,973 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:56:33,975 - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:56:34,485 - INFO - Stored metadata for chunk db49a63cefacee03
+2025-12-31 23:56:35,102 - INFO - Stored metadata for chunk bc66b469977a7d75
+2025-12-31 23:56:35,612 - INFO - Stored metadata for chunk 8d02fd1571682107
+2025-12-31 23:56:35,614 - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:56:35,615 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/lesson-1.2-nvidia-isaac-sim-for-photorealistic-simulation
+2025-12-31 23:56:35,616 - INFO - Retrying URL 10/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.2-visual-slam-with-isaac-ros
+2025-12-31 23:56:35,616 - INFO -   Attempt 1/3
+2025-12-31 23:56:36,819 - WARNING - Chunk validation errors: ['Chunk 1 (58cbcb520e233722) has 1618 tokens, above maximum of 1200', 'Chunk 2 (d1b149ec8c710185) has 477 tokens, below minimum of 800']
+2025-12-31 23:56:36,821 - INFO - Created 3 chunks from content
+2025-12-31 23:56:37,360 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:38,062 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:38,686 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:38,790 - INFO - Generated 3 embeddings
+2025-12-31 23:56:40,001 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:56:40,003 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:56:40,005 - INFO - Stored 3 embeddings to Qdrant
+2025-12-31 23:56:40,559 - INFO - Stored metadata for chunk 2383941e08d8bf09
+2025-12-31 23:56:40,972 - INFO - Stored metadata for chunk 58cbcb520e233722
+2025-12-31 23:56:41,392 - INFO - Stored metadata for chunk d1b149ec8c710185
+2025-12-31 23:56:41,394 - INFO - Successfully stored 3 embeddings to database
+2025-12-31 23:56:41,396 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.2-visual-slam-with-isaac-ros
+2025-12-31 23:56:41,398 - INFO - Retrying URL 11/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.3-ai-enhanced-navigation-and-obstacle-avoidance
+2025-12-31 23:56:41,400 - INFO -   Attempt 1/3
+2025-12-31 23:56:43,797 - WARNING - Chunk validation errors: ['Chunk 0 (c6386db5f80e3a57) has 386 tokens, below minimum of 800', 'Chunk 1 (e67364029cab6121) has 2341 tokens, above maximum of 1200', 'Chunk 2 (9ffa7478b2c76607) has 568 tokens, below minimum of 800', 'Chunk 3 (498c479b6bf73583) has 1815 tokens, above maximum of 1200', 'Chunk 4 (7bc3e9e45e3afac9) has 571 tokens, below minimum of 800']
+2025-12-31 23:56:43,798 - INFO - Created 5 chunks from content
+2025-12-31 23:56:45,136 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:45,853 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:46,462 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:47,178 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:47,798 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:56:47,908 - INFO - Generated 5 embeddings
+2025-12-31 23:56:49,975 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:56:49,980 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:56:49,982 - INFO - Stored 5 embeddings to Qdrant
+2025-12-31 23:56:50,463 - INFO - Stored metadata for chunk c6386db5f80e3a57
+2025-12-31 23:56:51,073 - INFO - Stored metadata for chunk e67364029cab6121
+2025-12-31 23:56:51,542 - INFO - Stored metadata for chunk 9ffa7478b2c76607
+2025-12-31 23:56:51,992 - INFO - Stored metadata for chunk 498c479b6bf73583
+2025-12-31 23:56:52,420 - INFO - Stored metadata for chunk 7bc3e9e45e3afac9
+2025-12-31 23:56:52,421 - INFO - Successfully stored 5 embeddings to database
+2025-12-31 23:56:52,422 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.3-ai-enhanced-navigation-and-obstacle-avoidance
+2025-12-31 23:56:52,423 - INFO - Retrying URL 12/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication
+2025-12-31 23:56:52,424 - INFO -   Attempt 1/3
+2025-12-31 23:56:54,996 - WARNING - Chunk validation errors: ['Chunk 0 (2207d951c5efad8c) has 685 tokens, below minimum of 800', 'Chunk 1 (35bff1fa79ab699d) has 2115 tokens, above maximum of 1200', 'Chunk 4 (0b7a77de0d7acee9) has 157 tokens, below minimum of 800']
+2025-12-31 23:56:54,997 - INFO - Created 5 chunks from content
+2025-12-31 23:56:55,520 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:56:55,523 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:56:56,808 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:56:56,809 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:56:59,058 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:56:59,063 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:56:59,065 - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x744e9b838e30 state=finished raised ClientError>]
+2025-12-31 23:56:59,067 - WARNING - Mismatch in embedding count: expected 5, got 0
+2025-12-31 23:56:59,069 - INFO - Generated 0 embeddings
+2025-12-31 23:56:59,071 - WARNING - Mismatch: 5 chunks but 0 embeddings
+2025-12-31 23:56:59,072 - ERROR - Chunk and embedding count mismatch: 5 vs 0
+2025-12-31 23:56:59,074 - ERROR - Failed to store embeddings to database
+2025-12-31 23:56:59,076 - WARNING -   Attempt 1 failed: Failed to store embeddings to database
+2025-12-31 23:56:59,077 - INFO -   Waiting 1s before retry...
+2025-12-31 23:57:00,081 - INFO -   Attempt 2/3
+2025-12-31 23:57:01,463 - WARNING - Chunk validation errors: ['Chunk 0 (2207d951c5efad8c) has 685 tokens, below minimum of 800', 'Chunk 1 (35bff1fa79ab699d) has 2115 tokens, above maximum of 1200', 'Chunk 4 (0b7a77de0d7acee9) has 157 tokens, below minimum of 800']
+2025-12-31 23:57:01,464 - INFO - Created 5 chunks from content
+2025-12-31 23:57:01,719 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:01,725 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:02,948 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:02,953 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:05,200 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:05,206 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:05,208 - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x744e9b079af0 state=finished raised ClientError>]
+2025-12-31 23:57:05,210 - WARNING - Mismatch in embedding count: expected 5, got 0
+2025-12-31 23:57:05,211 - INFO - Generated 0 embeddings
+2025-12-31 23:57:05,213 - WARNING - Mismatch: 5 chunks but 0 embeddings
+2025-12-31 23:57:05,215 - ERROR - Chunk and embedding count mismatch: 5 vs 0
+2025-12-31 23:57:05,217 - ERROR - Failed to store embeddings to database
+2025-12-31 23:57:05,219 - WARNING -   Attempt 2 failed: Failed to store embeddings to database
+2025-12-31 23:57:05,221 - INFO -   Waiting 2s before retry...
+2025-12-31 23:57:07,225 - INFO -   Attempt 3/3
+2025-12-31 23:57:08,277 - WARNING - Chunk validation errors: ['Chunk 0 (2207d951c5efad8c) has 685 tokens, below minimum of 800', 'Chunk 1 (35bff1fa79ab699d) has 2115 tokens, above maximum of 1200', 'Chunk 4 (0b7a77de0d7acee9) has 157 tokens, below minimum of 800']
+2025-12-31 23:57:08,278 - INFO - Created 5 chunks from content
+2025-12-31 23:57:08,447 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:08,451 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:09,636 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:09,640 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:11,857 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:11,861 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:11,863 - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x744e9b077bf0 state=finished raised ClientError>]
+2025-12-31 23:57:11,864 - WARNING - Mismatch in embedding count: expected 5, got 0
+2025-12-31 23:57:11,865 - INFO - Generated 0 embeddings
+2025-12-31 23:57:11,865 - WARNING - Mismatch: 5 chunks but 0 embeddings
+2025-12-31 23:57:11,866 - ERROR - Chunk and embedding count mismatch: 5 vs 0
+2025-12-31 23:57:11,867 - ERROR - Failed to store embeddings to database
+2025-12-31 23:57:11,868 - WARNING -   Attempt 3 failed: Failed to store embeddings to database
+2025-12-31 23:57:11,869 - ERROR -   FAILED after 3 attempts: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication - Failed to store embeddings to database
+2025-12-31 23:57:11,870 - INFO - Retrying URL 13/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/introduction
+2025-12-31 23:57:11,871 - INFO -   Attempt 1/3
+2025-12-31 23:57:12,652 - WARNING - Chunk validation errors: ['Chunk 0 (897f5b4ca7179717) has 1207 tokens, above maximum of 1200', 'Chunk 1 (f30a9a91bca3ce04) has 648 tokens, below minimum of 800']
+2025-12-31 23:57:12,653 - INFO - Created 4 chunks from content
+2025-12-31 23:57:12,833 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:12,836 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:14,018 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:14,022 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:16,266 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:16,270 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:16,272 - ERROR - Batch embedding failed for batch starting at index 0: RetryError[<Future at 0x744e99faf290 state=finished raised ClientError>]
+2025-12-31 23:57:16,274 - WARNING - Mismatch in embedding count: expected 4, got 0
+2025-12-31 23:57:16,276 - INFO - Generated 0 embeddings
+2025-12-31 23:57:16,277 - WARNING - Mismatch: 4 chunks but 0 embeddings
+2025-12-31 23:57:16,280 - ERROR - Chunk and embedding count mismatch: 4 vs 0
+2025-12-31 23:57:16,282 - ERROR - Failed to store embeddings to database
+2025-12-31 23:57:16,283 - WARNING -   Attempt 1 failed: Failed to store embeddings to database
+2025-12-31 23:57:16,285 - INFO -   Waiting 1s before retry...
+2025-12-31 23:57:17,289 - INFO -   Attempt 2/3
+2025-12-31 23:57:17,472 - WARNING - Chunk validation errors: ['Chunk 0 (897f5b4ca7179717) has 1207 tokens, above maximum of 1200', 'Chunk 1 (f30a9a91bca3ce04) has 648 tokens, below minimum of 800']
+2025-12-31 23:57:17,473 - INFO - Created 4 chunks from content
+2025-12-31 23:57:17,694 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:17,698 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:18,922 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 429 Too Many Requests"
+2025-12-31 23:57:18,929 - ERROR - Gemini API error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}
+2025-12-31 23:57:21,588 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:57:22,199 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:57:22,816 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:57:23,430 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:57:23,542 - INFO - Generated 4 embeddings
+2025-12-31 23:57:25,657 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:57:25,660 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:57:25,662 - INFO - Stored 4 embeddings to Qdrant
+2025-12-31 23:57:26,192 - INFO - Stored metadata for chunk 897f5b4ca7179717
+2025-12-31 23:57:26,818 - INFO - Stored metadata for chunk f30a9a91bca3ce04
+2025-12-31 23:57:27,322 - INFO - Stored metadata for chunk 8a54e10df2caf725
+2025-12-31 23:57:27,931 - INFO - Stored metadata for chunk d742018aee951ebc
+2025-12-31 23:57:27,932 - INFO - Successfully stored 4 embeddings to database
+2025-12-31 23:57:27,933 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/introduction
+2025-12-31 23:57:27,934 - INFO - Retrying URL 14/14: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/lesson-1.1-introduction-to-vla-systems
+2025-12-31 23:57:27,935 - INFO -   Attempt 1/3
+2025-12-31 23:57:28,809 - WARNING - Chunk validation errors: ['Chunk 0 (4793dc93b2582945) has 1204 tokens, above maximum of 1200', 'Chunk 1 (ab5efbdf9e888f09) has 721 tokens, below minimum of 800']
+2025-12-31 23:57:28,810 - INFO - Created 2 chunks from content
+2025-12-31 23:57:30,191 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:57:30,800 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+2025-12-31 23:57:30,909 - INFO - Generated 2 embeddings
+2025-12-31 23:57:32,953 - INFO - HTTP Request: PUT https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333/collections/book_embeddings/points?wait=true "HTTP/1.1 200 OK"
+2025-12-31 23:57:32,956 - INFO - Stored batch 1 of 1 to Qdrant
+2025-12-31 23:57:32,958 - INFO - Stored 2 embeddings to Qdrant
+2025-12-31 23:57:33,463 - INFO - Stored metadata for chunk 4793dc93b2582945
+2025-12-31 23:57:33,974 - INFO - Stored metadata for chunk ab5efbdf9e888f09
+2025-12-31 23:57:33,977 - INFO - Successfully stored 2 embeddings to database
+2025-12-31 23:57:33,981 - INFO -   SUCCESS: https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/lesson-1.1-introduction-to-vla-systems
+2025-12-31 23:57:33,984 - INFO - === RETRY SUMMARY ===
+2025-12-31 23:57:33,986 - INFO - Total URLs to retry: 14
+2025-12-31 23:57:33,988 - INFO - Successfully processed: 13
+2025-12-31 23:57:33,989 - INFO - Still failed: 1
+2025-12-31 23:57:33,991 - INFO - 
+Successfully processed URLs:
+2025-12-31 23:57:33,993 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.2-simulation-environment-setup (attempt 1)
+2025-12-31 23:57:33,996 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/python-ros2-integration-rclpy/lesson-4.3-complete-system-integration (attempt 1)
+2025-12-31 23:57:33,998 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-1/robot-description-urdf-xacro/ (attempt 1)
+2025-12-31 23:57:34,000 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.2-lidar-simulation-in-virtual-environments (attempt 1)
+2025-12-31 23:57:34,002 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Physics-&-Sensors/lesson-2.3-depth-camera-and-imu-simulation (attempt 1)
+2025-12-31 23:57:34,004 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/ (attempt 1)
+2025-12-31 23:57:34,007 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-2/Unity-Digital-Twin/lesson-3.1-unity-environment-setup-for-robotics (attempt 1)
+2025-12-31 23:57:34,010 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/AI-System-Integration/lesson-4.3-validation-and-verification-of-ai-systems (attempt 2)
+2025-12-31 23:57:34,011 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Isaac-Sim-&-AI-Integration/lesson-1.2-nvidia-isaac-sim-for-photorealistic-simulation (attempt 1)
+2025-12-31 23:57:34,013 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.2-visual-slam-with-isaac-ros (attempt 1)
+2025-12-31 23:57:34,014 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-3/Visual-SLAM-&-Navigation/lesson-2.3-ai-enhanced-navigation-and-obstacle-avoidance (attempt 1)
+2025-12-31 23:57:34,016 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/introduction (attempt 2)
+2025-12-31 23:57:34,018 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/vision-language-action-fundamentals/lesson-1.1-introduction-to-vla-systems (attempt 1)
+2025-12-31 23:57:34,020 - INFO - 
+Still failed URLs:
+2025-12-31 23:57:34,022 - INFO -   - https://amannazim.github.io/Physical_AI_Humanoid_Robotics_Book_With_RAG_Chatbot/docs/module-4/human-robot-interaction-and-validation/lesson-4.3-human-robot-interaction-and-natural-communication: Failed to store embeddings to database
+2025-12-31 23:57:34,048 - INFO - Results saved to retry_results.json
+2025-12-31 23:57:34,283 - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x744e9c7c7ec0>
+2025-12-31 23:57:34,284 - ERROR - Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x744e9c4d07d0>, 3147.377292441)])']
+connector: <aiohttp.connector.TCPConnector object at 0x744e9c4bbc50>
