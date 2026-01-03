@@ -1,6 +1,6 @@
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel
-from qdrant_client.http import models
+from qdrant_client import models
 
 
 class QdrantPayload(BaseModel):

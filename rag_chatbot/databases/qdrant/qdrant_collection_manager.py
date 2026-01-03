@@ -1,6 +1,6 @@
 import uuid
 from typing import List, Optional, Dict, Any
-from qdrant_client.http import models
+from qdrant_client import models
 from rag_core.utils.logger import rag_logger
 from rag_core.utils.timing import timing_decorator
 from .qdrant_client import QdrantClientWrapper
