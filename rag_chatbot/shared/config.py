@@ -45,7 +45,7 @@ class LLMSettings(BaseSettings):
 
 class CORSSettings(BaseSettings):
     """Settings for CORS configuration"""
-    cors_allowed_origins: str = Field(default="http://localhost:3000,http://localhost:8000", alias="CORS_ALLOWED_ORIGINS")
+    cors_allowed_origins: str = Field(default="http://localhost:3000,http://localhost:8000", description="CORS allowed origins")
 
     model_config = SettingsConfigDict(env_prefix="CORS_")
 
@@ -64,24 +64,84 @@ class AppSettings(BaseSettings):
     debug: bool = Field(default=False, description="Debug mode")
     log_level: str = Field(default="INFO", description="Logging level")
 
-    # Component settings
-    qdrant: QdrantSettings = QdrantSettings()
-    neon: NeonSettings = NeonSettings()
-    gemini: GeminiSettings = GeminiSettings()
-    llm: LLMSettings = LLMSettings()
-    cors: CORSSettings = CORSSettings()
-
     # RAG-specific settings
     max_chunk_size: int = Field(default=1200, description="Maximum size of text chunks in tokens")
     min_chunk_size: int = Field(default=800, description="Minimum size of text chunks in tokens")
     retrieval_top_k: int = Field(default=5, description="Number of top results to retrieve")
     retrieval_threshold: float = Field(default=0.7, description="Similarity threshold for retrieval")
 
+    # Qdrant settings
+    qdrant_host: str = Field(default="http://localhost:6333", description="Qdrant host URL")
+    qdrant_api_key: Optional[str] = Field(default=None, description="Qdrant API key")
+    qdrant_collection_name: str = Field(default="book_embeddings", description="Qdrant collection name")
+    qdrant_vector_size: int = Field(default=1024, description="Size of embedding vectors")
+    qdrant_distance: str = Field(default="Cosine", description="Distance metric for similarity search")
+
+    # Neon settings
+    neon_database_url: str = Field(default="postgresql://user:password@localhost:5432/dbname", description="Neon database URL")
+    neon_pool_size: int = Field(default=10, description="Connection pool size")
+    neon_pool_timeout: int = Field(default=30, description="Connection pool timeout in seconds")
+
+    # Gemini settings
+    gemini_api_key: str = Field(default="", description="Gemini API key")
+    gemini_model: str = Field(default="gemini-embedding-001", description="Gemini embedding model")
+    gemini_task_type: str = Field(default="RETRIEVAL_DOCUMENT", description="Task type for embeddings")
+    gemini_output_dimensionality: int = Field(default=1024, description="Output dimensionality for embeddings")
+
+    # LLM settings (OpenRouter)
+    openrouter_api_key: str = Field(default="", description="OpenRouter API key")
+    openrouter_model: str = Field(default="openai/gpt-4-turbo", description="LLM model to use")
+    openrouter_base_url: str = Field(default="https://openrouter.ai/api/v1", description="OpenRouter API base URL")
+
+    # CORS settings
+    cors_cors_allowed_origins: str = Field(default="http://localhost:3000,http://localhost:8000", description="CORS allowed origins")
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=False
     )
+
+    @property
+    def qdrant_settings(self) -> QdrantSettings:
+        return QdrantSettings(
+            host=self.qdrant_host,
+            api_key=self.qdrant_api_key,
+            collection_name=self.qdrant_collection_name,
+            vector_size=self.qdrant_vector_size,
+            distance=self.qdrant_distance
+        )
+
+    @property
+    def neon_settings(self) -> NeonSettings:
+        return NeonSettings(
+            database_url=self.neon_database_url,
+            pool_size=self.neon_pool_size,
+            pool_timeout=self.neon_pool_timeout
+        )
+
+    @property
+    def gemini_settings(self) -> GeminiSettings:
+        return GeminiSettings(
+            api_key=self.gemini_api_key,
+            model=self.gemini_model,
+            task_type=self.gemini_task_type,
+            output_dimensionality=self.gemini_output_dimensionality
+        )
+
+    @property
+    def llm_settings(self) -> LLMSettings:
+        return LLMSettings(
+            api_key=self.openrouter_api_key,
+            model=self.openrouter_model,
+            base_url=self.openrouter_base_url
+        )
+
+    @property
+    def cors_settings(self) -> CORSSettings:
+        return CORSSettings(
+            cors_allowed_origins=self.cors_cors_allowed_origins
+        )
 
 
 # Global settings instance

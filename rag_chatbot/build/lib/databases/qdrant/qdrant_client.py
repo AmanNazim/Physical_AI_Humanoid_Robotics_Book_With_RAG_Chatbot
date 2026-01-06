@@ -15,9 +15,9 @@ class QdrantClientWrapper:
 
     def __init__(self):
         self._client: Optional[QdrantClient] = None
-        self._collection_name = settings.qdrant.collection_name
-        self._vector_size = settings.qdrant.vector_size
-        self._distance = settings.qdrant.distance
+        self._collection_name = settings.qdrant_settings.collection_name
+        self._vector_size = settings.qdrant_settings.vector_size
+        self._distance = settings.qdrant_settings.distance
 
     async def connect(self):
         """
@@ -25,8 +25,8 @@ class QdrantClientWrapper:
         """
         try:
             self._client = QdrantClient(
-                url=settings.qdrant.host,
-                api_key=settings.qdrant.api_key,
+                url=settings.qdrant_settings.host,
+                api_key=settings.qdrant_settings.api_key,
                 prefer_grpc=True  # Use gRPC for better performance if available
             )
             rag_logger.info("Qdrant client initialized successfully")

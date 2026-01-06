@@ -14,9 +14,9 @@ class PostgresClient:
 
     def __init__(self):
         self._pool: Optional[asyncpg.Pool] = None
-        self._connection_string = settings.neon.database_url
-        self._pool_size = settings.neon.pool_size
-        self._pool_timeout = settings.neon.pool_timeout
+        self._connection_string = settings.neon_settings.database_url
+        self._pool_size = settings.neon_settings.pool_size
+        self._pool_timeout = settings.neon_settings.pool_timeout
 
     async def connect(self):
         """

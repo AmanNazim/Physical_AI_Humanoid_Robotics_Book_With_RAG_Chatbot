@@ -23,15 +23,15 @@ class DatabaseConfig(BaseModel):
         Create a DatabaseConfig instance from the global settings.
         """
         return cls(
-            qdrant_host=settings.qdrant.host,
-            qdrant_api_key=settings.qdrant.api_key,
-            qdrant_collection_name=settings.qdrant.collection_name,
-            qdrant_vector_size=settings.qdrant.vector_size,
-            qdrant_distance=settings.qdrant.distance,
+            qdrant_host=settings.qdrant_settings.host,
+            qdrant_api_key=settings.qdrant_settings.api_key,
+            qdrant_collection_name=settings.qdrant_settings.collection_name,
+            qdrant_vector_size=settings.qdrant_settings.vector_size,
+            qdrant_distance=settings.qdrant_settings.distance,
 
-            neon_database_url=settings.neon.database_url,
-            neon_pool_size=settings.neon.pool_size,
-            neon_pool_timeout=settings.neon.pool_timeout
+            neon_database_url=settings.neon_settings.database_url,
+            neon_pool_size=settings.neon_settings.pool_size,
+            neon_pool_timeout=settings.neon_settings.pool_timeout
         )
 
     def validate(self) -> bool:
