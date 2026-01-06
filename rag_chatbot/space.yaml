@@ -1,0 +1,7 @@
+runtime: docker
+sdk: docker
+accelerator: cpu
+cpu: 2
+memory: 8Gi
+concurrent_instances: 1
+hardware: cpu-upgrade
