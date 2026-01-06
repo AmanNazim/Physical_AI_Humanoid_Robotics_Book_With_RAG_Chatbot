@@ -6,15 +6,14 @@ This document translates the FastAPI Subsystem Constitution into actionable, ver
 
 ## 2. System Overview (High-Level Architecture)
 
-The FastAPI Subsystem serves as the **central backend entrypoint** for the RAG Chatbot system. It orchestrates the flow of data between multiple subsystems:
+The FastAPI Subsystem serves as the **central orchestration layer** for the RAG Chatbot system. It orchestrates the flow of data between multiple subsystems:
 
 - **ChatKit (frontend)**: Receives user queries and returns responses
-- **Intelligence Subsystem (OpenAI Agents SDK)**: Forwards queries with context for reasoning
-- **Embeddings Subsystem (Cohere)**: Triggers embedding generation for new documents
-- **Qdrant Vector DB Subsystem**: Requests vector similarity searches
-- **Neon Postgres DB Subsystem**: Retrieves metadata for context and stores document information
+- **Database Subsystem**: Coordinates vector similarity searches (Qdrant) and metadata operations (Neon Postgres)
+- **Embeddings Subsystem**: Triggers document ingestion and embedding generation workflows
+- **Future Intelligence Subsystem (Agents SDK)**: Forwards queries with context for reasoning (integration-ready)
 
-The RAG loop pipeline orchestrated by FastAPI involves: receiving user queries → validating input → requesting vector retrieval from Qdrant → retrieving metadata from Postgres → forwarding context + query to Intelligence subsystem → returning final answer with citations.
+The RAG loop pipeline orchestrated by FastAPI involves: receiving user queries → validating input → requesting vector retrieval from Database subsystem → receiving metadata enrichment → preparing inputs for future Intelligence subsystem → returning final answers with citations.
 
 ## 3. API Versioning Requirements
 
@@ -26,51 +25,59 @@ FastAPI must implement the following core functions:
 
 ### 4.1. Document Ingestion Flow
 Endpoints must allow:
-- Uploading raw text content
-- Uploading markdown documents
-- Uploading PDFs (optional)
-- Saving document metadata to Postgres
 - Triggering embedding generation through the embeddings subsystem
-- Storing resulting vectors in Qdrant via the database subsystem
+- Coordinating with Database subsystem for vector and metadata storage
 - Returning ingestion status and metrics
 
 ### 4.2. RAG Query Pipeline
 FastAPI must support endpoints for:
 1. Accepting user queries with proper validation
-2. Requesting vector retrieval from Qdrant subsystem
-3. Receiving document metadata from Postgres subsystem
-4. Forwarding context and query to Intelligence subsystem
-5. Returning final answers with citations, context chunks, and latency metrics
+2. Requesting vector retrieval from Database subsystem (Qdrant)
+3. Receiving metadata from Database subsystem (Postgres)
+4. Preparing context for future Intelligence subsystem
+5. Returning answers with citations, context chunks, and latency metrics
 
 ## 5. Detailed Endpoint Specifications
 
 All endpoint schemas must be rigorously defined with URL, method, request schema, response schema, validation rules, error cases, and integration responsibilities.
 
-### 5.1. `POST /api/v1/ingest/text`
-Upload raw text to the system.
+### 5.1. `POST /api/v1/embed`
+Trigger embedding ingestion workflow through the embeddings subsystem.
 
 **Request Body:**
-- `document_id` (string, optional → auto-generate if missing)
-- `title` (string)
-- `source` (string: "manual" | "pdf" | "md")
-- `text` (string)
+- `text` (string, required)
+- `document_metadata` (object, optional)
 
 **FastAPI Responsibilities:**
 - Validate request parameters
-- Save metadata to Postgres via DB subsystem
-- Call Embeddings subsystem to generate embeddings
-- Send vectors to Qdrant via database subsystem
-- Return ingestion summary
+- Call Embeddings subsystem pipeline to process content
+- Return ingestion status and metrics
 
 **Response:**
-- `status: "success"`
-- `document_id`
-- `chunks_created`
-- `vectors_stored`
-- `elapsed_ms`
+- `status: "success" | "error"`
+- `message`
+- `chunks_processed`
+- `embeddings_generated`
 
-### 5.2. `POST /api/v1/query`
-User queries the chatbot.
+### 5.2. `POST /api/v1/retrieve`
+Pure retrieval endpoint (no LLM processing).
+
+**Request Body:**
+- `query` (string, required)
+- `top_k` (int, default 5)
+- `filters` (object, optional)
+
+**Flow:**
+1. Validate input parameters
+2. Generate query embedding using Embeddings subsystem
+3. Call Database subsystem for similarity search
+4. Return retrieved sources with metadata
+
+**Response:**
+- `sources: [{chunk_id, document_id, text, score, metadata}]`
+
+### 5.3. `POST /api/v1/chat`
+Main RAG endpoint and orchestrator.
 
 **Request Body:**
 - `query` (string, required)
@@ -79,45 +86,70 @@ User queries the chatbot.
 
 **Flow:**
 1. Validate input parameters
-2. Call Qdrant subsystem for similarity search
-3. Retrieve metadata from Postgres
-4. Forward query + context to Intelligence subsystem
+2. Generate query embedding using Embeddings subsystem
+3. Call Database subsystem for similarity search
+4. Prepare context for future Intelligence subsystem
 5. Return result with sources
 
 **Response:**
 - `answer`
-- `sources: [{chunk_id, document_id, text}]`
-- `latency_ms`
+- `sources: [{chunk_id, document_id, text, score, metadata}]`
+- `session_id`
+- `query`
 
-### 5.3. `GET /api/v1/documents`
-Returns all documents stored in the system.
+### 5.4. `POST /api/v1/chat/stream`
+Streaming RAG endpoint with Server-Sent Events.
 
-**Response Body:**
-Array of document metadata:
-- `document_id`
-- `title`
-- `source`
-- `chunk_count`
+**Request Body:**
+- `query` (string, required)
+- `max_context` (int, default 5)
+- `session_id` (string, optional)
 
-### 5.4. `GET /api/v1/health`
-Returns simple health diagnostics.
+**Flow:**
+1. Validate input parameters
+2. Generate query embedding using Embeddings subsystem
+3. Call Database subsystem for similarity search
+4. Stream tokens as they become available
+5. Return sources and completion status
+
+**Response:**
+- Server-Sent Events stream with:
+  - Source information
+  - Token chunks
+  - Completion status
+
+### 5.5. `GET /api/v1/health`
+Returns system health diagnostics.
 
 **Response Body:**
 - `status: "ok"`
+- `service: "RAG Chatbot API"`
 - `qdrant_connected: boolean`
 - `postgres_connected: boolean`
-- `version: "v1"`
+- `version: "1.0.0"`
 
-### 5.5. Optional WebSocket Endpoint: `/api/v1/ws/chat`
-For streaming agent responses.
+### 5.6. `GET /api/v1/config`
+Returns safe frontend configuration.
+
+**Response Body:**
+- `feature_flags: {}`
+- `streaming_enabled: boolean`
+- `ui_hints: {}`
+
+### 5.7. WebSocket Endpoint: `/api/v1/chat/ws/{session_id}`
+For real-time streaming responses.
 
 **Requirements:**
 - Async WebSocket connection
 - Stream tokens as they arrive
+- Handle bidirectional communication
 - Must send:
+  - Connection confirmation
+  - Source information
   - Token chunks during processing
   - Final answer
   - List of sources
+  - Completion status
 
 ## 6. Data Validation Requirements
 
@@ -151,52 +183,45 @@ All error responses must follow this structure with appropriate codes and messag
 
 ## 8. Integration with Subsystems
 
-### 8.1. Qdrant Integration Rules
-FastAPI must use the Qdrant subsystem abstraction:
-- `qdrant.insert_vectors(chunks)`
-- `qdrant.search(query_embedding, top_k)`
+### 8.1. Database Subsystem Integration Rules
+FastAPI must use the DatabaseManager abstraction:
+- `database_manager.query_embeddings(query_vector, top_k, filters)`
+- `database_manager.get_chunks_by_document(document_id)`
+- `database_manager.connect_all()`
+- `database_manager.close_all()`
 
 FastAPI must NOT:
-- Compute embeddings directly
-- Handle vector storage directly
+- Bypass the Database subsystem's abstraction layer
+- Make direct database calls
+- Handle connection management directly (delegate to Database subsystem)
 
-### 8.2. Neon Postgres Integration Rules
-FastAPI must use the DB abstraction layer:
-- `db.save_document()`
-- `db.save_chunk()`
-- `db.get_document_metadata()`
-
-FastAPI must NOT:
-- Write raw SQL queries
-- Manage database transactions manually
-
-### 8.3. Embeddings Subsystem Integration Rules
+### 8.2. Embeddings Subsystem Integration Rules
 FastAPI must:
-- Call `embeddings.generate(text)` when document ingestion is requested
+- Call `EmbeddingPipeline.process_content(text, document_reference)` for ingestion
+- Use `EmbeddingProcessor.generate_embeddings(chunks)` for query embedding generation
+- Respect the embeddings subsystem's processing contracts
 
-Embeddings subsystem returns:
-```
-{
-  "chunks": [...],
-  "vectors": [...]
-}
-```
+Embeddings subsystem provides:
+- Chunking and preprocessing
+- Embedding generation
+- Vector storage coordination
 
-### 8.4. Intelligence Layer Integration
-FastAPI forwards:
-- `query`
-- `retrieved_context_chunks`
+### 8.3. Future Intelligence Layer Integration
+FastAPI prepares structured data for:
+- `query` (user's question)
+- `retrieved_context_chunks` (from Database subsystem)
 - `session_id` (if provided)
 
-And expects:
+Prepared for future consumption by Intelligence subsystem:
 ```
 {
-  "answer": "...",
-  "source_ids": [...]
+  "query": "...",
+  "context_chunks": [...],
+  "session_id": "..."
 }
 ```
 
-FastAPI must not perform reasoning or LLM calls directly.
+FastAPI currently implements placeholder logic but must be ready for Intelligence subsystem integration.
 
 ## 9. Authentication & Security Requirements
 
@@ -207,6 +232,7 @@ FastAPI must support:
 - Sanitization of all user input to prevent injection attacks
 - Enforcement of HTTPS in production environments
 - Proper CORS configuration for ChatKit frontend integration
+- Rate limiting to prevent abuse
 
 ## 10. Logging Specifications
 
@@ -216,6 +242,7 @@ FastAPI must log:
 - Response processing end time
 - Errors and exceptions with appropriate context
 - Unique trace ID per request for distributed tracing
+- Integration call results with other subsystems
 
 Logs must be:
 - JSON structured for easy parsing
@@ -230,10 +257,11 @@ FastAPI must:
 - Minimize synchronous blocking operations
 - Support up to ~200 requests per second on mid-tier servers
 - Respond within specified time limits:
-  - Ingestion API: < 2.5 seconds
-  - Query API: < 1.5 seconds
+  - Health API: < 0.1 seconds
+  - Retrieve API: < 1.0 seconds
+  - Chat API: < 2.0 seconds (response time depends on LLM call)
 
-Caching is optional but recommended for repeated vector lookups.
+Streaming responses must support proper token-by-token delivery.
 
 ## 12. Deployment Requirements
 
@@ -248,17 +276,29 @@ FastAPI must support:
   - VPS (Ubuntu)
 - `.env` file configuration loading
 - Horizontal scaling readiness for increased load
+- Proper lifecycle management with startup/shutdown events
 
-## 13. Testing Requirements
+## 13. Streaming & WebSocket Requirements
+
+FastAPI must implement:
+- Server-Sent Events (SSE) for streaming responses
+- WebSocket support for real-time communication
+- Proper token streaming for ChatKit UI compatibility
+- Client disconnect handling
+- Heartbeat messages for connection maintenance
+- Proper stream closure
+
+## 14. Testing Requirements
 
 FastAPI must include:
 - Unit tests for each endpoint with various input scenarios
-- Integration tests with Qdrant and Postgres using mocks
+- Integration tests with Database and Embeddings subsystems using mocks
 - Schema validation tests to ensure API contract compliance
 - Contract tests for ChatKit frontend integration
+- Streaming endpoint tests
 - Load test plan (optional but recommended)
 
-## 14. Forbidden Behaviors (From Constitution)
+## 15. Forbidden Behaviors (From Constitution)
 
 FastAPI must NOT:
 - Compute embeddings directly (delegate to embeddings subsystem)
@@ -269,15 +309,25 @@ FastAPI must NOT:
 - Modify chunking behavior (delegate to embeddings subsystem)
 - Expose internal server errors directly to clients
 - Return undocumented responses that don't match defined schemas
+- Perform direct vector searches (use Database subsystem)
 
-## 15. Acceptance Criteria
+## 16. Future Integration Requirements
+
+FastAPI must be designed to support:
+- Clean integration with Agents SDK (proper data structures, context preparation)
+- ChatKit UI streaming compatibility (proper SSE format, WebSocket support)
+- Scalable architecture for high-concurrency scenarios
+
+## 17. Acceptance Criteria
 
 The FastAPI subsystem is complete when:
 - All endpoints exist as defined in Section 5
 - All request and response schemas are validated and functional
-- All integration rules with other subsystems are respected
+- All integration rules with Database and Embeddings subsystems are respected
 - Error responses follow the standardized error model
 - Logs are structured according to specifications
 - All subsystem connections are established and functional
+- Streaming endpoints work with ChatKit UI compatibility
+- WebSocket endpoints support real-time communication
 - A fully deployable container exists with proper configuration
 - All tests pass with appropriate coverage

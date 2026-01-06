@@ -27,73 +27,53 @@ The FastAPI Subsystem will follow a structured architecture with clear separatio
 ### Project Directory Layout
 ```
 backend/
-├── src/
-│   ├── fastapi_backend/
-│   │   ├── __init__.py
-│   │   ├── main.py                 # Application factory
-│   │   ├── config/                 # Configuration module
-│   │   │   ├── __init__.py
-│   │   │   ├── settings.py         # Settings model
-│   │   │   └── environment.py      # Environment loading
-│   │   ├── api/                    # API routers
-│   │   │   ├── __init__.py
-│   │   │   ├── v1/                 # Version 1 endpoints
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── ingestion.py    # Ingestion endpoints
-│   │   │   │   ├── query.py        # Query endpoints
-│   │   │   │   ├── documents.py    # Document endpoints
-│   │   │   │   └── health.py       # Health endpoints
-│   │   │   └── ws/                 # WebSocket endpoints
-│   │   │       └── chat.py         # Chat WebSocket
-│   │   ├── services/               # Service layer
-│   │   │   ├── __init__.py
-│   │   │   ├── ingestion_service.py # Ingestion logic
-│   │   │   ├── query_service.py    # Query orchestration
-│   │   │   └── health_service.py   # Health checks
-│   │   ├── clients/                # Subsystem clients
-│   │   │   ├── __init__.py
-│   │   │   ├── qdrant_client.py    # Qdrant integration
-│   │   │   ├── postgres_client.py  # Postgres integration
-│   │   │   ├── embeddings_client.py # Embeddings integration
-│   │   │   └── intelligence_client.py # Intelligence integration
-│   │   ├── models/                 # Pydantic models
-│   │   │   ├── __init__.py
-│   │   │   ├── request_models.py   # Request schemas
-│   │   │   ├── response_models.py  # Response schemas
-│   │   │   └── error_models.py     # Error schemas
-│   │   ├── middleware/             # Custom middleware
-│   │   │   ├── __init__.py
-│   │   │   ├── logging_middleware.py # Logging middleware
-│   │   │   └── cors_middleware.py  # CORS setup
-│   │   └── utils/                  # Utility functions
-│   │       ├── __init__.py
-│   │       ├── logging.py          # Logging setup
-│   │       └── validation.py       # Validation helpers
-├── tests/
+├── main.py                 # Application factory
+├── app.py                  # App instance
+├── config.py               # Settings model
+├── middleware/             # Custom middleware
 │   ├── __init__.py
-│   ├── unit/
-│   ├── integration/
-│   └── e2e/
-└── Dockerfile
+│   ├── cors.py             # CORS setup
+│   ├── logging.py          # Logging middleware
+│   └── rate_limit.py       # Rate limiting
+├── routers/                # API routers
+│   ├── __init__.py
+│   ├── health.py           # Health and config endpoints
+│   ├── chat.py             # Chat and streaming endpoints
+│   ├── retrieve.py         # Retrieval endpoints
+│   └── embed.py            # Embedding ingestion endpoints
+├── services/               # Service layer
+│   ├── __init__.py
+│   ├── retrieval_service.py # Retrieval orchestration
+│   ├── rag_service.py      # RAG pipeline orchestration
+│   ├── embedding_service.py # Embedding workflow coordination
+│   └── streaming_service.py # Streaming response handling
+├── schemas/                # Pydantic models
+│   ├── __init__.py
+│   ├── chat.py             # Chat schemas
+│   ├── embedding.py        # Embedding schemas
+│   ├── retrieval.py        # Retrieval schemas
+│   └── error.py            # Error schemas
+└── utils/                  # Utility functions
+    ├── __init__.py
+    └── logger.py           # Logging setup
 ```
 
 ### Subsystem Abstraction Layers
-- Client layer: Abstracts communication with other subsystems
 - Service layer: Orchestrates business logic and subsystem interactions
 - API layer: Handles HTTP requests/responses and validation
 - Model layer: Defines data structures and validation schemas
 
 ### Routers per Functional Domain
-- **Ingestion Router**: Handles document ingestion endpoints
-- **Query Router**: Manages RAG query processing
-- **Documents Router**: Provides document metadata operations
-- **Health Router**: System health and diagnostics
-- **WebSocket Router**: Streaming responses (optional)
+- **Health Router**: System health and configuration endpoints
+- **Chat Router**: RAG query processing and streaming
+- **Retrieve Router**: Pure retrieval operations
+- **Embed Router**: Document ingestion triggers
 
 ### Service-Layer Classes
-- `IngestionService`: Coordinates document ingestion flow
-- `QueryService`: Manages RAG pipeline orchestration
-- `HealthService`: Performs system health checks
+- `RetrievalService`: Coordinates vector similarity searches via Database subsystem
+- `RAGService`: Manages RAG pipeline orchestration (future-ready for Agents SDK)
+- `EmbeddingService`: Coordinates document ingestion with Embeddings subsystem
+- `StreamingService`: Handles streaming responses and WebSocket support
 
 ### Model & Schema Structure (Pydantic)
 - Request models with validation rules
@@ -101,15 +81,15 @@ backend/
 - Error models for standardized error handling
 - Shared base models for common fields
 
-### Database and Vector-Client Initialization
-- Qdrant client initialization with connection pooling
-- Postgres client initialization with async support
+### Subsystem Integration Setup
+- DatabaseManager initialization for Qdrant and Postgres access
+- EmbeddingProcessor initialization for query embedding generation
 - Proper lifecycle management for resource cleanup
 
 ### Middleware and Logging Setup
 - CORS middleware for ChatKit integration
 - JSON logging middleware with trace IDs
-- Request ID injection for distributed tracing
+- Rate limiting to prevent abuse
 - Global exception handling
 
 ## 3. Environment & Configuration Plan
@@ -117,13 +97,23 @@ backend/
 ### Required Environment Variables
 - `QDRANT_URL`: URL for Qdrant vector database
 - `QDRANT_API_KEY`: Authentication key for Qdrant
+- `QDRANT_COLLECTION_NAME`: Collection name for embeddings
+- `QDRANT_VECTOR_SIZE`: Size of embedding vectors
 - `NEON_POSTGRES_URL`: Connection string for Neon Postgres
-- `COHERE_API_KEY`: API key for Cohere embeddings
-- `AGENT_API_KEY`: API key for OpenAI Agents SDK
+- `GEMINI_API_KEY`: API key for Gemini embeddings
+- `GEMINI_MODEL`: Gemini embedding model name
+- `EMBEDDING_DIMENSION`: Output dimensionality for embeddings
+- `LLM_API_KEY`: API key for LLM (future use)
+- `LLM_MODEL`: LLM model to use (future use)
+- `LLM_BASE_URL`: LLM API base URL (future use)
 - `FASTAPI_SECRET_KEY`: Secret key for security
-- `ALLOWED_CORS_ORIGINS`: Comma-separated list of allowed origins
-- `SERVICE_NAME`: Name of the service for logging
+- `API_KEY`: API key for authentication (optional)
+- `ALLOWED_ORIGINS`: Comma-separated list of allowed CORS origins
+- `HOST`: Host for the server
+- `PORT`: Port for the server
+- `RELOAD`: Enable auto-reload during development
 - `LOG_LEVEL`: Logging level (DEBUG, INFO, WARNING, ERROR)
+- `RATE_LIMIT_REQUESTS_PER_MINUTE`: Number of requests allowed per minute per IP
 
 ### Configuration Structure Plan
 - `.env` file loading with python-dotenv
@@ -138,27 +128,21 @@ backend/
 - Create dedicated router module
 - Define request/response Pydantic schemas
 - Implement validation rules and constraints
-- Call appropriate subsystem services
+- Call appropriate service layer methods
 - Handle errors with standardized responses
 - Return properly structured responses
 - Ensure type safety throughout
 
-### 4.2 POST /api/v1/ingest/text Endpoint Plan
+### 4.2 POST /api/v1/embed Endpoint Plan
 **Data Flow:**
 - Validate request body using Pydantic schema
-- Auto-generate document_id if not provided
-- Validate source type ("manual", "pdf", "md")
-- Call IngestionService to process document
-- Service calls Embeddings Subsystem for processing
-- Service passes results to Qdrant and Postgres Subsystems
-- Return ingestion summary with metrics
+- Call EmbeddingService to trigger ingestion
+- Service calls EmbeddingPipeline for processing
+- Return ingestion status with metrics
 
 **Service Invocation Order:**
-1. IngestionService.validate_document()
-2. IngestionService.process_text()
-3. EmbeddingsClient.generate()
-4. PostgresClient.save_document_metadata()
-5. QdrantClient.insert_vectors()
+1. EmbeddingService.validate_document()
+2. EmbeddingService.trigger_ingestion()
 
 **Error Capture Pathway:**
 - Invalid request → Validation error
@@ -169,77 +153,93 @@ backend/
 **Logging Points:**
 - Request received
 - Document validation complete
-- Processing started
-- Subsystem calls complete
+- Ingestion triggered
 - Response sent
 
-**Performance Constraints:**
-- Complete within 2.5 seconds
-- Async processing where possible
-- Efficient resource usage
-
-### 4.3 POST /api/v1/query Endpoint Plan
+### 4.3 POST /api/v1/retrieve Endpoint Plan
 **Data Flow:**
 - Validate query parameters
-- Call QueryService to orchestrate RAG flow
-- Service calls Qdrant for vector similarity search
-- Service retrieves metadata from Postgres
-- Service forwards context to Intelligence Subsystem
-- Return answer with sources and metrics
+- Call RetrievalService to orchestrate retrieval
+- Service generates query embedding using Embeddings subsystem
+- Service calls Database subsystem for similarity search
+- Return retrieved sources with metadata
 
 **Service Invocation Order:**
-1. QueryService.validate_query()
-2. QdrantClient.search()
-3. PostgresClient.get_document_metadata()
-4. IntelligenceClient.process_query()
-5. QueryService.format_response()
+1. RetrievalService.validate_query()
+2. EmbeddingProcessor.generate_embeddings() for query
+3. DatabaseManager.query_embeddings()
+4. RetrievalService.format_response()
 
 **Error Capture Pathway:**
 - Invalid query → Validation error
-- Search failure → Qdrant error
-- Metadata retrieval failure → Postgres error
-- Intelligence processing failure → Integration error
+- Search failure → Database error
+- Embedding generation failure → Embeddings error
 
 **Logging Points:**
 - Query received
+- Embedding generation started
 - Search executed
-- Context retrieved
-- Intelligence processing started
 - Response sent
 
-**Performance Constraints:**
-- Complete within 1.5 seconds
-- Async operations throughout
-- Efficient context retrieval
-
-### 4.4 GET /api/v1/documents Endpoint Plan
+### 4.4 POST /api/v1/chat Endpoint Plan
 **Data Flow:**
-- Validate request parameters
-- Call PostgresClient to retrieve document metadata
-- Format response with required fields
-- Return document list
+- Validate query parameters
+- Call RAGService to orchestrate RAG flow
+- Service uses RetrievalService for context retrieval
+- Service prepares context for future Intelligence subsystem
+- Return answer with sources
 
 **Service Invocation Order:**
-1. PostgresClient.get_all_documents()
-2. Format response with document metadata
+1. RAGService.validate_query_and_context()
+2. RetrievalService.retrieve_by_query()
+3. RAGService._generate_answer_with_context() (placeholder for future Agents SDK)
 
 **Error Capture Pathway:**
-- Database connection error → Database error
-- Invalid response → Service error
+- Invalid query → Validation error
+- Retrieval failure → Retrieval error
+- Processing failure → Service error
 
-### 4.5 GET /api/v1/health Endpoint Plan
+**Logging Points:**
+- Query received
+- Context retrieval started
+- Answer generation started
+- Response sent
+
+### 4.5 POST /api/v1/chat/stream Endpoint Plan
 **Data Flow:**
-- Call HealthService to check subsystem connections
-- Check Qdrant connectivity
-- Check Postgres connectivity
-- Return health status
+- Validate query parameters
+- Call RAGService to orchestrate RAG flow
+- Use StreamingService for token streaming
+- Stream sources and tokens as they become available
+- Send completion status
 
 **Service Invocation Order:**
-1. HealthService.check_qdrant_connection()
-2. HealthService.check_postgres_connection()
-3. Format health response
+1. RetrievalService.retrieve_by_query()
+2. StreamingService.stream_response()
+3. Stream response chunks via Server-Sent Events
 
-### 4.6 WebSocket: /api/v1/ws/chat Endpoint Plan
+**Performance Constraints:**
+- Support proper streaming with client disconnect handling
+- Include heartbeat messages for connection maintenance
+
+### 4.6 GET /api/v1/health Endpoint Plan
+**Data Flow:**
+- Check Database subsystem connectivity
+- Return health status with service information
+
+**Service Invocation Order:**
+1. Check DatabaseManager connectivity
+2. Format health response
+
+### 4.7 GET /api/v1/config Endpoint Plan
+**Data Flow:**
+- Return safe frontend configuration
+- Include feature flags and UI hints
+
+**Service Invocation Order:**
+1. Format configuration response
+
+### 4.8 WebSocket: /api/v1/chat/ws/{session_id} Endpoint Plan
 **Data Flow:**
 - Establish WebSocket connection
 - Receive query from client
@@ -251,37 +251,23 @@ backend/
 - Use FastAPI WebSocket support
 - Implement async streaming
 - Handle connection lifecycle
-- Manage session state if needed
+- Manage session state with StreamingService
 
 ## 5. Subsystem Integration Plan
 
-### 5.1 Embeddings Subsystem Integration Plan
-- **Input Format**: Send text content with document metadata
-- **Asynchronous Call**: Use async/await for non-blocking operations
-- **Handling Chunks + Vectors**: Receive structured response with both
-- **Qdrant Integration**: Pass vectors to Qdrant via client
-- **Postgres Integration**: Pass metadata to Postgres via client
-- **Error Fallbacks**: Implement retry logic and error handling
+### 5.1 Database Subsystem Integration Plan
+- **Integration Point**: Use DatabaseManager singleton from rag_chatbot.databases.database_manager
+- **Initialization**: Call connect_all() during service initialization
+- **Search Operations**: Use database_manager.query_embeddings() for similarity search
+- **Metadata Operations**: Use database_manager.get_chunks_by_document() for metadata retrieval
+- **Connection Management**: Respect Database subsystem's lifecycle management
 
-### 5.2 Qdrant Vector Database Subsystem Integration Plan
-- **Client Initialization**: Create async Qdrant client with connection pooling
-- **Vector Upsert**: Implement efficient vector insertion with batch operations
-- **Similarity Search**: Execute semantic search with configurable parameters
-- **Missing Vectors**: Handle empty search results gracefully
-- **Timeouts & Retries**: Implement circuit breaker pattern
-- **Response Normalization**: Standardize search results format
-
-### 5.3 Neon Postgres Subsystem Integration Plan
-- **Metadata Persistence**: Store document and chunk metadata with proper relationships
-- **Relational Retrieval**: Query metadata with efficient joins
-- **Structured Response**: Format metadata according to specification
-- **Error Translation**: Convert database errors to service errors
-
-### 5.4 Intelligence Layer Subsystem Integration Plan
-- **Query Forwarding**: Send user query with retrieved context
-- **Session Tracking**: Manage conversation state if needed
-- **Response Handling**: Receive structured answer with source citations
-- **Error Propagation**: Handle LLM processing errors appropriately
+### 5.2 Embeddings Subsystem Integration Plan
+- **Integration Point**: Use EmbeddingProcessor from rag_chatbot.embedding_pipeline.gemini_client
+- **Initialization**: Call initialize() during service initialization
+- **Query Embedding**: Use generate_embeddings() for query vector generation
+- **Ingestion**: Use EmbeddingPipeline.process_content() for document processing
+- **Error Handling**: Implement proper error propagation from embeddings subsystem
 
 ## 6. Request/Response Schema Plan
 
@@ -310,7 +296,7 @@ backend/
 ## 7. Middleware & Cross-Cutting Concerns Plan
 
 ### CORS Setup for ChatKit
-- Configure allowed origins from environment
+- Configure allowed origins from environment settings
 - Support credentials if needed
 - Set appropriate headers for security
 
@@ -319,10 +305,10 @@ backend/
 - Include trace IDs for distributed tracing
 - Support different log levels
 
-### Request ID Injection
-- Generate unique IDs for each request
-- Propagate IDs through the system
-- Include in logs for correlation
+### Rate Limiting Middleware
+- Implement per-IP rate limiting
+- Configure from environment settings
+- Return appropriate error responses
 
 ### Error Handling Middleware
 - Catch unhandled exceptions
@@ -337,9 +323,9 @@ backend/
 ## 8. Authentication & Security Plan
 
 ### API Key Authentication Plan
-- Create dependency for API key validation
+- Create dependency for API key validation (optional)
 - Validate keys against environment configuration
-- Apply to protected endpoints only
+- Apply to protected endpoints if needed
 - Return appropriate error for invalid keys
 
 ### Security Headers
@@ -348,10 +334,10 @@ backend/
 - Set appropriate security headers
 - Sanitize input data
 
-### Access Control
-- Define protected endpoints
-- Implement role-based access if needed
-- Validate permissions per request
+### Rate Limiting
+- Implement per-minute request limits per IP
+- Configure from environment settings
+- Prevent abuse of the API
 
 ## 9. Performance & Scalability Plan
 
@@ -360,23 +346,37 @@ backend/
 - Implement non-blocking I/O operations
 - Leverage FastAPI's async capabilities
 
-### Connection Pooling
-- Configure database connection pools
-- Optimize Qdrant client connections
+### Connection Management
 - Reuse connections where possible
+- Respect subsystem connection management
+- Minimize connection overhead
 
 ### Performance Goals
-- **Ingestion**: Complete within 2.5 seconds
-- **Query**: Complete within 1.5 seconds
-- **Health**: Near-instant response
+- **Health**: < 0.1 seconds
+- **Retrieve**: < 1.0 seconds
+- **Chat**: < 2.0 seconds (response time depends on LLM call)
+- **Streaming**: Proper token-by-token delivery
 
 ### Optimization Strategies
-- Implement caching for repeated requests
-- Use batch operations where possible
-- Optimize database queries
-- Minimize data serialization overhead
+- Use efficient data serialization
+- Minimize data processing overhead
+- Optimize subsystem call patterns
 
-## 10. Logging & Observability Plan
+## 10. Streaming & WebSocket Plan
+
+### Server-Sent Events Implementation
+- Implement proper SSE format for ChatKit UI
+- Include proper event and data formatting
+- Support client disconnect handling
+- Include heartbeat messages
+
+### WebSocket Implementation
+- Support bidirectional communication
+- Handle connection lifecycle properly
+- Support session management
+- Include proper error handling
+
+## 11. Logging & Observability Plan
 
 ### Structured Logging (JSON)
 - Implement JSON logging format
@@ -387,8 +387,7 @@ backend/
 - **Request/Response**: Log all API interactions
 - **Errors**: Capture all exceptions with context
 - **Performance**: Track response times
-- **Ingestion**: Log document processing status
-- **Queries**: Track query performance and results
+- **Subsystem Integration**: Log calls to other subsystems
 
 ### Metrics Collection
 - Response time metrics
@@ -396,30 +395,27 @@ backend/
 - Request volume monitoring
 - Subsystem health metrics
 
-## 11. Testing Plan
+## 12. Testing Plan
 
 ### Unit Tests
-- **Ingestion**: Test document processing logic
-- **Query**: Test RAG pipeline orchestration
-- **Health**: Test system connectivity checks
+- **Retrieval**: Test retrieval logic and validation
+- **RAG**: Test RAG pipeline orchestration
+- **Embedding**: Test ingestion coordination
+- **Streaming**: Test streaming response handling
 - **Schema Validation**: Test Pydantic models
 
 ### Integration Tests
-- **Qdrant Client**: Test vector operations
-- **Postgres Client**: Test metadata operations
-- **Embeddings Integration**: Test embedding generation flow
-- **Intelligence Integration**: Test query processing
+- **Database Integration**: Test Database subsystem calls
+- **Embeddings Integration**: Test Embeddings subsystem calls
+- **API Contracts**: Validate request/response shapes
 
 ### End-to-End Tests
 - **RAG Pipeline**: Test complete query flow
 - **Document Ingestion**: Test complete ingestion flow
-- **ChatKit Integration**: Test UI-backend integration
+- **Streaming**: Test streaming endpoints
+- **WebSocket**: Test WebSocket endpoints
 
-### Contract Tests
-- **API Contracts**: Validate request/response shapes
-- **Subsystem Interfaces**: Test integration contracts
-
-## 12. Deployment Plan
+## 13. Deployment Plan
 
 ### Dockerfile Creation Plan
 - Multi-stage build for optimization
@@ -427,9 +423,8 @@ backend/
 - Security scanning integration
 - Environment configuration
 
-### Uvicorn/Gunicorn Configuration
+### Uvicorn Configuration
 - Production-ready ASGI server setup
-- Proper worker configuration
 - Performance tuning parameters
 - Health check endpoints
 
@@ -437,22 +432,26 @@ backend/
 - **Railway**: Container-based deployment
 - **Render**: Web service deployment
 - **Fly.io**: Global edge deployment
-- **HuggingFace**: Inference endpoint
 - **VPS**: Self-hosted deployment
-
-### CI/CD Pipeline
-- Automated testing on push
-- Security scanning
-- Automated deployment
-- Rollback procedures
 
 ### Secrets Management
 - Environment variable handling
 - Secure credential storage
 - Configuration management
-- Access control for secrets
 
-## 13. Acceptance Criteria for Successful Implementation
+## 14. Future Integration Preparation
+
+### Agents SDK Readiness
+- Prepare clean data structures for Agents SDK consumption
+- Maintain compatibility with future Intelligence subsystem
+- Implement proper context preparation
+
+### ChatKit UI Compatibility
+- Support streaming responses for real-time UI
+- Maintain proper error handling for frontend
+- Include source attribution for citations
+
+## 15. Acceptance Criteria for Successful Implementation
 
 The FastAPI Subsystem is complete when:
 
@@ -466,9 +465,11 @@ The FastAPI Subsystem is complete when:
 - [ ] Deployment-ready container produced
 - [ ] All unit tests pass with adequate coverage
 - [ ] All integration tests pass
-- [ ] All end-to-end tests pass
+- [ ] All streaming endpoints work properly
+- [ ] All WebSocket endpoints work properly
 - [ ] All interfaces respect constitutional boundaries
-- [ ] Performance goals achieved (ingestion < 2.5s, query < 1.5s)
+- [ ] Performance goals achieved
 - [ ] Health checks operational
 - [ ] Error handling consistent across all endpoints
 - [ ] CORS properly configured for ChatKit integration
+- [ ] Rate limiting implemented and functional

@@ -2,7 +2,7 @@
 
 ## 1. Subsystem Mission
 
-The FastAPI Subsystem serves as the **central backend gateway** for the entire RAG system. This subsystem provides REST endpoints for the ChatKit UI, OpenAI Agents runtime, vector retrieval, metadata queries, and pipeline orchestration. It provides a secure abstraction over Qdrant, Neon Postgres, and Embeddings subsystems, ensuring deterministic, stateless request handling. The FastAPI Subsystem provides a unified interface for all internal RAG services while maintaining strict separation of concerns with other subsystems.
+The FastAPI Subsystem serves as the **central orchestration layer** for the entire RAG system. This subsystem provides REST and WebSocket endpoints for the ChatKit UI, integrates with the Database subsystem for retrieval operations, and coordinates with the Embeddings subsystem for ingestion workflows. It provides a secure abstraction layer over Qdrant, Neon Postgres, and the Embeddings pipeline, ensuring deterministic, stateless request handling. The FastAPI Subsystem provides a unified interface for all internal RAG services while maintaining strict separation of concerns with other subsystems.
 
 The mission of the FastAPI Subsystem is to act as the orchestration and transport layer that connects all components of the RAG system. It ensures that requests from the frontend are properly validated, routed to the appropriate backend services, and responses are formatted consistently for consumption by the frontend. The subsystem maintains the constitutional requirement for deterministic retrieval by ensuring that all requests follow established pathways without bypassing other subsystems.
 
@@ -11,12 +11,11 @@ The mission of the FastAPI Subsystem is to act as the orchestration and transpor
 The FastAPI Subsystem must:
 
 **Endpoint Exposure:**
-- Expose HTTP endpoints for user query forwarding to Intelligence subsystem
-- Provide endpoints for document ingestion triggers
-- Enable embedding generation triggers through dedicated endpoints
-- Expose RAG retrieval request endpoints
-- Manage chat session endpoints
-- Provide metadata inspection endpoints
+- Expose HTTP endpoints for user query processing and RAG orchestration
+- Provide endpoints for document ingestion triggers (delegating to Embeddings subsystem)
+- Enable retrieval operations (coordinating with Database subsystem)
+- Expose chat and streaming endpoints for real-time interaction
+- Manage health and configuration endpoints for system monitoring
 
 **Validation and Formatting:**
 - Enforce API input validation using Pydantic schemas
@@ -25,20 +24,20 @@ The FastAPI Subsystem must:
 
 **Orchestration:**
 - Serve as the **bridge** between Frontend ChatKit UI and backend services
-- Coordinate with Database subsystem (Neon) for metadata operations
-- Interface with Vector DB subsystem (Qdrant) for retrieval operations
-- Integrate with Embeddings subsystem (Cohere) for processing triggers
-- Connect with Intelligence Agent subsystem for reasoning operations
+- Coordinate with Database subsystem for retrieval operations
+- Interface with Embeddings subsystem for ingestion workflows
+- Prepare clean inputs for future Agents SDK integration
+- Support ChatKit UI consumption of responses
 
 ## 3. Strict Subsystem Boundaries
 
 The FastAPI Subsystem must NOT:
 
-- Generate embeddings - this belongs to the Embeddings subsystem
-- Perform chunking operations - this belongs to the Embeddings subsystem
-- Perform vector searches directly (must call Qdrant client layer) - this belongs to the Database subsystem
-- Compute LLM responses - this belongs to the Intelligence subsystem
-- Contain business logic that belongs to the intelligence layer
+- Generate embeddings directly - this belongs to the Embeddings subsystem
+- Perform chunking operations directly - this belongs to the Embeddings subsystem
+- Perform vector searches directly - this belongs to the Database subsystem
+- Compute LLM responses directly - this belongs to the Intelligence subsystem
+- Contain business logic that belongs to other subsystems
 - Override subsystem boundaries of other components
 
 The FastAPI Subsystem ONLY orchestrates, exposes API endpoints, validates requests, delegates processing to appropriate subsystems, and returns formatted responses. It maintains strict separation of concerns by delegating all domain-specific operations to specialized subsystems.
@@ -52,42 +51,41 @@ The FastAPI Subsystem must:
 - Produce stable API contracts that maintain backward compatibility
 - Version the API using the `/api/v1/...` pattern for clear versioning
 - Support WebSocket endpoints for live streaming capabilities
+- Implement proper error handling for all endpoints
 
 **Response Standards:**
 - Require consistent error handling model across all endpoints
 - Require structured JSON responses following established patterns
 - Never expose internal implementation details in responses
 - Support CORS properly for ChatKit UI integration
+- Include proper metadata and source attribution in responses
 
 ## 5. Integration Rules with Other Subsystems
 
-### FastAPI → Qdrant Subsystem
-- Must use the Qdrant client wrapper provided by the Qdrant subsystem
-- Must never embed vectors directly
-- Must never compute similarity manually - this is the responsibility of the Qdrant subsystem
-
-### FastAPI → Neon Postgres Subsystem
-- Must only call database abstraction functions provided by the Neon subsystem
-- Must never write raw SQL unless explicitly defined in DB subsystem specification
-- Must never bypass DB validations implemented in the Database subsystem
+### FastAPI → Database Subsystem
+- Must use the DatabaseManager provided by the Database subsystem
+- Must never bypass the Database subsystem's abstraction layer
+- Must coordinate with both Qdrant (for vector search) and Neon Postgres (for metadata) through the Database subsystem
+- Must respect the Database subsystem's query and storage contracts
 
 ### FastAPI → Embeddings Subsystem
-- Can trigger embedding generation through defined interfaces
-- Cannot compute embeddings directly
+- Can trigger embedding generation through the EmbeddingPipeline interface
+- Cannot compute embeddings directly - must delegate to Embeddings subsystem
 - Cannot define chunking rules - this is the responsibility of the Embeddings subsystem
-- Cannot modify embedding logic - this is the responsibility of the Embeddings subsystem
+- Cannot manage vector storage - must use Database subsystem for this
+- Must respect the Embeddings subsystem's processing contracts
 
-### FastAPI → Intelligence Layer (Agents)
-- Must forward user text queries to the Intelligence subsystem
-- Must not create or destroy agent states directly
-- Must respect the intelligence subsystem governance and state management
+### FastAPI → Future Intelligence Layer (Agents SDK)
+- Must prepare clean inputs for the Agents SDK (queries, context, sources)
+- Must not implement reasoning logic directly
+- Must provide structured data that Agents SDK can consume
+- Must maintain compatibility with Agents SDK integration points
 
 ### FastAPI → ChatKit Frontend
-- Must expose endpoints for send_message operations
-- Must provide retrieve_context endpoints for context retrieval
-- Must support generate_response endpoints for response generation
-- Must implement show_sources endpoints for citation display
-- Must provide load_metadata endpoints for metadata operations
+- Must provide streaming responses compatible with ChatKit UI
+- Must support real-time WebSocket communication
+- Must provide proper error handling for frontend consumption
+- Must include source attribution for citation display
 
 ## 6. Security Requirements
 
@@ -116,8 +114,8 @@ The FastAPI Subsystem must guarantee:
 
 **Resource Management:**
 - Maintain minimal overhead in request handling
-- Implement optional caching layer for repeated vector lookups
 - Optimize resource usage to support concurrent users
+- Implement proper streaming for large responses
 
 ## 8. Reliability & Stability
 
@@ -168,11 +166,12 @@ The FastAPI Subsystem MUST NOT:
 - Create embeddings - this belongs to the Embeddings subsystem
 - Perform agentic reasoning - this belongs to the Intelligence subsystem
 - Store files directly - this should go through appropriate storage subsystems
-- Bypass vector DB/database subsystems - all data access must go through proper channels
-- Contain domain logic belonging to intelligence layer - this belongs to the Intelligence subsystem
+- Bypass Database subsystem - all data access must go through proper channels
+- Contain domain logic belonging to other subsystems
 - Mutate or transform embeddings - this belongs to the Embeddings subsystem
 - Contain UI rendering logic - this belongs to the frontend
 - Generate LLM responses - this belongs to the Intelligence subsystem
+- Perform direct vector searches - this belongs to the Database subsystem
 
 The FastAPI Subsystem is an orchestration and transport layer ONLY, with no domain-specific processing capabilities.
 
@@ -191,6 +190,21 @@ The FastAPI Subsystem must operate under:
 - SOC2-like logging discipline for security and compliance
 - Secure API boundaries that prevent unauthorized access
 
-## 13. Final Constitutional Guarantee
+## 13. Future Integration Requirements
+
+The FastAPI Subsystem must be designed to support:
+
+**Agents SDK Integration:**
+- Prepare clean inputs for the Agents SDK (queries, context, sources)
+- Maintain compatibility with future Agents SDK integration points
+- Provide proper data structures that Agents SDK can consume
+
+**ChatKit UI Integration:**
+- Support real-time streaming responses
+- Provide proper error handling for frontend consumption
+- Include source attribution for citation display
+- Maintain API contracts compatible with ChatKit UI requirements
+
+## 14. Final Constitutional Guarantee
 
 This Constitution represents the **unchangeable governing rules** for the FastAPI Subsystem. All future Specifications, Plans, Tasks, and Implementation generated by Claude Code MUST strictly follow this Constitution. No deviations are allowed. This document establishes the fundamental architectural boundaries, responsibilities, and constraints that govern the FastAPI Subsystem's role within the Global RAG Chatbot System. Any implementation that violates these principles is considered non-compliant with the system architecture and must be corrected to maintain system integrity.

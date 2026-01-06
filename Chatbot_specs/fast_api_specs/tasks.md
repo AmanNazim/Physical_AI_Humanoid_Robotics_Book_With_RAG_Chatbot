@@ -2,138 +2,148 @@
 
 ## **PHASE 1 — Environment & Project Setup**
 
-- [ ] T001 Initialize uv project structure in backend/src/fastapi_backend/
-- [ ] T002 Create backend directory structure (api/, services/, models/, clients/, middleware/, utils/, config/)
-- [ ] T003 Install required FastAPI and server dependencies via uv
-- [ ] T004 Create `.env.example` with required variables (QDRANT_URL, QDRANT_API_KEY, NEON_POSTGRES_URL, COHERE_API_KEY, AGENT_API_KEY, FASTAPI_SECRET_KEY, ALLOWED_CORS_ORIGINS, SERVICE_NAME, LOG_LEVEL)
-- [ ] T005 Create startup and shutdown events in main.py
+- [ ] T001 Create backend directory structure (middleware/, routers/, services/, schemas/, utils/)
+- [ ] T002 Install required FastAPI and server dependencies via uv
+- [ ] T003 Create `.env.example` with required variables (QDRANT_URL, QDRANT_API_KEY, QDRANT_COLLECTION_NAME, QDRANT_VECTOR_SIZE, NEON_POSTGRES_URL, GEMINI_API_KEY, GEMINI_MODEL, EMBEDDING_DIMENSION, LLM_API_KEY, LLM_MODEL, LLM_BASE_URL, FASTAPI_SECRET_KEY, API_KEY, ALLOWED_ORIGINS, HOST, PORT, RELOAD, LOG_LEVEL, RATE_LIMIT_REQUESTS_PER_MINUTE)
+- [ ] T004 Create configuration model in config.py using Pydantic BaseSettings
 
-## **PHASE 2 — API Core Structure**
+## **PHASE 2 — Schema Definition**
 
-- [ ] T006 Define unified API response model templates in models/response_models.py
-- [ ] T007 Define Pydantic model for user queries in models/request_models.py
-- [ ] T008 Define Pydantic model for document metadata in models/request_models.py
-- [ ] T009 Define Pydantic model for document ingestion in models/request_models.py
-- [ ] T010 Define Pydantic model for embedding payload in models/request_models.py
-- [ ] T011 Implement global exception handlers in middleware/error_handlers.py
-- [ ] T012 Implement logging middleware in middleware/logging_middleware.py
-- [ ] T013 Implement CORS middleware for ChatKit frontend in middleware/cors_middleware.py
+- [ ] T005 Define Pydantic models for chat requests/responses in schemas/chat.py
+- [ ] T006 Define Pydantic models for embedding requests/responses in schemas/embedding.py
+- [ ] T007 Define Pydantic models for retrieval requests/responses in schemas/retrieval.py
+- [ ] T008 Define Pydantic models for error handling in schemas/error.py
+- [ ] T009 Implement request/response validation rules
 
-## **PHASE 3 — Subsystem Integrations**
+## **PHASE 3 — Service Layer Implementation**
 
-### **3.1 Database Subsystem Integration**
+### **3.1 Retrieval Service**
 
-- [ ] T014 Implement Neon PostgreSQL connection client in clients/postgres_client.py
-- [ ] T015 Implement Qdrant client connection in clients/qdrant_client.py
-- [ ] T016 Implement connection verifiers for both databases in services/health_service.py
-- [ ] T017 Implement retry logic for both database connections in clients/database_utils.py
+- [ ] T010 Create retrieval_service.py to coordinate with Database subsystem
+- [ ] T011 Implement retrieve_by_query method using DatabaseManager
+- [ ] T012 Implement retrieve_by_document method using DatabaseManager
+- [ ] T013 Implement query validation and formatting
+- [ ] T014 Add proper error handling for retrieval operations
 
-### **3.2 Embeddings Subsystem Integration**
+### **3.2 RAG Service**
 
-- [ ] T018 Create internal service layer to call Embeddings Engine in services/ingestion_service.py
-- [ ] T019 Define contract for embedding request/response in models/embedding_models.py
-- [ ] T020 Add chunked text ingestion workflow in services/ingestion_service.py
-- [ ] T021 Add document indexing workflow in services/ingestion_service.py
-- [ ] T022 Add vector storage workflow (Qdrant) in services/ingestion_service.py
+- [ ] T015 Create rag_service.py for RAG pipeline orchestration
+- [ ] T016 Implement generate_response method with retrieval integration
+- [ ] T017 Add placeholder for future Agents SDK integration
+- [ ] T018 Implement query validation and context formatting
+- [ ] T019 Add proper error handling for RAG operations
 
-### **3.3 Intelligence Layer Integration**
+### **3.3 Embedding Service**
 
-- [ ] T023 Create request forwarding to Agent SDK backend layer in services/query_service.py
-- [ ] T024 Provide message formatting utilities in utils/message_formatter.py
-- [ ] T025 Implement state creation for conversation turns in services/query_service.py
+- [ ] T020 Create embedding_service.py to coordinate with Embeddings subsystem
+- [ ] T021 Implement trigger_ingestion method using EmbeddingPipeline
+- [ ] T022 Add document validation and processing
+- [ ] T023 Implement proper error handling for embedding operations
 
-## **PHASE 4 — FastAPI Endpoints**
+### **3.4 Streaming Service**
 
-### **4.1 Public API**
+- [ ] T024 Create streaming_service.py for streaming response handling
+- [ ] T025 Implement stream_response method for Server-Sent Events
+- [ ] T026 Add WebSocket support for real-time communication
+- [ ] T027 Implement proper connection lifecycle management
 
-- [ ] T026 Create `/health` endpoint for health checks in api/v1/health.py
-- [ ] T027 Create `/status` endpoint for global subsystem readiness in api/v1/health.py
-- [ ] T028 Create `/config` endpoint to return system metadata for frontend in api/v1/health.py
+## **PHASE 4 — Middleware Implementation**
 
-### **4.2 Embeddings / Document API**
+- [ ] T028 Create CORS middleware in middleware/cors.py
+- [ ] T029 Create logging middleware in middleware/logging.py
+- [ ] T030 Create rate limiting middleware in middleware/rate_limit.py
+- [ ] T031 Implement middleware integration in main application
 
-- [ ] T029 Create `POST /embed-text` endpoint to send raw text to embeddings engine in api/v1/ingestion.py
-- [ ] T030 Create `POST /add-document` endpoint for chunk → embed → store workflow in api/v1/ingestion.py
-- [ ] T031 Create `POST /delete-document` endpoint in api/v1/documents.py
-- [ ] T032 Create `GET /document/{id}` endpoint in api/v1/documents.py
+## **PHASE 5 — API Router Implementation**
 
-### **4.3 Search API**
+### **5.1 Health Router**
 
-- [ ] T033 Create `POST /search` endpoint as vector search wrapper in api/v1/query.py
-- [ ] T034 Create `POST /semantic-search` endpoint in api/v1/query.py
-- [ ] T035 Create `POST /hybrid-search` endpoint (Neon + Qdrant) in api/v1/query.py
+- [ ] T032 Create health router in routers/health.py
+- [ ] T033 Implement health check endpoint for system diagnostics
+- [ ] T034 Implement config endpoint for frontend configuration
 
-### **4.4 Chat API**
+### **5.2 Chat Router**
 
-- [ ] T036 Create `POST /chat` endpoint for RAG pipeline execution in api/v1/query.py
-- [ ] T037 Create `POST /conversation-state` endpoint in api/v1/query.py
+- [ ] T035 Create chat router in routers/chat.py
+- [ ] T036 Implement POST /chat endpoint for RAG orchestration
+- [ ] T037 Implement POST /chat/stream endpoint for SSE streaming
+- [ ] T038 Implement WebSocket endpoint for real-time communication
 
-## **PHASE 5 — Testing**
+### **5.3 Retrieve Router**
 
-- [ ] T038 Create unit tests for each route in tests/unit/
-- [ ] T039 Create integration tests for Qdrant in tests/integration/
-- [ ] T040 Create integration tests for embeddings engine in tests/integration/
-- [ ] T041 Create end-to-end tests for full RAG workflow in tests/e2e/
-- [ ] T042 Create load testing tasks (performance testing) in tests/load/
+- [ ] T039 Create retrieve router in routers/retrieve.py
+- [ ] T040 Implement POST /retrieve endpoint for pure retrieval
+- [ ] T041 Add proper request/response validation
 
-## **PHASE 6 — Deployment**
+### **5.4 Embed Router**
 
-- [ ] T043 Prepare production `uv` build configuration
-- [ ] T044 Build Dockerfile for production deployment
-- [ ] T045 Create deployment tasks for Railway
-- [ ] T046 Create deployment tasks for HuggingFace Spaces
-- [ ] T047 Create deployment tasks for Fly.io
-- [ ] T048 Create environment variable configuration tasks
-- [ ] T049 Create post-deployment health verification tasks
-- [ ] T050 Create endpoint load-balancing tasks
-- [ ] T051 Add production logs + metrics tasks
+- [ ] T042 Create embed router in routers/embed.py
+- [ ] T043 Implement POST /embed endpoint for ingestion triggers
+- [ ] T044 Add proper request/response validation
 
-## **PHASE 7 — Documentation**
+## **PHASE 6 — Main Application Integration**
 
-- [ ] T052 Auto-generate OpenAPI docs
-- [ ] T053 Add explanation for each endpoint in docs/endpoints.md
-- [ ] T054 Add subsystem wiring diagrams in docs/architecture.md
-- [ ] T055 Add troubleshooting section in docs/troubleshooting.md
+- [ ] T045 Create main.py with proper application factory
+- [ ] T046 Integrate all routers with proper prefixes and tags
+- [ ] T047 Configure middleware in proper order
+- [ ] T048 Add startup/shutdown event handlers
+- [ ] T049 Implement proper error handling setup
 
-## **PHASE 8 — API Versioning and Security**
+## **PHASE 7 — Subsystem Integration**
 
-- [ ] T056 Implement API versioning with `/api/v1/` prefix in main.py
-- [ ] T057 Create API key authentication middleware in middleware/auth_middleware.py
-- [ ] T058 Implement request validation using Pydantic schemas for all endpoints
-- [ ] T059 Implement structured response formatting across all endpoints
-- [ ] T060 Implement request logging for security monitoring
+### **7.1 Database Subsystem Integration**
 
-## **PHASE 9 — WebSocket Implementation**
+- [ ] T050 Test DatabaseManager integration with Qdrant and Postgres
+- [ ] T051 Verify query_embeddings functionality
+- [ ] T052 Test metadata retrieval operations
+- [ ] T053 Validate connection management
 
-- [ ] T061 Create WebSocket endpoint `/api/v1/ws/chat` for streaming responses
-- [ ] T062 Implement async streaming for token chunks
-- [ ] T063 Add WebSocket connection lifecycle management
-- [ ] T064 Implement session state management for WebSocket connections
+### **7.2 Embeddings Subsystem Integration**
 
-## **PHASE 10 — Performance Optimization**
+- [ ] T054 Test EmbeddingProcessor integration for query embeddings
+- [ ] T055 Verify EmbeddingPipeline integration for ingestion
+- [ ] T056 Test document processing workflows
+- [ ] T057 Validate embedding generation accuracy
 
-- [ ] T065 Implement async-first architecture for all endpoints
-- [ ] T066 Optimize connection pooling for database and external service connections
-- [ ] T067 Implement optional caching layer for repeated vector lookups
-- [ ] T068 Create performance monitoring for ingestion API (target < 2.5 seconds)
-- [ ] T069 Create performance monitoring for query API (target < 1.5 seconds)
+## **PHASE 8 — Streaming & WebSocket Implementation**
 
-## **PHASE 11 — Error Handling and Observability**
+- [ ] T058 Implement Server-Sent Events format for streaming responses
+- [ ] T059 Add proper client disconnect handling
+- [ ] T060 Implement WebSocket connection lifecycle
+- [ ] T061 Add heartbeat and connection maintenance
+- [ ] T062 Test streaming compatibility with ChatKit UI
 
-- [ ] T070 Implement unified error handler across all endpoints
-- [ ] T071 Create structured error formats consistent across the system
-- [ ] T072 Implement endpoint-level metrics for performance tracking
-- [ ] T073 Add performance timing for all operations
-- [ ] T074 Implement trace IDs for distributed tracing across subsystems
-- [ ] T075 Create readiness probe endpoints for deployment orchestration
+## **PHASE 9 — Testing**
 
-## **PHASE 12 — Final Integration and Validation**
+- [ ] T063 Create unit tests for each service layer component
+- [ ] T064 Create integration tests for subsystem integrations
+- [ ] T065 Create end-to-end tests for complete RAG workflows
+- [ ] T066 Test streaming endpoint functionality
+- [ ] T067 Test WebSocket endpoint functionality
 
-- [ ] T076 Integrate all routers with proper prefix and tags
-- [ ] T077 Test complete document ingestion flow (text → embedding → storage)
-- [ ] T078 Test complete query flow (query → retrieval → reasoning → response)
-- [ ] T079 Validate all integration rules with other subsystems
-- [ ] T080 Ensure all constitutional boundaries are maintained
-- [ ] T081 Run full system integration tests
-- [ ] T082 Perform security validation and compliance checks
-- [ ] T083 Generate final verification report
+## **PHASE 10 — Security & Performance**
+
+- [ ] T068 Implement rate limiting with configurable limits
+- [ ] T069 Add proper input sanitization
+- [ ] T070 Test performance under load
+- [ ] T071 Validate error handling across all endpoints
+- [ ] T072 Test CORS configuration for ChatKit frontend
+
+## **PHASE 11 — Deployment Preparation**
+
+- [ ] T073 Create Dockerfile for containerized deployment
+- [ ] T074 Configure Uvicorn for production use
+- [ ] T075 Test deployment configuration
+- [ ] T076 Verify environment variable handling
+- [ ] T077 Create deployment scripts
+
+## **PHASE 12 — Final Validation**
+
+- [ ] T078 Test complete ingestion flow (trigger → embeddings → storage)
+- [ ] T079 Test complete retrieval flow (query → search → response)
+- [ ] T080 Test complete RAG flow (query → retrieval → response)
+- [ ] T081 Validate streaming response functionality
+- [ ] T082 Test WebSocket real-time communication
+- [ ] T083 Verify all constitutional boundaries are maintained
+- [ ] T084 Run full system integration tests
+- [ ] T085 Generate final verification report
