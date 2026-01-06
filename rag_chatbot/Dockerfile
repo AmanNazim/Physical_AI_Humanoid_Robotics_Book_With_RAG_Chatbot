@@ -10,18 +10,21 @@ RUN apt-get update && apt-get install -y \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
-COPY requirements.txt .
+# Copy the entire project
+COPY . .
+
+# Change to rag_chatbot directory to install dependencies
+WORKDIR /app/rag_chatbot
 
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application
-COPY . .
+# Change back to main app directory
+WORKDIR /app
 
 # Expose the port
 EXPOSE $PORT
 
-# Command to run the application
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "$PORT"]
+# Command to run the application from rag_chatbot directory
+CMD ["sh", "-c", "cd rag_chatbot && uvicorn backend.main:app --host=0.0.0.0 --port=$PORT"]
