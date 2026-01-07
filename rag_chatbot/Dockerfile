@@ -20,5 +20,5 @@ COPY . .
 # Expose port (Hugging Face Spaces uses port 7860)
 EXPOSE 7860
 
-# Run the application using the Hugging Face optimized startup script
-CMD ["python", "startup_hf.py"]
+# Run the application using uvicorn to properly serve the FastAPI app
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860", "--reload", "false"]
