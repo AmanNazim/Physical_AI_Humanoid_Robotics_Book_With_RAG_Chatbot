@@ -21,4 +21,5 @@ COPY . .
 EXPOSE 7860
 
 # Run the application using uvicorn to properly serve the FastAPI app
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860", "--reload", "false"]
+# Don't use --reload in production (Hugging Face Spaces)
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
