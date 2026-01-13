@@ -1,0 +1,46 @@
+.error-bubble {
+  padding: 12px 16px;
+  margin: 8px 0;
+  border-radius: 8px;
+  background-color: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.error-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.error-icon {
+  font-size: 18px;
+}
+
+.error-message {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.retry-button {
+  background: #c33;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.retry-button:hover {
+  background: #a00;
+}
