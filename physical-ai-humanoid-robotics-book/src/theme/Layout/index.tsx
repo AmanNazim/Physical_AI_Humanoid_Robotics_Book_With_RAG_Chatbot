@@ -3,8 +3,10 @@ import Layout from '@theme-original/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import type { Props } from '@theme/Layout';
 
-// Browser-only component to handle ChatKit initialization
+// Browser-only component to handle ChatKit UI
 function ChatKitBrowserComponent() {
+  const [ChatKitComponents, setChatKitComponents] = React.useState<any>(null);
+
   React.useEffect(() => {
     // Dynamically load styles when in browser
     import('../../../../rag_chatbot/chatkit/styles/variables.css').catch(() => {});
@@ -12,30 +14,29 @@ function ChatKitBrowserComponent() {
     import('../../../../rag_chatbot/chatkit/styles/breakpoints.css').catch(() => {});
     import('../../../../rag_chatbot/chatkit/styles/animations.css').catch(() => {});
 
-    // Create portal root element when in browser
-    if (typeof document !== 'undefined') {
-      let portalRoot = document.getElementById('chatkit-portal-root');
-      if (!portalRoot) {
-        portalRoot = document.createElement('div');
-        portalRoot.setAttribute('id', 'chatkit-portal-root');
-        portalRoot.style.all = 'initial';
-        document.body.appendChild(portalRoot);
-      }
-    }
+    // Load ChatKit components
+    import('../../../../rag_chatbot/chatkit')
+      .then(module => {
+        setChatKitComponents(module);
+      })
+      .catch(err => console.error('Failed to load ChatKit components:', err));
   }, []);
 
-  // Dynamically import and render ChatKitProvider
-  const [ChatKitProvider, setChatKitProvider] = React.useState<any>(null);
+  if (ChatKitComponents) {
+    const { PortalManager, ChatLauncherButton, ChatPanel, MobileChatDrawer } = ChatKitComponents;
 
-  React.useEffect(() => {
-    import('../../../../rag_chatbot/chatkit/providers/ChatKitProvider')
-      .then(module => setChatKitProvider(() => module.ChatKitProvider))
-      .catch(err => console.error('Failed to load ChatKitProvider:', err));
-  }, []);
-
-  if (ChatKitProvider) {
-    return React.createElement(ChatKitProvider);
+    // Render the complete ChatKit UI within the PortalManager
+    return React.createElement(PortalManager, {},
+      React.createElement(() => (
+        <>
+          {React.createElement(ChatLauncherButton)}
+          {React.createElement(ChatPanel)}
+          {React.createElement(MobileChatDrawer)}
+        </>
+      ), {})
+    );
   }
+
   return null;
 }
 
