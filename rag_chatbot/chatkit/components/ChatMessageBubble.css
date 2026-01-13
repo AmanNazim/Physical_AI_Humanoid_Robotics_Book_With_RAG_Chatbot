@@ -1,0 +1,130 @@
+.message-bubble {
+  display: flex;
+  gap: 12px;
+  max-width: 90%;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-message {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.user-message .message-content {
+  background-color: #00C26A;
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+}
+
+.bot-message .message-content {
+  background-color: #f0f0f0;
+  color: #333;
+  border-radius: 18px 18px 18px 4px;
+}
+
+.message-avatar {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 4px;
+}
+
+.user-avatar, .bot-avatar {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.message-content {
+  padding: 12px 16px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.error-message .message-content {
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 18px;
+}
+
+.error-content strong {
+  color: #b71c1c;
+}
+
+.message-sources {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #ccc;
+  font-size: 12px;
+}
+
+.message-sources summary {
+  cursor: pointer;
+  color: #00C26A;
+  font-weight: 500;
+}
+
+.message-sources ul {
+  margin: 8px 0;
+  padding-left: 16px;
+}
+
+.message-sources li {
+  margin-bottom: 4px;
+  color: #666;
+}
+
+.user-message .message-sources summary {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  padding: 4px 0;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background-color: #666;
+  border-radius: 50%;
+  display: inline-block;
+  animation: typing-dot 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typing-dot {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .message-bubble {
+    max-width: 95%;
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@humanoid-robotics/chatkit",
+  "version": "1.0.0",
+  "description": "ChatKit UI Subsystem for Humanoid Robotics RAG Chatbot",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "keywords": [
+    "chatbot",
+    "ui",
+    "react",
+    "docusaurus",
+    "rag",
+    "ai"
+  ],
+  "author": "Humanoid Robotics Team",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0"
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: openai-agents-sdk
-description: Complete OpenAI Agents SDK implementation covering all components: Agents, Tools, Handoffs, Guardrails, Sessions, and Tracing. Implements all documented patterns and best practices from official documentation. Use when building multi-agent systems with proper tool integration, safety checks, and session management.
+description: Complete OpenAI Agents SDK implementation covering all components: Agents, Tools, Handoffs, Guardrails, Sessions, Models, and Tracing. Implements all documented patterns and best practices from official documentation. Use when building multi-agent systems with proper tool integration, safety checks, and session management.
 ---
 
 # OpenAI Agents SDK Complete Skill
@@ -11,13 +11,23 @@ This skill implements the complete OpenAI Agents SDK framework with all document
 
 Based on OpenAI Agents SDK documentation:
 - Core Documentation: https://openai.github.io/openai-agents-python/
-- Tools Documentation: https://raw.githubusercontent.com/openai/openai-agents-python/main/docs/tools.md
-- Guardrails Documentation: https://raw.githubusercontent.com/openai/openai-agents-python/main/docs/guardrails.md
-- Handoffs Documentation: https://raw.githubusercontent.com/openai/openai-agents-python/main/docs/handoffs.md
+- Quickstart: https://openai.github.io/openai-agents-python/quickstart
+- Examples: https://openai.github.io/openai-agents-python/examples
+- Agents: https://openai.github.io/openai-agents-python/agents
+- Running Agents: https://openai.github.io/openai-agents-python/running_agents
+- Sessions: https://openai.github.io/openai-agents-python/sessions
+- Tools: https://openai.github.io/openai-agents-python/tools
+- Guardrails: https://openai.github.io/openai-agents-python/guardrails
+- Models: https://openai.github.io/openai-agents-python/models
+- Models with LiteLLM: https://openai.github.io/openai-agents-python/models/litellm
 
 ## Overview
 
-The OpenAI Agents SDK is a lightweight framework for building multi-agent workflows that supports OpenAI APIs and 100+ other LLMs.
+The OpenAI Agents SDK is a production-ready framework for building multi-agent workflows that supports OpenAI APIs and 100+ other LLMs. It provides core primitives:
+- **Agents**: LLMs with instructions and tools
+- **Handoffs**: Delegation between agents
+- **Guardrails**: Input/output validation
+- **Sessions**: Conversation history management
 
 ## Installation
 
@@ -28,144 +38,36 @@ pip install openai-agents
 For optional features:
 - Voice support: `pip install 'openai-agents[voice]'`
 - Redis sessions: `pip install 'openai-agents[redis]'`
+- LiteLLM integration: `pip install 'openai-agents[litellm]'`
 
 ## Quickstart
 
-Create and run your first agent:
+### Hello World Example
 
 ```python
 from agents import Agent, Runner
 
-# Create an agent
-agent = Agent(
-    name="Math Tutor",
-    instructions="You provide help with math problems. Explain your reasoning at each step and include examples"
-)
-
-# Run the agent
-result = Runner.run_sync(agent, "Solve 2x + 5 = 15")
+agent = Agent(name="Assistant", instructions="You are a helpful assistant")
+result = Runner.run_sync(agent, "Write a haiku about recursion in programming.")
 print(result.final_output)
 ```
 
-## Provider Configuration
-
-The OpenAI Agents SDK supports 100+ LLM providers beyond OpenAI. To use alternative providers, configure your agent with the appropriate model and authentication:
-
-### Global Configuration Functions
+### Complete Multi-Agent Example
 
 ```python
-from agents import set_default_openai_key, set_default_openai_client, set_tracing_disabled
+from agents import Agent, Runner, handoff
+from pydantic import BaseModel
+import asyncio
 
-# Set default OpenAI API key
-set_default_openai_key("your-api-key", use_for_tracing=True)
-
-# Set default OpenAI client for requests/tracing
-# set_default_openai_client(your_openai_client)
-
-# Disable tracing globally
-set_tracing_disabled()
-```
-
-### Using Alternative Providers
-
-```python
-# For Anthropic models
-assistant_agent = Agent(
-    name="Assistant",
-    instructions="You are a helpful assistant",
-    model="claude-3-sonnet-20240229",  # Anthropic model
-    # Additional provider-specific configuration
-)
-
-# For Google models
-google_agent = Agent(
-    name="Google Assistant",
-    instructions="You are a helpful assistant",
-    model="gemini-1.5-pro",  # Google model
-    # Additional provider-specific configuration
-)
-
-# For OpenRouter models
-openrouter_agent = Agent(
-    name="OpenRouter Assistant",
-    instructions="You are a helpful assistant",
-    model="openai/gpt-4o",  # OpenRouter format: provider/model
-    # Additional provider-specific configuration
-)
-
-# For Azure OpenAI
-azure_agent = Agent(
-    name="Azure Assistant",
-    instructions="You are a helpful assistant",
-    model="gpt-4",  # Your Azure deployment name
-    # Additional Azure-specific configuration
-)
-
-# Using LiteLLM for provider flexibility
-from agents.extensions.models.litellm_model import LitellmModel
-
-litellm_agent = Agent(
-    name="LiteLLM Agent",
-    instructions="You are a flexible assistant using LiteLLM",
-    model=LitellmModel(model="openai/gpt-4o", api_key="your-api-key"),  # Can be any supported provider/model combination
-    # LiteLLM handles provider routing
-)
-
-# Tracking usage data with LiteLLM
-from agents.model_settings import ModelSettings
-
-agent_with_usage = Agent(
-    model=LitellmModel(model="your/model", api_key="..."),
-    model_settings=ModelSettings(include_usage=True),  # Enable usage tracking
-)
-# With include_usage=True, token and request counts are available through result.context_wrapper.usage
-```
-
-### LiteLLM Setup
-
-Install the optional dependency for LiteLLM support:
-```bash
-pip install "openai-agents[litellm]"
-```
-
-Use `LitellmModel` in any agent after installation to access 100+ models through a single interface.
-
-### Environment Variables for Different Providers
-
-Different providers require different API keys and configuration:
-
-```bash
-# OpenAI
-OPENAI_API_KEY=your-openai-api-key
-
-# Anthropic
-ANTHROPIC_API_KEY=your-anthropic-api-key
-
-# Google
-GOOGLE_API_KEY=your-google-api-key
-
-# OpenRouter
-OPENROUTER_API_KEY=your-openrouter-api-key
-
-# Azure OpenAI
-AZURE_OPENAI_API_KEY=your-azure-api-key
-AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
-
-# Other providers as required by your specific LLM provider
-```
-
-### Multi-Agent Configuration with Handoffs
-
-Create multiple agents and configure handoffs between them:
-
-```python
-from agents import Agent, Runner
+class HomeworkOutput(BaseModel):
+    is_homework: bool
+    reasoning: str
 
 # Create specialized agents
 history_tutor_agent = Agent(
     name="History Tutor",
     handoff_description="Specialist agent for historical questions",
-    instructions="You provide assistance with historical queries. Explain important events and context clearly."
+    instructions="You provide assistance with historical queries. Explain important events and context clearly.",
 )
 
 math_tutor_agent = Agent(
@@ -181,105 +83,447 @@ triage_agent = Agent(
     handoffs=[history_tutor_agent, math_tutor_agent]
 )
 
-# Run the agent orchestration
 async def main():
     result = await Runner.run(triage_agent, "who was the first president of the united states?")
     print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 ## Core Components
 
 ### 1. Agents
 
-Agents are LLMs configured with instructions, tools, guardrails, and handoffs.
+Agents are the fundamental building blocks containing an LLM with instructions and tools.
+
+```python
+from agents import Agent, ModelSettings, function_tool
+
+@function_tool
+def get_weather(city: str) -> str:
+    """returns weather info for the specified city."""
+    return f"The weather in {city} is sunny"
+
+agent = Agent(
+    name="Haiku agent",
+    instructions="Always respond in haiku form",
+    model="gpt-5-nano",
+    tools=[get_weather],
+)
+```
+
+#### Core Agent Parameters:
+- `name`: Required identifier string
+- `instructions`: System prompt or developer message
+- `model`: LLM selection with optional `model_settings`
+- `tools`: Available functions for the agent
+- `handoffs`: List of agents to transfer to
+- `input_guardrails`: Input validation functions
+- `output_guardrails`: Output validation functions
+- `output_type`: Expected structured output type
+- `max_iterations`: Maximum number of iterations before stopping
+
+#### Context Management:
+Agents support generic context types through dependency injection:
+
+```python
+from dataclasses import dataclass
+
+@dataclass
+class UserContext:
+    name: str
+    uid: str
+    is_pro_user: bool
+
+agent = Agent[UserContext](
+    # ... other parameters
+)
+```
+
+#### Output Types:
+Specify structured outputs using Pydantic models:
+
+```python
+from pydantic import BaseModel
+
+class CalendarEvent(BaseModel):
+    name: str
+    date: str
+    participants: list[str]
+
+agent = Agent(
+    name="Calendar extractor",
+    instructions="Extract calendar events from text",
+    output_type=CalendarEvent,
+)
+```
+
+#### Multi-Agent Design Patterns:
+
+**Manager Pattern (Agents as Tools)**:
+Central orchestrator invokes specialized sub-agents while maintaining control:
+
+```python
+booking_agent = Agent(...)
+refund_agent = Agent(...)
+
+customer_facing_agent = Agent(
+    name="Customer-facing agent",
+    instructions=(
+        "Handle all direct user communication. "
+        "Call the relevant tools when specialized expertise is needed."
+    ),
+    tools=[
+        booking_agent.as_tool(
+            tool_name="booking_expert",
+            tool_description="Handles booking questions and requests.",
+        ),
+        refund_agent.as_tool(
+            tool_name="refund_expert",
+            tool_description="Handles refund questions and requests.",
+        )
+    ],
+)
+```
+
+**Handoffs Pattern**:
+Decentralized delegation where agents transfer conversation control:
+
+```python
+booking_agent = Agent(...)
+refund_agent = Agent(...)
+
+triage_agent = Agent(
+    name="Triage agent",
+    instructions=(
+        "Help the user with their questions. "
+        "If they ask about booking, hand off to the booking agent. "
+        "If they ask about refunds, hand off to the refund agent."
+    ),
+    handoffs=[booking_agent, refund_agent],
+)
+```
+
+### 2. Running Agents
+
+The `Runner` class provides three methods to execute agents:
+
+- `Runner.run()` - asynchronous method returning `RunResult`
+- `Runner.run_sync()` - synchronous wrapper around the async version
+- `Runner.run_streamed()` - returns `RunResultStreaming` with event streaming
 
 ```python
 from agents import Agent, Runner
-from agents.decorators import function_tool
-from agents.types import GuardrailFunctionOutput
-from agents.extensions import SQLiteSession
-from pydantic import BaseModel
-from typing import List, Dict, Any, Optional
 
-# Basic agent example with provider-specific configuration
-# See https://openai.github.io/openai-agents-python/#agents for agent definition
-assistant_agent = Agent(
-    name="Assistant",
-    instructions="You are a helpful assistant",
-    model="gpt-4o",  # Specify your preferred model
-    temperature=0.7   # Adjust temperature as needed
-)
-
-# Run the agent
-result = Runner.run_sync(assistant_agent, "Write a haiku about recursion in programming.")
-print(result.final_output)
+async def main():
+    agent = Agent(name="Assistant", instructions="You are a helpful assistant")
+    result = await Runner.run(agent, "Write a haiku about recursion in programming.")
+    print(result.final_output)
 ```
 
-### 2. Agent Loop
+#### The Agent Loop Process:
+- Calls the LLM with current agent and input
+- Processes output: final output ends loop, handoff updates agent/input, tool calls execute and re-run
+- Raises `MaxTurnsExceeded` if `max_turns` limit reached
 
-When calling `Runner.run()`, the SDK runs a loop until final output:
-1. Call LLM with agent model/settings and message history
-2. Process LLM response (may include tool calls)
-3. Return final output if present, else continue
-4. Process handoffs or tool calls, then repeat
+#### Streaming Capabilities:
+Streaming allows receiving real-time events during LLM execution:
 
 ```python
-# See https://openai.github.io/openai-agents-python/#agent-loop for loop specs
-async def run_agent_with_loop(agent: Agent, message: str):
-    """
-    Execute agent with full loop processing
-    """
-    result = await Runner.run(agent, message)
-    return result.final_output
+from agents import Runner
+
+async def stream_agent_response(agent, message):
+    async for event in Runner.run_streamed(agent, message):
+        if hasattr(event, 'text'):
+            print(f"Streaming: {event.text}")
 ```
 
 ### 3. Tools and Functions
 
-The Agent SDK provides three classes of tools for agents to take actions:
+The Agent SDK provides three classes of tools:
 
-#### Hosted Tools
-Built-in tools available with `OpenAIResponsesModel`:
-- `WebSearchTool` - search the web
-- `FileSearchTool` - retrieve from OpenAI Vector Stores
-- `ComputerTool` - automate computer tasks
-- `CodeInterpreterTool` - execute code in sandbox
-- `ImageGenerationTool` - generate images from prompts
-- `LocalShellTool` - run shell commands
-
-#### Function Tools
-Decorate Python functions with `@function_tool` to automatically create tools:
+#### Hosted Tools:
+Built-in tools work with `OpenAIResponsesModel`:
+- `WebSearchTool`: Enables web searching capabilities
+- `FileSearchTool`: Retrieves info from OpenAI Vector Stores
+- `ComputerTool`: Automates computer use tasks
+- `CodeInterpreterTool`: Executes code in sandboxed environments
+- `HostedMCPTool`: Exposes remote MCP server tools
+- `ImageGenerationTool`: Creates images from prompts
+- `LocalShellTool`: Runs local shell commands
 
 ```python
-# See https://raw.githubusercontent.com/openai/openai-agents-python/main/docs/tools.md#function-tools for tool specs
+from agents import Agent, FileSearchTool, Runner, WebSearchTool
+
+agent = Agent(
+    name="Assistant",
+    tools=[
+        WebSearchTool(),
+        FileSearchTool(
+            max_num_results=3,
+            vector_store_ids=["VECTOR_STORE_ID"],
+        ),
+    ],
+)
+```
+
+#### Function Tools:
+Python functions become tools automatically with the `@function_tool` decorator:
+
+```python
+from agents.decorators import function_tool
+
 @function_tool
 def get_weather(location: str) -> str:
     """Get the current weather for a location."""
-    # Implementation here
     return "sunny"
 
 @function_tool
-async def fetch_user_data(user_id: str) -> Dict[str, Any]:
+async def fetch_user_data(user_id: str) -> dict:
     """Fetch user data by ID."""
-    # Implementation here
     return {"id": user_id, "name": "John Doe"}
-
-# Function tools features:
-# - Automatic schema generation from function signatures
-# - Docstring parsing for descriptions
-# - Support for sync/async functions
-# - Context injection via RunContextWrapper
-# - Custom name overrides
 ```
 
-#### Agents as Tools
-Orchestrate specialized agents by converting them to tools:
+Function tools features:
+- Automatic schema generation from function signatures
+- Docstring parsing for descriptions
+- Support for sync/async functions
+- Context injection via RunContextWrapper
+- Custom name overrides
+
+#### Agents as Tools:
+Orchestrate specialized agents through `agent.as_tool()`:
 
 ```python
-# See https://raw.githubusercontent.com/openai/openai-agents-python/main/docs/tools.md#agents-as-tools for specs
 spanish_agent = Agent(name="Spanish Translator", instructions="Translate to Spanish")
 spanish_tool = spanish_agent.as_tool(
     tool_name="translate_to_spanish",
     tool_description="Translate text to Spanish"
+)
+```
+
+### 4. Sessions
+
+Sessions provide built-in memory to maintain conversation history across multiple agent runs.
+
+#### Quick Start:
+```python
+from agents import Agent, Runner, SQLiteSession
+
+agent = Agent(
+    name="Assistant",
+    instructions="Reply very concisely.",
+)
+
+session = SQLiteSession("conversation_123")
+
+result = await Runner.run(
+    agent,
+    "What city is the Golden Gate Bridge in?",
+    session=session
+)
+print(result.final_output)  # "San Francisco"
+
+result = await Runner.run(
+    agent,
+    "What state is it in?",
+    session=session
+)
+print(result.final_output)  # "California"
+```
+
+#### Session Types:
+
+**SQLite Sessions** (default):
+The default, lightweight implementation using SQLite:
+
+```python
+from agents import SQLiteSession
+
+# In-memory database (lost when process ends)
+session = SQLiteSession("user_123")
+
+# Persistent file-based database
+session = SQLiteSession("user_123", "conversations.db")
+```
+
+**OpenAI Conversations API Sessions**:
+Use OpenAI's Conversations API through `OpenAIConversationsSession`:
+
+```python
+from agents import Agent, Runner, OpenAIConversationsSession
+
+session = OpenAIConversationsSession()
+# Optionally resume a previous conversation by passing a conversation ID
+# session = OpenAIConversationsSession(conversation_id="conv_123")
+```
+
+**SQLAlchemy Sessions**:
+Production-ready sessions using any SQLAlchemy-supported database:
+
+```python
+from agents.extensions.memory import SQLAlchemySession
+
+session = SQLAlchemySession.from_url(
+    "user_123",
+    url="postgresql+asyncpg://user:pass@localhost/db",
+    create_tables=True
+)
+```
+
+**Advanced SQLite Sessions**:
+Enhanced SQLite sessions with conversation branching, usage analytics, and structured queries:
+
+```python
+from agents.extensions.memory import AdvancedSQLiteSession
+
+session = AdvancedSQLiteSession(
+    session_id="user_123",
+    db_path="conversations.db",
+    create_tables=True
+)
+
+# Automatic usage tracking
+result = await Runner.run(agent, "Hello", session=session)
+await session.store_run_usage(result)  # Track token usage
+```
+
+**Encrypted Sessions**:
+Transparent encryption wrapper for any session implementation:
+
+```python
+from agents.extensions.memory import EncryptedSession, SQLAlchemySession
+
+underlying_session = SQLAlchemySession.from_url(
+    "user_123",
+    url="sqlite+aiosqlite:///conversations.db",
+    create_tables=True
+)
+
+session = EncryptedSession(
+    session_id="user_123",
+    underlying_session=underlying_session,
+    encryption_key="your-secret-key",
+    ttl=600  # 10 minutes
+)
+```
+
+#### Session Management:
+Use meaningful session IDs that help organize conversations:
+- User-based: `"user_12345"`
+- Thread-based: `"thread_abc123"`
+- Context-based: `"support_ticket_456"`
+
+Memory persistence options:
+- Use in-memory SQLite for temporary conversations
+- Use file-based SQLite for persistent conversations
+- Use SQLAlchemy-powered sessions for production systems
+- Use OpenAI-hosted storage when preferring OpenAI's storage
+- Use encrypted sessions to wrap any session with encryption
+
+### 5. Guardrails
+
+Guardrails enable validation of user input and agent output to prevent malicious usage and optimize costs.
+
+#### Input Guardrails:
+Run on initial user input with two execution modes:
+- **Parallel execution** (default): Guardrail runs concurrently with agent for best latency
+- **Blocking execution**: Guardrail completes before agent starts, preventing token consumption
+
+```python
+from agents.decorators import input_guardrail
+from agents.types import GuardrailFunctionOutput
+
+@input_guardrail
+async def math_guardrail(ctx, agent, input) -> GuardrailFunctionOutput:
+    # Implementation logic here
+    return GuardrailFunctionOutput(
+        output_info=result,
+        tripwire_triggered=condition,
+    )
+```
+
+#### Output Guardrails:
+Run on final agent output following the same pattern as input guardrails:
+
+```python
+from agents.decorators import output_guardrail
+
+@output_guardrail
+async def content_safety_guardrail(ctx, agent, input, output) -> GuardrailFunctionOutput:
+    # Check if output contains unsafe content
+    has_unsafe_content = check_unsafe_content(output)
+    return GuardrailFunctionOutput(
+        output_info={"is_safe": not has_unsafe_content},
+        tripwire_triggered=has_unsafe_content,
+    )
+```
+
+### 6. Models
+
+#### OpenAI Models Support:
+The SDK includes built-in support for OpenAI models through two primary interfaces:
+- **OpenAIResponsesModel** (recommended): Uses OpenAI's Responses API
+- **OpenAIChatCompletionsModel**: Uses Chat Completions API
+
+The default model is `gpt-4.1` for compatibility and low latency, though `gpt-5.2` is recommended for higher quality.
+
+```python
+export OPENAI_DEFAULT_MODEL=gpt-5
+```
+
+#### Non-OpenAI Model Integration:
+Most alternative models work via LiteLLM integration:
+
+```bash
+pip install "openai-agents[litellm]"
+```
+
+Use models with the `litellm/` prefix format:
+```python
+Agent(model="litellm/anthropic/claude-3-5-sonnet-20240620")
+```
+
+#### Model Configuration:
+Configure models using `ModelSettings`:
+
+```python
+Agent(
+    model="gpt-4.1",
+    model_settings=ModelSettings(temperature=0.1),
+)
+```
+
+For Responses API parameters not available top-level, use `extra_args`:
+
+```python
+model_settings=ModelSettings(
+    temperature=0.1,
+    extra_args={"service_tier": "flex", "user": "user_12345"},
+)
+```
+
+#### LiteLLM Integration:
+Use `LitellmModel` to work with any AI model through a single interface:
+
+```python
+from agents.extensions.models.litellm_model import LitellmModel
+
+agent = Agent(
+    name="Assistant",
+    model=LitellmModel(model="openai/gpt-4.1", api_key="your-key"),
+)
+```
+
+Tracking usage data with LiteLLM:
+
+```python
+from agents import ModelSettings
+
+agent = Agent(
+    model=LitellmModel(model="your/model", api_key="..."),
+    model_settings=ModelSettings(include_usage=True),  # Enable usage tracking
 )
 ```
 
@@ -290,6 +534,7 @@ Handoffs enable agent-to-agent delegation for specialized tasks.
 ```python
 from agents import Agent, handoff
 from agents.extensions.handoff_filters import collapse_messages
+from pydantic import BaseModel
 
 # Create specialized agents
 billing_agent = Agent(
@@ -303,7 +548,6 @@ refund_agent = Agent(
 )
 
 # Create triage agent with handoffs
-# See https://raw.githubusercontent.com/openai/openai-agents-python/main/docs/handoffs.md for handoff specs
 triage_agent = Agent(
     name="Triage Agent",
     instructions="""
@@ -333,213 +577,48 @@ refund_handoff = handoff(
 )
 ```
 
-## Guardrails
+## Tracing
 
-Guardrails perform checks on user input and agent output to validate content and prevent unwanted usage.
+The Agents SDK includes built-in tracing that collects comprehensive records of events during agent runs, including LLM generations, tool calls, handoffs, guardrails, and custom events. The Traces dashboard at platform.openai.com/traces enables debugging, visualization, and monitoring of workflows during development and production.
 
+### Default Tracing Behavior:
+Tracing is enabled by default and captures:
+- The entire Runner.run() operation wrapped in a trace()
+- Each agent run wrapped in agent_span()
+- LLM generations wrapped in generation_span()
+- Function tool calls wrapped in function_span()
+- Guardrails wrapped in guardrail_span()
+- Handoffs wrapped in handoff_span()
+- Audio inputs wrapped in transcription_span()
+- Audio outputs wrapped in speech_span()
+
+To disable tracing:
 ```python
-from agents.decorators import input_guardrail, output_guardrail
-
-# Input guardrails validate user input before agent processing
-# See https://raw.githubusercontent.com/openai/openai-agents-python/main/docs/guardrails.md for guardrail specs
-@input_guardrail
-async def math_homework_guardrail(ctx, agent, input) -> GuardrailFunctionOutput:
-    """
-    Input guardrail to detect math homework requests
-    """
-    # Check if input contains math homework
-    is_math_homework = check_if_math_homework(input)
-
-    return GuardrailFunctionOutput(
-        output_info={"is_math_homework": is_math_homework},
-        tripwire_triggered=is_math_homework,  # Trigger tripwire if math homework detected
-    )
-
-# Output guardrails check final agent output for compliance
-@output_guardrail
-async def content_safety_guardrail(ctx, agent, input, output) -> GuardrailFunctionOutput:
-    """
-    Output guardrail to ensure content safety
-    """
-    # Check if output contains unsafe content
-    has_unsafe_content = check_unsafe_content(output)
-
-    return GuardrailFunctionOutput(
-        output_info={"is_safe": not has_unsafe_content},
-        tripwire_triggered=has_unsafe_content,
-    )
-
-# Guardrails support two execution modes:
-# - Parallel (default): Runs concurrently with agent for best latency
-# - Blocking: Completes before agent starts to prevent token consumption
+from agents import set_tracing_disabled
+set_tracing_disabled()  # Disable tracing globally
 ```
 
-## Sessions
+## Streaming
 
-Sessions provide built-in memory to maintain conversation history across multiple agent runs, eliminating manual `.to_input_list()` handling.
+The OpenAI Agents SDK provides streaming capabilities through `Runner.run_streamed()` which returns a `RunResultStreaming` object with async stream events.
 
-### Quick Start
+### Raw Response Events:
+`RawResponsesStreamEvent` provides raw LLM events in OpenAI Responses API format, useful for token-by-token streaming to users.
 
+### Run Item Events:
+`RunItemStreamEvent` provides higher-level events when items are fully generated, enabling progress updates at message/tool level rather than per token. Includes `AgentUpdatedStreamEvent` for handoff notifications.
+
+### Example Streaming Usage:
 ```python
-from agents import Agent, Runner, SQLiteSession
+from agents import Runner
 
-agent = Agent(
-    name="Assistant",
-    instructions="Reply very concisely.",
-)
-
-session = SQLiteSession("conversation_123")
-
-result = await Runner.run(
-    agent,
-    "What city is the Golden Gate Bridge in?",
-    session=session
-)
-print(result.final_output)  # "San Francisco"
-
-result = await Runner.run(
-    agent,
-    "What state is it in?",
-    session=session
-)
-print(result.final_output)  # "California"
+# Stream responses as they're generated
+async def stream_agent_response(agent, message, session=None):
+    async for event in Runner.run_streamed(agent, message, session=session):
+        if hasattr(event, 'text'):
+            print(f"Streaming: {event.text}")
+        # Handle different event types as needed
 ```
-
-### How It Works
-
-When session memory is enabled:
-1. Before each run: The runner retrieves conversation history and prepends it to input items
-2. After each run: New items generated during the run are automatically stored in the session
-3. Context preservation: Each subsequent run includes full conversation history
-
-### Session Types
-
-#### SQLite sessions (default)
-The default, lightweight implementation using SQLite:
-
-```python
-from agents import SQLiteSession
-
-# In-memory database (lost when process ends)
-session = SQLiteSession("user_123")
-
-# Persistent file-based database
-session = SQLiteSession("user_123", "conversations.db")
-```
-
-#### OpenAI Conversations API sessions
-Use OpenAI's Conversations API through `OpenAIConversationsSession`:
-
-```python
-from agents import Agent, Runner, OpenAIConversationsSession
-
-session = OpenAIConversationsSession()
-# Optionally resume a previous conversation by passing a conversation ID
-# session = OpenAIConversationsSession(conversation_id="conv_123")
-```
-
-#### SQLAlchemy sessions
-Production-ready sessions using any SQLAlchemy-supported database:
-
-```python
-from agents.extensions.memory import SQLAlchemySession
-
-session = SQLAlchemySession.from_url(
-    "user_123",
-    url="postgresql+asyncpg://user:pass@localhost/db",
-    create_tables=True
-)
-```
-
-#### Advanced SQLite sessions
-Enhanced SQLite sessions with conversation branching and analytics:
-
-```python
-from agents.extensions.memory import AdvancedSQLiteSession
-
-session = AdvancedSQLiteSession(
-    session_id="user_123",
-    db_path="conversations.db",
-    create_tables=True
-)
-
-# Automatic usage tracking
-result = await Runner.run(agent, "Hello", session=session)
-await session.store_run_usage(result)  # Track token usage
-```
-
-#### Encrypted sessions
-Transparent encryption wrapper for any session implementation:
-
-```python
-from agents.extensions.memory import EncryptedSession, SQLAlchemySession
-
-underlying_session = SQLAlchemySession.from_url(
-    "user_123",
-    url="sqlite+aiosqlite:///conversations.db",
-    create_tables=True
-)
-
-session = EncryptedSession(
-    session_id="user_123",
-    underlying_session=underlying_session,
-    encryption_key="your-secret-key",
-    ttl=600  # 10 minutes
-)
-```
-
-### Session Management
-
-Use meaningful session IDs that help organize conversations:
-- User-based: `"user_12345"`
-- Thread-based: `"thread_abc123"`
-- Context-based: `"support_ticket_456"`
-
-Memory persistence options:
-- Use in-memory SQLite for temporary conversations
-- Use file-based SQLite for persistent conversations
-- Use SQLAlchemy-powered sessions for production systems
-- Use OpenAI-hosted storage when preferring OpenAI Conversations API
-- Use encrypted sessions to wrap any session with transparent encryption
-
-### Memory Operations
-
-```python
-session = SQLiteSession("user_123", "conversations.db")
-
-# Get all items in a session
-items = await session.get_items()
-
-# Add new items to a session
-new_items = [
-    {"role": "user", "content": "Hello"},
-    {"role": "assistant", "content": "Hi there!"}
-]
-await session.add_items(new_items)
-
-# Remove and return the most recent item
-last_item = await session.pop_item()
-print(last_item)  # {"role": "assistant", "content": "Hi there!"}
-
-# Clear all items from a session
-await session.clear_session()
-```
-
-Using pop_item for corrections:
-```python
-# User wants to correct their question
-assistant_item = await session.pop_item()  # Remove agent's response
-user_item = await session.pop_item()  # Remove user's question
-
-# Ask a corrected question
-result = await Runner.run(
-    agent,
-    "What's 2 + 3?",
-    session=session
-)
-```
-
-# See https://openai.github.io/openai-agents-python/sessions for session specs
 
 ## Complete Multi-Agent System Example
 
@@ -548,6 +627,7 @@ from agents import Agent, Runner, handoff
 from agents.decorators import function_tool, input_guardrail, output_guardrail
 from agents.types import GuardrailFunctionOutput
 from agents.extensions import SQLiteSession
+from agents.model_settings import ModelSettings
 from pydantic import BaseModel
 import asyncio
 
@@ -558,15 +638,13 @@ class EscalationData(BaseModel):
 
 # Define function tools
 @function_tool
-def search_knowledge_base(query: str, top_k: int = 3) -> List[Dict[str, str]]:
+def search_knowledge_base(query: str, top_k: int = 3) -> list[dict[str, str]]:
     """Search the knowledge base for relevant information."""
-    # Implementation here
     return [{"id": "1", "content": "Sample result", "score": 0.9}]
 
 @function_tool
-def get_user_info(user_id: str) -> Dict[str, Any]:
+def get_user_info(user_id: str) -> dict[str, any]:
     """Get information about a user."""
-    # Implementation here
     return {"id": user_id, "name": "John Doe", "status": "active"}
 
 # Define specialized agents
@@ -581,7 +659,7 @@ def create_support_agents():
         You are a first-level support agent. Handle basic inquiries and common questions.
         If the issue is complex or requires escalation, hand off to Tier 2 support.
         """,
-        functions=[search_knowledge_base, get_user_info]
+        tools=[search_knowledge_base, get_user_info]
     )
 
     # Tier 2 support agent
@@ -590,7 +668,7 @@ def create_support_agents():
         instructions="""
         You are a second-level support agent. Handle complex technical issues and escalations.
         """,
-        functions=[search_knowledge_base, get_user_info]
+        tools=[search_knowledge_base, get_user_info]
     )
 
     # Create handoff to tier 2
@@ -609,7 +687,7 @@ def create_support_agents():
         - Simple questions: Answer directly using knowledge base
         - Complex issues: Hand off to Tier 2 support
         """,
-        functions=[search_knowledge_base, get_user_info],
+        tools=[search_knowledge_base, get_user_info],
         handoffs=[tier2_handoff]
     )
 
@@ -621,7 +699,7 @@ async def support_request_guardrail(ctx, agent, input) -> GuardrailFunctionOutpu
     """
     Check if support request is appropriate
     """
-    is_appropriate = check_support_request_appropriateness(input)
+    is_appropriate = "support" in input.lower() or "help" in input.lower()
     return GuardrailFunctionOutput(
         output_info={"is_appropriate": is_appropriate},
         tripwire_triggered=not is_appropriate
@@ -632,7 +710,7 @@ async def response_quality_guardrail(ctx, agent, input, output) -> GuardrailFunc
     """
     Check response quality and compliance
     """
-    quality_score = evaluate_response_quality(output, input)
+    quality_score = 0.9  # Simplified example
     is_compliant = quality_score >= 0.8  # Threshold for quality
     return GuardrailFunctionOutput(
         output_info={"quality_score": quality_score},
@@ -666,89 +744,24 @@ async def main():
     response = await support_system.handle_request("How do I reset my password?")
     print(response)
 
-# Run the system
-# asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
-## Tracing
+## Best Practices
 
-The Agents SDK includes built-in tracing that collects comprehensive records of events during agent runs, including LLM generations, tool calls, handoffs, guardrails, and custom events. The Traces dashboard at platform.openai.com/traces enables debugging, visualization, and monitoring of workflows during development and production.
+1. **Include handoff instructions in agent prompts** to ensure LLMs understand transfer capabilities properly.
+2. **Use appropriate session management** to maintain conversation context across interactions.
+3. **Implement comprehensive guardrails** to ensure safety and quality of inputs and outputs.
+4. **Structure tools properly** with clear function signatures and meaningful descriptions.
+5. **Handle errors gracefully** with custom error functions via `failure_error_function` parameter.
+6. **Use LiteLLM for multi-provider support** when working with 100+ different LLM providers.
+7. **Enable usage tracking** with `ModelSettings(include_usage=True)` for monitoring and analytics.
+8. **Use structured output types** with Pydantic models for reliable data extraction.
 
-### Default Tracing Behavior
+## Error Handling
 
-Tracing is enabled by default and captures:
-- The entire Runner.run() operation wrapped in a trace()
-- Each agent run wrapped in agent_span()
-- LLM generations wrapped in generation_span()
-- Function tool calls wrapped in function_span()
-- Guardrails wrapped in guardrail_span()
-- Handoffs wrapped in handoff_span()
-- Audio inputs wrapped in transcription_span()
-- Audio outputs wrapped in speech_span()
-
-To disable tracing, set environment variable or configure RunConfig:
-```python
-import os
-os.environ["OPENAI_AGENTS_DISABLE_TRACING"] = "1"  # Disable tracing globally
-
-# Or disable for specific runs
-from agents import set_tracing_disabled
-set_tracing_disabled()  # Disable tracing globally
-```
-
-### Custom Tracing Options
-
-Developers can create higher-level traces by wrapping multiple run() calls in a trace() context. Custom tracing processors can be added to send traces to alternative backends using add_trace_processor() or replace default processors with set_trace_processors().
-
-For non-OpenAI models, tracing can be enabled using OpenAI API keys with the set_tracing_export_api_key() function.
-
-### Sensitive Data Handling
-
-The system can exclude sensitive data from traces through configuration settings to prevent capturing LLM inputs/outputs or audio data.
-
-### External Integration Support
-
-The SDK supports numerous external tracing processors including Weights & Biases, Arize-Phoenix, MLflow, Braintrust, LangSmith, Langfuse, and others that integrate with the OpenAI Agents SDK tracing system.
-
-```python
-# Enable tracing for debugging
-# See https://openai.github.io/openai-agents-python/tracing for tracing specs
-import os
-
-# Set environment variable for tracing
-os.environ["LOGFIRE_TOKEN"] = "your-logfire-token"  # For Logfire integration
-# Or other tracing providers as supported
-```
-
-## Streaming
-
-The OpenAI Agents SDK provides streaming capabilities through `Runner.run_streamed()` which returns a `RunResultStreaming` object with async stream events.
-
-### Raw Response Events
-`RawResponsesStreamEvent` provides raw LLM events in OpenAI Responses API format, useful for token-by-token streaming to users.
-
-### Run Item Events
-`RunItemStreamEvent` provides higher-level events when items are fully generated, enabling progress updates at message/tool level rather than per token. Includes `AgentUpdatedStreamEvent` for handoff notifications.
-
-### Example Streaming Usage
-
-```python
-from agents import Runner
-
-# Stream responses as they're generated
-async def stream_agent_response(agent, message, session=None):
-    async for event in Runner.run_streamed(agent, message, session=session):
-        if hasattr(event, 'text'):
-            print(f"Streaming: {event.text}")
-        # Handle different event types as needed
-```
-
-The streaming API allows real-time progress updates and partial responses during agent execution, supporting both low-level token streaming and high-level item completion events.
-
-## Final Output Rules
-
-- With `output_type`: Loop runs until structured output matches type
-- Without `output_type`: First response without tool calls/handoffs is final
+Function tools support custom error functions via `failure_error_function` parameter to provide user-friendly error responses to the LLM when tool calls fail.
 
 ## Development
 
@@ -758,19 +771,3 @@ make sync      # Install dependencies
 make check     # Run tests, linter, typechecker
 make tests     # Run tests only
 ```
-
-## Best Practices
-
-1. **Include handoff instructions in agent prompts** using `RECOMMENDED_PROMPT_PREFIX` to ensure LLMs understand transfer capabilities properly.
-
-2. **Use appropriate session management** to maintain conversation context across interactions.
-
-3. **Implement comprehensive guardrails** to ensure safety and quality of inputs and outputs.
-
-4. **Structure tools properly** with clear function signatures and meaningful descriptions.
-
-5. **Handle errors gracefully** with custom error functions via `failure_error_function` parameter.
-
-## Error Handling
-
-Function tools support custom error functions via `failure_error_function` parameter to provide user-friendly error responses to the LLM when tool calls fail.

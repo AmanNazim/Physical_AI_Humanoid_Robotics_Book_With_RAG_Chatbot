@@ -1,0 +1,49 @@
+:root {
+  /* Green theme colors */
+  --chatkit-primary: #00C26A;
+  --chatkit-primary-dark: #00a85c;
+  --chatkit-primary-light: #e8f5e9;
+
+  /* Neutral colors */
+  --chatkit-background: #ffffff;
+  --chatkit-background-light: #f9f9f9;
+  --chatkit-border: #eeeeee;
+  --chatkit-text-primary: #333333;
+  --chatkit-text-secondary: #666666;
+  --chatkit-text-disabled: #cccccc;
+
+  /* Error colors */
+  --chatkit-error: #f44336;
+  --chatkit-error-light: #ffebee;
+
+  /* Success colors */
+  --chatkit-success: #4caf50;
+
+  /* Shadow */
+  --chatkit-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --chatkit-shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  /* Spacing */
+  --chatkit-spacing-xs: 4px;
+  --chatkit-spacing-sm: 8px;
+  --chatkit-spacing-md: 16px;
+  --chatkit-spacing-lg: 24px;
+  --chatkit-spacing-xl: 32px;
+
+  /* Border radius */
+  --chatkit-radius-sm: 4px;
+  --chatkit-radius-md: 8px;
+  --chatkit-radius-lg: 16px;
+  --chatkit-radius-round: 50%;
+
+  /* Animation timing */
+  --chatkit-transition-fast: 0.15s;
+  --chatkit-transition-normal: 0.3s;
+  --chatkit-transition-slow: 0.5s;
+
+  /* Z-index levels */
+  --chatkit-z-index-tooltip: 1000000;
+  --chatkit-z-index-drawer: 999999;
+  --chatkit-z-index-backdrop: 999998;
+  --chatkit-z-index-launcher: 999997;
+}

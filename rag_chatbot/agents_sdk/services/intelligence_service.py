@@ -1,0 +1,911 @@
+"""
+Intelligence Layer (OpenAI Agents SDK) Service for Global RAG Chatbot System.
+
+This service serves as the cognitive reasoning engine for the entire RAG system.
+It processes user queries forwarded by the FastAPI backend, performs sophisticated
+reasoning over retrieved context chunks from Qdrant and PostgreSQL, and generates
+accurate, coherent, and contextually-aware responses using the OpenAI Agents SDK.
+"""
+
+from typing import List, Dict, Any, Optional, AsyncGenerator
+import asyncio
+import json
+import os
+from datetime import datetime
+
+# Import Pydantic BaseModel first to avoid reference issues
+from pydantic import BaseModel
+
+# Import OpenAI Agents SDK
+from agents import Agent, Runner, SQLiteSession, function_tool, input_guardrail, output_guardrail, GuardrailFunctionOutput
+from agents.extensions.models.litellm_model import LitellmModel
+from agents.model_settings import ModelSettings
+
+# Import existing modules to maintain integration
+from shared.config import settings
+from backend.utils.logger import rag_logger
+from backend.schemas.retrieval import Source
+from backend.services.streaming_service import StreamingService
+
+
+class BookContext(BaseModel):
+    """Model for book context data."""
+    query: str
+    selected_text: Optional[str] = None
+    chunks: List[Dict[str, Any]] = []
+
+
+class ConversationContext(BaseModel):
+    """Model for conversation context data."""
+    session_id: str
+    max_turns: int = 5
+    max_tokens: int = 2000
+
+
+class ResponseScope(BaseModel):
+    """Model for response scope validation."""
+    response: str
+    context_chunks: List[Dict[str, Any]]
+    user_query: str
+
+
+class IntelligenceService:
+    """
+    Intelligence Layer Service using OpenAI Agents SDK for reasoning and response generation.
+
+    This service integrates with existing RAGService to receive query-context pairs,
+    applies advanced reasoning using OpenAI Agents SDK, and generates grounded responses
+    while maintaining constitutional boundaries.
+    """
+
+    def __init__(self):
+        """Initialize the Intelligence Service with proper configuration."""
+        self.settings = settings
+        self.logger = rag_logger
+        self.streaming_service = StreamingService()
+
+        # Initialize OpenRouter API configuration
+        self.api_key = settings.openrouter_api_key
+        self.base_url = settings.openrouter_base_url
+        self.model = settings.openrouter_model
+
+        # Verify API key is available
+        if not self.api_key:
+            self.logger.warning("OpenRouter API key not found in environment variables")
+
+        # Initialize agent state
+        self.agent_initialized = False
+        self.agents = {}
+
+        # Initialize persona and prompt templates
+        self.persona_config = {
+            "role": "Expert Technical Instructor for the Physical AI & Humanoid Robotics Book",
+            "tone": "authoritative but friendly",
+            "style": "technically precise",
+            "constraints": [
+                "never hallucinate",
+                "never answer outside book content unless explicitly allowed",
+                "clearly state uncertainty when context is insufficient"
+            ]
+        }
+
+    async def initialize(self):
+        """Initialize the Intelligence Service components."""
+        try:
+            # Verify API key availability
+            if not self.api_key:
+                raise ValueError("OpenRouter API key is required but not configured")
+
+            # Disable tracing to avoid OPENAI_API_KEY requirement
+            from agents import set_tracing_disabled
+            set_tracing_disabled(True)
+
+            # Initialize the main agent with LiteLLM for OpenRouter
+            await self._initialize_main_agent()
+
+            self.agent_initialized = True
+            self.logger.info("Intelligence Service initialized successfully")
+        except Exception as e:
+            self.logger.error(f"Failed to initialize Intelligence Service: {str(e)}")
+            raise
+
+    async def _initialize_main_agent(self):
+        """Initialize the main agent with tools and guardrails using LiteLLM for OpenRouter."""
+        # Create specialized agents using LiteLLM model for OpenRouter API
+        # Ensure model name is properly formatted for LiteLLM
+        formatted_model = self.model
+        if ':free' in self.model:
+            # Handle OpenRouter free tier models by removing :free suffix
+            formatted_model = self.model.replace(':free', '')
+
+        # For OpenRouter, ensure the model is properly formatted
+        # For OpenRouter models, prefix with 'openrouter/' to help LiteLLM identify the provider
+        if 'openrouter' in self.base_url.lower():
+            formatted_model = f"openrouter/{formatted_model}"
+
+        litellm_model = LitellmModel(
+            model=formatted_model,  # Properly formatted for LiteLLM
+            api_key=self.api_key,
+            base_url=self.base_url
+        )
+
+        # Create model settings with usage tracking and temperature
+        model_settings = ModelSettings(temperature=0.8, include_usage=True)
+
+        self.agents["main"] = Agent(
+            name="Technical Instructor Agent",
+            instructions=f"""
+            You are an {self.persona_config['role']}. Your persona characteristics are:
+            - Tone: {self.persona_config['tone']}
+            - Style: {self.persona_config['style']}
+            - Constraints: {', '.join(self.persona_config['constraints'])}
+
+            You must:
+            - Answer only from retrieved context provided by the retrieval tool
+            - Never speculate or fabricate information
+            - Clearly state when context is insufficient to answer
+            - Maintain technical precision and educational value
+            - Use bullet points and structured format when helpful
+            - Always cite sources from the retrieved context
+            """,
+            model=litellm_model,
+            model_settings=model_settings,
+            tools=[
+                self.retrieve_book_context,  # Tool for retrieving book context
+                self.load_conversation_context,  # Tool for loading conversation history
+                self.validate_response_scope  # Tool for validating response scope
+            ]
+        )
+
+    @function_tool
+    async def retrieve_book_context(
+        self,
+        query: str,
+        selected_text: Optional[str] = None
+    ) -> str:  # Return JSON string to avoid schema issues
+        """
+        Retrieve book context based on the query and optional selected text.
+
+        Args:
+            query: User query to search for relevant context
+            selected_text: Optional selected text from the book that may be relevant
+
+        Returns:
+            JSON string containing retrieved context chunks with metadata
+        """
+        import json
+        from backend.services.retrieval_service import RetrievalService
+
+        try:
+            retrieval_service = RetrievalService()
+            await retrieval_service.initialize()
+
+            # Combine query with selected text if provided
+            search_query = query
+            if selected_text:
+                search_query = f"{query} {selected_text}"
+
+            # Validate query
+            is_valid = await retrieval_service.validate_query(search_query)
+            if not is_valid:
+                result = {
+                    "chunks": [],
+                    "query": search_query,
+                    "message": "Invalid query provided"
+                }
+                return json.dumps(result)
+
+            # Perform retrieval using existing service (default top_k=5)
+            sources = await retrieval_service.retrieve_by_query(
+                query=search_query,
+                top_k=5  # Default top-k as specified
+            )
+
+            # Format the results as a clean, ordered context block
+            formatted_chunks = []
+            for source in sources:
+                chunk_data = {
+                    "chunk_id": source.chunk_id,
+                    "document_id": source.document_id,
+                    "text": source.text,
+                    "score": source.score,
+                    "metadata": source.metadata
+                }
+                formatted_chunks.append(chunk_data)
+
+            self.logger.info(f"Retrieved {len(formatted_chunks)} context chunks for query: {search_query[:50]}...")
+
+            # Return JSON string
+            result = {
+                "chunks": formatted_chunks,  # Will be serialized by json.dumps
+                "query": search_query,
+                "retrieval_count": len(formatted_chunks),
+                "message": "Successfully retrieved context chunks"
+            }
+            return json.dumps(result)
+
+        except Exception as e:
+            self.logger.error(f"Error in retrieve_book_context tool: {str(e)}")
+            error_result = {
+                "chunks": [],
+                "query": query,
+                "retrieval_count": 0,
+                "message": f"Error retrieving context: {str(e)}"
+            }
+            return json.dumps(error_result)
+
+    @function_tool
+    async def load_conversation_context(
+        self,
+        session_id: str,
+        max_turns: int = 5,
+        max_tokens: int = 2000
+    ) -> str:  # Return JSON string to avoid schema issues
+        """
+        Fetch recent conversation history from Neon database.
+
+        Args:
+            session_id: Unique identifier for the conversation session
+            max_turns: Maximum number of conversation turns to retrieve
+            max_tokens: Maximum number of tokens to include in context
+
+        Returns:
+            JSON string containing conversation history with proper formatting
+        """
+        import json
+        try:
+            # This would normally query the Neon database for conversation history
+            # For now, we'll simulate with a basic structure
+            # In a real implementation, this would connect to Neon and retrieve history
+
+            # Placeholder for actual database query
+            # conversation_history = await self.database_manager.get_conversation_history(
+            #     session_id=session_id,
+            #     max_turns=max_turns
+            # )
+
+            # Simulate conversation history
+            conversation_history = {
+                "session_id": session_id,
+                "turns": [],
+                "summary": "No previous conversation history found for this session.",
+                "token_count": 0
+            }
+
+            # Format history safely
+            formatted_history = {
+                "conversation_context": conversation_history,
+                "max_turns_used": max_turns,
+                "max_tokens_allowed": max_tokens,
+                "token_usage": conversation_history["token_count"],
+                "has_context": len(conversation_history["turns"]) > 0
+            }
+
+            self.logger.info(f"Loaded conversation context for session: {session_id}")
+
+            # Return JSON string
+            result = {
+                "conversation_context": conversation_history,
+                "max_turns_used": max_turns,
+                "max_tokens_allowed": max_tokens,
+                "token_usage": conversation_history["token_count"],
+                "has_context": len(conversation_history["turns"]) > 0
+            }
+            return json.dumps(result)
+
+        except Exception as e:
+            self.logger.error(f"Error in load_conversation_context tool: {str(e)}")
+            error_result = {
+                "conversation_context": {
+                    "session_id": session_id,
+                    "turns": [],
+                    "summary": "Error retrieving conversation history",
+                    "token_count": 0
+                },
+                "max_turns_used": max_turns,
+                "max_tokens_allowed": max_tokens,
+                "token_usage": 0,
+                "has_context": False,
+                "error": str(e)
+            }
+            return json.dumps(error_result)
+
+    @function_tool
+    async def validate_response_scope(
+        self,
+        response: str,
+        context_chunks: str,  # JSON string representation of context chunks
+        user_query: str
+    ) -> str:  # Return JSON string to avoid schema issues
+        """
+        Validate that the response only references information from the provided context.
+
+        Args:
+            response: The generated response to validate
+            context_chunks: JSON string representation of the context chunks that were provided to the agent
+            user_query: The original user query
+
+        Returns:
+            JSON string containing validation results and safety assessment
+        """
+        import json
+
+        try:
+            # Parse the context chunks from JSON string
+            parsed_chunks = []
+            try:
+                parsed_chunks = json.loads(context_chunks) if context_chunks else []
+            except json.JSONDecodeError:
+                # If it's not valid JSON, treat as raw string
+                parsed_chunks = [{"text": context_chunks, "metadata": {}}]
+
+            # Extract all text content from context chunks
+            context_texts = []
+            for chunk in parsed_chunks:
+                if isinstance(chunk, dict):
+                    text_content = chunk.get('text', '') or chunk.get('content', '')
+                    context_texts.append(text_content)
+                elif isinstance(chunk, str):
+                    context_texts.append(chunk)
+
+            combined_context = " ".join(context_texts)
+
+            # Perform basic validation checks
+            validation_results = {
+                "response_length": len(response),
+                "context_provided": len(parsed_chunks) > 0,
+                "context_length": len(combined_context),
+                "has_external_references": False,  # Will implement check
+                "has_unsupported_claims": False,   # Will implement check
+                "scope_compliance": True,          # Will implement check
+                "hallucination_detected": False,   # Will implement check
+                "confidence_score": 0.8           # Placeholder confidence
+            }
+
+            # Basic check: see if response content relates to context
+            if len(combined_context) > 0:
+                # Simple overlap check (in a full implementation, this would be more sophisticated)
+                response_lower = response.lower()
+                context_lower = combined_context.lower()
+
+                # Count how much of the response seems to reference context topics
+                context_words = set(context_lower.split())
+                response_words = response_lower.split()
+
+                matching_words = sum(1 for word in response_words if word in context_words)
+                total_response_words = len(response_words)
+
+                if total_response_words > 0:
+                    context_alignment = matching_words / total_response_words
+                    validation_results["context_alignment"] = context_alignment
+                    validation_results["confidence_score"] = min(0.9, 0.5 + (context_alignment * 0.4))
+
+                    # Flag potential issues
+                    if context_alignment < 0.3:
+                        validation_results["scope_compliance"] = False
+                        validation_results["confidence_score"] *= 0.5
+
+            # Check for common hallucination patterns
+            hallucination_indicators = [
+                "according to my training data",
+                "i found online",
+                "external source",
+                "recent news",
+                "latest research"  # Unless it's in the context
+            ]
+
+            response_lower = response.lower()
+            for indicator in hallucination_indicators:
+                if indicator in response_lower:
+                    validation_results["hallucination_detected"] = True
+                    validation_results["confidence_score"] *= 0.3
+                    break
+
+            # Final safety assessment
+            validation_results["is_safe"] = (
+                validation_results["scope_compliance"] and
+                not validation_results["hallucination_detected"]
+            )
+
+            self.logger.info(f"Response validation completed for query: {user_query[:50]}...")
+
+            # Return JSON string
+            result = {
+                "validation_results": validation_results,
+                "original_response": response,
+                "user_query": user_query,
+                "passed_validation": validation_results["is_safe"],
+                "message": "Response validated successfully" if validation_results["is_safe"] else "Response flagged for safety concerns"
+            }
+            return json.dumps(result)
+
+        except Exception as e:
+            self.logger.error(f"Error in validate_response_scope tool: {str(e)}")
+            error_result = {
+                "validation_results": {
+                    "is_safe": False,
+                    "confidence_score": 0.0,
+                    "error": str(e)
+                },
+                "original_response": response,
+                "user_query": user_query,
+                "passed_validation": False,
+                "message": f"Error during validation: {str(e)}"
+            }
+            import json
+            return json.dumps(error_result)
+
+    @input_guardrail
+    async def query_input_guardrail(self, ctx, agent, input) -> GuardrailFunctionOutput:
+        """
+        Input guardrail to validate user queries before processing.
+        """
+        # Check if query is too short
+        if len(input.strip()) < 3:
+            return GuardrailFunctionOutput(
+                output_info={"valid": False, "reason": "Query too short"},
+                tripwire_triggered=True,
+            )
+
+        # Check if query contains inappropriate content
+        inappropriate_keywords = ["joke", "opinion", "personal", "fictional", "make up", "imagine", "hypothetical"]
+        input_lower = input.lower()
+        has_inappropriate = any(keyword in input_lower for keyword in inappropriate_keywords)
+
+        # Check if query asks for external information
+        external_keywords = ["google", "search online", "recent news", "latest research", "external source"]
+        has_external_request = any(keyword in input_lower for keyword in external_keywords)
+
+        # Return validation results
+        validation_result = not (has_inappropriate or has_external_request)
+
+        return GuardrailFunctionOutput(
+            output_info={
+                "valid": validation_result,
+                "has_inappropriate": has_inappropriate,
+                "has_external_request": has_external_request
+            },
+            tripwire_triggered=not validation_result,
+        )
+
+    @output_guardrail
+    async def response_output_guardrail(self, ctx, agent, input, output) -> GuardrailFunctionOutput:
+        """
+        Output guardrail to validate responses for safety and accuracy.
+        """
+        # Check if response contains hallucinated content
+        hallucination_indicators = [
+            "according to my training data",
+            "i found online",
+            "based on my knowledge",
+            "from my training",
+            "recent developments",
+            "latest research",
+            "external source",
+            "recent news",
+            "google",
+            "search results",
+            "i researched"
+        ]
+
+        has_hallucination = any(indicator in output.lower() for indicator in hallucination_indicators)
+
+        # Check if response properly cites context
+        context_related_indicators = ["provided context", "given information", "retrieved", "mentioned", "stated"]
+        has_context_reference = any(indicator in output.lower() for indicator in context_related_indicators)
+
+        # Check for refusal patterns (when context is insufficient)
+        refusal_patterns = ["insufficient context", "cannot answer", "not enough information", "not in provided context"]
+        has_proper_refusal = any(pattern in output.lower() for pattern in refusal_patterns)
+
+        # Determine if response is safe
+        is_safe = not has_hallucination or has_proper_refusal or has_context_reference
+
+        return GuardrailFunctionOutput(
+            output_info={
+                "is_safe": is_safe,
+                "has_hallucination": has_hallucination,
+                "has_context_reference": has_context_reference,
+                "has_proper_refusal": has_proper_refusal
+            },
+            tripwire_triggered=not is_safe,
+        )
+
+    async def process_query(
+        self,
+        user_query: str,
+        context_chunks: List[Source],
+        session_id: Optional[str] = None,
+        persona_config: Optional[Dict] = None
+    ) -> Dict[str, Any]:
+        """
+        Process a user query with retrieved context chunks using the Intelligence Layer.
+
+        Args:
+            user_query: The user's question that requires reasoning and response generation
+            context_chunks: Pre-retrieved text chunks from Qdrant and PostgreSQL
+            session_id: Optional session identifier for conversation memory
+            persona_config: Optional persona configuration for response generation
+
+        Returns:
+            Dictionary containing the response and metadata
+        """
+        try:
+            self.logger.info(f"Processing query: {user_query[:50]}... with {len(context_chunks)} context chunks")
+
+            # Validate inputs
+            if not user_query or len(user_query.strip()) == 0:
+                raise ValueError("User query cannot be empty")
+
+            if not context_chunks:
+                self.logger.warning("No context chunks provided for query processing")
+
+            # Prepare context for the agent
+            context_text = "\n\n".join([chunk.text for chunk in context_chunks])
+
+            # Create the main prompt using prompt engineering techniques
+            prompt = self._create_layered_prompt(
+                user_query=user_query,
+                context_text=context_text,
+                persona_config=persona_config or self.persona_config
+            )
+
+            # Create session if needed
+            session = None
+            if session_id:
+                session = SQLiteSession(session_id)
+
+            # Run the agent
+            try:
+                result = await Runner.run(
+                    self.agents["main"],
+                    prompt,
+                    session=session
+                )
+
+                response_text = result.final_output
+
+                # Extract token usage if available
+                token_usage = {}
+                if hasattr(result, 'context_wrapper') and hasattr(result.context_wrapper, 'usage'):
+                    token_usage = result.context_wrapper.usage
+
+            except Exception as e:
+                self.logger.error(f"Error running agent: {str(e)}")
+                # Fallback response
+                response_text = f"I encountered an error while processing your query. Original query: {user_query}"
+
+            # Validate response quality and grounding - use direct validation instead of tool call
+            context_dicts = [{"text": chunk.text, "metadata": chunk.metadata, "score": chunk.score, "chunk_id": chunk.chunk_id, "document_id": chunk.document_id} for chunk in context_chunks]
+
+            # Perform direct validation (not through the function tool since we can't call function tools directly)
+            validated_response = await self._direct_validate_response_scope(
+                response=response_text,
+                context_chunks=context_dicts,
+                user_query=user_query
+            )
+
+            # Add metadata to response
+            final_response = {
+                "text": validated_response.get("original_response", response_text),
+                "sources": context_chunks,
+                "structured_data": validated_response.get("structured_data", {}),
+                "metadata": {
+                    "processing_time": datetime.now().isoformat(),
+                    "token_usage": token_usage,  # Token usage from LiteLLM
+                    "confidence_score": validated_response.get("validation_results", {}).get("confidence_score", 0.0),
+                    "grounding_confirmed": validated_response.get("validation_results", {}).get("is_safe", False)
+                }
+            }
+
+            self.logger.info(f"Successfully processed query: {user_query[:50]}...")
+            return final_response
+
+        except Exception as e:
+            self.logger.error(f"Error processing query: {str(e)}")
+            return {
+                "text": "An error occurred while processing your request. Please try again.",
+                "sources": [],
+                "structured_data": {},
+                "metadata": {
+                    "error": str(e),
+                    "processing_time": datetime.now().isoformat()
+                }
+            }
+
+    def _create_layered_prompt(
+        self,
+        user_query: str,
+        context_text: str,
+        persona_config: Dict
+    ) -> str:
+        """
+        Create a layered prompt using prompt engineering techniques.
+
+        This implements the CLEAR framework:
+        - C: Context (the retrieved context)
+        - L: Length (instructions for response length)
+        - E: Example (would be examples of good responses)
+        - A: Audience (the target audience)
+        - R: Requirements (specific requirements for the response)
+        """
+        # System instruction with role definition
+        system_instruction = f"""
+        SYSTEM INSTRUCTION:
+        You are acting as a {persona_config['role']} with the following characteristics:
+        - Tone: {persona_config['tone']}
+        - Style: {persona_config['style']}
+        - Constraints: {', '.join(persona_config['constraints'])}
+
+        YOUR TASK:
+        - Answer the user's query based ONLY on the provided context below
+        - Do NOT use any external knowledge or information from your training data
+        - If the context doesn't contain sufficient information to answer the query, clearly state this
+        - Maintain technical precision and educational value
+        - Use bullet points, numbered lists, or structured format when helpful
+        - Always cite relevant parts of the provided context
+        """
+
+        # Context section
+        context_section = f"""
+        RETRIEVED CONTEXT:
+        {context_text}
+        """
+
+        # User query
+        user_query_section = f"""
+        USER QUERY:
+        {user_query}
+        """
+
+        # Output requirements
+        output_requirements = """
+        OUTPUT REQUIREMENTS:
+        - Base your entire response on the RETRIEVED CONTEXT provided above
+        - Do NOT include information that is not in the context
+        - If the context is insufficient, clearly state "I cannot answer this question based on the provided context"
+        - Format your response in a clear, educational manner
+        - Use bullet points or structured format when appropriate
+        - Reference specific parts of the context when making claims
+        """
+
+        # Combine all sections
+        full_prompt = f"{system_instruction}\n\n{context_section}\n\n{user_query_section}\n\n{output_requirements}"
+
+        return full_prompt
+
+    async def stream_response(
+        self,
+        user_query: str,
+        context_chunks: List[Source],
+        session_id: Optional[str] = None,
+        persona_config: Optional[Dict] = None
+    ) -> AsyncGenerator[str, None]:
+        """
+        Stream response tokens incrementally to the client using OpenAI Agents SDK streaming.
+
+        Args:
+            user_query: The user's question
+            context_chunks: Retrieved context chunks
+            session_id: Optional session ID
+            persona_config: Optional persona configuration
+
+        Yields:
+            Streamed response chunks in SSE format
+        """
+        try:
+            # Prepare context for the agent
+            context_text = "\n\n".join([chunk.text for chunk in context_chunks])
+
+            # Create the main prompt using prompt engineering techniques
+            prompt = self._create_layered_prompt(
+                user_query=user_query,
+                context_text=context_text,
+                persona_config=persona_config or self.persona_config
+            )
+
+            # Send context sources first
+            for source in context_chunks:
+                source_data = {
+                    "type": "source",
+                    "chunk_id": source.chunk_id,
+                    "document_id": source.document_id,
+                    "text": source.text[:200] + "..." if len(source.text) > 200 else source.text,
+                    "score": source.score,
+                    "metadata": source.metadata
+                }
+                yield f"data: {json.dumps(source_data)}\n\n"
+
+            # Create session if needed
+            session = None
+            if session_id:
+                session = SQLiteSession(session_id)
+
+            # Stream the agent response using the SDK's streaming capability
+            try:
+                # Runner.run_streamed returns a RunResultStreaming object that needs to be awaited
+                stream_result = Runner.run_streamed(
+                    self.agents["main"],
+                    prompt,
+                    session=session
+                )
+
+                # Iterate through the streaming events
+                async for event in stream_result:
+                    # Check if the event has text content to stream
+                    if hasattr(event, 'item') and hasattr(event.item, 'content'):
+                        # Extract text from content if it's available
+                        content_items = event.item.content if isinstance(event.item.content, list) else [event.item.content]
+                        for content_item in content_items:
+                            if isinstance(content_item, dict) and 'text' in content_item:
+                                text_content = content_item['text']
+                            elif hasattr(content_item, 'text'):
+                                text_content = content_item.text
+                            else:
+                                text_content = str(content_item) if content_item else ""
+
+                            if text_content.strip():
+                                chunk_data = {
+                                    "type": "token",
+                                    "content": text_content,
+                                }
+                                yield f"data: {json.dumps(chunk_data)}\n\n"
+                    elif hasattr(event, 'text') and event.text:
+                        chunk_data = {
+                            "type": "token",
+                            "content": event.text,
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
+
+            except Exception as e:
+                self.logger.error(f"Error in agent streaming: {str(e)}")
+                error_data = {
+                    "type": "error",
+                    "message": f"Streaming error: {str(e)}"
+                }
+                yield f"data: {json.dumps(error_data)}\n\n"
+
+            # Send completion message
+            completion_data = {
+                "type": "complete",
+                "message": "Response completed"
+            }
+            yield f"data: {json.dumps(completion_data)}\n\n"
+
+        except Exception as e:
+            self.logger.error(f"Error in streaming response: {str(e)}")
+            error_data = {
+                "type": "error",
+                "message": str(e)
+            }
+            yield f"data: {json.dumps(error_data)}\n\n"
+
+    async def validate_query_and_context(
+        self,
+        user_query: str,
+        context_chunks: List[Source]
+    ) -> bool:
+        """
+        Validate query and context before processing.
+
+        Args:
+            user_query: The user's query
+            context_chunks: Retrieved context chunks
+
+        Returns:
+            True if valid, False otherwise
+        """
+        if not user_query or len(user_query.strip()) == 0:
+            self.logger.warning("Query validation failed: empty query")
+            return False
+
+        if len(user_query.strip()) < 3:
+            self.logger.warning("Query validation failed: query too short")
+            return False
+
+        # Additional validation can be added here
+
+        return True
+
+    async def _direct_validate_response_scope(
+        self,
+        response: str,
+        context_chunks: List[Dict[str, Any]],  # Simplified type
+        user_query: str
+    ) -> Dict[str, Any]:  # Simplified return type to avoid schema issues
+        """
+        Direct validation of response quality and grounding without using function tools.
+        This is used internally instead of calling the function tool directly.
+        """
+        try:
+            # Extract all text content from context chunks
+            context_texts = []
+            for chunk in context_chunks:
+                if isinstance(chunk, dict):
+                    context_texts.append(chunk.get('text', ''))
+                elif hasattr(chunk, 'text'):
+                    context_texts.append(chunk.text)
+
+            combined_context = " ".join(context_texts)
+
+            # Perform basic validation checks
+            validation_results = {
+                "response_length": len(response),
+                "context_provided": len(context_chunks) > 0,
+                "context_length": len(combined_context),
+                "has_external_references": False,  # Will implement check
+                "has_unsupported_claims": False,   # Will implement check
+                "scope_compliance": True,          # Will implement check
+                "hallucination_detected": False,   # Will implement check
+                "confidence_score": 0.8           # Placeholder confidence
+            }
+
+            # Basic check: see if response content relates to context
+            if len(combined_context) > 0:
+                # Simple overlap check (in a full implementation, this would be more sophisticated)
+                response_lower = response.lower()
+                context_lower = combined_context.lower()
+
+                # Count how much of the response seems to reference context topics
+                context_words = set(context_lower.split())
+                response_words = response_lower.split()
+
+                matching_words = sum(1 for word in response_words if word in context_words)
+                total_response_words = len(response_words)
+
+                if total_response_words > 0:
+                    context_alignment = matching_words / total_response_words
+                    validation_results["context_alignment"] = context_alignment
+                    validation_results["confidence_score"] = min(0.9, 0.5 + (context_alignment * 0.4))
+
+                    # Flag potential issues
+                    if context_alignment < 0.3:
+                        validation_results["scope_compliance"] = False
+                        validation_results["confidence_score"] *= 0.5
+
+            # Check for common hallucination patterns
+            hallucination_indicators = [
+                "according to my training data",
+                "i found online",
+                "external source",
+                "recent news",
+                "latest research"  # Unless it's in the context
+            ]
+
+            response_lower = response.lower()
+            for indicator in hallucination_indicators:
+                if indicator in response_lower:
+                    validation_results["hallucination_detected"] = True
+                    validation_results["confidence_score"] *= 0.3
+                    break
+
+            # Final safety assessment
+            validation_results["is_safe"] = (
+                validation_results["scope_compliance"] and
+                not validation_results["hallucination_detected"]
+            )
+
+            self.logger.info(f"Response validation completed for query: {user_query[:50]}...")
+
+            # Convert complex types to simple types to avoid schema issues
+            return {
+                "validation_results": validation_results,
+                "original_response": response,
+                "user_query": user_query,
+                "passed_validation": validation_results["is_safe"],
+                "message": "Response validated successfully" if validation_results["is_safe"] else "Response flagged for safety concerns"
+            }
+
+        except Exception as e:
+            self.logger.error(f"Error in direct validate_response_scope: {str(e)}")
+            return {
+                "validation_results": {
+                    "is_safe": False,
+                    "confidence_score": 0.0,
+                    "error": str(e)
+                },
+                "original_response": response,
+                "user_query": user_query,
+                "passed_validation": False,
+                "message": f"Error during validation: {str(e)}"
+            }

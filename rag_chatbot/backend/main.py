@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from shared.config import settings
 from backend.middleware import setup_middleware
-from backend.routers import health, chat, retrieve, embed
+from backend.routers import health, chat, retrieve, embed, config
 from backend.utils.logger import rag_logger
 import uvicorn
 
@@ -31,6 +31,7 @@ def create_app() -> FastAPI:
     app.include_router(chat, prefix="/api/v1", tags=["chat"])
     app.include_router(retrieve, prefix="/api/v1", tags=["retrieve"])
     app.include_router(embed, prefix="/api/v1", tags=["embed"])
+    app.include_router(config, prefix="/api/v1", tags=["config"])
 
     # Root endpoint
     @app.get("/")

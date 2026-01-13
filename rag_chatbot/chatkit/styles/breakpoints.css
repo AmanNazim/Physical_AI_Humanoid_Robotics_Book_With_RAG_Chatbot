@@ -1,0 +1,59 @@
+/* Breakpoints for responsive design */
+
+/* Mobile */
+@media (max-width: 767px) {
+  .chatkit-mobile-only {
+    display: block;
+  }
+
+  .chatkit-desktop-only {
+    display: none;
+  }
+
+  .chat-panel-backdrop {
+    display: none;
+  }
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+  .chatkit-mobile-only {
+    display: none;
+  }
+
+  .chatkit-desktop-only {
+    display: block;
+  }
+
+  .mobile-drawer-overlay {
+    display: none;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+  .chatkit-large-desktop {
+    /* Styles for large screens */
+  }
+}
+
+/* Common responsive utilities */
+.chatkit-responsive-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive text sizing */
+.chatkit-responsive-text {
+  font-size: clamp(14px, 2.5vw, 16px);
+}
+
+/* Responsive spacing */
+.chatkit-responsive-padding {
+  padding: clamp(8px, 2vw, 16px);
+}
+
+.chatkit-responsive-margin {
+  margin: clamp(8px, 2vw, 16px);
+}

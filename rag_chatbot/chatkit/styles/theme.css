@@ -1,0 +1,42 @@
+/* Light theme */
+.chatkit-theme-light {
+  --chatkit-background: #ffffff;
+  --chatkit-background-light: #f9f9f9;
+  --chatkit-border: #eeeeee;
+  --chatkit-text-primary: #333333;
+  --chatkit-text-secondary: #666666;
+  --chatkit-text-disabled: #cccccc;
+}
+
+/* Dark theme */
+.chatkit-theme-dark {
+  --chatkit-background: #1e1e1e;
+  --chatkit-background-light: #2d2d2d;
+  --chatkit-border: #404040;
+  --chatkit-text-primary: #ffffff;
+  --chatkit-text-secondary: #b0b0b0;
+  --chatkit-text-disabled: #666666;
+  --chatkit-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --chatkit-shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Apply theme variables to components */
+.chatkit-component {
+  background-color: var(--chatkit-background);
+  color: var(--chatkit-text-primary);
+  border-color: var(--chatkit-border);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .chatkit-component {
+    border: 2px solid var(--chatkit-text-primary);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .chatkit-component {
+    transition: none;
+  }
+}
