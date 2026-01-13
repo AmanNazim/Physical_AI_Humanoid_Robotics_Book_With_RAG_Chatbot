@@ -26,14 +26,14 @@ function ChatKitBrowserComponent() {
     const { PortalManager, ChatLauncherButton, ChatPanel, MobileChatDrawer } = ChatKitComponents;
 
     // Render the complete ChatKit UI within the PortalManager
-    return React.createElement(PortalManager, {},
-      React.createElement(() => (
-        <>
-          {React.createElement(ChatLauncherButton)}
-          {React.createElement(ChatPanel)}
-          {React.createElement(MobileChatDrawer)}
-        </>
-      ), {})
+    return (
+      <PortalManager>
+        <div>
+          <ChatLauncherButton />
+          <ChatPanel />
+          <MobileChatDrawer />
+        </div>
+      </PortalManager>
     );
   }
 
