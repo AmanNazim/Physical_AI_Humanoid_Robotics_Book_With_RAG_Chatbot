@@ -1,32 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@theme-original/Layout';
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { ChatKitProvider } from '../../../../rag_chatbot/chatkit/providers/ChatKitProvider';
 import type { Props } from '@theme/Layout';
 
 // Create portal root element for chat widget
 const createPortalRoot = () => {
-  const portalRoot = document.createElement('div');
-  portalRoot.setAttribute('id', 'chatkit-portal-root');
-  portalRoot.style.all = 'initial'; // Reset CSS inheritance
-  return portalRoot;
+  if (typeof document !== 'undefined') {
+    const portalRoot = document.createElement('div');
+    portalRoot.setAttribute('id', 'chatkit-portal-root');
+    portalRoot.style.all = 'initial'; // Reset CSS inheritance
+    return portalRoot;
+  }
+  return null;
 };
 
 function ChatKitWrapper({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Dynamically import and inject CSS only in the browser
-    import('../../../../rag_chatbot/chatkit/styles/variables.css');
-    import('../../../../rag_chatbot/chatkit/styles/theme.css');
-    import('../../../../rag_chatbot/chatkit/styles/breakpoints.css');
-    import('../../../../rag_chatbot/chatkit/styles/animations.css');
+    import('../../../../rag_chatbot/chatkit/styles/variables.css').catch(console.warn);
+    import('../../../../rag_chatbot/chatkit/styles/theme.css').catch(console.warn);
+    import('../../../../rag_chatbot/chatkit/styles/breakpoints.css').catch(console.warn);
+    import('../../../../rag_chatbot/chatkit/styles/animations.css').catch(console.warn);
 
     // Create portal root element when component mounts
     const portalRoot = createPortalRoot();
-    document.body.appendChild(portalRoot);
+    if (portalRoot && typeof document !== 'undefined') {
+      document.body.appendChild(portalRoot);
+    }
 
     // Clean up portal root when component unmounts
     return () => {
-      document.body.removeChild(portalRoot);
+      if (portalRoot && typeof document !== 'undefined') {
+        document.body.removeChild(portalRoot);
+      }
     };
   }, []);
 
@@ -38,11 +45,20 @@ function ChatKitWrapper({ children }: { children: React.ReactNode }) {
 }
 
 export default function CustomLayout(props: Props): JSX.Element {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Set client state to true after component mounts
+    setIsClient(true);
+  }, []);
+
   return (
     <Layout {...props}>
-      <BrowserOnly>
-        {() => <ChatKitWrapper>{props.children}</ChatKitWrapper>}
-      </BrowserOnly>
+      {ExecutionEnvironment.canUseDOM && isClient ? (
+        <ChatKitWrapper>{props.children}</ChatKitWrapper>
+      ) : (
+        props.children
+      )}
     </Layout>
   );
 }
