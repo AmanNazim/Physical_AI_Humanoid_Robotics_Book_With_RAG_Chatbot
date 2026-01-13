@@ -3,6 +3,7 @@
 
 // Provider
 export { ChatKitProvider, useChatKit } from './providers/ChatKitProvider';
+export { default as SafeChatKitProvider } from './SafeChatKitProvider';
 
 // Contexts
 export { ChatUIContext, useChatUI } from './contexts/ChatUIContext';

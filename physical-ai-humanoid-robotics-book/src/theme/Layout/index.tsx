@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Layout from '@theme-original/Layout';
-import { ChatKitProvider } from '../../../../rag_chatbot/chatkit/providers/ChatKitProvider';
+import SafeChatKitProvider from '../../../../rag_chatbot/chatkit/SafeChatKitProvider';
 import type { Props } from '@theme/Layout';
 
 export default function CustomLayout(props: Props): JSX.Element {
-  // This component will render both during SSR and in the browser
-  // The ChatKitProvider handles browser-only operations internally via useEffect
   return (
     <Layout {...props}>
-      <ChatKitProvider>
+      <SafeChatKitProvider>
         {props.children}
-      </ChatKitProvider>
+      </SafeChatKitProvider>
     </Layout>
   );
 }

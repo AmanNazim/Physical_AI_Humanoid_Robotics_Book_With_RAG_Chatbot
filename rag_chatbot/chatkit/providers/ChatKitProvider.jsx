@@ -2,6 +2,20 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import ChatUIProvider, { ChatUIContext } from '../contexts/ChatUIContext';
 import ChatConversationProvider, { ChatConversationContext } from '../contexts/ChatConversationContext';
 
+// Dynamically import styles only in the browser
+const loadStyles = async () => {
+  if (typeof window !== 'undefined') {
+    try {
+      await import('../styles/variables.css');
+      await import('../styles/theme.css');
+      await import('../styles/breakpoints.css');
+      await import('../styles/animations.css');
+    } catch (err) {
+      console.warn('Failed to load ChatKit styles:', err);
+    }
+  }
+};
+
 // Create the context
 const ChatKitContext = createContext(null);
 
@@ -21,9 +35,12 @@ export const ChatKitProvider = ({ children }) => {
     return `session-${Date.now()}`;
   });
 
-  // Load configuration from backend
+  // Load configuration and styles from backend
   useEffect(() => {
-    const loadConfig = async () => {
+    const initializeChatKit = async () => {
+      // Load styles first
+      await loadStyles();
+
       try {
         const response = await fetch('/api/config/chatkit');
         if (!response.ok) {
@@ -45,7 +62,7 @@ export const ChatKitProvider = ({ children }) => {
       }
     };
 
-    loadConfig();
+    initializeChatKit();
 
     // Save session ID to localStorage only in browser environment
     if (typeof window !== 'undefined') {
