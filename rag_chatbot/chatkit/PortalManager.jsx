@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ChatKitProvider } from './providers/ChatKitProvider';
 
 const PortalManager = ({ children }) => {
@@ -25,6 +26,18 @@ const PortalManager = ({ children }) => {
     }
   }, []);
 
+  // Get the portal root element
+  const portalRoot = typeof document !== 'undefined' ? document.getElementById('chatkit-portal-root') : null;
+
+  // Render children using createPortal if portal root exists
+  if (portalRoot) {
+    return createPortal(
+      <ChatKitProvider>{children}</ChatKitProvider>,
+      portalRoot
+    );
+  }
+
+  // Fallback: render in normal React tree if portal root doesn't exist
   return <ChatKitProvider>{children}</ChatKitProvider>;
 };
 
