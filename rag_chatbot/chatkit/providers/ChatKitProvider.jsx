@@ -2,15 +2,6 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import ChatUIProvider, { ChatUIContext } from '../contexts/ChatUIContext';
 import ChatConversationProvider, { ChatConversationContext } from '../contexts/ChatConversationContext';
 
-// Load styles when component mounts
-useEffect(() => {
-  if (typeof window !== 'undefined') {
-    import('../styles/variables.css').catch(console.warn);
-    import('../styles/theme.css').catch(console.warn);
-    import('../styles/breakpoints.css').catch(console.warn);
-    import('../styles/animations.css').catch(console.warn);
-  }
-}, []);
 
 // Create the context
 const ChatKitContext = createContext(null);
@@ -63,27 +54,6 @@ export const ChatKitProvider = ({ children }) => {
     }
   }, [sessionId]);
 
-  // Create portal root element separately to ensure it only runs in browser
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      let portalRoot = document.getElementById('chatkit-portal-root');
-
-      if (!portalRoot) {
-        portalRoot = document.createElement('div');
-        portalRoot.setAttribute('id', 'chatkit-portal-root');
-        portalRoot.style.all = 'initial'; // Reset CSS inheritance
-        document.body.appendChild(portalRoot);
-
-        // Clean up portal root when component unmounts
-        return () => {
-          const existingPortalRoot = document.getElementById('chatkit-portal-root');
-          if (existingPortalRoot && existingPortalRoot.parentNode) {
-            existingPortalRoot.parentNode.removeChild(existingPortalRoot);
-          }
-        };
-      }
-    }
-  }, []); // Empty dependency array to run only once after mount
 
   // Function to add a new message
   const addMessage = useCallback((message) => {

@@ -36,10 +36,6 @@ const config: Config = {
     locales: ["en"],
   },
 
-  // Add client modules to ensure ChatKit is loaded on the client
-  clientModules: [
-    './src/clientModules/chatkit-init.js',
-  ],
 
   presets: [
     [
