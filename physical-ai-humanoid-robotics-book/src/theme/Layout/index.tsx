@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import Layout from '@theme-original/Layout';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import { ChatKitProvider } from '../../../../rag_chatbot/chatkit/providers/ChatKitProvider';
-import '../../../../rag_chatbot/chatkit/styles/variables.css';
-import '../../../../rag_chatbot/chatkit/styles/theme.css';
-import '../../../../rag_chatbot/chatkit/styles/breakpoints.css';
-import '../../../../rag_chatbot/chatkit/styles/animations.css';
 import type { Props } from '@theme/Layout';
 
 // Create portal root element for chat widget
@@ -15,8 +12,14 @@ const createPortalRoot = () => {
   return portalRoot;
 };
 
-export default function CustomLayout(props: Props): JSX.Element {
+function ChatKitWrapper({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    // Dynamically import and inject CSS only in the browser
+    import('../../../../rag_chatbot/chatkit/styles/variables.css');
+    import('../../../../rag_chatbot/chatkit/styles/theme.css');
+    import('../../../../rag_chatbot/chatkit/styles/breakpoints.css');
+    import('../../../../rag_chatbot/chatkit/styles/animations.css');
+
     // Create portal root element when component mounts
     const portalRoot = createPortalRoot();
     document.body.appendChild(portalRoot);
@@ -28,10 +31,18 @@ export default function CustomLayout(props: Props): JSX.Element {
   }, []);
 
   return (
+    <ChatKitProvider>
+      {children}
+    </ChatKitProvider>
+  );
+}
+
+export default function CustomLayout(props: Props): JSX.Element {
+  return (
     <Layout {...props}>
-      <ChatKitProvider>
-        {props.children}
-      </ChatKitProvider>
+      <BrowserOnly>
+        {() => <ChatKitWrapper>{props.children}</ChatKitWrapper>}
+      </BrowserOnly>
     </Layout>
   );
 }

@@ -14,8 +14,11 @@ export const ChatKitProvider = ({ children }) => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [selectedText, setSelectedText] = useState(null);
   const [sessionId, setSessionId] = useState(() => {
-    // Generate or retrieve session ID
-    return localStorage.getItem('chatkit-session-id') || `session-${Date.now()}`;
+    // Generate or retrieve session ID only in browser environment
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('chatkit-session-id') || `session-${Date.now()}`;
+    }
+    return `session-${Date.now()}`;
   });
 
   // Load configuration from backend
@@ -44,8 +47,10 @@ export const ChatKitProvider = ({ children }) => {
 
     loadConfig();
 
-    // Save session ID to localStorage
-    localStorage.setItem('chatkit-session-id', sessionId);
+    // Save session ID to localStorage only in browser environment
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('chatkit-session-id', sessionId);
+    }
   }, [sessionId]);
 
   // Function to add a new message

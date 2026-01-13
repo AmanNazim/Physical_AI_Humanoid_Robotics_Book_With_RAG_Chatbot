@@ -7,8 +7,11 @@ export const ChatConversationProvider = ({ children }) => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [selectedText, setSelectedText] = useState(null);
   const [sessionId, setSessionId] = useState(() => {
-    // Retrieve or generate session ID
-    return localStorage.getItem('chatkit-session-id') || `session-${Date.now()}`;
+    // Retrieve or generate session ID only in browser environment
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('chatkit-session-id') || `session-${Date.now()}`;
+    }
+    return `session-${Date.now()}`;
   });
 
   const addMessage = useCallback((message) => {
