@@ -4,6 +4,7 @@
 // Provider
 export { ChatKitProvider, useChatKit } from './providers/ChatKitProvider';
 export { default as SafeChatKitProvider } from './SafeChatKitProvider';
+export { default as PortalManager } from './PortalManager';
 
 // Contexts
 export { ChatUIContext, useChatUI } from './contexts/ChatUIContext';

@@ -35,36 +35,7 @@ export const ChatKitProvider = ({ children }) => {
     return `session-${Date.now()}`;
   });
 
-  // Create portal root element for chat widget and load styles
-  useEffect(() => {
-    // Load styles and create portal root when component mounts
-    const initializeChatKit = async () => {
-      // Load styles first
-      await loadStyles();
-
-      // Create portal root element when component mounts
-      if (typeof document !== 'undefined') {
-        const portalRoot = document.createElement('div');
-        portalRoot.setAttribute('id', 'chatkit-portal-root');
-        portalRoot.style.all = 'initial'; // Reset CSS inheritance
-        document.body.appendChild(portalRoot);
-
-        // Clean up portal root when component unmounts
-        return () => {
-          document.body.removeChild(portalRoot);
-        };
-      }
-    };
-
-    initializeChatKit();
-
-    // Save session ID to localStorage only in browser environment
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('chatkit-session-id', sessionId);
-    }
-  }, [sessionId]);
-
-  // Load configuration from backend separately
+    // Load configuration from backend
   useEffect(() => {
     const loadConfig = async () => {
       try {
@@ -89,6 +60,29 @@ export const ChatKitProvider = ({ children }) => {
     };
 
     loadConfig();
+
+    // Save session ID to localStorage only in browser environment
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('chatkit-session-id', sessionId);
+    }
+  }, [sessionId]);
+
+  // Load styles separately
+  useEffect(() => {
+    const loadStyles = async () => {
+      if (typeof window !== 'undefined') {
+        try {
+          await import('../styles/variables.css');
+          await import('../styles/theme.css');
+          await import('../styles/breakpoints.css');
+          await import('../styles/animations.css');
+        } catch (err) {
+          console.warn('Failed to load ChatKit styles:', err);
+        }
+      }
+    };
+
+    loadStyles();
   }, []);
 
   // Function to add a new message
