@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Layout from '@theme-original/Layout';
+import { ChatKitProvider } from '../../../../rag_chatbot/chatkit/providers/ChatKitProvider';
 import type { Props } from '@theme/Layout';
 
 export default function CustomLayout(props: Props): JSX.Element {
-  const [ChatKitInjector, setChatKitInjector] = useState<React.ComponentType<{ children: React.ReactNode }> | null>(null);
-
-  useEffect(() => {
-    // Dynamically import ChatKitInjector only on the client side
-    import('../components/ChatKitInjector').then(module => {
-      setChatKitInjector(() => module.default);
-    });
-  }, []);
-
-  if (ChatKitInjector) {
-    return (
-      <Layout {...props}>
-        <ChatKitInjector>{props.children}</ChatKitInjector>
-      </Layout>
-    );
-  }
-
-  // Fallback to regular layout without ChatKit during SSR or until component loads
-  return <Layout {...props}>{props.children}</Layout>;
+  // This component will render both during SSR and in the browser
+  // The ChatKitProvider handles browser-only operations internally via useEffect
+  return (
+    <Layout {...props}>
+      <ChatKitProvider>
+        {props.children}
+      </ChatKitProvider>
+    </Layout>
+  );
 }
