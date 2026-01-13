@@ -31,29 +31,8 @@ export const ChatKitProvider = ({ children }) => {
     return `session-${Date.now()}`;
   });
 
-    // Create portal root element and load configuration from backend
-  useEffect(() => {
-    // Create portal root element when component mounts
-    if (typeof document !== 'undefined') {
-      let portalRoot = document.getElementById('chatkit-portal-root');
-
-      if (!portalRoot) {
-        portalRoot = document.createElement('div');
-        portalRoot.setAttribute('id', 'chatkit-portal-root');
-        portalRoot.style.all = 'initial'; // Reset CSS inheritance
-        document.body.appendChild(portalRoot);
-
-        // Clean up portal root when component unmounts
-        return () => {
-          const existingPortalRoot = document.getElementById('chatkit-portal-root');
-          if (existingPortalRoot && existingPortalRoot.parentNode) {
-            existingPortalRoot.parentNode.removeChild(existingPortalRoot);
-          }
-        };
-      }
-    }
-
     // Load configuration from backend
+  useEffect(() => {
     const loadConfig = async () => {
       try {
         const response = await fetch('/api/config/chatkit');
@@ -83,6 +62,28 @@ export const ChatKitProvider = ({ children }) => {
       localStorage.setItem('chatkit-session-id', sessionId);
     }
   }, [sessionId]);
+
+  // Create portal root element separately to ensure it only runs in browser
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      let portalRoot = document.getElementById('chatkit-portal-root');
+
+      if (!portalRoot) {
+        portalRoot = document.createElement('div');
+        portalRoot.setAttribute('id', 'chatkit-portal-root');
+        portalRoot.style.all = 'initial'; // Reset CSS inheritance
+        document.body.appendChild(portalRoot);
+
+        // Clean up portal root when component unmounts
+        return () => {
+          const existingPortalRoot = document.getElementById('chatkit-portal-root');
+          if (existingPortalRoot && existingPortalRoot.parentNode) {
+            existingPortalRoot.parentNode.removeChild(existingPortalRoot);
+          }
+        };
+      }
+    }
+  }, []); // Empty dependency array to run only once after mount
 
   // Function to add a new message
   const addMessage = useCallback((message) => {
