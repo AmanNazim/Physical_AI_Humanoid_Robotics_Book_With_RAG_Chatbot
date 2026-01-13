@@ -35,12 +35,38 @@ export const ChatKitProvider = ({ children }) => {
     return `session-${Date.now()}`;
   });
 
-  // Load configuration and styles from backend
+  // Create portal root element for chat widget and load styles
   useEffect(() => {
+    // Load styles and create portal root when component mounts
     const initializeChatKit = async () => {
       // Load styles first
       await loadStyles();
 
+      // Create portal root element when component mounts
+      if (typeof document !== 'undefined') {
+        const portalRoot = document.createElement('div');
+        portalRoot.setAttribute('id', 'chatkit-portal-root');
+        portalRoot.style.all = 'initial'; // Reset CSS inheritance
+        document.body.appendChild(portalRoot);
+
+        // Clean up portal root when component unmounts
+        return () => {
+          document.body.removeChild(portalRoot);
+        };
+      }
+    };
+
+    initializeChatKit();
+
+    // Save session ID to localStorage only in browser environment
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('chatkit-session-id', sessionId);
+    }
+  }, [sessionId]);
+
+  // Load configuration from backend separately
+  useEffect(() => {
+    const loadConfig = async () => {
       try {
         const response = await fetch('/api/config/chatkit');
         if (!response.ok) {
@@ -62,13 +88,8 @@ export const ChatKitProvider = ({ children }) => {
       }
     };
 
-    initializeChatKit();
-
-    // Save session ID to localStorage only in browser environment
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('chatkit-session-id', sessionId);
-    }
-  }, [sessionId]);
+    loadConfig();
+  }, []);
 
   // Function to add a new message
   const addMessage = useCallback((message) => {
