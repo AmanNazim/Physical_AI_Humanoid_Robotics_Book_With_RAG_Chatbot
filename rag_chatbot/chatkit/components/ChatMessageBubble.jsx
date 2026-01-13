@@ -20,7 +20,7 @@ const ChatMessageBubble = ({ message }) => {
       <div className="message-content">
         {isError ? (
           <div className="error-content">
-            <strong>Error:</strong> {message.error}
+            <MarkdownRenderer content={message.content || message.error || 'An error occurred'} />
           </div>
         ) : (
           <>

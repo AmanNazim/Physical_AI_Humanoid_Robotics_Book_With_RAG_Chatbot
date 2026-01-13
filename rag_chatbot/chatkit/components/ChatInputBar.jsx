@@ -46,39 +46,39 @@ const ChatInputBar = () => {
 
     setIsSending(true);
 
+    // Add user message to UI immediately
+    const userMessageId = `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    addMessage({
+      id: userMessageId,
+      role: 'user',
+      content: inputValue,
+      timestamp: new Date()
+    });
+
+    // Prepare the request payload
+    const messageData = {
+      message: inputValue,
+      context: {
+        selected_text: selectedText || null,
+        page: typeof window !== 'undefined' ? window.location.pathname : ''
+      },
+      sessionId: sessionId
+    };
+
+    // Add bot message placeholder
+    const botMessageId = `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    addMessage({
+      id: botMessageId,
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+      isStreaming: true
+    });
+
+    // Set streaming state
+    setIsStreaming(true);
+
     try {
-      // Add user message to UI immediately
-      const userMessageId = `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      addMessage({
-        id: userMessageId,
-        role: 'user',
-        content: inputValue,
-        timestamp: new Date()
-      });
-
-      // Prepare the request payload
-      const messageData = {
-        message: inputValue,
-        context: {
-          selected_text: selectedText || null,
-          page: typeof window !== 'undefined' ? window.location.pathname : ''
-        },
-        sessionId: sessionId
-      };
-
-      // Add bot message placeholder
-      const botMessageId = `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      addMessage({
-        id: botMessageId,
-        role: 'assistant',
-        content: '',
-        timestamp: new Date(),
-        isStreaming: true
-      });
-
-      // Set streaming state
-      setIsStreaming(true);
-
       // Start streaming response using the updated service
       await chatService.sendMessage(messageData, async (token) => {
         // Update the bot message with the received token
@@ -101,12 +101,10 @@ const ChatInputBar = () => {
     } catch (error) {
       console.error('Error sending message:', error);
 
-      // Add error message to UI
-      addMessage({
-        id: `error-${Date.now()}`,
-        role: 'system',
+      // Update the existing bot message with the error instead of creating a new message
+      updateMessage(botMessageId, {
         content: `Error: ${error.message}`,
-        timestamp: new Date(),
+        isStreaming: false,
         error: true
       });
     } finally {
