@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import ChatUIProvider, { ChatUIContext } from '../contexts/ChatUIContext';
 import ChatConversationProvider, { ChatConversationContext } from '../contexts/ChatConversationContext';
+import { BACKEND_URL } from '../config/api';
 
 
 // Create the context
@@ -26,7 +27,7 @@ export const ChatKitProvider = ({ children }) => {
   useEffect(() => {
     const loadConfig = async () => {
       try {
-        const response = await fetch('/api/config/chatkit');
+        const response = await fetch(`${BACKEND_URL}/api/v1/config/chatkit`);
         if (!response.ok) {
           throw new Error(`Failed to load config: ${response.status}`);
         }
