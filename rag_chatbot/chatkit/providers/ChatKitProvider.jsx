@@ -2,19 +2,15 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import ChatUIProvider, { ChatUIContext } from '../contexts/ChatUIContext';
 import ChatConversationProvider, { ChatConversationContext } from '../contexts/ChatConversationContext';
 
-// Dynamically import styles only in the browser
-const loadStyles = async () => {
+// Load styles when component mounts
+useEffect(() => {
   if (typeof window !== 'undefined') {
-    try {
-      await import('../styles/variables.css');
-      await import('../styles/theme.css');
-      await import('../styles/breakpoints.css');
-      await import('../styles/animations.css');
-    } catch (err) {
-      console.warn('Failed to load ChatKit styles:', err);
-    }
+    import('../styles/variables.css').catch(console.warn);
+    import('../styles/theme.css').catch(console.warn);
+    import('../styles/breakpoints.css').catch(console.warn);
+    import('../styles/animations.css').catch(console.warn);
   }
-};
+}, []);
 
 // Create the context
 const ChatKitContext = createContext(null);
@@ -35,8 +31,29 @@ export const ChatKitProvider = ({ children }) => {
     return `session-${Date.now()}`;
   });
 
-    // Load configuration from backend
+    // Create portal root element and load configuration from backend
   useEffect(() => {
+    // Create portal root element when component mounts
+    if (typeof document !== 'undefined') {
+      let portalRoot = document.getElementById('chatkit-portal-root');
+
+      if (!portalRoot) {
+        portalRoot = document.createElement('div');
+        portalRoot.setAttribute('id', 'chatkit-portal-root');
+        portalRoot.style.all = 'initial'; // Reset CSS inheritance
+        document.body.appendChild(portalRoot);
+
+        // Clean up portal root when component unmounts
+        return () => {
+          const existingPortalRoot = document.getElementById('chatkit-portal-root');
+          if (existingPortalRoot && existingPortalRoot.parentNode) {
+            existingPortalRoot.parentNode.removeChild(existingPortalRoot);
+          }
+        };
+      }
+    }
+
+    // Load configuration from backend
     const loadConfig = async () => {
       try {
         const response = await fetch('/api/config/chatkit');
