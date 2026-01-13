@@ -11,7 +11,6 @@ export { ChatUIContext, useChatUI } from './contexts/ChatUIContext';
 export { ChatConversationContext, useChatConversation } from './contexts/ChatConversationContext';
 
 // Hooks
-export { useChatUI } from './hooks/useChatUI';
 export { useChatMessages } from './hooks/useChatMessages';
 export { useStream } from './hooks/useStream';
 
