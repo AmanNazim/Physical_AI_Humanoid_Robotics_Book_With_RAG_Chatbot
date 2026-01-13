@@ -67,24 +67,6 @@ export const ChatKitProvider = ({ children }) => {
     }
   }, [sessionId]);
 
-  // Load styles separately
-  useEffect(() => {
-    const loadStyles = async () => {
-      if (typeof window !== 'undefined') {
-        try {
-          await import('../styles/variables.css');
-          await import('../styles/theme.css');
-          await import('../styles/breakpoints.css');
-          await import('../styles/animations.css');
-        } catch (err) {
-          console.warn('Failed to load ChatKit styles:', err);
-        }
-      }
-    };
-
-    loadStyles();
-  }, []);
-
   // Function to add a new message
   const addMessage = useCallback((message) => {
     setMessages(prev => [...prev, message]);

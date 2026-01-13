@@ -1,20 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '@theme-original/Layout';
-import BrowserOnly from '@docusaurus/BrowserOnly';
 import type { Props } from '@theme/Layout';
 
-// Client-only component that handles ChatKit initialization
-function ChatKitInitializer() {
-  // Dynamically import and initialize ChatKit components
-  React.useEffect(() => {
-    // Dynamically load ChatKit styles
-    import('../../../../rag_chatbot/chatkit/styles/variables.css').catch(console.warn);
-    import('../../../../rag_chatbot/chatkit/styles/theme.css').catch(console.warn);
-    import('../../../../rag_chatbot/chatkit/styles/breakpoints.css').catch(console.warn);
-    import('../../../../rag_chatbot/chatkit/styles/animations.css').catch(console.warn);
+// Dynamically import ChatKit components
+async function loadChatKitComponents() {
+  const [{ ChatKitProvider }] = await Promise.all([
+    import('../../../../rag_chatbot/chatkit/providers/ChatKitProvider'),
+  ]);
 
-    // Create portal root element
-    if (typeof document !== 'undefined') {
+  // Load styles dynamically
+  await Promise.all([
+    import('../../../../rag_chatbot/chatkit/styles/variables.css').catch(() => {}),
+    import('../../../../rag_chatbot/chatkit/styles/theme.css').catch(() => {}),
+    import('../../../../rag_chatbot/chatkit/styles/breakpoints.css').catch(() => {}),
+    import('../../../../rag_chatbot/chatkit/styles/animations.css').catch(() => {})
+  ]);
+
+  return { ChatKitProvider };
+}
+
+export default function CustomLayout(props: Props): JSX.Element {
+  const [ChatKitComponents, setChatKitComponents] = useState<{
+    ChatKitProvider: React.ComponentType<{ children: React.ReactNode }>
+  } | null>(null);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (hasMounted) {
+      loadChatKitComponents().then(setChatKitComponents);
+    }
+  }, [hasMounted]);
+
+  useEffect(() => {
+    // Create portal root element when ChatKit is loaded
+    if (hasMounted && ChatKitComponents) {
       let portalRoot = document.getElementById('chatkit-portal-root');
 
       if (!portalRoot) {
@@ -23,35 +46,28 @@ function ChatKitInitializer() {
         portalRoot.style.all = 'initial'; // Reset CSS inheritance
         document.body.appendChild(portalRoot);
       }
+
+      // Cleanup function
+      return () => {
+        const existingPortalRoot = document.getElementById('chatkit-portal-root');
+        if (existingPortalRoot && existingPortalRoot.parentNode) {
+          existingPortalRoot.parentNode.removeChild(existingPortalRoot);
+        }
+      };
     }
-  }, []);
+  }, [hasMounted, ChatKitComponents]);
 
-  // Dynamically import and render ChatKitProvider
-  const [ChatKitProvider, setChatKitProvider] = React.useState<any>(null);
-
-  React.useEffect(() => {
-    import('../../../../rag_chatbot/chatkit/providers/ChatKitProvider').then(module => {
-      setChatKitProvider(() => module.ChatKitProvider);
-    });
-  }, []);
-
-  if (ChatKitProvider) {
-    return <ChatKitProvider />;
+  if (ChatKitComponents && hasMounted) {
+    const { ChatKitProvider } = ChatKitComponents;
+    return (
+      <Layout {...props}>
+        <ChatKitProvider>
+          {props.children}
+        </ChatKitProvider>
+      </Layout>
+    );
   }
 
-  return null;
-}
-
-export default function CustomLayout(props: Props): JSX.Element {
-  return (
-    <Layout {...props}>
-      {/* Original content */}
-      {props.children}
-
-      {/* ChatKit UI - only rendered in browser */}
-      <BrowserOnly>
-        {() => <ChatKitInitializer />}
-      </BrowserOnly>
-    </Layout>
-  );
+  // Fallback during SSR or loading
+  return <Layout {...props}>{props.children}</Layout>;
 }
