@@ -2,8 +2,16 @@
 // This approach is more compatible with Docusaurus than modifying Layout
 
 if (typeof window !== 'undefined') {
-  // Wait for the page to fully load
-  window.addEventListener('load', async () => {
+  // Wait for React to be available before proceeding
+  const waitForReactAndLoadChatKit = () => {
+    if (window.React && window.ReactDOM) {
+      loadAndRenderChatKit();
+    } else {
+      setTimeout(waitForReactAndLoadChatKit, 100);
+    }
+  };
+
+  const loadAndRenderChatKit = async () => {
     try {
       // Load ChatKit styles
       await Promise.all([
@@ -33,43 +41,28 @@ if (typeof window !== 'undefined') {
       if (!chatkitContainer) {
         chatkitContainer = document.createElement('div');
         chatkitContainer.id = 'chatkit-ui-container';
+        chatkitContainer.style.display = 'contents'; // Don't affect layout
         document.body.appendChild(chatkitContainer);
       }
 
-      // Use React to render the ChatKit UI components
-      // Wait for React and ReactDOM to be available
-      if (window.React && window.ReactDOM) {
-        // Direct render approach
-        const element = window.React.createElement(
-          PortalManager,
-          null,
-          window.React.createElement(ChatLauncherButton),
-          window.React.createElement(ChatPanel),
-          window.React.createElement(MobileChatDrawer)
-        );
-        const root = window.ReactDOM.createRoot(chatkitContainer);
-        root.render(element);
-      } else {
-        // Alternative approach using setTimeout to wait for React
-        const waitForReactAndRender = () => {
-          if (window.React && window.ReactDOM) {
-            const element = window.React.createElement(
-              PortalManager,
-              null,
-              window.React.createElement(ChatLauncherButton),
-              window.React.createElement(ChatPanel),
-              window.React.createElement(MobileChatDrawer)
-            );
-            const root = window.ReactDOM.createRoot(chatkitContainer);
-            root.render(element);
-          } else {
-            setTimeout(waitForReactAndRender, 100);
-          }
-        };
-        waitForReactAndRender();
-      }
+      // Render the ChatKit UI components using React
+      const element = window.React.createElement(
+        PortalManager,
+        null,
+        window.React.createElement(ChatLauncherButton),
+        window.React.createElement(ChatPanel),
+        window.React.createElement(MobileChatDrawer)
+      );
+
+      const root = window.ReactDOM.createRoot(chatkitContainer);
+      root.render(element);
+
+      console.log('ChatKit UI rendered successfully');
     } catch (error) {
       console.error('Failed to load or render ChatKit UI:', error);
     }
-  });
+  };
+
+  // Start the process
+  waitForReactAndLoadChatKit();
 }
