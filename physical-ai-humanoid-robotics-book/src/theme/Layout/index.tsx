@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '@theme-original/Layout';
-import SafeChatKitProvider from '../../../../rag_chatbot/chatkit/SafeChatKitProvider';
+import { ChatKitProvider } from '../../../../rag_chatbot/chatkit/providers/ChatKitProvider';
 import type { Props } from '@theme/Layout';
 
 export default function CustomLayout(props: Props): JSX.Element {
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  // Render the layout with ChatKitProvider, but ensure it only initializes in the browser
   return (
     <Layout {...props}>
-      <SafeChatKitProvider>
-        {props.children}
-      </SafeChatKitProvider>
+      {hasMounted ? (
+        <ChatKitProvider>
+          {props.children}
+        </ChatKitProvider>
+      ) : (
+        props.children
+      )}
     </Layout>
   );
 }
