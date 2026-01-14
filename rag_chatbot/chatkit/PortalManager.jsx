@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ChatKitProvider } from './providers/ChatKitProvider';
 
 const PortalManager = ({ children }) => {
@@ -25,7 +26,19 @@ const PortalManager = ({ children }) => {
     }
   }, []);
 
-  return <ChatKitProvider>{children}</ChatKitProvider>;
+  // Get the portal root element after it's been created
+  const portalRoot = typeof document !== 'undefined' ? document.getElementById('chatkit-portal-root') : null;
+
+  // Only render to portal after portal root exists
+  if (portalRoot) {
+    return createPortal(
+      <ChatKitProvider>{children}</ChatKitProvider>,
+      portalRoot
+    );
+  }
+
+  // Fallback: don't render until portal is ready
+  return null;
 };
 
 export default PortalManager;
