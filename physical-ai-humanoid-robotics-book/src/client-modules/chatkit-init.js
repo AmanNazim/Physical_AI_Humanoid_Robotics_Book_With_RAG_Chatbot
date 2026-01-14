@@ -34,26 +34,18 @@ if (typeof window !== 'undefined') {
       const chatkitModule = await import('@site/../rag_chatbot/chatkit');
       const { PortalManager, ChatLauncherButton, ChatPanel, MobileChatDrawer } = chatkitModule;
 
-      // Create portal root if it doesn't exist
-      if (typeof document !== 'undefined') {
-        let portalRoot = document.getElementById('chatkit-portal-root');
-        if (!portalRoot) {
-          portalRoot = document.createElement('div');
-          portalRoot.setAttribute('id', 'chatkit-portal-root');
-          portalRoot.style.all = 'initial';
-          document.body.appendChild(portalRoot);
-        }
+      // Create a simple div to render the PortalManager into
+      // The PortalManager will handle creating the portal root and rendering children to it
+      let chatkitApp = document.getElementById('chatkit-app');
+      if (!chatkitApp) {
+        chatkitApp = document.createElement('div');
+        chatkitApp.id = 'chatkit-app';
+        chatkitApp.style.display = 'none'; // Hide this since the actual UI will be in the portal
+        document.body.appendChild(chatkitApp);
       }
 
-      // Create container for ChatKit UI
-      let chatkitContainer = document.getElementById('chatkit-ui-container');
-      if (!chatkitContainer) {
-        chatkitContainer = document.createElement('div');
-        chatkitContainer.id = 'chatkit-ui-container';
-        document.body.appendChild(chatkitContainer);
-      }
-
-      // Render the ChatKit UI components
+      // Render the PortalManager with its children
+      // PortalManager will create the portal root and render the children there
       const element = window.React.createElement(
         PortalManager,
         null,
@@ -62,7 +54,7 @@ if (typeof window !== 'undefined') {
         window.React.createElement(MobileChatDrawer)
       );
 
-      const root = window.ReactDOM.createRoot(chatkitContainer);
+      const root = window.ReactDOM.createRoot(chatkitApp);
       root.render(element);
 
       console.log('ChatKit UI initialized successfully');
