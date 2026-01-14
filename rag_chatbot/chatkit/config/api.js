@@ -11,8 +11,8 @@ export const getBackendUrl = () => {
     return (
       window.ENV?.REACT_APP_BACKEND_URL ||
       window.ENV?.BACKEND_URL ||
-      process.env.REACT_APP_BACKEND_URL ||
-      process.env.BACKEND_URL ||
+      (typeof process !== 'undefined' && process.env?.REACT_APP_BACKEND_URL) ||
+      (typeof process !== 'undefined' && process.env?.BACKEND_URL) ||
       DEFAULT_BACKEND_URL
     );
   }
