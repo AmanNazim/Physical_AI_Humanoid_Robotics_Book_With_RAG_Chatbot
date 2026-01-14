@@ -1,9 +1,11 @@
 // Client module to initialize ChatKit UI
+// This file is loaded on the client-side after the page loads
+
 if (typeof window !== 'undefined') {
-  // Function to initialize ChatKit
-  async function initChatKit() {
+  // Wait for the page and React to be ready
+  const initChatKit = async () => {
     try {
-      // Load required styles
+      // Load ChatKit styles
       await Promise.all([
         import('../../rag_chatbot/chatkit/styles/variables.css'),
         import('../../rag_chatbot/chatkit/styles/theme.css'),
@@ -11,26 +13,22 @@ if (typeof window !== 'undefined') {
         import('../../rag_chatbot/chatkit/styles/animations.css')
       ]);
 
-      // Wait for React and ReactDOM to be available
-      if (window.React && window.ReactDOM) {
-        await loadAndRenderChatKit();
-      } else {
-        // Poll for React availability
-        const checkReact = () => {
-          if (window.React && window.ReactDOM && window.ReactDOM.createRoot) {
-            loadAndRenderChatKit();
-          } else {
-            setTimeout(checkReact, 100);
-          }
-        };
-        checkReact();
-      }
-    } catch (error) {
-      console.error('Error initializing ChatKit:', error);
-    }
-  }
+      // Wait for React to be available before proceeding
+      const waitForReact = () => {
+        if (window.React && window.ReactDOM && window.ReactDOM.createRoot) {
+          loadAndRenderChatKit();
+        } else {
+          setTimeout(waitForReact, 100);
+        }
+      };
 
-  async function loadAndRenderChatKit() {
+      waitForReact();
+    } catch (error) {
+      console.error('Error loading ChatKit styles:', error);
+    }
+  };
+
+  const loadAndRenderChatKit = async () => {
     try {
       // Load ChatKit components
       const chatkitModule = await import('../../rag_chatbot/chatkit');
@@ -55,7 +53,7 @@ if (typeof window !== 'undefined') {
         document.body.appendChild(chatkitContainer);
       }
 
-      // Render the ChatKit UI
+      // Render the ChatKit UI components
       const element = window.React.createElement(
         PortalManager,
         null,
@@ -66,12 +64,14 @@ if (typeof window !== 'undefined') {
 
       const root = window.ReactDOM.createRoot(chatkitContainer);
       root.render(element);
-    } catch (error) {
-      console.error('Error loading ChatKit components:', error);
-    }
-  }
 
-  // Initialize when page is ready
+      console.log('ChatKit UI initialized successfully');
+    } catch (error) {
+      console.error('Error initializing ChatKit UI:', error);
+    }
+  };
+
+  // Initialize when the page is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initChatKit);
   } else {

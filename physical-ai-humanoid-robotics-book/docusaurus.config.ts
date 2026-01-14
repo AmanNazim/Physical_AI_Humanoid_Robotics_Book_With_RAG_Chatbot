@@ -30,7 +30,7 @@ const config: Config = {
 
   // Client modules for client-side code that runs in the browser
   clientModules: [
-    './src/pages/chatkit-init.js'
+    './src/client-modules/chatkit-init.js'
   ],
 
   // Even if you don't use internationalization, you can use this field to set
