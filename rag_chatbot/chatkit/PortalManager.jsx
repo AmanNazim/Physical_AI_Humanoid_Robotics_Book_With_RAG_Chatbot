@@ -1,35 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ChatKitProvider } from './providers/ChatKitProvider';
 
 const PortalManager = ({ children }) => {
-  const [portalRoot, setPortalRoot] = useState(null);
-
   useEffect(() => {
+    // Create portal root element when component mounts
     if (typeof document !== 'undefined') {
-      // Check if portal root already exists to avoid duplicates
-      let root = document.getElementById('chatkit-portal-root');
+      let portalRoot = document.getElementById('chatkit-portal-root');
 
-      if (!root) {
-        root = document.createElement('div');
-        root.setAttribute('id', 'chatkit-portal-root');
-        root.style.all = 'initial'; // Reset CSS inheritance
-        document.body.appendChild(root);
+      if (!portalRoot) {
+        portalRoot = document.createElement('div');
+        portalRoot.setAttribute('id', 'chatkit-portal-root');
+        portalRoot.style.all = 'initial'; // Reset CSS inheritance
+        document.body.appendChild(portalRoot);
       }
-
-      setPortalRoot(root);
 
       // Clean up portal root when component unmounts
       return () => {
-        const existingRoot = document.getElementById('chatkit-portal-root');
-        if (existingRoot && existingRoot.parentNode) {
-          existingRoot.parentNode.removeChild(existingRoot);
+        const existingPortalRoot = document.getElementById('chatkit-portal-root');
+        if (existingPortalRoot && existingPortalRoot.parentNode) {
+          existingPortalRoot.parentNode.removeChild(existingPortalRoot);
         }
       };
     }
   }, []);
 
-  // Render children using createPortal if portal root exists
+  // Get the portal root element after it's been created
+  const portalRoot = typeof document !== 'undefined' ? document.getElementById('chatkit-portal-root') : null;
+
+  // Only render to portal after portal root exists
   if (portalRoot) {
     return createPortal(
       <ChatKitProvider>{children}</ChatKitProvider>,
@@ -37,8 +36,8 @@ const PortalManager = ({ children }) => {
     );
   }
 
-  // Fallback: render in normal React tree if portal root doesn't exist
-  return <ChatKitProvider>{children}</ChatKitProvider>;
+  // Fallback: don't render until portal is ready
+  return null;
 };
 
 export default PortalManager;
