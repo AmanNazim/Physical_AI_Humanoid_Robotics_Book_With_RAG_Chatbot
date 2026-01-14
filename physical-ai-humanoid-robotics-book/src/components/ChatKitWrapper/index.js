@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { PortalManager, ChatLauncherButton, ChatPanel, MobileChatDrawer } from '../../../../rag_chatbot/chatkit';
+import { ChatKitProvider, ChatLauncherButton, ChatPanel, MobileChatDrawer } from '../../../../rag_chatbot/chatkit';
 
 // Ensure styles are loaded
 import '../../../../rag_chatbot/chatkit/styles/variables.css';
@@ -9,16 +9,24 @@ import '../../../../rag_chatbot/chatkit/styles/animations.css';
 
 const ChatKitWrapper = () => {
   useEffect(() => {
-    // PortalManager handles portal root creation internally
-    // No additional setup needed here
+    // Create portal root element if it doesn't exist
+    if (typeof document !== 'undefined') {
+      let portalRoot = document.getElementById('chatkit-portal-root');
+      if (!portalRoot) {
+        portalRoot = document.createElement('div');
+        portalRoot.setAttribute('id', 'chatkit-portal-root');
+        portalRoot.style.all = 'initial';
+        document.body.appendChild(portalRoot);
+      }
+    }
   }, []);
 
   return (
-    <PortalManager>
+    <ChatKitProvider>
       <ChatLauncherButton />
       <ChatPanel />
       <MobileChatDrawer />
-    </PortalManager>
+    </ChatKitProvider>
   );
 };
 
