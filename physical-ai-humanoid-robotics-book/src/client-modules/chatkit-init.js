@@ -5,12 +5,12 @@ if (typeof window !== 'undefined') {
   // Wait for the page and React to be ready
   const initChatKit = async () => {
     try {
-      // Load ChatKit styles
+      // Load ChatKit styles - correct relative paths from the book directory
       await Promise.all([
-        import('../../rag_chatbot/chatkit/styles/variables.css'),
-        import('../../rag_chatbot/chatkit/styles/theme.css'),
-        import('../../rag_chatbot/chatkit/styles/breakpoints.css'),
-        import('../../rag_chatbot/chatkit/styles/animations.css')
+        import('@site/../rag_chatbot/chatkit/styles/variables.css'),
+        import('@site/../rag_chatbot/chatkit/styles/theme.css'),
+        import('@site/../rag_chatbot/chatkit/styles/breakpoints.css'),
+        import('@site/../rag_chatbot/chatkit/styles/animations.css')
       ]);
 
       // Wait for React to be available before proceeding
@@ -30,8 +30,8 @@ if (typeof window !== 'undefined') {
 
   const loadAndRenderChatKit = async () => {
     try {
-      // Load ChatKit components
-      const chatkitModule = await import('../../rag_chatbot/chatkit');
+      // Load ChatKit components - correct relative path
+      const chatkitModule = await import('@site/../rag_chatbot/chatkit');
       const { PortalManager, ChatLauncherButton, ChatPanel, MobileChatDrawer } = chatkitModule;
 
       // Create portal root if it doesn't exist
