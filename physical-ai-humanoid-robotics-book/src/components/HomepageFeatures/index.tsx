@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
 type FeatureItem = {
@@ -40,9 +41,9 @@ const FeatureList: FeatureItem[] = [
 function Feature({title, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <p>{description}</p>
+      <div className={clsx('text--center padding-horiz--md', styles.featureCard)}>
+        <Heading as="h3" className={styles.featureTitle}>{title}</Heading>
+        <p className={styles.featureDescription}>{description}</p>
       </div>
     </div>
   );
