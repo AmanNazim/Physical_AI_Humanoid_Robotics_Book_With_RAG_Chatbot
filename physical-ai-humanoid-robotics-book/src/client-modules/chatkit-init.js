@@ -4,6 +4,8 @@
 if (typeof window !== 'undefined') {
   // Wait for the page and React to be ready
   const initChatKit = async () => {
+    console.log('Attempting to initialize ChatKit...');
+
     try {
       // Load ChatKit styles - correct relative paths from the book directory
       await Promise.all([
@@ -13,12 +15,24 @@ if (typeof window !== 'undefined') {
         import('@site/../rag_chatbot/chatkit/styles/animations.css')
       ]);
 
+      console.log('ChatKit styles loaded successfully');
+
       // Wait for React to be available before proceeding
       // In Docusaurus, React might be available under different property names
       const waitForReact = () => {
         // Check multiple possible locations for React in Docusaurus
         const reactLib = window.React || window.Docusaurus?.React || window.require?.('react');
         const reactDOMLib = window.ReactDOM || window.Docusaurus?.ReactDOM || window.require?.('react-dom/client');
+
+        console.log('Checking for React availability...', {
+          hasWindowReact: !!window.React,
+          hasWindowReactDOM: !!window.ReactDOM,
+          hasDocusaurusReact: !!window.Docusaurus?.React,
+          hasDocusaurusReactDOM: !!window.Docusaurus?.ReactDOM,
+          hasCreateRoot: !!(window.ReactDOM?.createRoot),
+          reactLibExists: !!reactLib,
+          reactDOMLibExists: !!reactDOMLib
+        });
 
         if (reactLib && reactDOMLib && reactDOMLib.createRoot) {
           loadAndRenderChatKit(reactLib, reactDOMLib);
@@ -36,9 +50,18 @@ if (typeof window !== 'undefined') {
 
   const loadAndRenderChatKit = async (React, ReactDOM) => {
     try {
+      console.log('Loading ChatKit components...');
+
       // Load ChatKit components - correct relative path
       const chatkitModule = await import('@site/../rag_chatbot/chatkit');
       const { PortalManager, ChatLauncherButton, ChatPanel, MobileChatDrawer } = chatkitModule;
+
+      console.log('ChatKit components loaded successfully', {
+        hasPortalManager: !!PortalManager,
+        hasChatLauncherButton: !!ChatLauncherButton,
+        hasChatPanel: !!ChatPanel,
+        hasMobileChatDrawer: !!MobileChatDrawer
+      });
 
       // Create a simple div to render the PortalManager into
       // The PortalManager will handle creating the portal root and rendering children to it
@@ -63,7 +86,7 @@ if (typeof window !== 'undefined') {
       const root = ReactDOM.createRoot(chatkitApp);
       root.render(element);
 
-      console.log('ChatKit UI initialized successfully');
+      console.log('ChatKit UI rendered successfully');
     } catch (error) {
       console.error('Error initializing ChatKit UI:', error);
     }
@@ -71,8 +94,10 @@ if (typeof window !== 'undefined') {
 
   // Initialize when the page is ready
   if (document.readyState === 'loading') {
+    console.log('DOM still loading, waiting for DOMContentLoaded');
     document.addEventListener('DOMContentLoaded', initChatKit);
   } else {
+    console.log('DOM already loaded, initializing ChatKit after delay');
     // Add a slight delay to ensure Docusaurus is fully loaded
     setTimeout(initChatKit, 500);
   }
