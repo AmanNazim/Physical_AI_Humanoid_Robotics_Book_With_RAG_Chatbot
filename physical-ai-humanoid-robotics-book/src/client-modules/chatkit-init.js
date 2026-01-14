@@ -2,7 +2,7 @@
 // This file is loaded on the client-side after the page loads
 
 if (typeof window !== 'undefined') {
-  // Wait for the page and React to be ready
+  // Initialize ChatKit when the page is ready
   const initChatKit = async () => {
     console.log('Attempting to initialize ChatKit...');
 
@@ -17,42 +17,19 @@ if (typeof window !== 'undefined') {
 
       console.log('ChatKit styles loaded successfully');
 
-      // Wait for React to be available before proceeding
-      // In Docusaurus, React might be available under different property names
-      const waitForReact = () => {
-        // Check multiple possible locations for React in Docusaurus
-        const reactLib = window.React || window.Docusaurus?.React || window.require?.('react');
-        const reactDOMLib = window.ReactDOM || window.Docusaurus?.ReactDOM || window.require?.('react-dom/client');
+      // Load React and ReactDOM directly since they may not be available globally in Docusaurus
+      const [reactModule, reactDOMModule] = await Promise.all([
+        import('react'),
+        import('react-dom/client')
+      ]);
 
-        console.log('Checking for React availability...', {
-          hasWindowReact: !!window.React,
-          hasWindowReactDOM: !!window.ReactDOM,
-          hasDocusaurusReact: !!window.Docusaurus?.React,
-          hasDocusaurusReactDOM: !!window.Docusaurus?.ReactDOM,
-          hasCreateRoot: !!(window.ReactDOM?.createRoot),
-          reactLibExists: !!reactLib,
-          reactDOMLibExists: !!reactDOMLib
-        });
+      const React = reactModule.default || reactModule;
+      const ReactDOM = reactDOMModule.default || reactDOMModule;
 
-        if (reactLib && reactDOMLib && reactDOMLib.createRoot) {
-          loadAndRenderChatKit(reactLib, reactDOMLib);
-        } else {
-          // Try again after a short delay
-          setTimeout(waitForReact, 100);
-        }
-      };
+      console.log('React and ReactDOM loaded successfully');
 
-      waitForReact();
-    } catch (error) {
-      console.error('Error loading ChatKit styles:', error);
-    }
-  };
-
-  const loadAndRenderChatKit = async (React, ReactDOM) => {
-    try {
+      // Load ChatKit components
       console.log('Loading ChatKit components...');
-
-      // Load ChatKit components - correct relative path
       const chatkitModule = await import('@site/../rag_chatbot/chatkit');
       const { PortalManager, ChatLauncherButton, ChatPanel, MobileChatDrawer } = chatkitModule;
 
