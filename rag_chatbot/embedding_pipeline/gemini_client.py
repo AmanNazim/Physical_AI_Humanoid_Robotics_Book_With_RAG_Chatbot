@@ -31,10 +31,10 @@ class GeminiClient:
         self.client = genai.Client()
 
         # Set the embedding model
-        self.model_name = os.getenv("EMBED_MODEL_NAME", "gemini-embedding-001")  # Correct model name from config
+        self.model_name = os.getenv("GEMINI_MODEL", "gemini-embedding-001")  # Correct model name from config
 
         # Set the output dimension - default to 1536 as specified in requirements
-        self.output_dimensionality = int(os.getenv("EMBEDDING_DIMENSION", "1536"))
+        self.output_dimensionality = int(os.getenv("GEMINI_OUTPUT_DIMENSIONALITY", "1536"))
 
         # Track API usage
         self.request_count = 0
@@ -188,7 +188,7 @@ class EmbeddingProcessor:
         self.client = None
         self.batch_size = int(os.getenv("BATCH_SIZE", "5"))  # Reduced for safety
         # Use the same embedding dimension as configured for Qdrant
-        self.output_dimensionality = int(os.getenv("EMBEDDING_DIMENSION", "1536"))
+        self.output_dimensionality = int(os.getenv("GEMINI_OUTPUT_DIMENSIONALITY", "1536"))
 
     async def initialize(self):
         """Initialize the Gemini client"""
