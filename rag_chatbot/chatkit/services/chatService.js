@@ -149,11 +149,17 @@ export const sendSelectedText = async (selectionData) => {
  */
 export const getConfig = async () => {
   try {
-    // Force HTTPS for config endpoint to prevent mixed content errors
-const baseUrl = getBackendURL();
-const fullUrl = baseUrl + '/api/v1/config/';
-console.log('DEBUG: Config API URL being called in service:', fullUrl);
-const response = await fetch(fullUrl);
+    // Use hardcoded HTTPS URL to ensure consistent behavior
+const fullUrl = 'https://aman778-rag-chatbot-backend.hf.space/api/v1/config/';
+console.log('DEBUG: Config API URL being called in service (hardcoded):', fullUrl);
+const response = await fetch(fullUrl, {
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json',
+  },
+  mode: 'cors',
+  credentials: 'omit'
+});
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
