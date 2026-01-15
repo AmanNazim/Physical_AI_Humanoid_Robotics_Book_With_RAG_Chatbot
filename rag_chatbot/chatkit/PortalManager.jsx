@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ChatKitProvider } from './providers/ChatKitProvider';
 
 const PortalManager = ({ children }) => {
+  const [portalRootReady, setPortalRootReady] = useState(false);
+
   useEffect(() => {
     // Create portal root element when component mounts
     if (typeof document !== 'undefined') {
-      // Check if portal root already exists to avoid duplicates
       let portalRoot = document.getElementById('chatkit-portal-root');
 
       if (!portalRoot) {
@@ -15,6 +16,9 @@ const PortalManager = ({ children }) => {
         portalRoot.style.all = 'initial'; // Reset CSS inheritance
         document.body.appendChild(portalRoot);
       }
+
+      // Signal that the portal root is ready
+      setPortalRootReady(true);
 
       // Clean up portal root when component unmounts
       return () => {
@@ -30,7 +34,7 @@ const PortalManager = ({ children }) => {
   const portalRoot = typeof document !== 'undefined' ? document.getElementById('chatkit-portal-root') : null;
 
   // Only render to portal after portal root exists
-  if (portalRoot) {
+  if (portalRoot && portalRootReady) {
     return createPortal(
       <ChatKitProvider>{children}</ChatKitProvider>,
       portalRoot
