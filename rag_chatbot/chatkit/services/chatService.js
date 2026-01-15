@@ -149,7 +149,11 @@ export const sendSelectedText = async (selectionData) => {
  */
 export const getConfig = async () => {
   try {
-    const response = await fetch(`${getBackendURL()}/api/v1/config/`);
+    // Force HTTPS for config endpoint to prevent mixed content errors
+const baseUrl = getBackendURL();
+const fullUrl = baseUrl + '/api/v1/config/';
+console.log('DEBUG: Config API URL being called in service:', fullUrl);
+const response = await fetch(fullUrl);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
