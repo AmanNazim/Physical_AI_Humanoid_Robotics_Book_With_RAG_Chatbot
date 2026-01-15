@@ -40,7 +40,7 @@ The ChatKit UI Subsystem is a comprehensive chat interface designed for the Huma
 
 The ChatKit UI connects to the following backend API endpoints:
 
-- `GET /api/v1/config/chatkit` - Get configuration for ChatKit UI
+- `GET /api/v1/config/` - Get configuration for ChatKit UI
 - `POST /api/v1/chat` - Send a message to the chat API
 - `POST /api/v1/chat/stream` - Send a message with streaming response
 - `GET /api/v1/health` - Check the health of the backend

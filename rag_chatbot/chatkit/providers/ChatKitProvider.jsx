@@ -27,7 +27,7 @@ export const ChatKitProvider = ({ children }) => {
   useEffect(() => {
     const loadConfig = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/api/v1/config/chatkit`);
+        const response = await fetch(`${BACKEND_URL}/api/v1/config/`);
         if (!response.ok) {
           throw new Error(`Failed to load config: ${response.status}`);
         }

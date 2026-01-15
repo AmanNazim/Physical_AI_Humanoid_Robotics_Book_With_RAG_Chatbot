@@ -149,7 +149,7 @@ export const sendSelectedText = async (selectionData) => {
  */
 export const getConfig = async () => {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/v1/config/chatkit`);
+    const response = await fetch(`${BACKEND_URL}/api/v1/config/`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
