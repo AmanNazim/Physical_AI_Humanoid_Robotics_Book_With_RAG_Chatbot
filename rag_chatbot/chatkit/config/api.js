@@ -7,7 +7,16 @@ const DEFAULT_BACKEND_URL = 'https://aman778-rag-chatbot-backend.hf.space';
 // Ensure HTTPS is used to avoid mixed content issues
 const ensureHttps = (url) => {
   if (typeof url === 'string') {
-    return url.replace(/^http:/, 'https:');
+    // Handle various URL formats
+    if (url.startsWith('http://')) {
+      return url.replace('http://', 'https://');
+    } else if (url.startsWith('//')) {
+      // Handle protocol-relative URLs
+      return 'https:' + url;
+    } else if (!url.startsWith('https://') && url.includes('://')) {
+      // If it has another protocol scheme, replace the scheme
+      return url.replace(/^[^:]+:\/\//, 'https://');
+    }
   }
   return url;
 };
