@@ -29,9 +29,29 @@ export const ChatKitProvider = ({ children }) => {
       try {
         // Force HTTPS for config endpoint to prevent mixed content errors
 const baseUrl = getBackendURL();
-const fullUrl = baseUrl + '/api/v1/config/';
+// Ensure the URL starts with https://
+const secureBaseUrl = baseUrl.startsWith('https://') ? baseUrl :
+                     baseUrl.startsWith('http://') ? baseUrl.replace('http://', 'https://') :
+                     'https://' + baseUrl;
+const fullUrl = secureBaseUrl + '/api/v1/config/';
 console.log('DEBUG: Config API URL being called:', fullUrl);
-const response = await fetch(fullUrl);
+
+// Explicitly ensure HTTPS is used
+if (!fullUrl.startsWith('https://')) {
+  console.error('ERROR: Config URL is not HTTPS:', fullUrl);
+  throw new Error('Config URL must use HTTPS');
+}
+
+const response = await fetch(fullUrl, {
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json',
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache'
+  },
+  mode: 'cors',
+  credentials: 'omit'
+});
         if (!response.ok) {
           throw new Error(`Failed to load config: ${response.status}`);
         }
