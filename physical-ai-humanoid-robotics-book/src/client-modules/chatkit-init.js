@@ -40,6 +40,10 @@ if (typeof window !== 'undefined') {
         hasMobileChatDrawer: !!MobileChatDrawer
       });
 
+      // Check if portal root already exists
+      let portalRoot = document.getElementById('chatkit-portal-root');
+      console.log('Portal root exists before render:', !!portalRoot);
+
       // Create a simple div to render the PortalManager into
       // The PortalManager will handle creating the portal root and rendering children to it
       let chatkitApp = document.getElementById('chatkit-app');
@@ -61,9 +65,25 @@ if (typeof window !== 'undefined') {
       );
 
       const root = ReactDOM.createRoot(chatkitApp);
-      root.render(element);
 
+      // Log before rendering to see if there are any errors during render
+      console.log('About to render ChatKit UI...');
+      root.render(element);
       console.log('ChatKit UI rendered successfully');
+
+      // Check again after render
+      setTimeout(() => {
+        const portalRootAfter = document.getElementById('chatkit-portal-root');
+        console.log('Portal root exists after render:', !!portalRootAfter);
+        if (portalRootAfter) {
+          console.log('Portal root content:', portalRootAfter.innerHTML);
+        }
+
+        // Check if the launcher button exists in the portal root
+        const launcherButton = portalRootAfter?.querySelector('.chat-launcher-button');
+        console.log('Launcher button found in portal:', !!launcherButton);
+      }, 1000);
+
     } catch (error) {
       console.error('Error initializing ChatKit UI:', error);
     }
