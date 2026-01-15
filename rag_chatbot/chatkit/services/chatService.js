@@ -11,9 +11,16 @@ import { BACKEND_URL } from '../config/api';
  * @returns {Promise<Object>} The response from the API
  */
 export const sendMessage = async (messageData, onTokenReceived) => {
+  console.log('Sending message to backend:', {
+    backendUrl: BACKEND_URL,
+    message: messageData.message,
+    sessionId: messageData.sessionId
+  });
+
   try {
     // If streaming is requested, use the stream endpoint
     if (onTokenReceived) {
+      console.log('Using streaming endpoint...');
       const response = await fetch(`${BACKEND_URL}/api/v1/chat/stream`, {
         method: 'POST',
         headers: {
@@ -26,6 +33,8 @@ export const sendMessage = async (messageData, onTokenReceived) => {
         }),
       });
 
+      console.log('Stream response received:', response.status);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -37,7 +46,10 @@ export const sendMessage = async (messageData, onTokenReceived) => {
 
       while (true) {
         const { done, value } = await reader.read();
-        if (done) break;
+        if (done) {
+          console.log('Stream reading completed');
+          break;
+        }
 
         buffer += decoder.decode(value, { stream: true });
         const lines = buffer.split('\n');
@@ -48,10 +60,12 @@ export const sendMessage = async (messageData, onTokenReceived) => {
             try {
               const data = JSON.parse(line.slice(6)); // Remove 'data: ' prefix
               if (data.type === 'token' && onTokenReceived) {
+                console.log('Token received:', data.content);
                 onTokenReceived(data.content);
               } else if (data.type === 'sources') {
                 console.log('Sources received:', data.sources);
               } else if (data.type === 'complete') {
+                console.log('Stream complete event received');
                 break;
               }
             } catch (e) {
@@ -65,6 +79,7 @@ export const sendMessage = async (messageData, onTokenReceived) => {
       return { success: true };
     } else {
       // For non-streaming, use the regular chat endpoint
+      console.log('Using regular chat endpoint...');
       const response = await fetch(`${BACKEND_URL}/api/v1/chat`, {
         method: 'POST',
         headers: {
@@ -77,11 +92,16 @@ export const sendMessage = async (messageData, onTokenReceived) => {
         }),
       });
 
+      console.log('Regular response received:', response.status);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      return response;
+      const responseData = await response.json();
+      console.log('Response data received:', responseData);
+
+      return responseData;
     }
   } catch (error) {
     console.error('Error sending message:', error);
