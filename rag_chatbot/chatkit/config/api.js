@@ -31,10 +31,15 @@ export const getBackendUrl = () => {
       (typeof process !== 'undefined' && process.env?.BACKEND_URL) ||
       DEFAULT_BACKEND_URL;
 
-    return ensureHttps(envUrl);
+    console.log('DEBUG: Raw envUrl:', envUrl);
+    const result = ensureHttps(envUrl);
+    console.log('DEBUG: Final URL after ensureHttps:', result);
+    return result;
   }
   // For server-side rendering or other environments
-  return ensureHttps(DEFAULT_BACKEND_URL);
+  const result = ensureHttps(DEFAULT_BACKEND_URL);
+  console.log('DEBUG: Server-side URL after ensureHttps:', result);
+  return result;
 };
 
 // Export a getter function instead of a constant to ensure it's evaluated at runtime
