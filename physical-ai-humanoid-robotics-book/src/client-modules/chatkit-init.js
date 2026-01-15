@@ -1,5 +1,6 @@
 // Client module to initialize ChatKit UI
 // This file is loaded on the client-side after the page loads
+// Updated: HTTPS enforcement and correct config endpoint
 
 if (typeof window !== 'undefined') {
   // Initialize ChatKit when the page is ready
