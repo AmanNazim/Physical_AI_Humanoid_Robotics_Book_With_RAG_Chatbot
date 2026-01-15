@@ -1,5 +1,5 @@
 import { handleStream } from './streamingHandlers';
-import { BACKEND_URL } from '../config/api';
+import { getBackendURL } from '../config/api';
 
 /**
  * Send a message to the chat API
@@ -12,7 +12,7 @@ import { BACKEND_URL } from '../config/api';
  */
 export const sendMessage = async (messageData, onTokenReceived) => {
   console.log('Sending message to backend:', {
-    backendUrl: BACKEND_URL,
+    backendUrl: getBackendURL(),
     message: messageData.message,
     sessionId: messageData.sessionId
   });
@@ -21,7 +21,7 @@ export const sendMessage = async (messageData, onTokenReceived) => {
     // If streaming is requested, use the stream endpoint
     if (onTokenReceived) {
       console.log('Using streaming endpoint...');
-      const response = await fetch(`${BACKEND_URL}/api/v1/chat/stream`, {
+      const response = await fetch(`${getBackendURL()}/api/v1/chat/stream`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export const sendMessage = async (messageData, onTokenReceived) => {
     } else {
       // For non-streaming, use the regular chat endpoint
       console.log('Using regular chat endpoint...');
-      const response = await fetch(`${BACKEND_URL}/api/v1/chat`, {
+      const response = await fetch(`${getBackendURL()}/api/v1/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ export const sendMessage = async (messageData, onTokenReceived) => {
 export const sendSelectedText = async (selectionData) => {
   try {
     // Send selected text as a query to the regular chat endpoint
-    const response = await fetch(`${BACKEND_URL}/api/v1/chat`, {
+    const response = await fetch(`${getBackendURL()}/api/v1/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ export const sendSelectedText = async (selectionData) => {
  */
 export const getConfig = async () => {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/v1/config/`);
+    const response = await fetch(`${getBackendURL()}/api/v1/config/`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -168,7 +168,7 @@ export const getConfig = async () => {
  */
 export const checkHealth = async () => {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/v1/health`);
+    const response = await fetch(`${getBackendURL()}/api/v1/health`);
 
     return response.ok;
   } catch (error) {

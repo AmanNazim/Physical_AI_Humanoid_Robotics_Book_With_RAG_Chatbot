@@ -28,4 +28,7 @@ export const getBackendUrl = () => {
   return ensureHttps(DEFAULT_BACKEND_URL);
 };
 
-export const BACKEND_URL = getBackendUrl();
+// Export a getter function instead of a constant to ensure it's evaluated at runtime
+export const getBackendURL = () => {
+  return getBackendUrl();
+};
