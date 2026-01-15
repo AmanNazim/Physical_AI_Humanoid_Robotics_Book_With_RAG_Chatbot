@@ -75,15 +75,21 @@ const ChatInputBar = () => {
       isStreaming: true
     });
 
+    // Keep track of accumulated content for streaming
+    let accumulatedContent = '';
+
     // Set streaming state
     setIsStreaming(true);
 
     try {
       // Start streaming response using the updated service
       await chatService.sendMessage(messageData, async (token) => {
-        // Update the bot message with the received token
+        // Accumulate the token
+        accumulatedContent += token;
+
+        // Update the bot message with the accumulated content
         updateMessage(botMessageId, {
-          content: prevContent => prevContent + token,
+          content: accumulatedContent,
           isStreaming: true
         });
       });
