@@ -53,8 +53,12 @@ class CORSSettings(BaseSettings):
     def allowed_origins(self) -> List[str]:
         """Parse allowed_origins from the comma-separated string."""
         if hasattr(self, 'cors_allowed_origins') and self.cors_allowed_origins:
-            return [origin.strip() for origin in self.cors_allowed_origins.split(",")]
-        return ["http://localhost:3000", "http://localhost:8000"]
+            origins = [origin.strip() for origin in self.cors_allowed_origins.split(",")]
+            # If "*" is in the list, return wildcard to allow all origins
+            if "*" in origins:
+                return ["*"]
+            return origins
+        return ["*"]  # Allow all origins by default for Hugging Face deployment
 
 
 class AppSettings(BaseSettings):
@@ -94,7 +98,7 @@ class AppSettings(BaseSettings):
     openrouter_base_url: str = Field(default="https://openrouter.ai/api/v1", description="OpenRouter API base URL")
 
     # CORS settings
-    cors_cors_allowed_origins: str = Field(default="http://localhost:3000,http://localhost:8000", description="CORS allowed origins")
+    cors_cors_allowed_origins: str = Field(default="*", description="CORS allowed origins")
 
     model_config = SettingsConfigDict(
         env_file=".env",
