@@ -28,27 +28,28 @@ export const ChatKitProvider = ({ children }) => {
     const loadConfig = async () => {
       try {
         // Use hardcoded HTTPS URL to absolutely ensure no HTTP requests
-const fullUrl = 'https://aman778-rag-chatbot-backend.hf.space/api/v1/config/';
-console.log('DEBUG: Config API URL being called (hardcoded):', fullUrl);
+        // Use the correct endpoint that returns ChatKit configuration
+        const fullUrl = 'https://aman778-rag-chatbot-backend.hf.space/api/v1/config/chatkit';
+        console.log('DEBUG: Config API URL being called (hardcoded):', fullUrl);
 
-// Absolutely ensure HTTPS is used
-if (!fullUrl.startsWith('https://')) {
-  console.error('ERROR: Config URL is not HTTPS:', fullUrl);
-  throw new Error('Config URL must use HTTPS');
-}
+        // Absolutely ensure HTTPS is used
+        if (!fullUrl.startsWith('https://')) {
+          console.error('ERROR: Config URL is not HTTPS:', fullUrl);
+          throw new Error('Config URL must use HTTPS');
+        }
 
-const response = await fetch(fullUrl, {
-  method: 'GET',
-  headers: {
-    'Accept': 'application/json',
-    'Cache-Control': 'no-cache',
-    'Pragma': 'no-cache'
-  },
-  mode: 'cors',
-  credentials: 'omit',
-  // Ensure the request doesn't follow redirects that might change the protocol
-  redirect: 'manual'
-});
+        const response = await fetch(fullUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          },
+          mode: 'cors',
+          credentials: 'omit',
+          // Ensure the request doesn't follow redirects that might change the protocol
+          redirect: 'manual'
+        });
         if (!response.ok) {
           throw new Error(`Failed to load config: ${response.status}`);
         }

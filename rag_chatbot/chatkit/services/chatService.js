@@ -150,16 +150,17 @@ export const sendSelectedText = async (selectionData) => {
 export const getConfig = async () => {
   try {
     // Use hardcoded HTTPS URL to ensure consistent behavior
-const fullUrl = 'https://aman778-rag-chatbot-backend.hf.space/api/v1/config/';
-console.log('DEBUG: Config API URL being called in service (hardcoded):', fullUrl);
-const response = await fetch(fullUrl, {
-  method: 'GET',
-  headers: {
-    'Accept': 'application/json',
-  },
-  mode: 'cors',
-  credentials: 'omit'
-});
+    // Use the correct endpoint that returns ChatKit configuration
+    const fullUrl = 'https://aman778-rag-chatbot-backend.hf.space/api/v1/config/chatkit';
+    console.log('DEBUG: Config API URL being called in service (hardcoded):', fullUrl);
+    const response = await fetch(fullUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+      mode: 'cors',
+      credentials: 'omit'
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
