@@ -24,10 +24,11 @@ class QdrantClientWrapper:
         Initialize the Qdrant client with connection parameters from config.
         """
         try:
+            # Use the correct QdrantClient initialization for cloud instance
             self._client = QdrantClient(
                 url=settings.qdrant_settings.host,
                 api_key=settings.qdrant_settings.api_key,
-                prefer_grpc=True  # Use gRPC for better performance if available
+                # Remove prefer_grpc for cloud instances which may not support it
             )
             rag_logger.info("Qdrant client initialized successfully")
         except Exception as e:
@@ -202,10 +203,10 @@ class QdrantClientWrapper:
                         must=filter_conditions
                     )
 
-            # Perform the search
-            search_results = self.client.search(
+            # Perform the search - using correct Qdrant API method (query_points with correct parameter)
+            search_result = self.client.query_points(
                 collection_name=self._collection_name,
-                query_vector=query_vector,
+                query=query_vector,  # Use 'query' parameter instead of 'query_vector'
                 query_filter=qdrant_filter,
                 limit=top_k,
                 score_threshold=threshold,
@@ -213,7 +214,24 @@ class QdrantClientWrapper:
                 with_vectors=False  # We don't need vectors in response for most use cases
             )
 
-            rag_logger.info(f"Found {len(search_results)} similar vectors for query")
+            # Extract the points from the QueryResponse object
+            # The query_points method returns a QueryResponse object with a 'results' attribute
+            if hasattr(search_result, 'results'):
+                search_results = search_result.results
+            elif hasattr(search_result, 'points'):
+                search_results = search_result.points
+            else:
+                search_results = search_result
+
+            # Ensure search_results is a list for consistency
+            if not isinstance(search_results, list):
+                if hasattr(search_results, '__iter__') and not isinstance(search_results, (str, bytes)):
+                    search_results = list(search_results)
+                else:
+                    search_results = [] if search_results is None else [search_results]
+
+            result_count = len(search_results)
+            rag_logger.info(f"Found {result_count} similar vectors for query")
             return search_results
 
         except Exception as e:

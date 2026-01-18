@@ -407,8 +407,21 @@ class DatabaseManager(DatabaseInterface):
                 filters=filters
             )
 
-            # Convert Qdrant results to internal format
-            results = self.qdrant_utils.map_qdrant_results_to_internal_schema(qdrant_results)
+            # Convert RetrievalResult objects to the dictionary format expected by the retrieval service
+            results = []
+            for result in qdrant_results:  # qdrant_results are now RetrievalResult objects
+                result_dict = {
+                    'id': result.chunk_id,
+                    'payload': {
+                        'text': result.text,
+                        'document_reference': result.document_reference,
+                        'page_reference': result.page_reference,
+                        'section_title': result.section_title,
+                        'metadata': result.metadata or {}
+                    },
+                    'score': result.score
+                }
+                results.append(result_dict)
 
             rag_logger.info(f"Retrieved {len(results)} embedding results from Qdrant")
             return results
