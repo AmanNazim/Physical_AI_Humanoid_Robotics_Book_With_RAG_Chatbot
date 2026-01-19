@@ -78,7 +78,7 @@ class AppSettings(BaseSettings):
     qdrant_host: str = Field(default="http://localhost:6333", description="Qdrant host URL")
     qdrant_api_key: Optional[str] = Field(default=None, description="Qdrant API key")
     qdrant_collection_name: str = Field(default="book_embeddings", description="Qdrant collection name")
-    qdrant_vector_size: int = Field(default=1024, description="Size of embedding vectors")
+    qdrant_vector_size: int = Field(default=1536, description="Size of embedding vectors")
     qdrant_distance: str = Field(default="Cosine", description="Distance metric for similarity search")
 
     # Neon settings
@@ -90,11 +90,11 @@ class AppSettings(BaseSettings):
     gemini_api_key: str = Field(default="", description="Gemini API key")
     gemini_model: str = Field(default="gemini-embedding-001", description="Gemini embedding model")
     gemini_task_type: str = Field(default="RETRIEVAL_DOCUMENT", description="Task type for embeddings")
-    gemini_output_dimensionality: int = Field(default=1024, description="Output dimensionality for embeddings")
+    gemini_output_dimensionality: int = Field(default=1536, description="Output dimensionality for embeddings")
 
     # LLM settings (OpenRouter)
     openrouter_api_key: str = Field(default="", description="OpenRouter API key")
-    openrouter_model: str = Field(default="openai/gpt-4-turbo", description="LLM model to use")
+    openrouter_model: str = Field(default="meta-llama/llama-3.3-70b-instruct:free", description="LLM model to use")
     openrouter_base_url: str = Field(default="https://openrouter.ai/api/v1/chat/completions", description="OpenRouter API base URL")
 
     # CORS settings
