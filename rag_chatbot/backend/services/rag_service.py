@@ -62,11 +62,9 @@ class RAGService:
                     "query": query
                 }
 
-            # Prepare context from sources
-            context_text = "\n\n".join([source.text for source in sources])
-
-            # Generate response using a simple approach (will be replaced by Agents SDK)
-            answer = await self._generate_answer_with_context(query, context_text)
+            # Instead of preparing context as a string, pass the sources directly to IntelligenceService
+            # Generate response using IntelligenceService with actual sources
+            answer = await self._generate_answer_with_sources(query, sources)
 
             rag_logger.info(f"Generated RAG response for query: {query[:50]}...")
             return {
@@ -84,41 +82,31 @@ class RAGService:
                 "error": str(e)
             }
 
-    async def _generate_answer_with_context(self, query: str, context: str) -> str:
+    async def _generate_answer_with_sources(self, query: str, sources: List[Source]) -> str:
         """
-        Generate an answer using the provided context.
+        Generate an answer using the provided sources.
         This uses the IntelligenceService with Agents SDK.
 
         Args:
             query: User's query
-            context: Retrieved context to use for answering
+            sources: Retrieved sources to use for answering
 
         Returns:
             Generated answer string
         """
         try:
             # Import the IntelligenceService
-            from agents_sdk.services.intelligence_service import IntelligenceService, Source
+            from agents_sdk.services.intelligence_service import IntelligenceService
             from backend.utils.logger import rag_logger
-
-            # Create source objects from the context
-            # Since we're getting context as a string, we'll create a single source
-            sources = [Source(
-                chunk_id="context_chunk_1",
-                document_id="retrieved_context",
-                text=context[:5000],  # Limit text length
-                score=0.9,  # High score since this is our main context
-                metadata={"source": "retrieved_context", "length": len(context)}
-            )]
 
             # Initialize and use the IntelligenceService
             intelligence_service = IntelligenceService()
             await intelligence_service.initialize()
 
-            # Process the query with the retrieved context
+            # Process the query with the retrieved sources directly
             result = await intelligence_service.process_query(
                 user_query=query,
-                context_chunks=sources
+                context_chunks=sources  # Pass actual sources instead of context string
             )
 
             # Extract and return the answer text
@@ -131,16 +119,21 @@ class RAGService:
             from backend.utils.logger import rag_logger
             rag_logger.warning("IntelligenceService not available, using basic response generation")
             # Fallback to basic implementation if IntelligenceService is not available
-            if len(context.strip()) == 0:
+            if len(sources) == 0:
                 return "I couldn't find any relevant information to answer your question."
 
-            # Simple context-aware response
-            return f"Based on the provided context: {context[:200]}... I can help answer questions about this topic. Please ask your specific question about this content."
+            # Simple context-aware response using the first source
+            if sources:
+                context_preview = sources[0].text[:200] if sources[0].text else ""
+                return f"Based on the provided context: {context_preview}... I can help answer questions about this topic. Please ask your specific question about this content."
+            else:
+                return "I couldn't find any relevant information to answer your question."
         except Exception as e:
             from backend.utils.logger import rag_logger
             rag_logger.error(f"Error in IntelligenceService: {str(e)}")
             # Fallback response
             return "I encountered an error while processing your query. Please try again."
+
 
     async def validate_query_and_context(
         self,
