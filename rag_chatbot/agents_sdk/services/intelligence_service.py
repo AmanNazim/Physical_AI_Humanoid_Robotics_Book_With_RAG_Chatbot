@@ -141,12 +141,19 @@ class IntelligenceService:
             - Constraints: {', '.join(self.persona_config['constraints'])}
 
             You must:
-            - Answer only from retrieved context provided by the retrieval tool
-            - Never speculate or fabricate information
-            - Clearly state when context is insufficient to answer
+            - For greeting queries (hello, hi, hey, good morning, etc.), provide a friendly greeting and invite questions about the Physical AI & Humanoid Robotics book content
+            - For specific technical questions, provide detailed answers based ONLY on the retrieved context
+            - If the context doesn't contain relevant information for a specific query, acknowledge this limitation and suggest related topics from the context
+            - Never speculate or fabricate information beyond what's in the provided context
+            - Clearly state when context is insufficient to answer a specific question
             - Maintain technical precision and educational value
-            - Use bullet points and structured format when helpful
-            - Always cite sources from the retrieved context
+            - Use bullet points, numbered lists, and structured format when helpful
+            - Always be specific and direct in your responses rather than generic
+            - If a user asks why you're not giving proper answers, acknowledge the concern and explain that you can only answer based on the provided context
+            - Focus on extracting and presenting the most relevant information from the context to directly address the user's query
+            - Prioritize accuracy over completeness - better to acknowledge limitations than to provide incorrect information
+            - When providing technical explanations, use clear language while maintaining precision
+            - Structure responses to highlight the most important information first
             """,
             model=litellm_model,
             model_settings=model_settings,
@@ -629,6 +636,10 @@ class IntelligenceService:
         - A: Audience (the target audience)
         - R: Requirements (specific requirements for the response)
         """
+        # Check if the query is a greeting
+        user_query_lower = user_query.lower().strip()
+        is_greeting = any(greeting in user_query_lower for greeting in ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'greetings'])
+
         # System instruction with role definition
         system_instruction = f"""
         SYSTEM INSTRUCTION:
@@ -638,12 +649,14 @@ class IntelligenceService:
         - Constraints: {', '.join(persona_config['constraints'])}
 
         YOUR TASK:
-        - Answer the user's query based ONLY on the provided context below
+        - For greeting queries (hi, hello, hey, etc.), provide a friendly greeting and invite questions about the Physical AI & Humanoid Robotics book content
+        - For specific technical questions, answer based ONLY on the provided context below
         - Do NOT use any external knowledge or information from your training data
-        - If the context doesn't contain sufficient information to answer the query, clearly state this
+        - If the context doesn't contain sufficient information to answer the query, clearly state this and suggest related topics from the context
         - Maintain technical precision and educational value
         - Use bullet points, numbered lists, or structured format when helpful
-        - Always cite relevant parts of the provided context
+        - Always cite relevant parts of the provided context when making claims
+        - Focus on extracting and presenting the most relevant information to directly address the user's query
         """
 
         # Context section
@@ -658,16 +671,27 @@ class IntelligenceService:
         {user_query}
         """
 
-        # Output requirements
-        output_requirements = """
-        OUTPUT REQUIREMENTS:
-        - Base your entire response on the RETRIEVED CONTEXT provided above
-        - Do NOT include information that is not in the context
-        - If the context is insufficient, clearly state "I cannot answer this question based on the provided context"
-        - Format your response in a clear, educational manner
-        - Use bullet points or structured format when appropriate
-        - Reference specific parts of the context when making claims
-        """
+        # Output requirements vary based on query type
+        if is_greeting:
+            output_requirements = """
+            OUTPUT REQUIREMENTS FOR GREETINGS:
+            - Respond with a friendly greeting
+            - Introduce yourself as an expert on the Physical AI & Humanoid Robotics book
+            - Invite the user to ask specific questions about the book content
+            - Do NOT try to relate the greeting to the context content
+            - Keep the response concise and welcoming
+            """
+        else:
+            output_requirements = """
+            OUTPUT REQUIREMENTS FOR TECHNICAL QUESTIONS:
+            - Base your response primarily on the RETRIEVED CONTEXT provided above
+            - Directly address the specific USER QUERY
+            - If the context is insufficient, acknowledge this and suggest what related topics might be covered in the book
+            - Format your response in a clear, educational manner with relevant details
+            - Use bullet points or structured format when appropriate
+            - Reference specific parts of the context when making claims
+            - Be specific and direct rather than generic
+            """
 
         # Combine all sections
         full_prompt = f"{system_instruction}\n\n{context_section}\n\n{user_query_section}\n\n{output_requirements}"
