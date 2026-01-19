@@ -99,9 +99,14 @@ class RAGService:
             from agents_sdk.services.intelligence_service import IntelligenceService
             from backend.utils.logger import rag_logger
 
+            # Log before initialization to help debug
+            rag_logger.info(f"Initializing IntelligenceService for query: {query[:50]}...")
+
             # Initialize and use the IntelligenceService
             intelligence_service = IntelligenceService()
             await intelligence_service.initialize()
+
+            rag_logger.info(f"IntelligenceService initialized successfully for query: {query[:50]}...")
 
             # Process the query with the retrieved sources directly
             result = await intelligence_service.process_query(
