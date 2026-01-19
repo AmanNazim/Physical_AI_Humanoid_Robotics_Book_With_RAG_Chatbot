@@ -75,7 +75,7 @@ class RetrievalService:
                 source = Source(
                     chunk_id=result.get('id', ''),
                     document_id=result.get('payload', {}).get('document_id', ''),
-                    text=result.get('payload', {}).get('text', '')[:500],  # Limit text length
+                    text=result.get('payload', {}).get('content', '')[:500],  # Changed from 'text' to 'content' - Limit text length
                     score=result.get('score', 0.0),
                     metadata=result.get('payload', {}).get('metadata', {})
                 )

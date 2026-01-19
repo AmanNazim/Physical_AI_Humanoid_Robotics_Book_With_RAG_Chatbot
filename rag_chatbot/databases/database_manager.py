@@ -413,7 +413,7 @@ class DatabaseManager(DatabaseInterface):
                 result_dict = {
                     'id': result.chunk_id,
                     'payload': {
-                        'text': result.text,
+                        'content': result.text,  # Changed from 'text' to 'content' to match the actual stored field
                         'document_reference': result.document_reference,
                         'page_reference': result.page_reference,
                         'section_title': result.section_title,

@@ -138,7 +138,7 @@ class QdrantCollectionManager:
                 payload = result.payload or {}
                 retrieval_result = RetrievalResult(
                     chunk_id=result.id,
-                    text=payload.get("text", ""),
+                    text=payload.get("content", ""),  # Changed from "text" to "content"
                     document_reference=payload.get("document_reference", ""),
                     score=result.score or 0.0,
                     page_reference=payload.get("page_reference"),

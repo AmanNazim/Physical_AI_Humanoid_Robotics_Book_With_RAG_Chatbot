@@ -17,6 +17,46 @@ from backend.services.retrieval_service import RetrievalService
 from shared.config import settings
 
 
+async def test_question_answer():
+    """
+    Test asking a specific question and getting an answer from the RAG system.
+    """
+    print("\n" + "="*50)
+    print("❓ Question & Answer Test")
+    print("="*50)
+
+    # Specific question to test
+    question = "What is ROS 2?"
+
+    print(f"Asking: '{question}'")
+
+    try:
+        # Initialize the RAG service
+        rag_service = RAGService()
+        await rag_service.initialize()
+
+        # Get the answer
+        result = await rag_service.generate_response(
+            query=question,
+            top_k=5
+        )
+
+        answer = result.get('answer', 'No answer generated')
+        print(f"\n🎯 Answer: {answer}")
+
+        # Print sources used if available
+        if 'sources' in result and result['sources']:
+            print(f"\n🔗 Sources used: {len(result['sources'])}")
+
+        return answer
+
+    except Exception as e:
+        print(f"❌ Error getting answer: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return None
+
+
 async def test_rag_pipeline():
     """
     Test the complete RAG pipeline with a sample question about the book.
@@ -94,6 +134,8 @@ async def test_rag_pipeline():
         traceback.print_exc()
 
 
+
+
 async def test_basic_retrieval():
     """
     Test just the retrieval component to see if embeddings exist.
@@ -138,6 +180,9 @@ async def main():
 
     # Run the basic retrieval test first
     await test_basic_retrieval()
+
+    # Run the question & answer test
+    await test_question_answer()
 
     # Run the full pipeline test
     await test_rag_pipeline()
