@@ -544,6 +544,28 @@ class IntelligenceService:
             if not user_query or len(user_query.strip()) == 0:
                 raise ValueError("User query cannot be empty")
 
+            # Check if the query is a greeting - handle these specially
+            user_query_lower = user_query.lower().strip()
+            is_greeting = any(greeting in user_query_lower for greeting in ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'greetings', 'good evening'])
+
+            if is_greeting:
+                # For greetings, return a simple, appropriate response without using context
+                greeting_response = "Hello! I'm your Physical AI & Humanoid Robotics book assistant. I can help answer questions about the content of the book. What would you like to know about Physical AI, Humanoid Robotics, ROS 2, or related topics?"
+
+                final_response = {
+                    "text": greeting_response,
+                    "sources": [],
+                    "structured_data": {},
+                    "metadata": {
+                        "processing_time": datetime.now().isoformat(),
+                        "token_usage": {},
+                        "confidence_score": 1.0,
+                        "grounding_confirmed": True
+                    }
+                }
+                return final_response
+
+            # For non-greeting queries, proceed with normal processing
             if not context_chunks:
                 self.logger.warning("No context chunks provided for query processing")
 
