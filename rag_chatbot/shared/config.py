@@ -95,7 +95,7 @@ class AppSettings(BaseSettings):
     # LLM settings (OpenRouter)
     openrouter_api_key: str = Field(default="", description="OpenRouter API key")
     openrouter_model: str = Field(default="openai/gpt-4-turbo", description="LLM model to use")
-    openrouter_base_url: str = Field(default="https://openrouter.ai/api/v1", description="OpenRouter API base URL")
+    openrouter_base_url: str = Field(default="https://openrouter.ai/api/v1/chat/completions", description="OpenRouter API base URL")
 
     # CORS settings
     cors_cors_allowed_origins: str = Field(default="*", description="CORS allowed origins")
