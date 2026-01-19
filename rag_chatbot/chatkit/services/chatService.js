@@ -1,5 +1,5 @@
-import { handleStream } from './streamingHandlers';
-import { getBackendURL } from '../config/api';
+import { handleStream } from "./streamingHandlers";
+import { getBackendURL } from "../config/api";
 
 /**
  * Send a message to the chat API
@@ -11,29 +11,29 @@ import { getBackendURL } from '../config/api';
  * @returns {Promise<Object>} The response from the API
  */
 export const sendMessage = async (messageData, onTokenReceived) => {
-  console.log('Sending message to backend:', {
+  console.log("Sending message to backend:", {
     backendUrl: getBackendURL(),
     message: messageData.message,
-    sessionId: messageData.sessionId
+    sessionId: messageData.sessionId,
   });
 
   try {
     // If streaming is requested, use the stream endpoint
     if (onTokenReceived) {
-      console.log('Using streaming endpoint...');
+      console.log("Using streaming endpoint...");
       const response = await fetch(`${getBackendURL()}/api/v1/chat/stream`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           query: messageData.message,
           session_id: messageData.sessionId,
-          max_context: 5
+          max_context: 5,
         }),
       });
 
-      console.log('Stream response received:', response.status);
+      console.log("Stream response received:", response.status);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -42,35 +42,35 @@ export const sendMessage = async (messageData, onTokenReceived) => {
       // Handle streaming response
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let buffer = '';
+      let buffer = "";
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) {
-          console.log('Stream reading completed');
+          console.log("Stream reading completed");
           break;
         }
 
         buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() || ''; // Keep incomplete line in buffer
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || ""; // Keep incomplete line in buffer
 
         for (const line of lines) {
-          if (line.startsWith('data: ')) {
+          if (line.startsWith("data: ")) {
             try {
               const data = JSON.parse(line.slice(6)); // Remove 'data: ' prefix
-              if (data.type === 'token' && onTokenReceived) {
-                console.log('Token received:', data.content);
+              if (data.type === "token" && onTokenReceived) {
+                console.log("Token received:", data.content);
                 onTokenReceived(data.content);
-              } else if (data.type === 'sources') {
-                console.log('Sources received:', data.sources);
-              } else if (data.type === 'complete') {
-                console.log('Stream complete event received');
+              } else if (data.type === "sources") {
+                console.log("Sources received:", data.sources);
+              } else if (data.type === "complete") {
+                console.log("Stream complete event received");
                 break;
               }
             } catch (e) {
               // Skip malformed JSON
-              console.warn('Malformed JSON in stream:', line);
+              console.warn("Malformed JSON in stream:", line);
             }
           }
         }
@@ -79,32 +79,32 @@ export const sendMessage = async (messageData, onTokenReceived) => {
       return { success: true };
     } else {
       // For non-streaming, use the regular chat endpoint
-      console.log('Using regular chat endpoint...');
+      console.log("Using regular chat endpoint...");
       const response = await fetch(`${getBackendURL()}/api/v1/chat`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           query: messageData.message,
           session_id: messageData.sessionId,
-          max_context: 5
+          max_context: 5,
         }),
       });
 
-      console.log('Regular response received:', response.status);
+      console.log("Regular response received:", response.status);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const responseData = await response.json();
-      console.log('Response data received:', responseData);
+      console.log("Response data received:", responseData);
 
       return responseData;
     }
   } catch (error) {
-    console.error('Error sending message:', error);
+    console.error("Error sending message:", error);
     throw error;
   }
 };
@@ -121,14 +121,14 @@ export const sendSelectedText = async (selectionData) => {
   try {
     // Send selected text as a query to the regular chat endpoint
     const response = await fetch(`${getBackendURL()}/api/v1/chat`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         query: `Based on this selected text: "${selectionData.selectedText}", please provide relevant information or answer questions about it.`,
         session_id: selectionData.sessionId,
-        max_context: 5
+        max_context: 5,
       }),
     });
 
@@ -138,7 +138,7 @@ export const sendSelectedText = async (selectionData) => {
 
     return response;
   } catch (error) {
-    console.error('Error sending selected text:', error);
+    console.error("Error sending selected text:", error);
     throw error;
   }
 };
@@ -151,15 +151,19 @@ export const getConfig = async () => {
   try {
     // Use hardcoded HTTPS URL to ensure consistent behavior
     // Use the correct endpoint that returns ChatKit configuration
-    const fullUrl = 'https://aman778-rag-chatbot-backend.hf.space/api/v1/config/chatkit';
-    console.log('DEBUG: Config API URL being called in service (hardcoded):', fullUrl);
+    const fullUrl =
+      "https://aman778-rag-chatbot-backend.hf.space/api/v1/config";
+    console.log(
+      "DEBUG: Config API URL being called in service (hardcoded):",
+      fullUrl,
+    );
     const response = await fetch(fullUrl, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
+        Accept: "application/json",
       },
-      mode: 'cors',
-      credentials: 'omit'
+      mode: "cors",
+      credentials: "omit",
     });
 
     if (!response.ok) {
@@ -168,7 +172,7 @@ export const getConfig = async () => {
 
     return await response.json();
   } catch (error) {
-    console.error('Error fetching config:', error);
+    console.error("Error fetching config:", error);
     throw error;
   }
 };
@@ -183,7 +187,7 @@ export const checkHealth = async () => {
 
     return response.ok;
   } catch (error) {
-    console.error('Error checking health:', error);
+    console.error("Error checking health:", error);
     return false;
   }
 };
@@ -192,5 +196,5 @@ export default {
   sendMessage,
   sendSelectedText,
   getConfig,
-  checkHealth
+  checkHealth,
 };
