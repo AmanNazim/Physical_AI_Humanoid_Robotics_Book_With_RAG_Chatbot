@@ -72,10 +72,13 @@ class RetrievalService:
             # Convert results to Source objects
             sources = []
             for result in results:
+                raw_text = result.get('payload', {}).get('content', '')
+                # Clean the text by removing common website elements
+                cleaned_text = self._clean_content(raw_text)
                 source = Source(
                     chunk_id=result.get('id', ''),
                     document_id=result.get('payload', {}).get('document_id', ''),
-                    text=result.get('payload', {}).get('content', '')[:500],  # Changed from 'text' to 'content' - Limit text length
+                    text=cleaned_text[:500],  # Limit text length after cleaning
                     score=result.get('score', 0.0),
                     metadata=result.get('payload', {}).get('metadata', {})
                 )
@@ -87,6 +90,39 @@ class RetrievalService:
         except Exception as e:
             rag_logger.error(f"Error in retrieval service: {str(e)}")
             return []
+
+    def _clean_content(self, text: str) -> str:
+        """
+        Clean content by removing common website elements like navigation, headers, etc.
+        """
+        if not text:
+            return text
+
+        # Remove common website navigation elements
+        import re
+
+        # Remove "Skip to main content" and similar navigation elements
+        text = re.sub(r'Skip to main content', '', text)
+        text = re.sub(r'Physical AI & Humanoid RoboticsBookGitHub', '', text)
+        text = re.sub(r'GitHub[^A-Za-z0-9]*Physical AI', 'Physical AI', text)
+        text = re.sub(r'Physical AI & Humanoid RoboticsA comprehensive educational resource', 'Physical AI & Humanoid Robotics', text)
+
+        # Remove navigation menu items
+        text = re.sub(r'Preface[^A-Za-z0-9]*Module', 'Module', text)
+        text = re.sub(r'Module [0-9]+:[^A-Za-z]', 'Module ', text)
+        text = re.sub(r'Chapters?[^A-Za-z0-9]*Chapter', 'Chapter', text)
+        text = re.sub(r'Lessons?[^A-Za-z0-9]*Lesson', 'Lesson', text)
+
+        # Remove common website structure elements
+        text = re.sub(r'Next[^A-Za-z0-9]*Previous', '', text)
+        text = re.sub(r'Edit this page', '', text)
+        text = re.sub(r'Back to top', '', text)
+
+        # Remove extra whitespace and clean up
+        text = re.sub(r'\s+', ' ', text)  # Replace multiple spaces with single space
+        text = text.strip()
+
+        return text
 
     async def retrieve_by_document_id(self, document_id: str) -> List[Source]:
         """
