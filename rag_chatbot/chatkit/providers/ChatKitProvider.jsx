@@ -1,8 +1,15 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import ChatUIProvider, { ChatUIContext } from '../contexts/ChatUIContext';
-import ChatConversationProvider, { ChatConversationContext } from '../contexts/ChatConversationContext';
-import { getBackendURL } from '../config/api';
-
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+import ChatUIProvider, { ChatUIContext } from "../contexts/ChatUIContext";
+import ChatConversationProvider, {
+  ChatConversationContext,
+} from "../contexts/ChatConversationContext";
+import { getBackendURL } from "../config/api";
 
 // Create the context
 const ChatKitContext = createContext(null);
@@ -17,38 +24,41 @@ export const ChatKitProvider = ({ children }) => {
   const [selectedText, setSelectedText] = useState(null);
   const [sessionId, setSessionId] = useState(() => {
     // Generate or retrieve session ID only in browser environment
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('chatkit-session-id') || `session-${Date.now()}`;
+    if (typeof window !== "undefined") {
+      return (
+        localStorage.getItem("chatkit-session-id") || `session-${Date.now()}`
+      );
     }
     return `session-${Date.now()}`;
   });
 
-    // Load configuration from backend
+  // Load configuration from backend
   useEffect(() => {
     const loadConfig = async () => {
       try {
         // Use hardcoded HTTPS URL to absolutely ensure no HTTP requests
         // Use the correct endpoint that returns ChatKit configuration
-        const fullUrl = 'https://aman778-rag-chatbot-backend.hf.space/api/v1/config/chatkit';
-        console.log('DEBUG: Config API URL being called (hardcoded):', fullUrl);
+        const fullUrl =
+          "https://aman778-rag-chatbot-backend.hf.space/api/v1/config";
+        console.log("DEBUG: Config API URL being called (hardcoded):", fullUrl);
 
         // Absolutely ensure HTTPS is used
-        if (!fullUrl.startsWith('https://')) {
-          console.error('ERROR: Config URL is not HTTPS:', fullUrl);
-          throw new Error('Config URL must use HTTPS');
+        if (!fullUrl.startsWith("https://")) {
+          console.error("ERROR: Config URL is not HTTPS:", fullUrl);
+          throw new Error("Config URL must use HTTPS");
         }
 
         const response = await fetch(fullUrl, {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Accept': 'application/json',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
+            Accept: "application/json",
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
           },
-          mode: 'cors',
-          credentials: 'omit',
+          mode: "cors",
+          credentials: "omit",
           // Ensure the request doesn't follow redirects that might change the protocol
-          redirect: 'manual'
+          redirect: "manual",
         });
         if (!response.ok) {
           throw new Error(`Failed to load config: ${response.status}`);
@@ -56,13 +66,13 @@ export const ChatKitProvider = ({ children }) => {
         const configData = await response.json();
         setConfig(configData);
       } catch (err) {
-        console.error('Error loading ChatKit config:', err);
+        console.error("Error loading ChatKit config:", err);
         setError(err.message);
         // Use default config if API fails
         setConfig({
-          theme: 'light',
+          theme: "light",
           maxTokens: 1000,
-          temperature: 0.7
+          temperature: 0.7,
         });
       } finally {
         setIsLoading(false);
@@ -72,21 +82,20 @@ export const ChatKitProvider = ({ children }) => {
     loadConfig();
 
     // Save session ID to localStorage only in browser environment
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('chatkit-session-id', sessionId);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("chatkit-session-id", sessionId);
     }
   }, [sessionId]);
 
-
   // Function to add a new message
   const addMessage = useCallback((message) => {
-    setMessages(prev => [...prev, message]);
+    setMessages((prev) => [...prev, message]);
   }, []);
 
   // Function to update a message (useful for streaming)
   const updateMessage = useCallback((id, updates) => {
-    setMessages(prev =>
-      prev.map(msg => msg.id === id ? { ...msg, ...updates } : msg)
+    setMessages((prev) =>
+      prev.map((msg) => (msg.id === id ? { ...msg, ...updates } : msg)),
     );
   }, []);
 
@@ -108,15 +117,13 @@ export const ChatKitProvider = ({ children }) => {
     setIsStreaming,
     selectedText,
     setSelectedText,
-    sessionId
+    sessionId,
   };
 
   return (
     <ChatKitContext.Provider value={value}>
       <ChatUIProvider>
-        <ChatConversationProvider>
-          {children}
-        </ChatConversationProvider>
+        <ChatConversationProvider>{children}</ChatConversationProvider>
       </ChatUIProvider>
     </ChatKitContext.Provider>
   );
@@ -126,7 +133,7 @@ export const ChatKitProvider = ({ children }) => {
 export const useChatKit = () => {
   const context = useContext(ChatKitContext);
   if (!context) {
-    throw new Error('useChatKit must be used within a ChatKitProvider');
+    throw new Error("useChatKit must be used within a ChatKitProvider");
   }
   return context;
 };
