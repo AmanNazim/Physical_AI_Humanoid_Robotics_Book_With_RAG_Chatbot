@@ -51,40 +51,25 @@ class StreamingService:
 
             # Stream the answer token by token (simulated)
             # In a real implementation, this would stream as the LLM generates tokens
-            if answer:  # Only stream if there's an answer
-                # Split the answer into smaller chunks for streaming
-                import re
-                # Split by sentences or chunks to make streaming more natural
-                sentences = re.split(r'[.!?]+\s+', answer)
-                token_index = 0
-
-                for sentence in sentences:
-                    if sentence.strip():  # Only process non-empty sentences
-                        # Add sentence ending back
-                        full_sentence = sentence
-                        if sentence != sentences[-1]:  # If not the last sentence
-                            full_sentence += ". "
-
-                        chunk_data = {
-                            "type": "token",
-                            "content": full_sentence,
-                            "index": token_index,
-                            "total_tokens": len(sentences)
-                        }
-                        yield f"data: {json.dumps(chunk_data)}\n\n"
-                        token_index += 1
-
-                # If no sentences were processed, try word-level streaming
-                if token_index == 0 and answer.strip():
-                    words = answer.split()
-                    for i, word in enumerate(words):
-                        chunk_data = {
-                            "type": "token",
-                            "content": word + (" " if i < len(words) - 1 else ""),
-                            "index": i,
-                            "total_tokens": len(words)
-                        }
-                        yield f"data: {json.dumps(chunk_data)}\n\n"
+            if answer and answer.strip():  # Only stream if there's a non-empty answer
+                # Send the complete answer as one chunk to ensure it appears in the UI
+                # But format it properly for the frontend
+                chunk_data = {
+                    "type": "token",
+                    "content": answer,
+                    "index": 0,
+                    "total_tokens": 1
+                }
+                yield f"data: {json.dumps(chunk_data)}\n\n"
+            else:
+                # Send a default message if the answer is empty
+                chunk_data = {
+                    "type": "token",
+                    "content": "I'm sorry, I couldn't generate a response for your query. Please try again.",
+                    "index": 0,
+                    "total_tokens": 1
+                }
+                yield f"data: {json.dumps(chunk_data)}\n\n"
 
             # Send completion message
             completion_data = {
