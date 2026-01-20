@@ -129,8 +129,8 @@ class IntelligenceService:
             base_url=self.base_url
         )
 
-        # Create model settings with usage tracking and temperature
-        model_settings = ModelSettings(temperature=0.8, include_usage=True)
+        # Create model settings with usage tracking, temperature, and increased max turns
+        model_settings = ModelSettings(temperature=0.8, include_usage=True, max_turns=20)
 
         self.agents["main"] = Agent(
             name="Technical Instructor Agent",
@@ -584,6 +584,9 @@ class IntelligenceService:
             if session_id:
                 session = SQLiteSession(session_id)
 
+            # Initialize token_usage before the try block to avoid scope issues
+            token_usage = {}
+
             # Run the agent
             try:
                 result = await Runner.run(
@@ -595,7 +598,6 @@ class IntelligenceService:
                 response_text = result.final_output
 
                 # Extract token usage if available
-                token_usage = {}
                 if hasattr(result, 'context_wrapper') and hasattr(result.context_wrapper, 'usage'):
                     token_usage = result.context_wrapper.usage
 
