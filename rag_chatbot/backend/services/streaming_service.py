@@ -49,27 +49,28 @@ class StreamingService:
                 }
                 yield f"data: {json.dumps(source_data)}\n\n"
 
-            # Stream the answer token by token (simulated)
-            # In a real implementation, this would stream as the LLM generates tokens
-            if answer and answer.strip():  # Only stream if there's a non-empty answer
-                # Send the complete answer as one chunk to ensure it appears in the UI
-                # But format it properly for the frontend
+            # Stream the answer as a complete response
+            if answer and answer.strip():
+                # Send the complete answer - use both 'content' and 'token' fields to support different frontend expectations
                 chunk_data = {
                     "type": "token",
-                    "content": answer,
+                    "content": answer,  # For one implementation
+                    "token": answer,    # For useStream.js implementation
                     "index": 0,
                     "total_tokens": 1
                 }
-                yield f"data: {json.dumps(chunk_data)}\n\n"
             else:
                 # Send a default message if the answer is empty
                 chunk_data = {
                     "type": "token",
                     "content": "I'm sorry, I couldn't generate a response for your query. Please try again.",
+                    "token": "I'm sorry, I couldn't generate a response for your query. Please try again.",
                     "index": 0,
                     "total_tokens": 1
                 }
-                yield f"data: {json.dumps(chunk_data)}\n\n"
+
+            # Properly format as Server-Sent Event
+            yield f"data: {json.dumps(chunk_data)}\n\n"
 
             # Send completion message
             completion_data = {
