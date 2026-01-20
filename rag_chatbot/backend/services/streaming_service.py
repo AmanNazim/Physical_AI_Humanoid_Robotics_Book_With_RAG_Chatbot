@@ -49,19 +49,16 @@ class StreamingService:
                 }
                 yield f"data: {json.dumps(source_data)}\n\n"
 
-            # Stream the answer in smaller chunks to allow proper accumulation in frontend
+            # Stream the complete answer as a single token to ensure proper frontend update
             if answer and answer.strip():
-                # Split the answer into words for incremental streaming
-                words = answer.split()
-                for idx, word in enumerate(words):
-                    chunk_data = {
-                        "type": "token",
-                        "content": word + (" " if idx < len(words) - 1 else ""),
-                        "token": word + (" " if idx < len(words) - 1 else ""),
-                        "index": idx,
-                        "total_tokens": len(words)
-                    }
-                    yield f"data: {json.dumps(chunk_data)}\n\n"
+                # Send the complete answer as one token to ensure the frontend gets the full response
+                chunk_data = {
+                    "type": "token",
+                    "content": answer,      # For chatService.js callback
+                    "token": answer,        # For useStream.js callback
+                    "index": 0,
+                    "total_tokens": 1
+                }
             else:
                 # Send a default message if the answer is empty
                 chunk_data = {
@@ -71,7 +68,9 @@ class StreamingService:
                     "index": 0,
                     "total_tokens": 1
                 }
-                yield f"data: {json.dumps(chunk_data)}\n\n"
+
+            # Properly format as Server-Sent Event
+            yield f"data: {json.dumps(chunk_data)}\n\n"
 
             # Send completion message
             completion_data = {

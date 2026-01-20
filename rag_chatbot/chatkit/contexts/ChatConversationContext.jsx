@@ -19,9 +19,15 @@ export const ChatConversationProvider = ({ children }) => {
   }, []);
 
   const updateMessage = useCallback((id, updates) => {
-    setMessages(prev =>
-      prev.map(msg => msg.id === id ? { ...msg, ...updates } : msg)
-    );
+    setMessages(prev => {
+      const newMessages = [...prev]; // Create a new array
+      const msgIndex = newMessages.findIndex(msg => msg.id === id);
+      if (msgIndex !== -1) {
+        // Create a completely new message object to ensure React detects the change
+        newMessages[msgIndex] = { ...newMessages[msgIndex], ...updates };
+      }
+      return newMessages; // Return the new array to ensure React re-renders
+    });
   }, []);
 
   const clearMessages = useCallback(() => {
