@@ -1,18 +1,27 @@
 FROM python:3.12-slim
 
-# Set working directory
-WORKDIR /app
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
+# Install uv
+RUN pip install --no-cache-dir uv
+
+# Set working directory
+WORKDIR /app
+
+# Create virtual environment
+RUN python -m venv .venv
+
+# Make sure we use the virtual environment
+ENV PATH="/app/.venv/bin:$PATH"
+
 # Copy requirements first for better caching
 COPY requirements.txt .
-# Install dependencies
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+
+# Install dependencies in the virtual environment using uv
+RUN uv pip install --no-cache -r requirements.txt
 
 # Copy the application code
 COPY . .
