@@ -80,7 +80,7 @@ async def chat_stream_endpoint(request: ChatRequest):
             ):
                 yield chunk
 
-        return StreamingResponse(generate_stream(), media_type="text/plain")
+        return StreamingResponse(generate_stream(), media_type="text/event-stream")
 
     except Exception as e:
         rag_logger.error(f"Chat stream endpoint error: {str(e)}")
