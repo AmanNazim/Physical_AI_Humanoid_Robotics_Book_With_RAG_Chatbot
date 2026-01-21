@@ -5,11 +5,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uv
-RUN pip install --no-cache-dir uv
-
 # Set working directory
 WORKDIR /app
+
+# Install uv
+RUN apt-get update && apt-get install -y curl gcc
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.local/bin:$PATH"
 
 # Create virtual environment
 RUN python -m venv .venv
