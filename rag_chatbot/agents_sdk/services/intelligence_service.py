@@ -540,6 +540,11 @@ class IntelligenceService:
         try:
             self.logger.info(f"Processing query: {user_query[:50]}... with {len(context_chunks)} context chunks")
 
+            # Ensure agent is initialized before processing
+            if not self.agent_initialized:
+                self.logger.warning("Agent not initialized, attempting to initialize...")
+                await self.initialize()
+
             # Validate inputs
             if not user_query or len(user_query.strip()) == 0:
                 raise ValueError("User query cannot be empty")
@@ -582,13 +587,20 @@ class IntelligenceService:
             # Create session if needed
             session = None
             if session_id:
-                session = SQLiteSession(session_id)
+                try:
+                    session = SQLiteSession(session_id)
+                    self.logger.debug(f"Created SQLite session for session_id: {session_id}")
+                except Exception as session_error:
+                    self.logger.error(f"Failed to create SQLite session: {str(session_error)}")
+                    # Continue without session rather than failing completely
+                    session = None
 
             # Initialize token_usage before the try block to avoid scope issues
             token_usage = {}
 
             # Run the agent
             try:
+                self.logger.debug(f"Starting agent run for query: {user_query[:50]}...")
                 result = await Runner.run(
                     self.agents["main"],
                     prompt,
@@ -596,13 +608,20 @@ class IntelligenceService:
                 )
 
                 response_text = result.final_output
+                self.logger.debug(f"Agent run completed successfully, response length: {len(response_text)}")
 
                 # Extract token usage if available
                 if hasattr(result, 'context_wrapper') and hasattr(result.context_wrapper, 'usage'):
                     token_usage = result.context_wrapper.usage
+                elif hasattr(result, 'usage'):
+                    token_usage = result.usage
+                else:
+                    token_usage = {}
 
             except Exception as e:
                 self.logger.error(f"Error running agent: {str(e)}")
+                import traceback
+                self.logger.error(f"Full traceback for agent run: {traceback.format_exc()}")
                 # Fallback response
                 response_text = f"I encountered an error while processing your query. Original query: {user_query}"
 
@@ -742,6 +761,11 @@ class IntelligenceService:
             Streamed response chunks in SSE format
         """
         try:
+            # Ensure agent is initialized before processing
+            if not self.agent_initialized:
+                self.logger.warning("Agent not initialized, attempting to initialize...")
+                await self.initialize()
+
             # Prepare context for the agent
             context_text = "\n\n".join([chunk.text for chunk in context_chunks])
 
@@ -767,43 +791,87 @@ class IntelligenceService:
             # Create session if needed
             session = None
             if session_id:
-                session = SQLiteSession(session_id)
+                try:
+                    session = SQLiteSession(session_id)
+                    self.logger.debug(f"Created SQLite session for session_id: {session_id}")
+                except Exception as session_error:
+                    self.logger.error(f"Failed to create SQLite session: {str(session_error)}")
+                    # Continue without session rather than failing completely
+                    session = None
 
             # Stream the agent response using the SDK's streaming capability
             try:
-                # Runner.run_streamed returns a RunResultStreaming object that needs to be awaited
-                stream_result = Runner.run_streamed(
+                self.logger.debug(f"Starting agent streaming for query: {user_query[:50]}...")
+
+                # Create the streamed run and properly handle the events
+                async for event in Runner.run_streamed(
                     self.agents["main"],
                     prompt,
                     session=session
-                )
+                ):
+                    # Handle different types of events from the stream
+                    if hasattr(event, 'delta') and hasattr(event.delta, 'content'):
+                        # Handle delta content
+                        content_delta = event.delta.content
+                        if content_delta:
+                            if isinstance(content_delta, str):
+                                # If content is a string, yield it directly
+                                if content_delta.strip():
+                                    chunk_data = {
+                                        "type": "token",
+                                        "content": content_delta,
+                                    }
+                                    yield f"data: {json.dumps(chunk_data)}\n\n"
+                            elif isinstance(content_delta, list):
+                                # If content is a list of content items
+                                for content_item in content_delta:
+                                    if hasattr(content_item, 'text') and content_item.text:
+                                        if content_item.text.strip():
+                                            chunk_data = {
+                                                "type": "token",
+                                                "content": content_item.text,
+                                            }
+                                            yield f"data: {json.dumps(chunk_data)}\n\n"
+                                    elif isinstance(content_item, str) and content_item.strip():
+                                        chunk_data = {
+                                            "type": "token",
+                                            "content": content_item,
+                                        }
+                                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                    elif hasattr(event, 'choices') and event.choices:
+                        # Handle OpenAI-style choices format
+                        for choice in event.choices:
+                            if hasattr(choice, 'delta') and hasattr(choice.delta, 'content') and choice.delta.content:
+                                if choice.delta.content.strip():
+                                    chunk_data = {
+                                        "type": "token",
+                                        "content": choice.delta.content,
+                                    }
+                                    yield f"data: {json.dumps(chunk_data)}\n\n"
+                    elif hasattr(event, 'content') and event.content:
+                        # Handle direct content
+                        if isinstance(event.content, str) and event.content.strip():
+                            chunk_data = {
+                                "type": "token",
+                                "content": event.content,
+                            }
+                            yield f"data: {json.dumps(chunk_data)}\n\n"
+                        elif isinstance(event.content, list):
+                            for content_item in event.content:
+                                text_content = ""
+                                if isinstance(content_item, dict) and 'text' in content_item:
+                                    text_content = content_item['text']
+                                elif hasattr(content_item, 'text'):
+                                    text_content = content_item.text
+                                elif isinstance(content_item, str):
+                                    text_content = content_item
 
-                # Iterate through the streaming events
-                async for event in stream_result:
-                    # Check if the event has text content to stream
-                    if hasattr(event, 'item') and hasattr(event.item, 'content'):
-                        # Extract text from content if it's available
-                        content_items = event.item.content if isinstance(event.item.content, list) else [event.item.content]
-                        for content_item in content_items:
-                            if isinstance(content_item, dict) and 'text' in content_item:
-                                text_content = content_item['text']
-                            elif hasattr(content_item, 'text'):
-                                text_content = content_item.text
-                            else:
-                                text_content = str(content_item) if content_item else ""
-
-                            if text_content.strip():
-                                chunk_data = {
-                                    "type": "token",
-                                    "content": text_content,
-                                }
-                                yield f"data: {json.dumps(chunk_data)}\n\n"
-                    elif hasattr(event, 'text') and event.text:
-                        chunk_data = {
-                            "type": "token",
-                            "content": event.text,
-                        }
-                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                                if text_content and text_content.strip():
+                                    chunk_data = {
+                                        "type": "token",
+                                        "content": text_content,
+                                    }
+                                    yield f"data: {json.dumps(chunk_data)}\n\n"
 
             except Exception as e:
                 self.logger.error(f"Error in agent streaming: {str(e)}")

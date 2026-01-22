@@ -65,18 +65,12 @@ async def chat_stream_endpoint(request: ChatRequest):
         rag_service = RAGService()
         await rag_service.initialize()
 
-        # Generate response using RAG approach
-        result = await rag_service.generate_response(
-            query=request.query,
-            top_k=request.max_context,
-            session_id=request.session_id
-        )
-
+        # Stream response using RAG approach with actual token-by-token streaming
         async def generate_stream():
-            async for chunk in streaming_service.stream_chat_response(
+            async for chunk in rag_service.stream_response(
                 query=request.query,
-                sources=result.get("sources", []),
-                answer=result["answer"]
+                top_k=request.max_context,
+                session_id=request.session_id
             ):
                 yield chunk
 

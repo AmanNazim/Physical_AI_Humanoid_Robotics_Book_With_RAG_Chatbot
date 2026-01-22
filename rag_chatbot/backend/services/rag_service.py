@@ -3,6 +3,7 @@ Service for handling RAG (Retrieval-Augmented Generation) operations.
 This service orchestrates the flow between retrieval and generation components.
 """
 from typing import List, Dict, Any, Optional
+import json
 from ..utils.logger import rag_logger
 from ..schemas.retrieval import Source
 from .retrieval_service import RetrievalService
@@ -192,3 +193,108 @@ class RAGService:
             return False
 
         return True
+
+    async def stream_response(
+        self,
+        query: str,
+        top_k: int = 5,
+        filters: Optional[Dict[str, Any]] = None,
+        session_id: Optional[str] = None
+    ):
+        """
+        Stream response using the IntelligenceService's streaming capability.
+
+        Args:
+            query: User's query
+            top_k: Number of top results to retrieve
+            filters: Optional filters for retrieval
+            session_id: Optional session ID for conversation context
+
+        Yields:
+            Streaming response chunks
+        """
+        try:
+            # Retrieve relevant context
+            sources = await self.retrieval_service.retrieve_by_query(
+                query=query,
+                top_k=top_k,
+                filters=filters
+            )
+
+            if not sources:
+                rag_logger.warning(f"No sources found for query: {query[:50]}...")
+                # Yield a message indicating no sources found
+                yield f"data: {json.dumps({'type': 'token', 'content': 'I couldn\'t find any relevant information to answer your question.'})}\n\n"
+                yield f"data: {json.dumps({'type': 'complete', 'message': 'Response completed'})}\n\n"
+                return
+
+            # Import the IntelligenceService
+            from agents_sdk.services.intelligence_service import IntelligenceService
+            from backend.utils.logger import rag_logger
+            import json
+
+            # Log before initialization to help debug
+            rag_logger.info(f"Initializing IntelligenceService for streaming query: {query[:50]}...")
+
+            # Initialize and use the IntelligenceService
+            intelligence_service = IntelligenceService()
+
+            try:
+                await intelligence_service.initialize()
+                rag_logger.info(f"IntelligenceService initialized successfully for streaming query: {query[:50]}...")
+            except Exception as init_error:
+                rag_logger.error(f"IntelligenceService initialization failed: {str(init_error)}")
+                rag_logger.error(f"Initialization exception type: {type(init_error).__name__}")
+                import traceback
+                rag_logger.error(f"Initialization full traceback: {traceback.format_exc()}")
+
+                # Yield error message and return
+                yield f"data: {json.dumps({'type': 'error', 'message': 'IntelligenceService initialization failed'})}\n\n"
+                return
+
+            # Stream the response using IntelligenceService's streaming capability
+            async for chunk in intelligence_service.stream_response(
+                user_query=query,
+                context_chunks=sources,
+                session_id=session_id
+            ):
+                yield chunk
+
+        except ImportError as e:
+            from backend.utils.logger import rag_logger
+            import json
+            rag_logger.error(f"IntelligenceService import failed with error: {str(e)}")
+            rag_logger.error(f"Exception type: {type(e).__name__}")
+            import traceback
+            rag_logger.error(f"Full traceback: {traceback.format_exc()}")
+
+            # Try to identify the specific missing module
+            try:
+                import agents
+                rag_logger.info("agents module is available")
+            except ImportError as agent_import_error:
+                rag_logger.error(f"agents module import failed: {str(agent_import_error)}")
+
+            try:
+                from agents_sdk.services.intelligence_service import IntelligenceService
+                rag_logger.info("IntelligenceService import worked separately")
+            except ImportError as intelligence_import_error:
+                rag_logger.error(f"Direct IntelligenceService import failed: {str(intelligence_import_error)}")
+
+            rag_logger.warning("IntelligenceService not available, using basic response generation")
+
+            # Yield a fallback response
+            fallback_response = "IntelligenceService not available, using basic response generation"
+            yield f"data: {json.dumps({'type': 'token', 'content': fallback_response})}\n\n"
+            yield f"data: {json.dumps({'type': 'complete', 'message': 'Response completed'})}\n\n"
+        except Exception as e:
+            from backend.utils.logger import rag_logger
+            import json
+            rag_logger.error(f"Error in IntelligenceService streaming: {str(e)}")
+            rag_logger.error(f"Exception type: {type(e).__name__}")
+            import traceback
+            rag_logger.error(f"Full traceback: {traceback.format_exc()}")
+
+            # Yield error message
+            yield f"data: {json.dumps({'type': 'error', 'message': f'Error in IntelligenceService streaming: {str(e)}'})}\n\n"
+            yield f"data: {json.dumps({'type': 'complete', 'message': 'Response completed'})}\n\n"
