@@ -804,9 +804,8 @@ class IntelligenceService:
                 self.logger.debug(f"Starting agent streaming for query: {user_query[:50]}...")
 
                 # According to the error, we need to properly handle the RunResultStreaming object
-                # It seems we need to await Runner.run_streamed() to get the actual streaming object
-                # The correct approach may be to await the streaming result first
-                streaming_result = await Runner.run_streamed(
+                # We should NOT await Runner.run_streamed() - it returns a streaming object directly
+                streaming_result = Runner.run_streamed(
                     self.agents["main"],
                     prompt,
                     session=session
@@ -882,13 +881,12 @@ class IntelligenceService:
                     "message": f"Streaming error: {str(e)}"
                 }
                 yield f"data: {json.dumps(error_data)}\n\n"
-
-            # Send completion message
-            completion_data = {
-                "type": "complete",
-                "message": "Response completed"
-            }
-            yield f"data: {json.dumps(completion_data)}\n\n"
+                # Send completion message even in error case
+                completion_data = {
+                    "type": "complete",
+                    "message": "Response completed"
+                }
+                yield f"data: {json.dumps(completion_data)}\n\n"
 
         except Exception as e:
             self.logger.error(f"Error in streaming response: {str(e)}")
