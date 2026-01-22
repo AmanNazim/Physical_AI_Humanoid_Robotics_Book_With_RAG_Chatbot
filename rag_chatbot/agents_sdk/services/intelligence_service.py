@@ -21,6 +21,16 @@ from agents import Agent, Runner, SQLiteSession, function_tool, input_guardrail,
 from agents.extensions.models.litellm_model import LitellmModel
 from agents.model_settings import ModelSettings
 
+# Import event types for streaming - with fallback if direct import fails
+try:
+    from agents.types.events import ResponseTextDeltaEvent
+except ImportError:
+    # Define a fallback class if direct import fails
+    class ResponseTextDeltaEvent:
+        def __init__(self, **kwargs):
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+
 # Import existing modules to maintain integration
 from shared.config import settings
 from backend.utils.logger import rag_logger
@@ -803,49 +813,48 @@ class IntelligenceService:
             try:
                 self.logger.debug(f"Starting agent streaming for query: {user_query[:50]}...")
 
-                # According to the error, we need to properly handle the RunResultStreaming object
-                # We should NOT await Runner.run_streamed() - it returns a streaming object directly
+                # According to the OpenAI Agents SDK documentation, we should NOT await Runner.run_streamed()
+                # It returns a RunResultStreaming object that provides stream_events()
                 streaming_result = Runner.run_streamed(
                     self.agents["main"],
                     prompt,
                     session=session
                 )
 
-                # Now we need to consume the streaming result appropriately
-                # The exact interface depends on the agents SDK implementation
-                content_buffer = ""
+                # Track if we received any streaming events
+                events_received = False
 
-                # Try to handle the streaming result based on its type
-                if hasattr(streaming_result, '__aiter__'):
-                    # If it's an async iterable, iterate over it
-                    async for chunk in streaming_result:
-                        # Extract content from the chunk based on its type
-                        content_to_yield = ""
+                # Access the async stream of StreamEvent objects for proper token-by-token streaming
+                async for event in streaming_result.stream_events():
+                    events_received = True
+                    # Handle different event types for proper streaming
+                    if (event.type == "raw_response_event" and
+                        hasattr(event, 'data')):
+                        # Check if this is a ResponseTextDeltaEvent for token-by-token streaming
+                        if isinstance(event.data, ResponseTextDeltaEvent) and hasattr(event.data, 'delta'):
+                            delta_text = event.data.delta
+                            if delta_text:  # Check if delta exists and is not empty
+                                self.logger.debug(f"Yielding token delta: {delta_text[:50]}...")
+                                chunk_data = {
+                                    "type": "token",
+                                    "content": delta_text,
+                                }
+                                yield f"data: {json.dumps(chunk_data)}\n\n"
+                        # Alternative: Check for other response event types that might contain text
+                        elif hasattr(event.data, 'content') or hasattr(event.data, 'text'):
+                            # Fallback to content/text attributes if delta is not available
+                            content = getattr(event.data, 'content', getattr(event.data, 'text', ''))
+                            if content:
+                                self.logger.debug(f"Yielding content: {content[:50]}...")
+                                chunk_data = {
+                                    "type": "token",
+                                    "content": content,
+                                }
+                                yield f"data: {json.dumps(chunk_data)}\n\n"
 
-                        if hasattr(chunk, 'text'):
-                            content_to_yield = getattr(chunk, 'text', '')
-                        elif hasattr(chunk, 'content'):
-                            content_to_yield = getattr(chunk, 'content', '')
-                        elif hasattr(chunk, 'data'):
-                            content_to_yield = getattr(chunk, 'data', '')
-                        elif isinstance(chunk, str):
-                            content_to_yield = chunk
-                        else:
-                            # Convert to string if it's some other type
-                            content_to_yield = str(chunk) if chunk is not None else ""
-
-                        # Yield the content if it's substantial
-                        if content_to_yield and isinstance(content_to_yield, str) and len(content_to_yield.strip()) > 0:
-                            self.logger.debug(f"Yielding content chunk: {content_to_yield[:50]}...")
-                            chunk_data = {
-                                "type": "token",
-                                "content": content_to_yield,
-                            }
-                            yield f"data: {json.dumps(chunk_data)}\n\n"
-                else:
-                    # If it's not an async iterable, it might be a different kind of streaming object
-                    # In this case, fall back to the non-streaming approach
-                    self.logger.warning("Streaming result is not async iterable, falling back to non-streaming approach")
+                # If no streaming events were received, fall back to the non-streaming approach
+                if not events_received:
+                    self.logger.warning("No streaming events received, falling back to non-streaming approach")
 
                     # Use the regular process_query method and simulate streaming
                     result = await self.process_query(
@@ -856,14 +865,13 @@ class IntelligenceService:
 
                     response_text = result.get("text", "")
                     if response_text and response_text.strip():
-                        # Send the response in smaller chunks to simulate streaming
-                        chunk_size = 50  # Characters per chunk
-                        for i in range(0, len(response_text), chunk_size):
-                            chunk = response_text[i:i + chunk_size]
-                            if chunk.strip():  # Only yield non-empty chunks
+                        # Send the response word by word to simulate true streaming
+                        words = response_text.split()
+                        for i, word in enumerate(words):
+                            if word.strip():  # Only yield non-empty words
                                 chunk_data = {
                                     "type": "token",
-                                    "content": chunk,
+                                    "content": word + (" " if i < len(words) - 1 else ""),  # Add space except for last word
                                 }
                                 yield f"data: {json.dumps(chunk_data)}\n\n"
 
@@ -876,11 +884,16 @@ class IntelligenceService:
 
             except Exception as e:
                 self.logger.error(f"Error in agent streaming: {str(e)}")
+                import traceback
+                self.logger.error(f"Full traceback: {traceback.format_exc()}")
+
+                # Send error message to client
                 error_data = {
                     "type": "error",
                     "message": f"Streaming error: {str(e)}"
                 }
                 yield f"data: {json.dumps(error_data)}\n\n"
+
                 # Send completion message even in error case
                 completion_data = {
                     "type": "complete",
