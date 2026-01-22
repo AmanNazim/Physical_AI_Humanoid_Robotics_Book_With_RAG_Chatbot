@@ -803,45 +803,65 @@ class IntelligenceService:
             try:
                 self.logger.debug(f"Starting agent streaming for query: {user_query[:50]}...")
 
-                # Create the streamed run and properly handle the events
+                # Check if the streaming actually works by attempting to iterate
+                event_received = False
+
                 async for event in Runner.run_streamed(
                     self.agents["main"],
                     prompt,
                     session=session
                 ):
-                    # Extract content from the event - simplified approach
-                    # The exact attributes depend on the agents SDK implementation
+                    event_received = True
+                    self.logger.debug(f"Received streaming event: {type(event)}, has attrs: {dir(event) if hasattr(event, '__dict__') or hasattr(event, '__slots__') else 'no dir'}")
+
+                    # Try to extract content from the event
                     content_to_yield = None
 
-                    # Try to extract content in various possible ways
-                    if hasattr(event, 'text'):
-                        content_to_yield = getattr(event, 'text', None)
-                    elif hasattr(event, 'delta') and hasattr(event.delta, 'content'):
-                        content_to_yield = getattr(event.delta.content, 'text', None) if hasattr(event.delta.content, 'text') else event.delta.content
-                    elif hasattr(event, 'content'):
-                        content_to_yield = getattr(event, 'content', None)
-                    elif hasattr(event, 'response'):
-                        content_to_yield = getattr(event, 'response', None)
-                    elif hasattr(event, 'data'):
-                        content_to_yield = getattr(event, 'data', None)
-                    elif hasattr(event, 'message'):
-                        content_to_yield = getattr(event, 'message', None)
+                    # Try various attribute names that might contain content
+                    possible_attrs = ['text', 'content', 'delta', 'response', 'data', 'message', 'output', 'result']
 
-                    # Handle if content is in a nested structure
-                    if content_to_yield is None:
-                        # Try to find content in the event object's attributes
-                        for attr_name in ['content', 'text', 'result', 'output', 'data']:
-                            if hasattr(event, attr_name):
-                                attr_value = getattr(event, attr_name)
-                                if attr_value and isinstance(attr_value, str) and len(attr_value.strip()) > 0:
-                                    content_to_yield = attr_value
+                    for attr in possible_attrs:
+                        if hasattr(event, attr):
+                            attr_val = getattr(event, attr)
+                            if attr_val and isinstance(attr_val, str) and len(attr_val.strip()) > 0:
+                                content_to_yield = attr_val
+                                break
+                            elif hasattr(attr_val, 'text'):  # If it has a text attribute
+                                text_val = getattr(attr_val, 'text', '')
+                                if text_val and isinstance(text_val, str) and len(text_val.strip()) > 0:
+                                    content_to_yield = text_val
+                                    break
+                            elif hasattr(attr_val, 'content'):  # If it has a content attribute
+                                content_val = getattr(attr_val, 'content', '')
+                                if content_val and isinstance(content_val, str) and len(content_val.strip()) > 0:
+                                    content_to_yield = content_val
                                     break
 
-                    # Yield content if found
+                    # If we found content, yield it
                     if content_to_yield and isinstance(content_to_yield, str) and content_to_yield.strip():
+                        self.logger.debug(f"Yielding content chunk: {content_to_yield[:50]}...")
                         chunk_data = {
                             "type": "token",
                             "content": content_to_yield,
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
+
+                # If no events were received, fall back to non-streaming approach
+                if not event_received:
+                    self.logger.warning("No streaming events received, falling back to non-streaming approach")
+                    # Fall back to the regular process_query method and simulate streaming
+                    result = await self.process_query(
+                        user_query=user_query,
+                        context_chunks=context_chunks,
+                        session_id=session_id
+                    )
+
+                    response_text = result.get("text", "")
+                    if response_text and response_text.strip():
+                        # Simulate streaming by sending the full response as one chunk
+                        chunk_data = {
+                            "type": "token",
+                            "content": response_text,
                         }
                         yield f"data: {json.dumps(chunk_data)}\n\n"
 

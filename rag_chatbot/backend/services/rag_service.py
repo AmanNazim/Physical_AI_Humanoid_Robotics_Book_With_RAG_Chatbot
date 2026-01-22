@@ -283,8 +283,25 @@ class RAGService:
 
             rag_logger.warning("IntelligenceService not available, using basic response generation")
 
+            # Yield sources first if available
+            if sources:
+                for source in sources:
+                    source_data = {
+                        "type": "source",
+                        "chunk_id": source.chunk_id,
+                        "document_id": source.document_id,
+                        "text": source.text[:200] + "..." if len(source.text) > 200 else source.text,
+                        "score": source.score,
+                        "metadata": source.metadata
+                    }
+                    yield f"data: {json.dumps(source_data)}\n\n"
+
             # Yield a fallback response
-            fallback_response = "IntelligenceService not available, using basic response generation"
+            if len(sources) > 0:
+                fallback_response = f"Based on the provided context: {sources[0].text[:200] if sources[0].text else ''}... I can help answer questions about this topic. Please ask your specific question about this content."
+            else:
+                fallback_response = "I couldn't find any relevant information to answer your question."
+
             yield f"data: {json.dumps({'type': 'token', 'content': fallback_response})}\n\n"
             yield f"data: {json.dumps({'type': 'complete', 'message': 'Response completed'})}\n\n"
         except Exception as e:
