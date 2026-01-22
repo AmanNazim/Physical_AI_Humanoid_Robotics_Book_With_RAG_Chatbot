@@ -809,69 +809,48 @@ class IntelligenceService:
                     prompt,
                     session=session
                 ):
-                    # Handle different types of events from the stream
-                    if hasattr(event, 'delta') and hasattr(event.delta, 'content'):
-                        # Handle delta content
-                        content_delta = event.delta.content
-                        if content_delta:
-                            if isinstance(content_delta, str):
-                                # If content is a string, yield it directly
-                                if content_delta.strip():
-                                    chunk_data = {
-                                        "type": "token",
-                                        "content": content_delta,
-                                    }
-                                    yield f"data: {json.dumps(chunk_data)}\n\n"
-                            elif isinstance(content_delta, list):
-                                # If content is a list of content items
-                                for content_item in content_delta:
-                                    if hasattr(content_item, 'text') and content_item.text:
-                                        if content_item.text.strip():
-                                            chunk_data = {
-                                                "type": "token",
-                                                "content": content_item.text,
-                                            }
-                                            yield f"data: {json.dumps(chunk_data)}\n\n"
-                                    elif isinstance(content_item, str) and content_item.strip():
-                                        chunk_data = {
-                                            "type": "token",
-                                            "content": content_item,
-                                        }
-                                        yield f"data: {json.dumps(chunk_data)}\n\n"
-                    elif hasattr(event, 'choices') and event.choices:
-                        # Handle OpenAI-style choices format
-                        for choice in event.choices:
-                            if hasattr(choice, 'delta') and hasattr(choice.delta, 'content') and choice.delta.content:
-                                if choice.delta.content.strip():
-                                    chunk_data = {
-                                        "type": "token",
-                                        "content": choice.delta.content,
-                                    }
-                                    yield f"data: {json.dumps(chunk_data)}\n\n"
-                    elif hasattr(event, 'content') and event.content:
-                        # Handle direct content
-                        if isinstance(event.content, str) and event.content.strip():
-                            chunk_data = {
-                                "type": "token",
-                                "content": event.content,
-                            }
-                            yield f"data: {json.dumps(chunk_data)}\n\n"
-                        elif isinstance(event.content, list):
-                            for content_item in event.content:
-                                text_content = ""
-                                if isinstance(content_item, dict) and 'text' in content_item:
-                                    text_content = content_item['text']
-                                elif hasattr(content_item, 'text'):
-                                    text_content = content_item.text
-                                elif isinstance(content_item, str):
-                                    text_content = content_item
+                    # Extract content from the event - simplified approach
+                    # The exact attributes depend on the agents SDK implementation
+                    content_to_yield = None
 
-                                if text_content and text_content.strip():
-                                    chunk_data = {
-                                        "type": "token",
-                                        "content": text_content,
-                                    }
-                                    yield f"data: {json.dumps(chunk_data)}\n\n"
+                    # Try to extract content in various possible ways
+                    if hasattr(event, 'text'):
+                        content_to_yield = getattr(event, 'text', None)
+                    elif hasattr(event, 'delta') and hasattr(event.delta, 'content'):
+                        content_to_yield = getattr(event.delta.content, 'text', None) if hasattr(event.delta.content, 'text') else event.delta.content
+                    elif hasattr(event, 'content'):
+                        content_to_yield = getattr(event, 'content', None)
+                    elif hasattr(event, 'response'):
+                        content_to_yield = getattr(event, 'response', None)
+                    elif hasattr(event, 'data'):
+                        content_to_yield = getattr(event, 'data', None)
+                    elif hasattr(event, 'message'):
+                        content_to_yield = getattr(event, 'message', None)
+
+                    # Handle if content is in a nested structure
+                    if content_to_yield is None:
+                        # Try to find content in the event object's attributes
+                        for attr_name in ['content', 'text', 'result', 'output', 'data']:
+                            if hasattr(event, attr_name):
+                                attr_value = getattr(event, attr_name)
+                                if attr_value and isinstance(attr_value, str) and len(attr_value.strip()) > 0:
+                                    content_to_yield = attr_value
+                                    break
+
+                    # Yield content if found
+                    if content_to_yield and isinstance(content_to_yield, str) and content_to_yield.strip():
+                        chunk_data = {
+                            "type": "token",
+                            "content": content_to_yield,
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
+
+                # Send completion message
+                completion_data = {
+                    "type": "complete",
+                    "message": "Response completed"
+                }
+                yield f"data: {json.dumps(completion_data)}\n\n"
 
             except Exception as e:
                 self.logger.error(f"Error in agent streaming: {str(e)}")
