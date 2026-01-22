@@ -803,53 +803,52 @@ class IntelligenceService:
             try:
                 self.logger.debug(f"Starting agent streaming for query: {user_query[:50]}...")
 
-                # Check if the streaming actually works by attempting to iterate
-                event_received = False
-
-                async for event in Runner.run_streamed(
+                # According to the error, we need to properly handle the RunResultStreaming object
+                # It seems we need to await Runner.run_streamed() to get the actual streaming object
+                # The correct approach may be to await the streaming result first
+                streaming_result = await Runner.run_streamed(
                     self.agents["main"],
                     prompt,
                     session=session
-                ):
-                    event_received = True
-                    self.logger.debug(f"Received streaming event: {type(event)}, has attrs: {dir(event) if hasattr(event, '__dict__') or hasattr(event, '__slots__') else 'no dir'}")
+                )
 
-                    # Try to extract content from the event
-                    content_to_yield = None
+                # Now we need to consume the streaming result appropriately
+                # The exact interface depends on the agents SDK implementation
+                content_buffer = ""
 
-                    # Try various attribute names that might contain content
-                    possible_attrs = ['text', 'content', 'delta', 'response', 'data', 'message', 'output', 'result']
+                # Try to handle the streaming result based on its type
+                if hasattr(streaming_result, '__aiter__'):
+                    # If it's an async iterable, iterate over it
+                    async for chunk in streaming_result:
+                        # Extract content from the chunk based on its type
+                        content_to_yield = ""
 
-                    for attr in possible_attrs:
-                        if hasattr(event, attr):
-                            attr_val = getattr(event, attr)
-                            if attr_val and isinstance(attr_val, str) and len(attr_val.strip()) > 0:
-                                content_to_yield = attr_val
-                                break
-                            elif hasattr(attr_val, 'text'):  # If it has a text attribute
-                                text_val = getattr(attr_val, 'text', '')
-                                if text_val and isinstance(text_val, str) and len(text_val.strip()) > 0:
-                                    content_to_yield = text_val
-                                    break
-                            elif hasattr(attr_val, 'content'):  # If it has a content attribute
-                                content_val = getattr(attr_val, 'content', '')
-                                if content_val and isinstance(content_val, str) and len(content_val.strip()) > 0:
-                                    content_to_yield = content_val
-                                    break
+                        if hasattr(chunk, 'text'):
+                            content_to_yield = getattr(chunk, 'text', '')
+                        elif hasattr(chunk, 'content'):
+                            content_to_yield = getattr(chunk, 'content', '')
+                        elif hasattr(chunk, 'data'):
+                            content_to_yield = getattr(chunk, 'data', '')
+                        elif isinstance(chunk, str):
+                            content_to_yield = chunk
+                        else:
+                            # Convert to string if it's some other type
+                            content_to_yield = str(chunk) if chunk is not None else ""
 
-                    # If we found content, yield it
-                    if content_to_yield and isinstance(content_to_yield, str) and content_to_yield.strip():
-                        self.logger.debug(f"Yielding content chunk: {content_to_yield[:50]}...")
-                        chunk_data = {
-                            "type": "token",
-                            "content": content_to_yield,
-                        }
-                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                        # Yield the content if it's substantial
+                        if content_to_yield and isinstance(content_to_yield, str) and len(content_to_yield.strip()) > 0:
+                            self.logger.debug(f"Yielding content chunk: {content_to_yield[:50]}...")
+                            chunk_data = {
+                                "type": "token",
+                                "content": content_to_yield,
+                            }
+                            yield f"data: {json.dumps(chunk_data)}\n\n"
+                else:
+                    # If it's not an async iterable, it might be a different kind of streaming object
+                    # In this case, fall back to the non-streaming approach
+                    self.logger.warning("Streaming result is not async iterable, falling back to non-streaming approach")
 
-                # If no events were received, fall back to non-streaming approach
-                if not event_received:
-                    self.logger.warning("No streaming events received, falling back to non-streaming approach")
-                    # Fall back to the regular process_query method and simulate streaming
+                    # Use the regular process_query method and simulate streaming
                     result = await self.process_query(
                         user_query=user_query,
                         context_chunks=context_chunks,
@@ -858,12 +857,16 @@ class IntelligenceService:
 
                     response_text = result.get("text", "")
                     if response_text and response_text.strip():
-                        # Simulate streaming by sending the full response as one chunk
-                        chunk_data = {
-                            "type": "token",
-                            "content": response_text,
-                        }
-                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                        # Send the response in smaller chunks to simulate streaming
+                        chunk_size = 50  # Characters per chunk
+                        for i in range(0, len(response_text), chunk_size):
+                            chunk = response_text[i:i + chunk_size]
+                            if chunk.strip():  # Only yield non-empty chunks
+                                chunk_data = {
+                                    "type": "token",
+                                    "content": chunk,
+                                }
+                                yield f"data: {json.dumps(chunk_data)}\n\n"
 
                 # Send completion message
                 completion_data = {
