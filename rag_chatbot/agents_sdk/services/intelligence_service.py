@@ -827,6 +827,10 @@ class IntelligenceService:
                 # Access the async stream of StreamEvent objects for proper token-by-token streaming
                 async for event in streaming_result.stream_events():
                     events_received = True
+
+                    # Log event type for debugging
+                    self.logger.debug(f"Stream event type: {event.type}, event: {str(type(event))}, data type: {str(type(getattr(event, 'data', None)))}")
+
                     # Handle different event types for proper streaming
                     if (event.type == "raw_response_event" and
                         hasattr(event, 'data')):
@@ -851,6 +855,33 @@ class IntelligenceService:
                                     "content": content,
                                 }
                                 yield f"data: {json.dumps(chunk_data)}\n\n"
+                    # Handle other common event types that might contain streaming content
+                    elif event.type == "thread.message.delta" or "delta" in event.type.lower():
+                        # This might be a message delta event
+                        if hasattr(event, 'data') and hasattr(event.data, 'content'):
+                            for content_block in event.data.content:
+                                if hasattr(content_block, 'text') and hasattr(content_block.text, 'value'):
+                                    delta_text = content_block.text.value
+                                    if delta_text:
+                                        self.logger.debug(f"Yielding message delta: {delta_text[:50]}...")
+                                        chunk_data = {
+                                            "type": "token",
+                                            "content": delta_text,
+                                        }
+                                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                                elif hasattr(content_block, 'text') and isinstance(content_block.text, str):
+                                    delta_text = content_block.text
+                                    if delta_text:
+                                        self.logger.debug(f"Yielding message delta: {delta_text[:50]}...")
+                                        chunk_data = {
+                                            "type": "token",
+                                            "content": delta_text,
+                                        }
+                                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                    elif event.type == "thread.message.completed":
+                        # End of message reached
+                        self.logger.debug("Message completed event received")
+                        break
 
                 # If no streaming events were received, fall back to the non-streaming approach
                 if not events_received:
