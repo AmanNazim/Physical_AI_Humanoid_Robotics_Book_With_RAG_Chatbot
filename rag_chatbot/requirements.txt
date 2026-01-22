@@ -5,7 +5,7 @@ asyncpg
 sqlalchemy
 cohere
 google-genai
-openai-agents
+openai-agents[litellm]
 tiktoken
 python-dotenv
 pydantic

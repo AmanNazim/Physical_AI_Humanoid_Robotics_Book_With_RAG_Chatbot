@@ -104,9 +104,16 @@ class RAGService:
 
             # Initialize and use the IntelligenceService
             intelligence_service = IntelligenceService()
-            await intelligence_service.initialize()
 
-            rag_logger.info(f"IntelligenceService initialized successfully for query: {query[:50]}...")
+            try:
+                await intelligence_service.initialize()
+                rag_logger.info(f"IntelligenceService initialized successfully for query: {query[:50]}...")
+            except Exception as init_error:
+                rag_logger.error(f"IntelligenceService initialization failed: {str(init_error)}")
+                rag_logger.error(f"Initialization exception type: {type(init_error).__name__}")
+                import traceback
+                rag_logger.error(f"Initialization full traceback: {traceback.format_exc()}")
+                raise init_error
 
             # Process the query with the retrieved sources directly
             result = await intelligence_service.process_query(
@@ -120,8 +127,26 @@ class RAGService:
             rag_logger.info(f"Generated response using IntelligenceService for query: {query[:50]}...")
             return answer
 
-        except ImportError:
+        except ImportError as e:
             from backend.utils.logger import rag_logger
+            rag_logger.error(f"IntelligenceService import failed with error: {str(e)}")
+            rag_logger.error(f"Exception type: {type(e).__name__}")
+            import traceback
+            rag_logger.error(f"Full traceback: {traceback.format_exc()}")
+
+            # Try to identify the specific missing module
+            try:
+                import agents
+                rag_logger.info("agents module is available")
+            except ImportError as agent_import_error:
+                rag_logger.error(f"agents module import failed: {str(agent_import_error)}")
+
+            try:
+                from agents_sdk.services.intelligence_service import IntelligenceService
+                rag_logger.info("IntelligenceService import worked separately")
+            except ImportError as intelligence_import_error:
+                rag_logger.error(f"Direct IntelligenceService import failed: {str(intelligence_import_error)}")
+
             rag_logger.warning("IntelligenceService not available, using basic response generation")
             # Fallback to basic implementation if IntelligenceService is not available
             if len(sources) == 0:
@@ -136,6 +161,9 @@ class RAGService:
         except Exception as e:
             from backend.utils.logger import rag_logger
             rag_logger.error(f"Error in IntelligenceService: {str(e)}")
+            rag_logger.error(f"Exception type: {type(e).__name__}")
+            import traceback
+            rag_logger.error(f"Full traceback: {traceback.format_exc()}")
             # Fallback response
             return "I encountered an error while processing your query. Please try again."
 

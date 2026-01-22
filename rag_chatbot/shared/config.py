@@ -6,7 +6,7 @@ import os
 
 class QdrantSettings(BaseSettings):
     """Settings for Qdrant vector database"""
-    host: str = Field(default="http://localhost:6333", description="Qdrant host URL")
+    host: str = Field(default="https://15c16312-8231-41fc-b0ae-19ad71bdb233.us-west-1-0.aws.cloud.qdrant.io:6333", description="Qdrant host URL")
     api_key: Optional[str] = Field(default=None, description="Qdrant API key")
     collection_name: str = Field(default="book_embeddings", description="Qdrant collection name")
     vector_size: int = Field(default=1536, description="Size of embedding vectors")

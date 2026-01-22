@@ -7,7 +7,6 @@ __pycache__/
 build/
 develop-eggs/
 dist/
-downloads/
 eggs/
 .eggs/
 lib/
@@ -62,9 +61,6 @@ docs/_build/
 # Testing
 .pytest_cache/
 .hypothesis/
-
-# Local config
-.local/
 
 # Node modules (if any)
 node_modules/
