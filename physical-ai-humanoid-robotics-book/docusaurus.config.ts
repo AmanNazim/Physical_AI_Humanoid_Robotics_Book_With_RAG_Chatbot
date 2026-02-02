@@ -5,9 +5,9 @@ import type * as Preset from "@docusaurus/preset-classic";
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: "Physical AI & Humanoid Robotics",
+  title: "Physical AI & Humanoid Robotics with RAG Chatbot",
   tagline:
-    "A comprehensive educational resource for Physical AI and Humanoid Robotics",
+    "A comprehensive educational resource for Physical AI, Humanoid Robotics, and RAG-Powered Learning",
   favicon: "img/physical-ai-logo.png",
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -62,14 +62,14 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: "img/docusaurus-social-card.jpg",
+    image: "img/social-card.png",
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: "Physical AI & Humanoid Robotics",
+      title: "Physical AI & Humanoid Robotics with RAG Chatbot",
       logo: {
-        alt: "Physical AI & Humanoid Robotics Book Logo",
+        alt: "Physical AI & Humanoid Robotics Book with RAG Chatbot Logo",
         src: "img/physical-ai-logo.png",
       },
       items: [

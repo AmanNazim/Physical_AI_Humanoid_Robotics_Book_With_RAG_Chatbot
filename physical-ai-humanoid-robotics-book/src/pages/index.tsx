@@ -34,8 +34,8 @@ export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Welcome`}
-      description="Physical AI & Humanoid Robotics - A comprehensive educational resource"
+      title={`Welcome | Physical AI & Humanoid Robotics with RAG Chatbot`}
+      description="Physical AI & Humanoid Robotics with RAG Chatbot - An interactive educational resource with AI-powered learning assistance"
     >
       <HomepageHeader />
       <main>
