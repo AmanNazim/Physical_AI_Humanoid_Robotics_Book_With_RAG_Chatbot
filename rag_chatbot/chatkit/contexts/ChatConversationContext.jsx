@@ -30,21 +30,6 @@ export const ChatConversationProvider = ({ children }) => {
     });
   }, []);
 
-  // Enhanced updateMessage to support updater functions (like setState)
-  const updateMessageWithUpdater = useCallback((id, updater) => {
-    setMessages(prev => {
-      const newMessages = [...prev]; // Create a new array
-      const msgIndex = newMessages.findIndex(msg => msg.id === id);
-      if (msgIndex !== -1) {
-        // Call the updater function with the current message and merge the result
-        const currentMessage = newMessages[msgIndex];
-        const updates = typeof updater === 'function' ? updater(currentMessage) : updater;
-        newMessages[msgIndex] = { ...currentMessage, ...updates };
-      }
-      return newMessages; // Return the new array to ensure React re-renders
-    });
-  }, []);
-
   const clearMessages = useCallback(() => {
     setMessages([]);
   }, []);
@@ -62,7 +47,6 @@ export const ChatConversationProvider = ({ children }) => {
     messages,
     addMessage,
     updateMessage,
-    updateMessageWithUpdater,
     clearMessages,
     isStreaming,
     setIsStreaming: setIsStreamingCallback, // Direct setter for streaming state

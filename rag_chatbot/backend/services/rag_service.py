@@ -253,29 +253,12 @@ class RAGService:
                 return
 
             # Stream the response using IntelligenceService's streaming capability
-            chunks_sent = 0
             async for chunk in intelligence_service.stream_response(
                 user_query=query,
                 context_chunks=sources,
                 session_id=session_id
             ):
                 yield chunk
-                chunks_sent += 1
-
-            # Ensure completion message is always sent even if streaming ends unexpectedly
-            if chunks_sent == 0:
-                # If no chunks were sent, send a fallback response
-                fallback_data = {
-                    "type": "token",
-                    "content": "I'm processing your query. Please wait..."
-                }
-                yield f"data: {json.dumps(fallback_data)}\n\n"
-
-                completion_data = {
-                    "type": "complete",
-                    "message": "Response completed"
-                }
-                yield f"data: {json.dumps(completion_data)}\n\n"
 
         except ImportError as e:
             from backend.utils.logger import rag_logger
