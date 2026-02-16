@@ -88,15 +88,23 @@ const ChatInputBar = () => {
         accumulatedContent += token;
 
         // Update the bot message with the accumulated content
-        updateMessage(botMessageId, {
-          content: accumulatedContent,
-          isStreaming: true
+        // Use a new object reference to force React to re-render
+        updateMessage(botMessageId, prevMessage => {
+          return {
+            ...prevMessage,
+            content: prevMessage.content + token,
+            isStreaming: true
+          };
         });
       });
 
       // Update the message to indicate streaming is complete
-      updateMessage(botMessageId, {
-        isStreaming: false
+      updateMessage(botMessageId, prevMessage => {
+        return {
+          ...prevMessage,
+          isStreaming: false,
+          content: prevMessage.content // Ensure content is preserved
+        };
       });
 
       // Clear input after sending

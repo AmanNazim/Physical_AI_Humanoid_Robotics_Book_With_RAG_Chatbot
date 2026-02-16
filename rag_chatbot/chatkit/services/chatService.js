@@ -66,11 +66,14 @@ export const sendMessage = async (messageData, onTokenReceived) => {
                 console.log("Sources received:", data.sources);
               } else if (data.type === "complete") {
                 console.log("Stream complete event received");
-                break;
+                // Don't break here as it might prevent all tokens from being processed
+              } else if (data.type === "error") {
+                console.error("Streaming error received:", data.message);
+                throw new Error(data.message || "Streaming error occurred");
               }
             } catch (e) {
               // Skip malformed JSON
-              console.warn("Malformed JSON in stream:", line);
+              console.warn("Malformed JSON in stream:", line, e);
             }
           }
         }
