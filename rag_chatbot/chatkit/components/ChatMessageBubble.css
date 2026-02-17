@@ -113,15 +113,35 @@
   color: #666;
 }
 
+/* Container for the entire message bubble and context */
+.message-bubble-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .selected-text-context {
   background-color: rgba(0, 194, 106, 0.15); /* Light green with opacity */
-  color: #00C26A; /* Green text */
-  padding: 6px 10px;
+  color: #007a4d; /* Darker green text for better contrast */
+  padding: 8px 12px;
   border-radius: 8px;
   font-size: 13px;
   font-style: italic;
-  margin-bottom: 6px;
-  display: inline-block;
+  font-weight: 500;
+  margin-bottom: 4px; /* Smaller gap between context and message */
+  display: block;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+  align-self: flex-start; /* Align to the start but still within container width */
+  width: fit-content;
+  max-width: 95%;
+}
+
+/* Ensure proper alignment for user messages with selected text */
+.user-message .selected-text-context {
+  align-self: flex-end; /* Align context to the right for user messages */
 }
 
 .user-message .message-sources summary {

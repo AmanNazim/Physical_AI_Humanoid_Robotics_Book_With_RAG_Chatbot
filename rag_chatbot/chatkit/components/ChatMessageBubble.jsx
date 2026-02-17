@@ -9,49 +9,51 @@ const ChatMessageBubble = ({ message }) => {
   const isStreaming = message.isStreaming;
 
   return (
-    <div className={`message-bubble ${isUser ? 'user-message' : isBot ? 'bot-message' : ''} ${isError ? 'error-message' : ''}`}>
-      <div className="message-avatar">
-        {isUser ? (
-          <span className="user-avatar">👤</span>
-        ) : (
-          <span className="bot-avatar">🤖</span>
-        )}
-      </div>
-      <div className="message-content">
-        {isError ? (
-          <div className="error-content">
-            <MarkdownRenderer content={message.content || message.error || 'An error occurred'} />
-          </div>
-        ) : (
-          <>
-            {/* Display selected text context if present - only for user messages */}
-            {message.selectedText && isUser && (
-              <div className="selected-text-context">
-                About: "{message.selectedText}"
-              </div>
-            )}
-            <MarkdownRenderer content={message.content || message.text || ''} />
-            {isStreaming && (
-              <div className="typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            )}
-            {message.sources && message.sources.length > 0 && (
-              <div className="message-sources">
-                <details>
-                  <summary>Sources</summary>
-                  <ul>
-                    {message.sources.map((source, index) => (
-                      <li key={index}>{source.title || source.text?.substring(0, 50) + '...'}</li>
-                    ))}
-                  </ul>
-                </details>
-              </div>
-            )}
-          </>
-        )}
+    <div className="message-bubble-container">
+      {/* Display selected text context if present - only for user messages */}
+      {message.selectedText && isUser && (
+        <div className="selected-text-context">
+          About: "{message.selectedText}"
+        </div>
+      )}
+      <div className={`message-bubble ${isUser ? 'user-message' : isBot ? 'bot-message' : ''} ${isError ? 'error-message' : ''}`}>
+        <div className="message-avatar">
+          {isUser ? (
+            <span className="user-avatar">👤</span>
+          ) : (
+            <span className="bot-avatar">🤖</span>
+          )}
+        </div>
+        <div className="message-content">
+          {isError ? (
+            <div className="error-content">
+              <MarkdownRenderer content={message.content || message.error || 'An error occurred'} />
+            </div>
+          ) : (
+            <>
+              <MarkdownRenderer content={message.content || message.text || ''} />
+              {isStreaming && (
+                <div className="typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              )}
+              {message.sources && message.sources.length > 0 && (
+                <div className="message-sources">
+                  <details>
+                    <summary>Sources</summary>
+                    <ul>
+                      {message.sources.map((source, index) => (
+                        <li key={index}>{source.title || source.text?.substring(0, 50) + '...'}</li>
+                      ))}
+                    </ul>
+                  </details>
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

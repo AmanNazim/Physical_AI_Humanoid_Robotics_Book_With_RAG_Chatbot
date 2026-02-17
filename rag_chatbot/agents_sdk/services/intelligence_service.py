@@ -1128,9 +1128,11 @@ class IntelligenceService:
         except Exception as e:
             self.logger.error(f"Error in streaming response: {str(e)}")
             error_str = str(e).lower()
+            error_str_full = str(e)  # Full error string for more detailed checking
 
             # Provide friendly error messages for common issues
-            if any(phrase in error_str for phrase in ['quota', 'credit', 'limit', 'exceeded', 'rate limit', 'usage limit', 'api key', 'payment required']):
+            if any(phrase in error_str for phrase in ['quota', 'credit', 'limit', 'exceeded', 'rate limit', 'usage limit', 'api key', 'payment required']) or \
+               any(phrase in error_str_full.lower() for phrase in ['more credits', 'afford', 'paid account', 'upgrade', 'max_tokens']):
                 friendly_message = "We've reached our API usage limit. Please try again later or check back soon!"
             elif any(phrase in error_str for phrase in ['connection', 'timeout', 'network', 'connectivity']):
                 friendly_message = "We're having trouble connecting to our services. Please check your internet connection and try again."
