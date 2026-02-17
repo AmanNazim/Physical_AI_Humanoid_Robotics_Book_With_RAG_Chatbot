@@ -826,11 +826,47 @@ class IntelligenceService:
 
                 # Access the async stream of StreamEvent objects for proper token-by-token streaming
                 token_found = False
+                self.logger.info("Starting to process streaming events from Agent SDK")
                 async for event in streaming_result.stream_events():
                     events_received = True
 
                     # Log event type for debugging
-                    self.logger.info(f"Stream event type: {event.type}, event: {str(type(event))}, data type: {str(type(getattr(event, 'data', None)))}")
+                    self.logger.info(f"Stream event type: {event.type}, event: {str(type(event))}, data type: {str(type(getattr(event, 'data', None)))}, has_data: {hasattr(event, 'data')}")
+
+                    # Check if event has string representation that might contain text
+                    event_str = str(event)
+                    if 'text' in event_str.lower() or 'delta' in event_str.lower():
+                        self.logger.info(f"Event string contains text/delta: {event_str[:200]}")
+
+                    # First, try to extract any possible text content directly from the event object
+                    # Handle cases where the event itself might contain text data
+                    if hasattr(event, 'text') and event.text and isinstance(event.text, str) and event.text.strip():
+                        content = event.text.strip()
+                        self.logger.info(f"Found text directly in event: {repr(content[:100])}...")
+                        chunk_data = {
+                            "type": "token",
+                            "content": content,
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                        token_found = True
+                    elif hasattr(event, 'delta') and event.delta and isinstance(event.delta, str) and event.delta.strip():
+                        content = event.delta.strip()
+                        self.logger.info(f"Found delta directly in event: {repr(content[:100])}...")
+                        chunk_data = {
+                            "type": "token",
+                            "content": content,
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                        token_found = True
+                    elif hasattr(event, 'content') and event.content and isinstance(event.content, str) and event.content.strip():
+                        content = event.content.strip()
+                        self.logger.info(f"Found content directly in event: {repr(content[:100])}...")
+                        chunk_data = {
+                            "type": "token",
+                            "content": content,
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                        token_found = True
 
                     # Handle different event types for proper streaming
                     # Focus on the most common event types from OpenAI Agents SDK
@@ -848,6 +884,7 @@ class IntelligenceService:
                                             "content": delta_text,
                                         }
                                         yield f"data: {json.dumps(chunk_data)}\n\n"
+                                        token_found = True  # Track that we found a token
                                 # Also check for content in event.data
                                 elif hasattr(event.data, 'content') and event.data.content:
                                     content = event.data.content
@@ -858,6 +895,7 @@ class IntelligenceService:
                                             "content": content,
                                         }
                                         yield f"data: {json.dumps(chunk_data)}\n\n"
+                                        token_found = True  # Track that we found a token
                                 # Check text property in event data
                                 elif hasattr(event.data, 'text') and event.data.text:
                                     text_content = event.data.text
@@ -868,6 +906,7 @@ class IntelligenceService:
                                             "content": text_content,
                                         }
                                         yield f"data: {json.dumps(chunk_data)}\n\n"
+                                        token_found = True  # Track that we found a token
 
                         # Handle message content events
                         elif "content" in event.type.lower() or "message" in event.type.lower():
