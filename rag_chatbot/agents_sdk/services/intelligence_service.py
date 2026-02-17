@@ -1045,6 +1045,16 @@ class IntelligenceService:
                             self.logger.error(f"Error processing event type: {str(e)}")
                             continue  # Skip to next event if there's an error processing this one
 
+                except Exception as e:
+                    self.logger.error(f"Error in main streaming loop: {str(e)}")
+                    # Send error message to client if we're within the streaming context
+                    error_data = {
+                        "type": "error",
+                        "message": f"Streaming error: {str(e)}"
+                    }
+                    yield f"data: {json.dumps(error_data)}\n\n"
+                    # Continue with fallback approach
+
                 # If no streaming events were received, fall back to the non-streaming approach
                 if not events_received:
                     self.logger.warning("No streaming events received, falling back to non-streaming approach")
