@@ -825,71 +825,105 @@ class IntelligenceService:
                 events_received = False
 
                 # Access the async stream of StreamEvent objects for proper token-by-token streaming
+                token_found = False
                 async for event in streaming_result.stream_events():
                     events_received = True
 
                     # Log event type for debugging
-                    self.logger.debug(f"Stream event type: {event.type}, event: {str(type(event))}, data type: {str(type(getattr(event, 'data', None)))}")
+                    self.logger.info(f"Stream event type: {event.type}, event: {str(type(event))}, data type: {str(type(getattr(event, 'data', None)))}")
 
                     # Handle different event types for proper streaming
-                    if hasattr(event, 'type'):
-                        # Handle various event types based on actual OpenAI Agents SDK
-                        if "delta" in event.type or "text.delta" in event.type:
-                            # Handle text delta events - this is the most common streaming event
-                            if hasattr(event, 'data') and hasattr(event.data, 'delta'):
-                                delta_text = getattr(event.data, 'delta', '')
-                                if delta_text and isinstance(delta_text, str) and delta_text.strip():
-                                    self.logger.debug(f"Yielding text delta: {repr(delta_text)[:100]}...")
-                                    chunk_data = {
-                                        "type": "token",
-                                        "content": delta_text,
-                                    }
-                                    yield f"data: {json.dumps(chunk_data)}\n\n"
-                            elif hasattr(event, 'delta'):
-                                delta_text = getattr(event, 'delta', '')
-                                if delta_text and isinstance(delta_text, str) and delta_text.strip():
-                                    self.logger.debug(f"Yielding event delta: {repr(delta_text)[:100]}...")
-                                    chunk_data = {
-                                        "type": "token",
-                                        "content": delta_text,
-                                    }
-                                    yield f"data: {json.dumps(chunk_data)}\n\n"
-                        elif "content" in event.type or "message" in event.type:
-                            # Handle content-related events
+                    # Focus on the most common event types from OpenAI Agents SDK
+                    if hasattr(event, 'type') and isinstance(event.type, str):
+                        # Handle text delta events - common for streaming tokens
+                        if "delta" in event.type.lower():
+                            if hasattr(event, 'data'):
+                                # Check for delta property in event data
+                                if hasattr(event.data, 'delta') and event.data.delta:
+                                    delta_text = event.data.delta
+                                    if isinstance(delta_text, str) and delta_text.strip():
+                                        self.logger.debug(f"Yielding delta: {repr(delta_text)[:100]}...")
+                                        chunk_data = {
+                                            "type": "token",
+                                            "content": delta_text,
+                                        }
+                                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                                # Also check for content in event.data
+                                elif hasattr(event.data, 'content') and event.data.content:
+                                    content = event.data.content
+                                    if isinstance(content, str) and content.strip():
+                                        self.logger.debug(f"Yielding content: {repr(content)[:100]}...")
+                                        chunk_data = {
+                                            "type": "token",
+                                            "content": content,
+                                        }
+                                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                                # Check text property in event data
+                                elif hasattr(event.data, 'text') and event.data.text:
+                                    text_content = event.data.text
+                                    if isinstance(text_content, str) and text_content.strip():
+                                        self.logger.debug(f"Yielding text: {repr(text_content)[:100]}...")
+                                        chunk_data = {
+                                            "type": "token",
+                                            "content": text_content,
+                                        }
+                                        yield f"data: {json.dumps(chunk_data)}\n\n"
+
+                        # Handle message content events
+                        elif "content" in event.type.lower() or "message" in event.type.lower():
                             if hasattr(event, 'data') and hasattr(event.data, 'content'):
-                                content = getattr(event.data, 'content', '')
-                                if content and isinstance(content, str) and content.strip():
-                                    self.logger.debug(f"Yielding content: {repr(content)[:100]}...")
+                                content = event.data.content
+                                if isinstance(content, str) and content.strip():
+                                    self.logger.debug(f"Yielding message content: {repr(content)[:100]}...")
                                     chunk_data = {
                                         "type": "token",
                                         "content": content,
                                     }
                                     yield f"data: {json.dumps(chunk_data)}\n\n"
-                            elif hasattr(event, 'data') and isinstance(event.data, str) and event.data.strip():
-                                self.logger.debug(f"Yielding string data: {repr(event.data)[:100]}...")
+                                    token_found = True  # Track that we found a token
+                            # Handle cases where event.data is directly a string
+                            elif isinstance(event.data, str) and event.data.strip():
+                                self.logger.debug(f"Yielding event data string: {repr(event.data)[:100]}...")
                                 chunk_data = {
                                     "type": "token",
                                     "content": event.data,
                                 }
                                 yield f"data: {json.dumps(chunk_data)}\n\n"
-                        elif "text" in event.type:
-                            # Handle text events specifically
-                            if hasattr(event, 'data') and hasattr(event.data, 'text'):
-                                text_content = getattr(event.data, 'text', '')
-                                if text_content and isinstance(text_content, str) and text_content.strip():
-                                    self.logger.debug(f"Yielding text content: {repr(text_content)[:100]}...")
-                                    chunk_data = {
-                                        "type": "token",
-                                        "content": text_content,
-                                    }
-                                    yield f"data: {json.dumps(chunk_data)}\n\n"
-                        elif "completed" in event.type or "done" in event.type.lower():
-                            # End of message reached
-                            self.logger.debug("Message completed event received")
+                                token_found = True  # Track that we found a token
+
+                        # Handle text-specific events
+                        elif "text" in event.type.lower():
+                            if hasattr(event, 'data'):
+                                # Check for text in event data
+                                if hasattr(event.data, 'text') and event.data.text:
+                                    text_content = event.data.text
+                                    if isinstance(text_content, str) and text_content.strip():
+                                        self.logger.debug(f"Yielding text event: {repr(text_content)[:100]}...")
+                                        chunk_data = {
+                                            "type": "token",
+                                            "content": text_content,
+                                        }
+                                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                                        token_found = True  # Track that we found a token
+                                # Also check delta in text events
+                                elif hasattr(event.data, 'delta') and event.data.delta:
+                                    delta_text = event.data.delta
+                                    if isinstance(delta_text, str) and delta_text.strip():
+                                        self.logger.debug(f"Yielding text delta: {repr(delta_text)[:100]}...")
+                                        chunk_data = {
+                                            "type": "token",
+                                            "content": delta_text,
+                                        }
+                                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                                        token_found = True  # Track that we found a token
+
+                        # Handle completion events
+                        elif any(completion_word in event.type.lower() for completion_word in ['completed', 'done', 'finish', 'end']):
+                            self.logger.debug(f"Completion event received: {event.type}")
                             break
                         else:
-                            # Log unhandled event types for debugging
-                            self.logger.debug(f"Unhandled event type: {event.type}, data: {getattr(event, 'data', 'no data')}")
+                            # Log other event types for debugging
+                            self.logger.debug(f"Other event type processed: {event.type}")
 
                 # If no streaming events were received, fall back to the non-streaming approach
                 if not events_received:
@@ -913,8 +947,15 @@ class IntelligenceService:
                                     "content": word + (" " if i < len(words) - 1 else ""),  # Add space except for last word
                                 }
                                 yield f"data: {json.dumps(chunk_data)}\n\n"
+                    else:
+                        # If no response text was generated, send a default message
+                        chunk_data = {
+                            "type": "token",
+                            "content": "I couldn't find relevant information to answer your query.",
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
 
-                # Send completion message
+                # Ensure that a completion message is always sent
                 completion_data = {
                     "type": "complete",
                     "message": "Response completed"

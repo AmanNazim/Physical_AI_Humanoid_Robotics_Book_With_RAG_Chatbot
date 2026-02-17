@@ -86,9 +86,9 @@ const ChatInputBar = () => {
       await chatService.sendMessage(messageData, async (token) => {
         // Accumulate the token
         accumulatedContent += token;
+        console.log("Received token, accumulated content length:", accumulatedContent.length, "content preview:", accumulatedContent.substring(0, 100));
 
         // Update the bot message with the accumulated content
-        accumulatedContent += token;
         updateMessage(botMessageId, {
           content: accumulatedContent,
           isStreaming: true
@@ -96,6 +96,7 @@ const ChatInputBar = () => {
       });
 
       // Update the message to indicate streaming is complete
+      console.log("Streaming completed, final content length:", accumulatedContent.length, "final content preview:", accumulatedContent.substring(0, 200));
       updateMessage(botMessageId, {
         content: accumulatedContent, // Ensure the final content is preserved
         isStreaming: false

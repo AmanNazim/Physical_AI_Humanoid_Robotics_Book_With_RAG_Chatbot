@@ -60,8 +60,8 @@ export const sendMessage = async (messageData, onTokenReceived) => {
             try {
               const data = JSON.parse(line.slice(6)); // Remove 'data: ' prefix
               if (data.type === "token" && onTokenReceived) {
-                console.log("Token received:", data.content);
-                onTokenReceived(data.content);
+                console.log("Token received:", data.content, "length:", data.content ? data.content.length : 0);
+                onTokenReceived(data.content || '');
               } else if (data.type === "sources") {
                 console.log("Sources received:", data.sources);
               } else if (data.type === "complete") {
