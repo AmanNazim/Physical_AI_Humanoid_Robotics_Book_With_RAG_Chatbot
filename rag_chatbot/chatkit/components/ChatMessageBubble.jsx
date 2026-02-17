@@ -9,7 +9,7 @@ const ChatMessageBubble = ({ message }) => {
   const isStreaming = message.isStreaming;
 
   return (
-    <div className="message-bubble-container">
+    <div className={`message-bubble-container ${isUser ? 'user-message-container' : 'bot-message-container'}`}>
       {/* Display selected text context if present - only for user messages */}
       {message.selectedText && isUser && (
         <div className="selected-text-context">

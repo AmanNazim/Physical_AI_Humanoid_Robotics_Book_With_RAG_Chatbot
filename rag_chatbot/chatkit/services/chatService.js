@@ -69,7 +69,36 @@ export const sendMessage = async (messageData, onTokenReceived) => {
                 // Don't break here as it might prevent all tokens from being processed
               } else if (data.type === "error") {
                 console.error("Streaming error received:", data.message);
-                onTokenReceived(`⚠️ ${data.message}`); // Pass friendly error message as a token
+
+                // Check if the error message contains specific API quota exceeded indicators in the frontend too
+                const errorStr = data.message.toLowerCase();
+
+                if (errorStr.includes('quota') ||
+                    errorStr.includes('credit') ||
+                    errorStr.includes('limit') ||
+                    errorStr.includes('exceeded') ||
+                    errorStr.includes('afford') ||
+                    errorStr.includes('more credits') ||
+                    errorStr.includes('paid account') ||
+                    errorStr.includes('upgrade') ||
+                    errorStr.includes('max_tokens')) {
+                    onTokenReceived(`⚠️ We've reached our API usage limit. Please try again later or check back soon!`);
+                } else if (errorStr.includes('connection') ||
+                           errorStr.includes('timeout') ||
+                           errorStr.includes('network') ||
+                           errorStr.includes('connectivity')) {
+                    onTokenReceived(`⚠️ We're having trouble connecting to our services. Please check your internet connection and try again.`);
+                } else if (errorStr.includes('authentication') ||
+                           errorStr.includes('auth') ||
+                           errorStr.includes('401') ||
+                           errorStr.includes('403') ||
+                           errorStr.includes('unauthorized')) {
+                    onTokenReceived(`⚠️ We're having trouble accessing our services. Please try again later.`);
+                } else {
+                    // Use the original friendly message from backend, or a default one
+                    onTokenReceived(`⚠️ ${data.message}`);
+                }
+
                 // Don't throw error as it breaks the streaming flow - let it complete naturally
               }
             } catch (e) {

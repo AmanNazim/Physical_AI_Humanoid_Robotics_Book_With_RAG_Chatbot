@@ -140,8 +140,26 @@
 }
 
 /* Ensure proper alignment for user messages with selected text */
-.user-message .selected-text-context {
-  align-self: flex-end; /* Align context to the right for user messages */
+.user-message {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+/* For user messages container, align selected text context to the right */
+.message-bubble-container.user-message-container {
+  align-items: flex-end;
+}
+
+/* General selected text context alignment */
+.selected-text-context {
+  align-self: flex-start;
+}
+
+/* For user messages, align the selected text to the right */
+.user-message-container .selected-text-context {
+  align-self: flex-end;
+  background-color: rgba(0, 194, 106, 0.15);
+  color: #007a4d;
 }
 
 .user-message .message-sources summary {
