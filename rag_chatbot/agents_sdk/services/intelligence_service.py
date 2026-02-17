@@ -826,11 +826,114 @@ class IntelligenceService:
 
                 # Access the async stream of StreamEvent objects for proper token-by-token streaming
                 token_found = False
+                self.logger.info("Starting to process streaming events from Agent SDK")
                 async for event in streaming_result.stream_events():
                     events_received = True
 
                     # Log event type for debugging
-                    self.logger.info(f"Stream event type: {event.type}, event: {str(type(event))}, data type: {str(type(getattr(event, 'data', None)))}")
+                    self.logger.info(f"Stream event type: {event.type}, event: {str(type(event))}, data type: {str(type(getattr(event, 'data', None)))}, has_data: {hasattr(event, 'data')}")
+
+                    # Check if event has string representation that might contain text
+                    event_str = str(event)
+                    if 'text' in event_str.lower() or 'delta' in event_str.lower():
+                        self.logger.info(f"Event string contains text/delta: {event_str[:200]}")
+
+                    # FIRST: Handle specific OpenAI ResponseTextDeltaEvent which has the actual token content
+                    # This is the most important event type for streaming text
+                    if (hasattr(event, 'data') and
+                        event.data and
+                        type(event.data).__name__ == 'ResponseTextDeltaEvent' and
+                        hasattr(event.data, 'delta') and
+                        event.data.delta):
+                        delta_text = event.data.delta
+                        if isinstance(delta_text, str) and delta_text.strip():
+                            self.logger.info(f"Found ResponseTextDeltaEvent with delta: {repr(delta_text)[:100]}...")
+                            chunk_data = {
+                                "type": "token",
+                                "content": delta_text,
+                            }
+                            yield f"data: {json.dumps(chunk_data)}\n\n"
+                            token_found = True
+                        continue  # Continue to next event after handling this specific type
+
+                    # Handle various ResponseEvent types from OpenAI
+                    if hasattr(event, 'data') and event.data:
+                        # Handle ResponseTextDeltaEvent specifically - this is what contains the actual text deltas
+                        data_type_name = type(event.data).__name__
+                        if 'ResponseTextDeltaEvent' in data_type_name and hasattr(event.data, 'delta'):
+                            delta_text = event.data.delta
+                            if isinstance(delta_text, str) and delta_text.strip():
+                                self.logger.info(f"Processing {data_type_name} with delta: {repr(delta_text)[:100]}...")
+                                chunk_data = {
+                                    "type": "token",
+                                    "content": delta_text,
+                                }
+                                yield f"data: {json.dumps(chunk_data)}\n\n"
+                                token_found = True
+
+                        # Handle other ResponseEvent types that might contain text content
+                        elif hasattr(event.data, 'delta') and event.data.delta:
+                            delta_text = event.data.delta
+                            if isinstance(delta_text, str) and delta_text.strip():
+                                self.logger.debug(f"Found delta in event data: {repr(delta_text)[:100]}...")
+                                chunk_data = {
+                                    "type": "token",
+                                    "content": delta_text,
+                                }
+                                yield f"data: {json.dumps(chunk_data)}\n\n"
+                                token_found = True
+
+                        elif hasattr(event.data, 'content') and event.data.content:
+                            content = event.data.content
+                            if isinstance(content, str) and content.strip():
+                                self.logger.debug(f"Found content in event data: {repr(content)[:100]}...")
+                                chunk_data = {
+                                    "type": "token",
+                                    "content": content,
+                                }
+                                yield f"data: {json.dumps(chunk_data)}\n\n"
+                                token_found = True
+
+                        elif hasattr(event.data, 'text') and event.data.text:
+                            text_content = event.data.text
+                            if isinstance(text_content, str) and text_content.strip():
+                                self.logger.debug(f"Found text in event data: {repr(text_content)[:100]}...")
+                                chunk_data = {
+                                    "type": "token",
+                                    "content": text_content,
+                                }
+                                yield f"data: {json.dumps(chunk_data)}\n\n"
+                                token_found = True
+
+                    # First, try to extract any possible text content directly from the event object
+                    # Handle cases where the event itself might contain text data
+                    if hasattr(event, 'text') and event.text and isinstance(event.text, str) and event.text.strip():
+                        content = event.text.strip()
+                        self.logger.debug(f"Found text directly in event: {repr(content[:100])}...")
+                        chunk_data = {
+                            "type": "token",
+                            "content": content,
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                        token_found = True
+                    elif hasattr(event, 'delta') and event.delta and isinstance(event.delta, str) and event.delta.strip():
+                        content = event.delta.strip()
+                        self.logger.debug(f"Found delta directly in event: {repr(content[:100])}...")
+                        chunk_data = {
+                            "type": "token",
+                            "content": content,
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                        token_found = True
+                    elif hasattr(event, 'content') and event.content and isinstance(event.content, str) and event.content.strip():
+                        content = event.content.strip()
+                        self.logger.debug(f"Found content directly in event: {repr(content[:100])}...")
+                        chunk_data = {
+                            "type": "token",
+                            "content": content,
+                        }
+                        yield f"data: {json.dumps(chunk_data)}\n\n"
+                        token_found = True
 
                     # Handle different event types for proper streaming
                     # Focus on the most common event types from OpenAI Agents SDK
