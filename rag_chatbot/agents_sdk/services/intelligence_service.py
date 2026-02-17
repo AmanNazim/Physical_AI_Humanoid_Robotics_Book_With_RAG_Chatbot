@@ -1097,10 +1097,21 @@ class IntelligenceService:
                 import traceback
                 self.logger.error(f"Full traceback: {traceback.format_exc()}")
 
+                # Check if this is an API quota exceeded error by looking at the error message
+                error_str = str(e).lower()
+                friendly_message = "An error occurred while processing your request. Please try again."
+
+                if any(phrase in error_str for phrase in ['quota', 'credit', 'limit', 'exceeded', 'rate limit', 'usage limit', 'api key', 'payment required']):
+                    friendly_message = "We've reached our API usage limit. Please try again later or check back soon!"
+                elif any(phrase in error_str for phrase in ['connection', 'timeout', 'network', 'connectivity']):
+                    friendly_message = "We're having trouble connecting to our services. Please check your internet connection and try again."
+                elif any(phrase in error_str for phrase in ['authentication', 'auth', '401', '403', 'unauthorized']):
+                    friendly_message = "We're having trouble accessing our services. Please try again later."
+
                 # Send error message to client
                 error_data = {
                     "type": "error",
-                    "message": f"Streaming error: {str(e)}"
+                    "message": friendly_message
                 }
                 yield f"data: {json.dumps(error_data)}\n\n"
 
@@ -1113,9 +1124,21 @@ class IntelligenceService:
 
         except Exception as e:
             self.logger.error(f"Error in streaming response: {str(e)}")
+            error_str = str(e).lower()
+
+            # Provide friendly error messages for common issues
+            if any(phrase in error_str for phrase in ['quota', 'credit', 'limit', 'exceeded', 'rate limit', 'usage limit', 'api key', 'payment required']):
+                friendly_message = "We've reached our API usage limit. Please try again later or check back soon!"
+            elif any(phrase in error_str for phrase in ['connection', 'timeout', 'network', 'connectivity']):
+                friendly_message = "We're having trouble connecting to our services. Please check your internet connection and try again."
+            elif any(phrase in error_str for phrase in ['authentication', 'auth', '401', '403', 'unauthorized']):
+                friendly_message = "We're having trouble accessing our services. Please try again later."
+            else:
+                friendly_message = "An error occurred while processing your request. Please try again."
+
             error_data = {
                 "type": "error",
-                "message": str(e)
+                "message": friendly_message
             }
             yield f"data: {json.dumps(error_data)}\n\n"
 

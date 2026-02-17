@@ -48,10 +48,17 @@ const ChatInputBar = () => {
 
     // Add user message to UI immediately
     const userMessageId = `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+    // Create user message content: if selected text exists, include it in the user message for context
+    let userMessageContent = inputValue;
+    if (selectedText) {
+      userMessageContent = `About: "${selectedText.substring(0, 100)}${selectedText.length > 100 ? '...' : ''}"\n\n${inputValue}`;
+    }
+
     addMessage({
       id: userMessageId,
       role: 'user',
-      content: inputValue,
+      content: userMessageContent,
       timestamp: new Date()
     });
 

@@ -69,7 +69,8 @@ export const sendMessage = async (messageData, onTokenReceived) => {
                 // Don't break here as it might prevent all tokens from being processed
               } else if (data.type === "error") {
                 console.error("Streaming error received:", data.message);
-                throw new Error(data.message || "Streaming error occurred");
+                onTokenReceived(`⚠️ ${data.message}`); // Pass friendly error message as a token
+                // Don't throw error as it breaks the streaming flow - let it complete naturally
               }
             } catch (e) {
               // Skip malformed JSON
