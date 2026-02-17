@@ -50,6 +50,34 @@
   overflow-wrap: break-word;
   line-height: 1.5;
   font-size: 14px;
+  /* Ensure content doesn't overflow horizontally */
+  max-width: 100%;
+  overflow-x: auto; /* Allow horizontal scroll if absolutely necessary */
+}
+
+/* Ensure markdown content respects container width */
+.message-content p,
+.message-content div,
+.message-content span {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Handle code blocks specifically to prevent horizontal overflow */
+.message-content pre,
+.message-content code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Ensure all child elements respect max width */
+.message-content * {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .error-message .message-content {
@@ -83,6 +111,17 @@
 .message-sources li {
   margin-bottom: 4px;
   color: #666;
+}
+
+.selected-text-context {
+  background-color: rgba(0, 194, 106, 0.15); /* Light green with opacity */
+  color: #00C26A; /* Green text */
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-style: italic;
+  margin-bottom: 6px;
+  display: inline-block;
 }
 
 .user-message .message-sources summary {

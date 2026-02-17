@@ -1099,9 +1099,12 @@ class IntelligenceService:
 
                 # Check if this is an API quota exceeded error by looking at the error message
                 error_str = str(e).lower()
+                error_str_full = str(e)  # Keep the full error string for more detailed checking
                 friendly_message = "An error occurred while processing your request. Please try again."
 
-                if any(phrase in error_str for phrase in ['quota', 'credit', 'limit', 'exceeded', 'rate limit', 'usage limit', 'api key', 'payment required']):
+                # Check for various API quota/exceedance related phrases
+                if any(phrase in error_str for phrase in ['quota', 'credit', 'limit', 'exceeded', 'rate limit', 'usage limit', 'api key', 'payment required']) or \
+                   any(phrase in error_str_full for phrase in ['credits', 'more credits', 'afford', 'paid account', 'upgrade']):
                     friendly_message = "We've reached our API usage limit. Please try again later or check back soon!"
                 elif any(phrase in error_str for phrase in ['connection', 'timeout', 'network', 'connectivity']):
                     friendly_message = "We're having trouble connecting to our services. Please check your internet connection and try again."

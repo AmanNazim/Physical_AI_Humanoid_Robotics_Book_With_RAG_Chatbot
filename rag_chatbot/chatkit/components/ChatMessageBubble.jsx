@@ -24,6 +24,12 @@ const ChatMessageBubble = ({ message }) => {
           </div>
         ) : (
           <>
+            {/* Display selected text context if present - only for user messages */}
+            {message.selectedText && isUser && (
+              <div className="selected-text-context">
+                About: "{message.selectedText}"
+              </div>
+            )}
             <MarkdownRenderer content={message.content || message.text || ''} />
             {isStreaming && (
               <div className="typing-indicator">
