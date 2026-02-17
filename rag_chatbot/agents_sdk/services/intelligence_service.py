@@ -1041,6 +1041,9 @@ class IntelligenceService:
                                 else:
                                     # Log other event types for debugging
                                     self.logger.debug(f"Other event type processed: {event.type}")
+                        except Exception as e:
+                            self.logger.error(f"Error processing event type: {str(e)}")
+                            continue  # Skip to next event if there's an error processing this one
 
                 # If no streaming events were received, fall back to the non-streaming approach
                 if not events_received:
