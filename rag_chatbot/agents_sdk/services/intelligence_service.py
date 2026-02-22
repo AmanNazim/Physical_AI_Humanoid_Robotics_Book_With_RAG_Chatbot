@@ -132,7 +132,13 @@ class IntelligenceService:
         # Format based on the provider in the base URL
         if 'mistral' in self.base_url.lower():
             # For Mistral models, prefix with 'mistral/' to help LiteLLM identify the provider
-            formatted_model = f"mistral/{formatted_model}"
+            # If we're using Mistral base URL but have an OpenRouter model name,
+            # it means aliases loaded an old model name - use the intended Mistral model
+            if 'meta-llama' in formatted_model.lower() or 'llama' in formatted_model.lower() or 'gpt' in formatted_model.lower():
+                # Force the correct Mistral model since we're using Mistral base URL
+                formatted_model = "mistral/devstral-latest"
+            else:
+                formatted_model = f"mistral/{formatted_model}"
         elif 'openrouter' in self.base_url.lower():
             # For OpenRouter models, prefix with 'openrouter/' to help LiteLLM identify the provider
             formatted_model = f"openrouter/{formatted_model}"
@@ -142,12 +148,16 @@ class IntelligenceService:
         elif 'anthropic' in self.base_url.lower():
             # For Anthropic models, prefix with 'anthropic/' to help LiteLLM identify the provider
             formatted_model = f"anthropic/{formatted_model}"
-        elif 'meta-llama' in formatted_model.lower() or 'llama' in formatted_model.lower():
-            # For Llama models accessed via different providers, determine provider from base URL
-            if 'openrouter' in self.base_url.lower():
+        else:
+            # Default case: if we can't determine provider from base URL, try to infer from model name
+            if 'meta-llama' in formatted_model.lower() or 'llama' in formatted_model.lower():
                 formatted_model = f"openrouter/{formatted_model}"
-            else:
-                formatted_model = f"openrouter/{formatted_model}"  # Default assumption for Llama models
+            elif 'gpt' in formatted_model.lower():
+                formatted_model = f"openai/{formatted_model}"
+            elif 'mistral' in formatted_model.lower():
+                formatted_model = f"mistral/{formatted_model}"
+            elif 'claude' in formatted_model.lower():
+                formatted_model = f"anthropic/{formatted_model}"
 
         litellm_model = LitellmModel(
             model=formatted_model,  # Properly formatted for LiteLLM
