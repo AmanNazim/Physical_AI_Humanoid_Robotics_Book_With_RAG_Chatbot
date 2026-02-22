@@ -58,7 +58,7 @@ def get_agent_config() -> AgentConfig:
         AgentConfig: Configuration object with settings
     """
     # Override defaults with environment variables if available
-    model = os.getenv("AGENT_MODEL", "devstral-latest")
+    model = os.getenv("AGENT_MODEL", "mistral-small-latest")
     temperature = float(os.getenv("AGENT_TEMPERATURE", "0.3"))
     max_tokens = int(os.getenv("AGENT_MAX_TOKENS", "2048"))
     timeout_seconds = int(os.getenv("AGENT_TIMEOUT_SECONDS", "30"))

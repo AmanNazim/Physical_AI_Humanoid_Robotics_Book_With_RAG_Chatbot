@@ -94,7 +94,7 @@ class AppSettings(BaseSettings):
 
     # LLM settings (Mistral only - removing aliases to prevent OpenRouter fallback)
     mistral_api_key: str = Field(default="", description="Mistral API key")
-    mistral_model: str = Field(default="devstral-latest", description="LLM model to use")
+    mistral_model: str = Field(default="mistral-small-latest", description="LLM model to use")
     mistral_base_url: str = Field(default="https://api.mistral.ai/v1/chat/completions", description="Mistral API base URL")
 
     # CORS settings
