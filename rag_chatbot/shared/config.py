@@ -35,12 +35,12 @@ class GeminiSettings(BaseSettings):
 
 
 class LLMSettings(BaseSettings):
-    """Settings for LLM provider (OpenRouter)"""
-    api_key: str = Field(default="", description="OpenRouter API key")
-    model: str = Field(default="meta-llama/llama-3.3-70b-instruct:free", description="LLM model to use")
-    base_url: str = Field(default="https://openrouter.ai/api/v1/chat/completions", description="OpenRouter API base URL")
+    """Settings for LLM provider (Mistral)"""
+    api_key: str = Field(default="", description="Mistral API key")
+    model: str = Field(default="devstral-latest", description="LLM model to use")
+    base_url: str = Field(default="https://api.mistral.ai/v1/chat/completions", description="Mistral API base URL")
 
-    model_config = SettingsConfigDict(env_prefix="OPENROUTER_")
+    model_config = SettingsConfigDict(env_prefix="MISTRAL_")
 
 
 class CORSSettings(BaseSettings):
@@ -93,9 +93,9 @@ class AppSettings(BaseSettings):
     gemini_output_dimensionality: int = Field(default=1536, description="Output dimensionality for embeddings")
 
     # LLM settings (OpenRouter)
-    openrouter_api_key: str = Field(default="", description="OpenRouter API key")
-    openrouter_model: str = Field(default="meta-llama/llama-3.3-70b-instruct:free", description="LLM model to use")
-    openrouter_base_url: str = Field(default="https://openrouter.ai/api/v1/chat/completions", description="OpenRouter API base URL")
+    mistral_api_key: str = Field(default="", description="Mistral API key")
+    mistral_model: str = Field(default="devstral-latest", description="LLM model to use")
+    mistral_base_url: str = Field(default="https://api.mistral.ai/v1/chat/completions", description="Mistral API base URL")
 
     # CORS settings
     cors_cors_allowed_origins: str = Field(default="*", description="CORS allowed origins")

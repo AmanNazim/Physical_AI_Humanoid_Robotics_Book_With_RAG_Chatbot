@@ -5,6 +5,7 @@ This guide provides step-by-step instructions for deploying your FastAPI RAG bac
 ## About Hugging Face Spaces
 
 Hugging Face Spaces provides free GPU-powered containers for deploying machine learning applications. You get:
+
 - Free tier with 300 GPU hours per month
 - Easy GitHub integration
 - Multiple SDK options (Docker, Gradio, Streamlit, etc.)
@@ -34,6 +35,7 @@ Hugging Face Spaces provides free GPU-powered containers for deploying machine l
 ## Required Files for Hugging Face Spaces
 
 Your repository should contain:
+
 - `Dockerfile` - Multi-stage Docker build (already provided)
 - `space.yaml` - Hugging Face Spaces configuration (already provided)
 - `pyproject.toml` - Project dependencies
@@ -48,6 +50,7 @@ Your repository should contain:
 In your Space settings, go to the "Secrets" tab and add:
 
 #### Required Secrets:
+
 - `QDRANT_HOST` - Your Qdrant Cloud host URL
 - `QDRANT_API_KEY` - Your Qdrant Cloud API key
 - `QDRANT_COLLECTION_NAME` - Qdrant collection name (e.g., "book_embeddings")
@@ -56,6 +59,7 @@ In your Space settings, go to the "Secrets" tab and add:
 - `OPENROUTER_API_KEY` - OpenRouter API key for LLM
 
 #### Optional Secrets:
+
 - `LOG_LEVEL` - Logging level (default: "INFO")
 - `DEBUG` - Debug mode (default: "False")
 - `APP_NAME` - Application name (default: "RAG Chatbot")
@@ -63,6 +67,7 @@ In your Space settings, go to the "Secrets" tab and add:
 ## Dockerfile Configuration for Hugging Face
 
 The provided Dockerfile is already optimized for Hugging Face Spaces:
+
 - Multi-stage build for smaller image size
 - Uses uv for fast dependency installation
 - Non-root user for security
@@ -72,6 +77,7 @@ The provided Dockerfile is already optimized for Hugging Face Spaces:
 ## space.yaml Configuration
 
 The space.yaml file configures the Space runtime:
+
 - Uses Docker runtime
 - Allocates CPU resources (can be upgraded to GPU if needed)
 - Sets memory allocation
@@ -81,6 +87,7 @@ The space.yaml file configures the Space runtime:
 ### 1. Prepare Your Repository
 
 Make sure your repository contains all necessary files:
+
 ```bash
 Dockerfile
 space.yaml
@@ -120,6 +127,7 @@ databases/
 ## API Endpoints
 
 Once deployed, your API endpoints will be available at:
+
 - Health: `https://your-username-space-name.hf.space/api/v1/health`
 - Config: `https://your-username-space-name.hf.space/api/v1/config`
 - Chat: `https://your-username-space-name.hf.space/api/v1/chat`
@@ -138,23 +146,26 @@ Once deployed, your API endpoints will be available at:
 ## Troubleshooting
 
 ### Application Not Starting
+
 - Check that the PORT environment variable is being used
 - Verify that the application binds to 0.0.0.0, not localhost
 - Review logs in the Spaces interface
 
 ### Build Failures
+
 - Ensure all dependencies in pyproject.toml are available
 - Check that the Dockerfile builds successfully locally
 - Verify that the image size doesn't exceed limits
 
 ### Environment Variables Not Working
+
 - Make sure secrets are added in the Spaces settings, not as regular environment variables
 - Verify secret names match exactly what the application expects
 
 ## Scaling and Performance
 
 - Upgrade hardware in Space settings for better performance
-- Monitor resource usage in the Spaces dashboard
+- Monitor resources usage in the Spaces dashboard
 - Consider caching strategies for better response times
 
 Your FastAPI RAG backend is now ready for Hugging Face Spaces deployment!

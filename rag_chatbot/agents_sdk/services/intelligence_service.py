@@ -74,14 +74,14 @@ class IntelligenceService:
         self.logger = rag_logger
         self.streaming_service = StreamingService()
 
-        # Initialize OpenRouter API configuration
-        self.api_key = settings.openrouter_api_key
-        self.base_url = settings.openrouter_base_url
-        self.model = settings.openrouter_model
+        # Initialize Mistral API configuration
+        self.api_key = settings.mistral_api_key
+        self.base_url = settings.mistral_base_url
+        self.model = settings.mistral_model
 
         # Verify API key is available
         if not self.api_key:
-            self.logger.warning("OpenRouter API key not found in environment variables")
+            self.logger.warning("Mistral API key not found in environment variables")
 
         # Initialize agent state
         self.agent_initialized = False
@@ -90,7 +90,7 @@ class IntelligenceService:
         # Initialize persona and prompt templates
         self.persona_config = {
             "role": "Expert Technical Instructor for the Physical AI & Humanoid Robotics Book",
-            "tone": "authoritative but friendly",
+            "tone": "authoritative but friendly, human's sounding instructor and mentor",
             "style": "technically precise",
             "constraints": [
                 "never hallucinate",
@@ -104,13 +104,13 @@ class IntelligenceService:
         try:
             # Verify API key availability
             if not self.api_key:
-                raise ValueError("OpenRouter API key is required but not configured")
+                raise ValueError("Mistral API key is required but not configured")
 
             # Disable tracing to avoid OPENAI_API_KEY requirement
             from agents import set_tracing_disabled
             set_tracing_disabled(True)
 
-            # Initialize the main agent with LiteLLM for OpenRouter
+            # Initialize the main agent with LiteLLM for Mistral
             await self._initialize_main_agent()
 
             self.agent_initialized = True
@@ -128,10 +128,10 @@ class IntelligenceService:
             # Handle OpenRouter free tier models by removing :free suffix
             formatted_model = self.model.replace(':free', '')
 
-        # For OpenRouter, ensure the model is properly formatted
-        # For OpenRouter models, prefix with 'openrouter/' to help LiteLLM identify the provider
-        if 'openrouter' in self.base_url.lower():
-            formatted_model = f"openrouter/{formatted_model}"
+        # For Mistral, ensure the model is properly formatted
+        # For Mistral models, prefix with 'mistral/' to help LiteLLM identify the provider
+        if 'mistral' in self.base_url.lower():
+            formatted_model = f"mistral/{formatted_model}"
 
         litellm_model = LitellmModel(
             model=formatted_model,  # Properly formatted for LiteLLM
