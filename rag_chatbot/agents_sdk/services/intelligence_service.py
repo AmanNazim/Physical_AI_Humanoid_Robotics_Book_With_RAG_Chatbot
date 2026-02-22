@@ -128,10 +128,26 @@ class IntelligenceService:
             # Handle OpenRouter free tier models by removing :free suffix
             formatted_model = self.model.replace(':free', '')
 
-        # For Mistral, ensure the model is properly formatted
-        # For Mistral models, prefix with 'mistral/' to help LiteLLM identify the provider
+        # For different LLM providers, ensure the model is properly formatted
+        # Format based on the provider in the base URL
         if 'mistral' in self.base_url.lower():
+            # For Mistral models, prefix with 'mistral/' to help LiteLLM identify the provider
             formatted_model = f"mistral/{formatted_model}"
+        elif 'openrouter' in self.base_url.lower():
+            # For OpenRouter models, prefix with 'openrouter/' to help LiteLLM identify the provider
+            formatted_model = f"openrouter/{formatted_model}"
+        elif 'openai' in self.base_url.lower():
+            # For OpenAI models, prefix with 'openai/' to help LiteLLM identify the provider
+            formatted_model = f"openai/{formatted_model}"
+        elif 'anthropic' in self.base_url.lower():
+            # For Anthropic models, prefix with 'anthropic/' to help LiteLLM identify the provider
+            formatted_model = f"anthropic/{formatted_model}"
+        elif 'meta-llama' in formatted_model.lower() or 'llama' in formatted_model.lower():
+            # For Llama models accessed via different providers, determine provider from base URL
+            if 'openrouter' in self.base_url.lower():
+                formatted_model = f"openrouter/{formatted_model}"
+            else:
+                formatted_model = f"openrouter/{formatted_model}"  # Default assumption for Llama models
 
         litellm_model = LitellmModel(
             model=formatted_model,  # Properly formatted for LiteLLM
