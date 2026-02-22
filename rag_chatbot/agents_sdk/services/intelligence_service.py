@@ -161,8 +161,7 @@ class IntelligenceService:
 
         litellm_model = LitellmModel(
             model=formatted_model,  # Properly formatted for LiteLLM
-            api_key=self.api_key,
-            base_url=self.base_url
+            api_key=self.api_key
         )
 
         # Create model settings with usage tracking, temperature, and increased max turns

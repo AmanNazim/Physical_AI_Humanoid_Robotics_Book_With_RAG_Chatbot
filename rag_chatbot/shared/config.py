@@ -92,10 +92,10 @@ class AppSettings(BaseSettings):
     gemini_task_type: str = Field(default="RETRIEVAL_DOCUMENT", description="Task type for embeddings")
     gemini_output_dimensionality: int = Field(default=1536, description="Output dimensionality for embeddings")
 
-    # LLM settings (Mistral only - removing aliases to prevent OpenRouter fallback)
-    mistral_api_key: str = Field(default="", description="Mistral API key")
+    # LLM settings (can use various providers)
+    mistral_api_key: str = Field(default="", description="LLM API key")
     mistral_model: str = Field(default="mistral-small-latest", description="LLM model to use")
-    mistral_base_url: str = Field(default="https://api.mistral.ai/v1/chat/completions", description="Mistral API base URL")
+    mistral_base_url: str = Field(default="", description="LLM API base URL (leave empty for default providers)")
 
     # CORS settings
     cors_cors_allowed_origins: str = Field(default="*", description="CORS allowed origins")
