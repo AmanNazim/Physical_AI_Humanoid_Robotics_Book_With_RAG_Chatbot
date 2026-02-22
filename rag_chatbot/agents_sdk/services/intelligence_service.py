@@ -22,14 +22,14 @@ from agents.extensions.models.litellm_model import LitellmModel
 from agents.model_settings import ModelSettings
 
 # Import event types for streaming - with fallback if direct import fails
-try:
-    from agents.types.events import ResponseTextDeltaEvent
-except ImportError:
-    # Define a fallback class if direct import fails
-    class ResponseTextDeltaEvent:
-        def __init__(self, **kwargs):
-            for k, v in kwargs.items():
-                setattr(self, k, v)
+# try:
+from openai.types.responses import ResponseTextDeltaEvent
+# except ImportError:
+#     # Define a fallback class if direct import fails
+#     class ResponseTextDeltaEvent:
+#         def __init__(self, **kwargs):
+#             for k, v in kwargs.items():
+#                 setattr(self, k, v)
 
 # Import existing modules to maintain integration
 from shared.config import settings
@@ -843,7 +843,7 @@ class IntelligenceService:
                         # This is the most important event type for streaming text
                         if (hasattr(event, 'data') and
                             event.data and
-                            type(event.data).__name__ == 'ResponseTextDeltaEvent' and
+                            type(event.data).__name__ == ResponseTextDeltaEvent and
                             hasattr(event.data, 'delta') and
                             event.data.delta):
                             delta_text = event.data.delta
