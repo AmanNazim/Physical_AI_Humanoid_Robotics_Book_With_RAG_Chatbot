@@ -136,9 +136,9 @@ class AppSettings(BaseSettings):
     @property
     def llm_settings(self) -> LLMSettings:
         return LLMSettings(
-            api_key=self.openrouter_api_key,
-            model=self.openrouter_model,
-            base_url=self.openrouter_base_url
+            api_key=self.mistral_api_key,
+            model=self.mistral_model,
+            base_url=self.mistral_base_url
         )
 
     @property
