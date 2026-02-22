@@ -15,7 +15,7 @@ class AgentConfig(BaseModel):
     Configuration class for the Intelligence Layer agents.
     """
     # Model settings
-    model: str = "openai/gpt-4-turbo"
+    model: str = "mistral/mistral-large-latest"
     temperature: float = 0.3
     max_tokens: int = 2048
 
@@ -43,8 +43,8 @@ class AgentConfig(BaseModel):
     enable_streaming: bool = True
 
     # API settings
-    api_base_url: str = "https://openrouter.ai/api/v1"
-    api_key_env_var: str = "OPENROUTER_API_KEY"
+    api_base_url: str = "https://api.mistral.ai/v1"
+    api_key_env_var: str = "MISTRAL_API_KEY"
 
     class Config:
         arbitrary_types_allowed = True
@@ -58,7 +58,7 @@ def get_agent_config() -> AgentConfig:
         AgentConfig: Configuration object with settings
     """
     # Override defaults with environment variables if available
-    model = os.getenv("AGENT_MODEL", "openai/gpt-4-turbo")
+    model = os.getenv("AGENT_MODEL", "devstral-latest")
     temperature = float(os.getenv("AGENT_TEMPERATURE", "0.3"))
     max_tokens = int(os.getenv("AGENT_MAX_TOKENS", "2048"))
     timeout_seconds = int(os.getenv("AGENT_TIMEOUT_SECONDS", "30"))

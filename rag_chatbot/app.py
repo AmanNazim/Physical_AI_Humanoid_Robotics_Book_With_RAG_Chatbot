@@ -38,16 +38,17 @@ def create_app_with_error_handling():
         return app
     except Exception as e:
         logging.error(f"Unexpected error importing backend: {e}")
+        error_msg = str(e)  # Capture the error message in a local variable
         from fastapi import FastAPI
         app = FastAPI(title="RAG Chatbot API (Error Mode)", description="API in error recovery mode")
 
         @app.get("/")
         async def root():
-            return {"message": "RAG Chatbot API (Error Recovery Mode)", "error": str(e)}
+            return {"message": "RAG Chatbot API (Error Recovery Mode)", "error": error_msg}
 
         @app.get("/health")
         async def health():
-            return {"status": "error", "service": "RAG Chatbot API", "error": str(e)}
+            return {"status": "error", "service": "RAG Chatbot API", "error": error_msg}
 
         return app
 

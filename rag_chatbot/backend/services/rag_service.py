@@ -19,8 +19,8 @@ class RAGService:
         self.retrieval_service = RetrievalService()
         # We'll use a placeholder for the LLM service that will be replaced by Agents SDK later
         self.llm_api_key = None
-        self.llm_base_url = "https://openrouter.ai/api/v1"
-        self.llm_model = "openai/gpt-4-turbo"
+        self.llm_base_url = "https://api.mistral.ai/v1"
+        self.llm_model = "mistral-large-latest"
 
     async def initialize(self):
         """
