@@ -5,7 +5,7 @@ This file allows the FastAPI backend to run in Hugging Face Spaces environment.
 import os
 import logging
 
-# Set up basic logging early
+# Sets up basic logging early
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def create_app_with_error_handling():
