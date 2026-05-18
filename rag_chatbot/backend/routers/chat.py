@@ -77,16 +77,20 @@ async def chat_stream_endpoint(request: ChatRequest):
         return StreamingResponse(generate_stream(), media_type="text/event-stream")
 
     except Exception as e:
-        rag_logger.error(f"Chat stream endpoint error: {str(e)}")
+
+        # convert the string first rather than putting the str(e) directly in to the dict and code to avoid free variable "e" error.
+        error_msg = str(e)
+
+        rag_logger.error(f"Chat stream endpoint error: {error_msg}")
 
         async def error_stream():
             error_data = {
                 "status": "error",
-                "message": str(e)
+                "message": error_msg
             }
             yield f"data: {json.dumps(error_data)}\n\n"
 
-        return StreamingResponse(error_stream(), media_type="text/plain")
+        return StreamingResponse(error_stream(), media_type="text/event-stream")
 
 
 @router.websocket("/chat/ws/{session_id}")
