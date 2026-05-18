@@ -81,7 +81,7 @@ async def chat_stream_endpoint(request: ChatRequest):
 
         async def error_stream():
             error_data = {
-                "type": "error",
+                "status": "error",
                 "message": str(e)
             }
             yield f"data: {json.dumps(error_data)}\n\n"
