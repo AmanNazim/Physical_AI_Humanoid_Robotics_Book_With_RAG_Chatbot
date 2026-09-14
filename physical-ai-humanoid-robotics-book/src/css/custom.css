@@ -216,3 +216,123 @@
 .footer__link-item:hover {
   color: var(--signal-teal);
 }
+
+/* ============================================================
+   Docs reading experience — the book itself
+   ============================================================ */
+
+/* Measure: chapters are read, not skimmed — cap the line length */
+.theme-doc-markdown,
+.markdown {
+  max-width: 70ch;
+}
+
+.markdown {
+  line-height: var(--ifm-line-height-base);
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.markdown h1 {
+  letter-spacing: -0.02em;
+}
+
+/* Section dividers carry the reader down a long chapter */
+.markdown h2 {
+  margin-top: 2.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.markdown a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.markdown blockquote {
+  border-left: 3px solid var(--signal-teal);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.markdown table {
+  border-collapse: collapse;
+}
+
+.markdown table th,
+.markdown table td {
+  border: 1px solid var(--hairline);
+}
+
+.markdown table th {
+  background: var(--sidebar-hover);
+}
+
+/* Code: prism-react-renderer sets its font inline, so !important is
+   required to hand it to IBM Plex Mono */
+pre,
+code,
+kbd {
+  font-family: var(--ifm-font-family-monospace) !important;
+}
+
+/* Admonitions — quiet tints of the semantic accents */
+.admonition {
+  border-radius: var(--ifm-global-radius);
+}
+
+.admonition-info {
+  background-color: rgba(14, 116, 144, 0.07);
+}
+
+.admonition-tip {
+  background-color: rgba(15, 118, 110, 0.07);
+}
+
+.admonition-warning {
+  background-color: rgba(180, 83, 9, 0.07);
+}
+
+.admonition-danger {
+  background-color: rgba(179, 38, 30, 0.07);
+}
+
+[data-theme='dark'] .admonition-info {
+  background-color: rgba(45, 212, 191, 0.07);
+}
+
+[data-theme='dark'] .admonition-tip {
+  background-color: rgba(52, 211, 153, 0.07);
+}
+
+[data-theme='dark'] .admonition-warning {
+  background-color: rgba(251, 191, 36, 0.07);
+}
+
+[data-theme='dark'] .admonition-danger {
+  background-color: rgba(248, 113, 113, 0.07);
+}
+
+/* Table of contents — signposts in the margin */
+.table-of-contents {
+  font-size: 0.88rem;
+}
+
+.table-of-contents__link {
+  color: var(--text-muted);
+}
+
+.table-of-contents__link:hover,
+.table-of-contents__link--active {
+  color: var(--signal-teal);
+}
