@@ -1,27 +1,28 @@
 :root {
-  /* Green theme colors */
-  --chatkit-primary: #00C26A;
-  --chatkit-primary-dark: #00a85c;
-  --chatkit-primary-light: #e8f5e9;
+  /* Lab Bench theme — light ("whiteboard session")
+     Mirrors the site tokens in physical-ai-humanoid-robotics-book/src/css/custom.css */
+  --chatkit-primary: #0e7490;
+  --chatkit-primary-dark: #0c6884;
+  --chatkit-primary-light: #e6f3f7;
 
   /* Neutral colors */
   --chatkit-background: #ffffff;
-  --chatkit-background-light: #f9f9f9;
-  --chatkit-border: #eeeeee;
-  --chatkit-text-primary: #333333;
-  --chatkit-text-secondary: #666666;
-  --chatkit-text-disabled: #cccccc;
+  --chatkit-background-light: #f2f6f9;
+  --chatkit-border: #e3e9ef;
+  --chatkit-text-primary: #16283e;
+  --chatkit-text-secondary: #4a5b70;
+  --chatkit-text-disabled: #a8b6c6;
 
   /* Error colors */
-  --chatkit-error: #f44336;
-  --chatkit-error-light: #ffebee;
+  --chatkit-error: #b3261e;
+  --chatkit-error-light: #fdecea;
 
   /* Success colors */
-  --chatkit-success: #4caf50;
+  --chatkit-success: #0f766e;
 
   /* Shadow */
-  --chatkit-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --chatkit-shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.2);
+  --chatkit-shadow: 0 4px 12px rgba(10, 21, 38, 0.12);
+  --chatkit-shadow-heavy: 0 10px 30px rgba(10, 21, 38, 0.18);
 
   /* Spacing */
   --chatkit-spacing-xs: 4px;
@@ -32,7 +33,7 @@
 
   /* Border radius */
   --chatkit-radius-sm: 4px;
-  --chatkit-radius-md: 8px;
+  --chatkit-radius-md: 10px;
   --chatkit-radius-lg: 16px;
   --chatkit-radius-round: 50%;
 
@@ -46,4 +47,29 @@
   --chatkit-z-index-drawer: 999999;
   --chatkit-z-index-backdrop: 999998;
   --chatkit-z-index-launcher: 999997;
+}
+
+/* Lab Bench theme — dark ("Isaac viewport").
+   Follows the Docusaurus color mode so the widget matches the book
+   site; the class-based .chatkit-theme-dark in theme.css still works
+   for the standalone chatbot app. */
+[data-theme='dark'] {
+  --chatkit-primary: #2dd4bf;
+  --chatkit-primary-dark: #25bfae;
+  --chatkit-primary-light: #12352f;
+
+  --chatkit-background: #101e33;
+  --chatkit-background-light: #0a1526;
+  --chatkit-border: #1d2f4a;
+  --chatkit-text-primary: #e4ecf4;
+  --chatkit-text-secondary: #9fb2c7;
+  --chatkit-text-disabled: #5a6b80;
+
+  --chatkit-error: #f87171;
+  --chatkit-error-light: #3a1d1f;
+
+  --chatkit-success: #34d399;
+
+  --chatkit-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --chatkit-shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
