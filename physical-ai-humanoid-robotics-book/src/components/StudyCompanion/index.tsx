@@ -5,9 +5,9 @@ import styles from './styles.module.css';
  * "Ask the book" — the RAG chatbot callout. The one place the human
  * amber accent is allowed to speak.
  */
-export default function StudyCompanion(): JSX.Element {
+export default function StudyCompanion(): React.JSX.Element {
   return (
-    <section id="ask-the-book" className={styles.companion}>
+    <section className={styles.companion}>
       <div className="container">
         <div className={styles.card}>
           <svg
@@ -24,7 +24,9 @@ export default function StudyCompanion(): JSX.Element {
           </svg>
           <div>
             <p className={styles.eyebrow}>Ask the book</p>
-            <h2 className={styles.title}>Stuck at 2 a.m.? Ask the book.</h2>
+            <h2 id="ask-the-book" className={styles.title}>
+              Stuck at 2 a.m.? Ask the book.
+            </h2>
             <p className={styles.body}>
               A chatbot that answers from these pages, not the whole
               internet — and shows you where it read the answer.

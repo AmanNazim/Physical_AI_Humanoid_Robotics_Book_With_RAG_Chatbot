@@ -42,7 +42,7 @@ const MODULES = [
   },
 ];
 
-export default function ModuleJourney(): JSX.Element {
+export default function ModuleJourney(): React.JSX.Element {
   return (
     <section className={styles.journey}>
       <div className="container">

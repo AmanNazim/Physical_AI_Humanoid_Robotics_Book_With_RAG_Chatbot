@@ -47,12 +47,14 @@ function HomepageHero() {
           >
             Start with the preface
           </Link>
-          <Link
+          {/* Plain anchor: same-page hash jump, and keeps Docusaurus's
+              link checker out of React-rendered heading ids */}
+          <a
             className={clsx("button button--lg", styles.secondaryButton)}
-            to="#ask-the-book"
+            href="#ask-the-book"
           >
             Meet your study companion
-          </Link>
+          </a>
         </div>
       </div>
     </header>
