@@ -8,7 +8,7 @@ const config: Config = {
   title: "Physical AI & Humanoid Robotics with RAG Chatbot",
   tagline:
     "A comprehensive educational resource for Physical AI, Humanoid Robotics, and RAG-Powered Learning",
-  favicon: "img/physical-ai-logo.png",
+  favicon: "img/favicon-hr.png",
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -69,8 +69,9 @@ const config: Config = {
     navbar: {
       title: "Physical AI & Humanoid Robotics with RAG Chatbot",
       logo: {
-        alt: "Physical AI & Humanoid Robotics Book with RAG Chatbot Logo",
-        src: "img/physical-ai-logo.png",
+        alt: "Humanoid Robotics HR monogram logo",
+        src: "img/logo-hr-light.png",
+        srcDark: "img/logo-hr-dark.png",
       },
       items: [
         {

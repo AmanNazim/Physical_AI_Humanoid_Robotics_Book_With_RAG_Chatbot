@@ -35,6 +35,10 @@
 - [x] T014 Run `npm run build` (with `onBrokenLinks: "throw"`) and `npm run typecheck`; fix any failures
 - [x] T015 Final dual-mode review pass; log final commit hash into `validation.md`
 
+## Task Group 6 — Logo (user-built HR monogram)
+
+- [x] T016 Wire the user-built HR monogram ("Black White Minimalist Professional Initial Logo.png") into the site: extract the glyph to transparent PNGs (white variant for dark mode, ink-to-teal remap for light mode, 512px) and the black square as favicon; configure navbar `logo: { src, srcDark }` + `favicon` in `docusaurus.config.ts`
+
 ## Acceptance Criteria (from specification.md)
 
 - [x] All four user stories pass in light and dark mode
