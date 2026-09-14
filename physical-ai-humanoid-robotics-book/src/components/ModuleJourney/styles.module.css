@@ -1,0 +1,138 @@
+/**
+ * Module journey — four cards on one continuous signal line.
+ * The numbered sequence is real: each module's chapters assume the
+ * previous module's skills.
+ */
+
+.journey {
+  padding: 4rem 0 3rem;
+  background: var(--lab-paper);
+}
+
+.eyebrow {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--signal-teal);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* The signal line connecting the four module nodes */
+.journeyRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  padding-top: 1.75rem;
+}
+
+.journeyRow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--signal-teal) 15%,
+    var(--signal-teal) 85%,
+    transparent
+  );
+  opacity: 0.6;
+}
+
+/* The node dot where each module plugs into the line */
+.moduleCard::before {
+  content: '';
+  position: absolute;
+  top: calc(-1.75rem - 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--lab-paper);
+  border: 3px solid var(--signal-teal);
+}
+
+.moduleCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--lab-surface);
+  border: 1px solid var(--hairline);
+  border-radius: 0.75rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.moduleCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--signal-teal);
+  box-shadow: 0 12px 28px var(--signal-teal-glow);
+}
+
+.moduleCard:focus-visible {
+  outline: 2px solid var(--signal-teal);
+  outline-offset: 2px;
+}
+
+.moduleNumber {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--signal-teal);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+}
+
+.moduleTitle {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  color: var(--ifm-heading-color);
+  margin: 0 0 0.75rem;
+}
+
+.moduleDescription {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  flex-grow: 1;
+  margin: 0 0 1rem;
+}
+
+.moduleMeta {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 996px) {
+  .journeyRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .journeyRow {
+    grid-template-columns: 1fr;
+    padding-top: 0;
+  }
+
+  /* No line to travel on a single column — the dots go with it */
+  .journeyRow::before,
+  .moduleCard::before {
+    display: none;
+  }
+}

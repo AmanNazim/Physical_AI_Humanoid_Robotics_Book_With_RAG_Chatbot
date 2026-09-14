@@ -171,3 +171,48 @@
   outline: 2px solid var(--signal-teal);
   outline-offset: 2px;
 }
+
+/* ============================================================
+   Navbar + footer
+   ============================================================ */
+.navbar {
+  border-bottom: 1px solid var(--hairline);
+  box-shadow: none;
+}
+
+.navbar__title {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.navbar__link:focus-visible {
+  outline: 2px solid var(--signal-teal);
+  outline-offset: 2px;
+}
+
+/* .footer--dark sets its vars on the footer element itself, so :root
+   tokens don't reach it — override at the same level. */
+.footer--dark {
+  --ifm-footer-background-color: #16283e;
+  --ifm-footer-link-color: #b8c7d9;
+  --ifm-footer-title-color: #ffffff;
+}
+
+[data-theme='dark'] .footer--dark {
+  --ifm-footer-background-color: #071018;
+  --ifm-footer-link-color: #9fb2c7;
+  --ifm-footer-title-color: #e4ecf4;
+}
+
+.footer {
+  border-top: 3px solid var(--signal-teal);
+}
+
+.footer__title {
+  font-family: var(--ifm-heading-font-family);
+}
+
+.footer__link-item:hover {
+  color: var(--signal-teal);
+}
