@@ -18,3 +18,5 @@ This file logs commit hashes as required by Claude Git Automation Rule #10.
 | 2026-09-14 | e808ad3 | UI/UX Redesign | Chatbot widget | Restyle ChatKit | feat: restyle ChatKit widget with Lab Bench tokens (T012) |
 | 2026-09-14 | c0e2bac | UI/UX Redesign | N/A (site-wide) | Cleanup and build fixes | chore: remove unused template assets and fix build warnings (T013-T014) |
 | 2026-09-14 | aa0e17e | UI/UX Redesign | N/A | Mark tasks complete | docs: mark all tasks complete and record final PHR (T015) |
+| 2026-09-15 | 1d720b2 | UI/UX Redesign | N/A (site-wide) | Wire user-built HR logo (T016) | feat: wire user-built HR monogram logo with dual-mode variants (T016) |
+| 2026-09-15 | acf78eb | UI/UX Redesign | N/A (site-wide) | Commit logo review artifacts and PHRs | chore: add logo review rounds and PHRs 005-011 (T016) |
