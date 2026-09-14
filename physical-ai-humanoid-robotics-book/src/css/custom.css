@@ -1,37 +1,133 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Physical AI & Humanoid Robotics — "Lab Bench" design system
+ *
+ * Dual-mode tokens:
+ *   :root               → light mode  ("whiteboard session")
+ *   [data-theme='dark'] → dark mode   ("Isaac viewport")
+ *
+ * Signature: the Signal Path — an oscilloscope trace motif that appears in
+ * the homepage hero and connects the module journey cards. Everything else
+ * stays quiet so the signal can glow.
+ *
+ * Fonts are bundled locally via @fontsource (no runtime CDN).
  */
 
-/* You can override the default Infima variables here. */
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/source-sans-3/400.css';
+@import '@fontsource/source-sans-3/400-italic.css';
+@import '@fontsource/source-sans-3/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+/* ============================================================
+   Design tokens — light ("whiteboard session")
+   ============================================================ */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --lab-paper: #f7f9fb;
+  --lab-surface: #ffffff;
+  --ink-navy: #16283e;
+  --text-muted: #4a5b70;
+  --signal-teal: #0e7490;
+  --signal-teal-glow: rgba(14, 116, 144, 0.22);
+  --human-amber: #b45309;
+  --human-amber-bright: #f59e0b;
+  --grid-line: rgba(14, 116, 144, 0.07);
+  --hairline: #e3e9ef;
+  --sidebar-hover: rgba(14, 116, 144, 0.08);
+
+  /* Infima mapping */
+  --ifm-color-primary: #0e7490;
+  --ifm-color-primary-dark: #0c6884;
+  --ifm-color-primary-darker: #0b617c;
+  --ifm-color-primary-darkest: #084e66;
+  --ifm-color-primary-light: #1a809b;
+  --ifm-color-primary-lighter: #2d8ba3;
+  --ifm-color-primary-lightest: #4b9db3;
+  --ifm-background-color: var(--lab-paper);
+  --ifm-background-surface-color: var(--lab-surface);
+  --ifm-font-color-base: var(--ink-navy);
+  --ifm-heading-color: var(--ink-navy);
+  --ifm-heading-font-family: 'Space Grotesk', 'Source Sans 3', system-ui,
+    sans-serif;
+  --ifm-font-family-base: 'Source Sans 3', system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+  --ifm-font-family-monospace: 'IBM Plex Mono', 'SFMono-Regular', Menlo,
+    Consolas, monospace;
+  --ifm-font-size-base: 100%;
+  --ifm-line-height-base: 1.65;
+  --ifm-global-radius: 0.5rem;
+  --ifm-code-font-size: 90%;
+  --ifm-code-background: rgba(14, 116, 144, 0.08);
+  --docusaurus-highlighted-code-line-bg: rgba(14, 116, 144, 0.14);
+
+  /* Semantic accents (admonitions, chat, statuses) */
+  --ifm-color-info: #0e7490;
+  --ifm-color-success: #0f766e;
+  --ifm-color-warning: #b45309;
+  --ifm-color-danger: #b3261e;
+
+  /* Navbar + footer */
+  --ifm-navbar-background-color: var(--lab-surface);
+  --ifm-navbar-height: 3.75rem;
+  --ifm-footer-background-color: #16283e;
+  --ifm-footer-link-color: #b8c7d9;
+  --ifm-footer-title-color: #ffffff;
+
+  /* Docs sidebar width */
+  --doc-sidebar-width: 280px;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* ============================================================
+   Design tokens — dark ("Isaac viewport")
+   ============================================================ */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --lab-paper: #0a1526;
+  --lab-surface: #101e33;
+  --ink-navy: #0a1526;
+  --text-muted: #9fb2c7;
+  --signal-teal: #2dd4bf;
+  --signal-teal-glow: rgba(45, 212, 191, 0.22);
+  --human-amber: #fbbf24;
+  --human-amber-bright: #fbbf24;
+  --grid-line: rgba(45, 212, 191, 0.06);
+  --hairline: #1d2f4a;
+  --sidebar-hover: rgba(45, 212, 191, 0.10);
+
+  --ifm-color-primary: #2dd4bf;
+  --ifm-color-primary-dark: #25bfae;
+  --ifm-color-primary-darker: #21b2a3;
+  --ifm-color-primary-darkest: #1b9488;
+  --ifm-color-primary-light: #3fd9c8;
+  --ifm-color-primary-lighter: #57ddce;
+  --ifm-color-primary-lightest: #7de3d8;
+  --ifm-background-color: var(--lab-paper);
+  --ifm-background-surface-color: var(--lab-surface);
+  --ifm-font-color-base: #e4ecf4;
+  --ifm-heading-color: #e4ecf4;
+  --ifm-code-background: rgba(45, 212, 191, 0.10);
+  --docusaurus-highlighted-code-line-bg: rgba(45, 212, 191, 0.16);
+
+  --ifm-color-info: #2dd4bf;
+  --ifm-color-success: #34d399;
+  --ifm-color-warning: #fbbf24;
+  --ifm-color-danger: #f87171;
+
+  --ifm-navbar-background-color: #0d1a2e;
+  --ifm-footer-background-color: #071018;
+  --ifm-footer-link-color: #9fb2c7;
+  --ifm-footer-title-color: #e4ecf4;
 }
 
-/* Sidebar styling for minimal UI and proper heights */
+/* ============================================================
+   Sidebar — single consolidated, token-driven block
+   (replaces the previous duplicated .menu rules and the
+   hardcoded 280px/60px values)
+   ============================================================ */
 .menu {
-  padding: 0.5rem 0.75rem !important;
+  padding: 0.5rem 0.75rem;
+  max-height: calc(100vh - var(--ifm-navbar-height));
+  overflow-y: auto;
 }
 
 .menu__list {
@@ -46,35 +142,32 @@
   margin-bottom: 0;
 }
 
-.menu__link {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  margin: 0.125rem 0;
-}
-
-.menu__link--active {
-  border-left: 3px solid var(--ifm-color-primary);
-  padding-left: calc(1rem - 3px);
-}
-
-/* Ensure proper height for sidebar items */
-.theme-doc-sidebar-menu {
-  min-height: calc(100vh - 60px);
-}
-
-/* Minimal UI styling */
+.menu__link,
 .menu__caret,
 .menu__link--sublist {
-  padding: 0.5rem 1rem !important;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  margin: 0.125rem 0;
+  transition: background-color var(--ifm-transition-fast) ease,
+    color var(--ifm-transition-fast) ease;
 }
 
-/* Adjust sidebar width if needed */
-.sidebar {
-  width: 280px;
+.menu__link:hover,
+.menu__link--sublist:hover,
+.menu__caret:hover {
+  background: var(--sidebar-hover);
 }
 
-/* Ensure proper scrolling */
-.menu {
-  max-height: calc(100vh - 60px);
-  overflow-y: auto;
+.menu__link--active:not(.menu__link--sublist) {
+  border-left: 3px solid var(--signal-teal);
+  padding-left: calc(1rem - 3px);
+  background: var(--sidebar-hover);
+  color: var(--signal-teal);
+  font-weight: 600;
+}
+
+.menu__link:focus-visible,
+.menu__caret-button:focus-visible {
+  outline: 2px solid var(--signal-teal);
+  outline-offset: 2px;
 }
