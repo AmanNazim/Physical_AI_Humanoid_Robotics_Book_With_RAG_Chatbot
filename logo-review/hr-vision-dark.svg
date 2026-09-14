@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HR Vision ligature logo, dark variant">
+  <title>Humanoid Robotics — HR Vision (dark)</title>
+  <defs>
+    <linearGradient id="coreD" gradientUnits="userSpaceOnUse" x1="0" y1="13" x2="0" y2="51">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#D9F7F3"/>
+    </linearGradient>
+    <filter id="glowD" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+  </defs>
+  <!-- neon underglow -->
+  <g fill="none" stroke="#2DD4BF" stroke-width="9" opacity="0.5" filter="url(#glowD)" stroke-linejoin="miter">
+    <path d="M16 13 V51"/>
+    <path d="M32 13 V51"/>
+    <path d="M16 26 H44 L48 22 V17 L44 13 H32"/>
+    <path d="M37 26 L49 51"/>
+  </g>
+  <!-- white core; the crossbar flows continuously into the R bowl -->
+  <g fill="none" stroke="url(#coreD)" stroke-width="5.5" stroke-linejoin="miter">
+    <path d="M16 13 V51"/>
+    <path d="M32 13 V51"/>
+    <path d="M16 26 H44 L48 22 V17 L44 13 H32"/>
+  </g>
+  <!-- the R leg in neon teal: one stroke of depth -->
+  <path d="M37 26 L49 51" fill="none" stroke="#2DD4BF" stroke-width="5.5"/>
+</svg>

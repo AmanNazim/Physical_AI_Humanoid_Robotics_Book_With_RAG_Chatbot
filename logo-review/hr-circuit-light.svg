@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HR Circuit ligature logo, light variant">
+  <title>Humanoid Robotics — HR Circuit (light)</title>
+  <defs>
+    <filter id="glowCL" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.8"/>
+    </filter>
+  </defs>
+  <g fill="none" stroke="#0E7490" stroke-width="6" opacity="0.25" filter="url(#glowCL)" stroke-linejoin="miter">
+    <path d="M12 16 V48"/>
+    <path d="M26 16 V48"/>
+    <path d="M12 32 H26"/>
+    <path d="M26 16 H38 L42 20 V28 L38 32 H26"/>
+    <path d="M31 32 L43 48"/>
+  </g>
+  <g fill="none" stroke="#16283E" stroke-width="3.5" stroke-linejoin="miter">
+    <path d="M12 16 V48"/>
+    <path d="M26 16 V48"/>
+    <path d="M12 32 H26"/>
+    <path d="M26 16 H38 L42 20 V28 L38 32 H26"/>
+    <path d="M31 32 L43 48"/>
+  </g>
+  <g fill="none" stroke="#0E7490" stroke-width="2">
+    <circle cx="12" cy="16" r="2.4"/>
+    <circle cx="26" cy="16" r="2.4"/>
+    <circle cx="43" cy="48" r="2.4"/>
+  </g>
+</svg>

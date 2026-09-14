@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HR Vision ligature logo, light variant">
+  <title>Humanoid Robotics — HR Vision (light)</title>
+  <defs>
+    <linearGradient id="coreL" gradientUnits="userSpaceOnUse" x1="0" y1="13" x2="0" y2="51">
+      <stop offset="0" stop-color="#16283E"/>
+      <stop offset="1" stop-color="#0E7490"/>
+    </linearGradient>
+    <filter id="glowL" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+  </defs>
+  <!-- soft neon underglow for studio-light mode -->
+  <g fill="none" stroke="#0E7490" stroke-width="9" opacity="0.3" filter="url(#glowL)" stroke-linejoin="miter">
+    <path d="M16 13 V51"/>
+    <path d="M32 13 V51"/>
+    <path d="M16 26 H44 L48 22 V17 L44 13 H32"/>
+    <path d="M37 26 L49 51"/>
+  </g>
+  <g fill="none" stroke="url(#coreL)" stroke-width="5.5" stroke-linejoin="miter">
+    <path d="M16 13 V51"/>
+    <path d="M32 13 V51"/>
+    <path d="M16 26 H44 L48 22 V17 L44 13 H32"/>
+  </g>
+  <path d="M37 26 L49 51" fill="none" stroke="#0E7490" stroke-width="5.5"/>
+</svg>
