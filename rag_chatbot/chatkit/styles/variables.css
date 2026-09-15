@@ -1,6 +1,14 @@
 :root {
   /* Lab Bench theme — light ("whiteboard session")
      Mirrors the site tokens in physical-ai-humanoid-robotics-book/src/css/custom.css */
+
+  /* Typography — the portal root resets inheritance (style.all = 'initial'),
+     so fonts must travel through custom properties like the colors do.
+     Falls back to system stacks in the standalone chatbot app. */
+  --chatkit-font-display: 'Space Grotesk', 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --chatkit-font-body: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --chatkit-font-mono: 'IBM Plex Mono', 'Consolas', 'Monaco', monospace;
+
   --chatkit-primary: #0e7490;
   --chatkit-primary-dark: #0c6884;
   --chatkit-primary-light: #e6f3f7;

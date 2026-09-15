@@ -2,30 +2,30 @@
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 999999;
+  z-index: var(--chatkit-z-index-launcher);
   width: 60px;
   height: 60px;
-  border-radius: 50%;
+  border-radius: var(--chatkit-radius-round);
   border: none;
-  background-color: #00C26A;
+  background-color: var(--chatkit-primary);
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--chatkit-shadow);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: background-color var(--chatkit-transition-fast) ease, box-shadow var(--chatkit-transition-fast) ease, transform var(--chatkit-transition-fast) ease;
   outline: none;
 }
 
 .chat-launcher-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0, 194, 106, 0.3);
-  background-color: #00a85c;
+  transform: scale(1.05);
+  box-shadow: var(--chatkit-shadow-heavy);
+  background-color: var(--chatkit-primary-dark);
 }
 
 .chat-launcher-button:focus {
-  outline: 2px solid rgba(0, 194, 106, 0.5);
+  outline: 2px solid var(--chatkit-primary);
   outline-offset: 2px;
 }
 
@@ -35,7 +35,7 @@
 
 .chat-launcher-button.open {
   transform: scale(0.9);
-  background-color: #00a85c;
+  background-color: var(--chatkit-primary-dark);
 }
 
 .chat-icon {
@@ -44,7 +44,7 @@
 }
 
 .chat-launcher-button.streaming {
-  background-color: #00a85c;
+  background-color: var(--chatkit-primary-dark);
 }
 
 .loading-spinner {
@@ -58,7 +58,7 @@
   width: 6px;
   height: 6px;
   background-color: white;
-  border-radius: 50%;
+  border-radius: var(--chatkit-radius-round);
   display: inline-block;
   animation: spinner-dot 1.4s infinite ease-in-out both;
 }

@@ -4,8 +4,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 999998;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: var(--chatkit-z-index-backdrop);
+  background-color: rgba(10, 21, 38, 0.5);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -16,13 +16,14 @@
   width: 420px;
   height: 70vh;
   max-height: 800px;
-  background: white;
-  border-radius: 16px;
+  background: var(--chatkit-background);
+  border: 1px solid var(--chatkit-border);
+  border-radius: var(--chatkit-radius-lg);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--chatkit-shadow-heavy);
   overflow: hidden;
-  animation: slideInFromRight 0.3s ease-out;
+  animation: slideInFromRight var(--chatkit-transition-normal) ease-out;
 }
 
 @keyframes slideInFromRight {
@@ -40,16 +41,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  border-bottom: 1px solid #eee;
-  background-color: #f9f9f9;
+  padding: var(--chatkit-spacing-md);
+  border-bottom: 1px solid var(--chatkit-border);
+  background-color: var(--chatkit-background-light);
+  font-family: var(--chatkit-font-display);
 }
 
 .chat-header h3 {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: var(--chatkit-text-primary);
 }
 
 .close-button {
@@ -58,14 +60,14 @@
   font-size: 24px;
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: 4px;
-  color: #666;
-  transition: background-color 0.2s;
+  border-radius: var(--chatkit-radius-sm);
+  color: var(--chatkit-text-secondary);
+  transition: background-color var(--chatkit-transition-fast);
 }
 
 .close-button:hover {
-  background-color: #eaeaea;
-  color: #333;
+  background-color: var(--chatkit-primary-light);
+  color: var(--chatkit-text-primary);
 }
 
 .chat-content {
@@ -73,6 +75,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  font-family: var(--chatkit-font-body);
 }
 
 @media (max-width: 768px) {

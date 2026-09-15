@@ -4,8 +4,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 999998;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: var(--chatkit-z-index-backdrop);
+  background-color: rgba(10, 21, 38, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -15,13 +15,14 @@
   height: 80vh;
   max-height: 80vh;
   width: 100%;
-  background: white;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+  background: var(--chatkit-background);
+  border-top: 1px solid var(--chatkit-border);
+  border-top-left-radius: var(--chatkit-radius-lg);
+  border-top-right-radius: var(--chatkit-radius-lg);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: slideUp 0.3s ease-out;
+  animation: slideUp var(--chatkit-transition-normal) ease-out;
   margin-bottom: env(safe-area-inset-bottom, 0);
 }
 
@@ -40,17 +41,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  border-bottom: 1px solid #eee;
-  background-color: #f9f9f9;
+  padding: var(--chatkit-spacing-md);
+  border-bottom: 1px solid var(--chatkit-border);
+  background-color: var(--chatkit-background-light);
   z-index: 1;
+  font-family: var(--chatkit-font-display);
 }
 
 .mobile-drawer-header h3 {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: var(--chatkit-text-primary);
 }
 
 .back-button {
@@ -59,14 +61,14 @@
   font-size: 20px;
   cursor: pointer;
   padding: 8px;
-  border-radius: 50%;
-  color: #666;
-  transition: background-color 0.2s;
+  border-radius: var(--chatkit-radius-round);
+  color: var(--chatkit-text-secondary);
+  transition: background-color var(--chatkit-transition-fast);
 }
 
 .back-button:hover {
-  background-color: #eaeaea;
-  color: #333;
+  background-color: var(--chatkit-primary-light);
+  color: var(--chatkit-text-primary);
 }
 
 .header-spacer {
@@ -78,6 +80,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  font-family: var(--chatkit-font-body);
 }
 
 @media (min-width: 769px) {

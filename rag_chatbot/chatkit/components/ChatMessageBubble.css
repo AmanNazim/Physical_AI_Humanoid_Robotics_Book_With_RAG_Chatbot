@@ -2,7 +2,7 @@
   display: flex;
   gap: 12px;
   max-width: 90%;
-  animation: fadeIn 0.2s ease-out;
+  animation: fadeIn var(--chatkit-transition-fast) ease-out;
 }
 
 @keyframes fadeIn {
@@ -22,14 +22,15 @@
 }
 
 .user-message .message-content {
-  background-color: #00C26A;
+  background-color: var(--chatkit-primary);
   color: white;
   border-radius: 18px 18px 4px 18px;
 }
 
 .bot-message .message-content {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: var(--chatkit-background-light);
+  color: var(--chatkit-text-primary);
+  border: 1px solid var(--chatkit-border);
   border-radius: 18px 18px 18px 4px;
 }
 
@@ -81,25 +82,26 @@
 }
 
 .error-message .message-content {
-  background-color: #ffebee;
-  color: #c62828;
+  background-color: var(--chatkit-error-light);
+  color: var(--chatkit-error);
+  border: 1px solid var(--chatkit-error);
   border-radius: 18px;
 }
 
 .error-content strong {
-  color: #b71c1c;
+  color: var(--chatkit-error);
 }
 
 .message-sources {
   margin-top: 8px;
   padding-top: 8px;
-  border-top: 1px dashed #ccc;
+  border-top: 1px dashed var(--chatkit-border);
   font-size: 12px;
 }
 
 .message-sources summary {
   cursor: pointer;
-  color: #00C26A;
+  color: var(--chatkit-primary);
   font-weight: 500;
 }
 
@@ -110,7 +112,7 @@
 
 .message-sources li {
   margin-bottom: 4px;
-  color: #666;
+  color: var(--chatkit-text-secondary);
 }
 
 /* Container for the entire message bubble and context */
@@ -121,10 +123,10 @@
 }
 
 .selected-text-context {
-  background-color: rgba(0, 194, 106, 0.15); /* Light green with opacity */
-  color: #007a4d; /* Darker green text for better contrast */
+  background-color: var(--chatkit-primary-light);
+  color: var(--chatkit-primary);
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--chatkit-radius-md);
   font-size: 13px;
   font-style: italic;
   font-weight: 500;
@@ -158,8 +160,8 @@
 /* For user messages, align the selected text to the right */
 .user-message-container .selected-text-context {
   align-self: flex-end;
-  background-color: rgba(0, 194, 106, 0.15);
-  color: #007a4d;
+  background-color: var(--chatkit-primary-light);
+  color: var(--chatkit-primary);
 }
 
 .user-message .message-sources summary {
@@ -177,8 +179,8 @@
 .typing-indicator span {
   width: 8px;
   height: 8px;
-  background-color: #666;
-  border-radius: 50%;
+  background-color: var(--chatkit-text-disabled);
+  border-radius: var(--chatkit-radius-round);
   display: inline-block;
   animation: typing-dot 1.4s infinite ease-in-out both;
 }

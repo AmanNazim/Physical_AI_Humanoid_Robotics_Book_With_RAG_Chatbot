@@ -15,6 +15,7 @@
 .markdown-renderer h6 {
   margin: 16px 0 8px 0;
   font-weight: 600;
+  color: var(--chatkit-text-primary);
 }
 
 .markdown-renderer h1 { font-size: 1.75em; }
@@ -37,25 +38,26 @@
 .markdown-renderer blockquote {
   margin: 12px 0;
   padding: 8px 16px;
-  border-left: 4px solid #ddd;
-  background-color: #f9f9f9;
-  color: #666;
+  border-left: 4px solid var(--chatkit-border);
+  background-color: var(--chatkit-background-light);
+  color: var(--chatkit-text-secondary);
 }
 
 .markdown-renderer pre {
   margin: 12px 0;
   padding: 12px;
-  background-color: #f5f5f5;
-  border-radius: 6px;
+  background-color: var(--chatkit-background-light);
+  border: 1px solid var(--chatkit-border);
+  border-radius: var(--chatkit-radius-md);
   overflow-x: auto;
   font-size: 0.9em;
 }
 
 .markdown-renderer code {
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  background-color: #f0f0f0;
+  font-family: var(--chatkit-font-mono);
+  background-color: var(--chatkit-background-light);
   padding: 2px 6px;
-  border-radius: 4px;
+  border-radius: var(--chatkit-radius-sm);
   font-size: 0.9em;
 }
 
@@ -66,7 +68,7 @@
 }
 
 .markdown-renderer a {
-  color: #00C26A;
+  color: var(--chatkit-primary);
   text-decoration: underline;
 }
 
@@ -83,19 +85,19 @@
 
 .markdown-renderer th,
 .markdown-renderer td {
-  border: 1px solid #ddd;
+  border: 1px solid var(--chatkit-border);
   padding: 8px 12px;
   text-align: left;
 }
 
 .markdown-renderer th {
-  background-color: #f5f5f5;
+  background-color: var(--chatkit-background-light);
   font-weight: 600;
 }
 
 .markdown-renderer img {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: var(--chatkit-radius-sm);
   margin: 8px 0;
 }

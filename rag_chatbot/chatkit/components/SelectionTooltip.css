@@ -1,15 +1,15 @@
 .selection-tooltip {
   position: fixed;
-  z-index: 1000000;
-  background-color: #00C26A;
+  z-index: var(--chatkit-z-index-tooltip);
+  background-color: var(--chatkit-primary);
   border-radius: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--chatkit-shadow);
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translateX(-50%);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity var(--chatkit-transition-fast) ease, transform var(--chatkit-transition-fast) ease;
   pointer-events: auto;
 }
 
@@ -20,7 +20,7 @@
   left: 50%;
   transform: translateX(-50%);
   border: 6px solid transparent;
-  border-top-color: #00C26A;
+  border-top-color: var(--chatkit-primary);
 }
 
 .ask-ai-button {
@@ -35,7 +35,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: background-color 0.2s;
+  transition: background-color var(--chatkit-transition-fast);
   outline: none;
 }
 
@@ -58,10 +58,6 @@
 
 /* Mobile styles */
 @media (max-width: 768px) {
-  .selection-tooltip {
-    border-radius: 20px;
-  }
-
   .ask-ai-button {
     padding: 6px 12px;
     font-size: 13px;
@@ -71,7 +67,7 @@
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .selection-tooltip {
-    border: 2px solid #000;
+    border: 2px solid var(--chatkit-text-primary);
   }
 }
 
