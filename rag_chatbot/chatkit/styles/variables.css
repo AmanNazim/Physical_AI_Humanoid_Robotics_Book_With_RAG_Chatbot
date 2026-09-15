@@ -58,9 +58,11 @@
 }
 
 /* Lab Bench theme — dark ("Isaac viewport").
-   Follows the Docusaurus color mode so the widget matches the book
-   site; the class-based .chatkit-theme-dark in theme.css still works
-   for the standalone chatbot app. */
+   Kept for the standalone chatbot app and any future dark-widget opt-in.
+   NOTE: the book site pins the widget to the LIGHT Lab Bench palette
+   below (#chatkit-portal-root) by design — the light "whiteboard" panel
+   floating over the dark viewport reads as an intentional card and
+   avoids the heavy overlapping-dark-on-dark look. */
 [data-theme='dark'] {
   --chatkit-primary: #2dd4bf;
   --chatkit-primary-dark: #25bfae;
@@ -80,4 +82,30 @@
 
   --chatkit-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   --chatkit-shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Book-site pin: the widget always uses the light Lab Bench palette,
+   in both site color modes. #chatkit-portal-root (id selector) outranks
+   :root and [data-theme='dark'] in any bundle order, so the pin is
+   deterministic in dev AND production. Bright teal (#0e7490 family)
+   stays readable on the white surface in both contexts. */
+#chatkit-portal-root {
+  --chatkit-primary: #0e7490;
+  --chatkit-primary-dark: #0c6884;
+  --chatkit-primary-light: #e6f3f7;
+
+  --chatkit-background: #ffffff;
+  --chatkit-background-light: #f2f6f9;
+  --chatkit-border: #e3e9ef;
+  --chatkit-text-primary: #16283e;
+  --chatkit-text-secondary: #4a5b70;
+  --chatkit-text-disabled: #a8b6c6;
+
+  --chatkit-error: #b3261e;
+  --chatkit-error-light: #fdecea;
+
+  --chatkit-success: #0f766e;
+
+  --chatkit-shadow: 0 4px 12px rgba(10, 21, 38, 0.12);
+  --chatkit-shadow-heavy: 0 16px 40px rgba(10, 21, 38, 0.35);
 }
