@@ -64,7 +64,10 @@ const config: Config = {
     // Replace with your project's social card
     image: "img/social-card.png",
     colorMode: {
-      respectPrefersColorScheme: true,
+      // Binary light/dark toggle. With respectPrefersColorScheme the toggle
+      // cycles light → dark → system, and the "system" stop looks like a
+      // dead click when the OS preference matches the current theme.
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: "Physical AI & Humanoid Robotics with RAG Chatbot",

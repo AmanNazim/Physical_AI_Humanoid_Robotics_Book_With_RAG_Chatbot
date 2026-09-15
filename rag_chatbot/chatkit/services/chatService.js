@@ -2,6 +2,21 @@ import { handleStream } from "./streamingHandlers";
 import { getBackendURL } from "../config/api";
 
 /**
+ * Compose the wire query from the user message and optional selected-text
+ * context. The backend ChatRequest schema (query/session_id/max_context)
+ * has no context field, so the selection must travel inside the query —
+ * otherwise the LLM never sees it.
+ */
+const buildQuery = (messageData) => {
+  const selected = messageData?.context?.selected_text;
+  if (selected && selected.trim()) {
+    const trimmed = selected.trim().substring(0, 1500);
+    return `${messageData.message}\n\n[Selected text from the book, use as primary context]: "${trimmed}"`;
+  }
+  return messageData.message;
+};
+
+/**
  * Send a message to the chat API
  * @param {Object} messageData - The message data to send
  * @param {string} messageData.message - The user message
@@ -11,9 +26,11 @@ import { getBackendURL } from "../config/api";
  * @returns {Promise<Object>} The response from the API
  */
 export const sendMessage = async (messageData, onTokenReceived) => {
+  const wireQuery = buildQuery(messageData);
   console.log("Sending message to backend:", {
     backendUrl: getBackendURL(),
-    message: messageData.message,
+    message: wireQuery.substring(0, 120),
+    hasSelectedTextContext: Boolean(messageData?.context?.selected_text),
     sessionId: messageData.sessionId,
   });
 
@@ -27,7 +44,7 @@ export const sendMessage = async (messageData, onTokenReceived) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          query: messageData.message,
+          query: wireQuery,
           session_id: messageData.sessionId,
           max_context: 5,
         }),
@@ -119,7 +136,7 @@ export const sendMessage = async (messageData, onTokenReceived) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          query: messageData.message,
+          query: wireQuery,
           session_id: messageData.sessionId,
           max_context: 5,
         }),

@@ -1,5 +1,8 @@
 .selection-tooltip {
-  position: fixed;
+  /* Absolute (document coordinates, set in JS) so the pill is anchored
+     to the selected text and scrolls WITH it — fixed would leave it
+     stuck in the viewport while the reader scrolls. */
+  position: absolute;
   z-index: var(--chatkit-z-index-tooltip);
   background-color: var(--chatkit-primary);
   border-radius: 24px;

@@ -11,6 +11,7 @@ const ChatInputBar = () => {
   const {
     addMessage,
     selectedText,
+    setSelectedText,
     sessionId,
     updateMessage,
     setIsStreaming
@@ -70,6 +71,11 @@ const ChatInputBar = () => {
       },
       sessionId: sessionId
     };
+
+    // The selection is one-shot: it belongs to this prompt only.
+    // Clear it so the chip disappears and the selection is not silently
+    // re-sent to the LLM with every following message.
+    setSelectedText(null);
 
     // Add bot message placeholder
     const botMessageId = `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;

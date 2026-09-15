@@ -18,14 +18,21 @@ const SelectionTooltip = () => {
       const selection = window.getSelection();
       const text = selection.toString().trim();
 
-      if (text.length > 0 && text.length < 1000) { // Limit selection length
+      if (text.length > 0 && text.length < 2000 && selection.rangeCount > 0) { // Limit selection length
         const range = selection.getRangeAt(0);
         const rect = range.getBoundingClientRect();
 
-        // Position the tooltip above the selection
+        // The tooltip CSS is position: absolute, so use DOCUMENT coordinates
+        // (viewport rect + scroll offset). This anchors the pill to the
+        // selected text: it scrolls WITH the page instead of sticking in
+        // the viewport. Clamped so it was fully visible where the selection
+        // was made.
         setPosition({
-          top: rect.top + window.scrollY - 40, // 40px above selection
-          left: rect.left + window.scrollX + (rect.width / 2) // Centered horizontally
+          top: Math.max(window.scrollY + 8, rect.top + window.scrollY - 44), // 44px above selection
+          left: Math.min(
+            Math.max(rect.left + window.scrollX + (rect.width / 2), window.scrollX + 90), // centered on selection,
+            window.scrollX + window.innerWidth - 90                                    // but never past the edges
+          )
         });
 
         setSelectedText(text);
@@ -39,20 +46,18 @@ const SelectionTooltip = () => {
       setTimeout(handleSelection, 0); // Delay to ensure selection is complete
     };
 
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('keyup', (e) => {
+    const handleKeyUp = (e) => {
       if (e.key === 'Escape') {
         setIsVisible(false);
       }
-    });
+    };
+
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('keyup', handleKeyUp);
 
     return () => {
       document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('keyup', (e) => {
-        if (e.key === 'Escape') {
-          setIsVisible(false);
-        }
-      });
+      document.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
 
