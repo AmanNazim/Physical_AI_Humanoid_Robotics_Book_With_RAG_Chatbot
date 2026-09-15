@@ -22,3 +22,4 @@ This file logs commit hashes as required by Claude Git Automation Rule #10.
 | 2026-09-15 | acf78eb | UI/UX Redesign | N/A (site-wide) | Commit logo review artifacts and PHRs | chore: add logo review rounds and PHRs 005-011 (T016) |
 | 2026-09-15 | 21feed6 | Chatbot Widget Restyle | N/A (widget) | Create specification, plan, tasks | spec: add chatbot widget restyle specification, plan, and tasks |
 | 2026-09-15 | 4fb2a64 | Chatbot Widget Restyle | ChatKit widget | Migrate components to Lab Bench tokens (T001-T015) | feat: migrate ChatKit components to Lab Bench tokens with dark mode (T001-T015) |
+| 2026-09-15 | afe2636 | Chatbot Widget Restyle | ChatKit widget | Pin light palette both modes (T015) | fix: pin chat widget to light Lab Bench palette in both site modes (T015) |
